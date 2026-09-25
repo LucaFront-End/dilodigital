@@ -1,0 +1,697 @@
+/* ================================================================
+   BRANDING & DESIGN DIRECT PURCHASE FUNNEL — DILO DIGITAL SIGNATURE
+   Live Mood Switcher, 3-Tier Packages, Brand Guardianship Tracker, Direct Checkout
+   ================================================================ */
+
+.bp-page {
+  position: relative;
+  width: 100%;
+  background: var(--bg-main);
+  padding-top: calc(var(--header-height) + 1rem);
+  padding-bottom: 0;
+  overflow: visible;
+}
+
+/* ── 1. Monumental Hero Section ── */
+.bp-hero-section {
+  position: relative;
+  padding: clamp(2.5rem, 5vh, 4.5rem) 0 clamp(3.5rem, 6vh, 5.5rem);
+  background: linear-gradient(180deg, rgba(20, 23, 24, 0.02) 0%, rgba(250, 250, 252, 0.8) 100%);
+  border-bottom: 1px solid rgba(20, 23, 24, 0.06);
+  overflow: hidden;
+}
+
+.bp-watermark-bg {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  font-family: var(--sm-font-heading);
+  font-size: clamp(8rem, 22vw, 20rem);
+  font-weight: 900;
+  line-height: 0.75;
+  color: rgba(20, 23, 24, 0.03);
+  pointer-events: none;
+  user-select: none;
+  z-index: 1;
+}
+
+.bp-hero-container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.bp-hero-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+  align-items: center;
+}
+
+@media (max-width: 992px) {
+  .bp-hero-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.bp-hero-title {
+  font-family: var(--sm-font-heading);
+  font-size: clamp(3.2rem, 6vw, 6.2rem);
+  font-weight: 900;
+  line-height: 0.88;
+  letter-spacing: -2px;
+  text-transform: uppercase;
+  color: #141718;
+  margin-bottom: 1rem;
+}
+
+.bp-hero-desc {
+  font-family: var(--sm-font-body);
+  font-size: clamp(1.05rem, 1.2vw, 1.2rem);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 600px;
+  margin-bottom: 2rem;
+}
+
+/* Live Brand Moodboard Preview Box */
+.bp-mood-preview-box {
+  background: #141718;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 28px;
+  padding: clamp(1.8rem, 3vw, 2.5rem);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+  color: #FFFFFF;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+
+.bp-mood-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 0.3rem 0.5rem;
+  border-radius: 999px;
+  width: fit-content;
+  margin-bottom: 1.5rem;
+}
+
+.bp-mood-btn {
+  background: transparent;
+  border: none;
+  color: rgba(236, 238, 238, 0.6);
+  font-family: var(--sm-font-body);
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.bp-mood-btn.is-active {
+  background: var(--color-primary);
+  color: #FFFFFF;
+}
+
+.bp-mockup-display {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  position: relative;
+}
+
+.bp-mockup-logo-mark {
+  font-family: var(--sm-font-heading);
+  font-size: clamp(3rem, 5vw, 4.5rem);
+  font-weight: 900;
+  line-height: 0.85;
+  color: #FFFFFF;
+  margin-bottom: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.bp-mockup-subtitle {
+  font-family: var(--sm-font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+
+.bp-mockup-swatches {
+  display: flex;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-top: 1.5rem;
+}
+
+.bp-swatch {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  transition: transform 0.2s ease;
+}
+
+.bp-swatch:hover {
+  transform: scale(1.15);
+}
+
+/* ── 2. Scroll-Based Brand Anatomy Experience ── */
+.bp-anatomy-section {
+  position: relative;
+  padding: clamp(3rem, 6vh, 5.5rem) 0;
+  background: #FFFFFF;
+  border-bottom: 1px solid rgba(20, 23, 24, 0.06);
+}
+
+.bp-anatomy-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2.8rem;
+}
+
+.bp-anatomy-card {
+  background: var(--bg-main);
+  border: 1px solid rgba(20, 23, 24, 0.08);
+  border-radius: 20px;
+  padding: 1.8rem 1.6rem;
+  transition: all 0.3s ease;
+}
+
+.bp-anatomy-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 90, 31, 0.3);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
+}
+
+.bp-anatomy-num {
+  font-family: var(--sm-font-heading);
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--color-primary);
+  line-height: 1;
+  margin-bottom: 0.6rem;
+}
+
+.bp-anatomy-title {
+  font-family: var(--sm-font-body);
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+  color: #141718;
+  margin-bottom: 0.5rem;
+}
+
+.bp-anatomy-desc {
+  font-family: var(--sm-font-body);
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+
+/* ── 3. Interactive Pricing & Purchase Matrix ── */
+.bp-pricing-section {
+  position: relative;
+  padding: clamp(3.5rem, 7vh, 6rem) 0;
+  background: var(--bg-main);
+}
+
+.bp-pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.8rem;
+  margin-top: 3rem;
+  align-items: stretch;
+}
+
+@media (max-width: 992px) {
+  .bp-pricing-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.bp-tier-card {
+  position: relative;
+  background: #FFFFFF;
+  border: 1px solid rgba(20, 23, 24, 0.08);
+  border-radius: 24px;
+  padding: 2.2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bp-tier-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 90, 31, 0.35);
+  box-shadow: 0 20px 45px rgba(255, 90, 31, 0.08);
+}
+
+.bp-tier-card.is-featured {
+  background: #141718;
+  color: #FFFFFF;
+  border-color: rgba(255, 90, 31, 0.5);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+  transform: scale(1.02);
+}
+
+.bp-tier-card.is-featured:hover {
+  transform: scale(1.03) translateY(-4px);
+}
+
+.bp-featured-ribbon {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #FF5A1F 0%, #FF8A00 100%);
+  color: #FFFFFF;
+  padding: 0.3rem 1rem;
+  border-radius: 999px;
+  font-family: var(--sm-font-body);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 14px rgba(255, 90, 31, 0.4);
+}
+
+.bp-tier-name {
+  font-family: var(--sm-font-body);
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+  margin-bottom: 0.35rem;
+}
+
+.bp-tier-delivery {
+  font-family: var(--sm-font-body);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: 0.75rem;
+}
+
+.bp-tier-concept {
+  font-family: var(--sm-font-body);
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  margin-bottom: 1.4rem;
+}
+
+.bp-tier-card.is-featured .bp-tier-concept {
+  color: rgba(236, 238, 238, 0.7);
+}
+
+.bp-price-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 0.3rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 1px solid rgba(20, 23, 24, 0.08);
+}
+
+.bp-tier-card.is-featured .bp-price-wrap {
+  border-bottom-color: rgba(255, 255, 255, 0.12);
+}
+
+.bp-price-val {
+  font-family: var(--sm-font-heading);
+  font-size: 2.8rem;
+  font-weight: 900;
+  color: var(--color-primary);
+  line-height: 1;
+}
+
+.bp-price-curr {
+  font-family: var(--sm-font-body);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-tertiary);
+}
+
+.bp-tier-card.is-featured .bp-price-curr {
+  color: rgba(236, 238, 238, 0.55);
+}
+
+.bp-tier-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  flex-grow: 1;
+}
+
+.bp-tier-feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  font-family: var(--sm-font-body);
+  font-size: 0.88rem;
+  line-height: 1.4;
+  color: var(--text-primary);
+}
+
+.bp-tier-card.is-featured .bp-tier-feature-item {
+  color: #ECEEEE;
+}
+
+.bp-tier-check-icon {
+  width: 16px;
+  height: 16px;
+  color: #10B981;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.bp-tier-select-btn {
+  width: 100%;
+  padding: 0.85rem 1.4rem;
+  border-radius: 999px;
+  border: 1.5px solid var(--color-primary);
+  background: transparent;
+  color: var(--color-primary);
+  font-family: var(--sm-font-body);
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.bp-tier-select-btn:hover {
+  background: var(--color-primary);
+  color: #FFFFFF;
+  box-shadow: 0 6px 20px rgba(255, 90, 31, 0.3);
+}
+
+.bp-tier-card.is-featured .bp-tier-select-btn {
+  background: var(--color-primary);
+  color: #FFFFFF;
+  border-color: var(--color-primary);
+  box-shadow: 0 6px 20px rgba(255, 90, 31, 0.4);
+}
+
+.bp-tier-card.is-featured .bp-tier-select-btn:hover {
+  background: #e04b14;
+}
+
+/* ── Add-On Customizer & Guardianship ── */
+.bp-addons-box {
+  margin-top: 2.5rem;
+  background: #FFFFFF;
+  border: 1px solid rgba(20, 23, 24, 0.08);
+  border-radius: 20px;
+  padding: 1.8rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+.bp-addons-title {
+  font-family: var(--sm-font-body);
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -0.2px;
+  margin-bottom: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.bp-addons-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.bp-addon-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  padding: 1rem;
+  border-radius: 14px;
+  border: 1.5px solid rgba(20, 23, 24, 0.1);
+  background: var(--bg-main);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.bp-addon-card.is-checked {
+  border-color: var(--color-primary);
+  background: rgba(255, 90, 31, 0.04);
+}
+
+.bp-addon-checkbox {
+  accent-color: var(--color-primary);
+  width: 18px;
+  height: 18px;
+  margin-top: 3px;
+  cursor: pointer;
+}
+
+.bp-addon-meta {
+  flex: 1;
+}
+
+.bp-addon-name {
+  font-family: var(--sm-font-body);
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.bp-addon-desc {
+  font-family: var(--sm-font-body);
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.35;
+  margin: 0.2rem 0 0.4rem;
+}
+
+.bp-addon-price {
+  font-family: var(--sm-font-body);
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: var(--color-primary);
+}
+
+/* ── 4. Live Brand Project Tracking Simulator ── */
+.bp-tracking-section {
+  position: relative;
+  padding: clamp(3.5rem, 7vh, 6rem) 0;
+  background: #FFFFFF;
+  border-top: 1px solid rgba(20, 23, 24, 0.06);
+}
+
+.bp-tracking-box {
+  background: var(--bg-main);
+  border: 1px solid rgba(20, 23, 24, 0.08);
+  border-radius: 24px;
+  padding: clamp(1.8rem, 3.5vw, 2.8rem);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
+}
+
+.bp-tracking-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(20, 23, 24, 0.08);
+  margin-bottom: 2rem;
+}
+
+.bp-tracker-timeline {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.2rem;
+}
+
+@media (max-width: 992px) {
+  .bp-tracker-timeline {
+    grid-template-columns: 1fr;
+  }
+}
+
+.bp-tracker-step {
+  background: #FFFFFF;
+  border: 1px solid rgba(20, 23, 24, 0.08);
+  border-radius: 16px;
+  padding: 1.4rem;
+  position: relative;
+}
+
+.bp-tracker-step.is-done {
+  border-color: rgba(16, 185, 129, 0.4);
+  background: rgba(16, 185, 129, 0.03);
+}
+
+.bp-tracker-step.is-current {
+  border-color: rgba(255, 90, 31, 0.5);
+  background: rgba(255, 90, 31, 0.04);
+  box-shadow: 0 4px 18px rgba(255, 90, 31, 0.1);
+}
+
+.bp-step-status-tag {
+  font-family: var(--sm-font-body);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+
+.bp-tracker-step.is-done .bp-step-status-tag {
+  color: #10B981;
+}
+
+.bp-tracker-step.is-current .bp-step-status-tag {
+  color: var(--color-primary);
+}
+
+.bp-step-name {
+  font-family: var(--sm-font-body);
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: -0.2px;
+  color: #141718;
+  margin-bottom: 0.35rem;
+}
+
+.bp-step-detail {
+  font-family: var(--sm-font-body);
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
+/* ── 5. Direct Purchase Checkout Form & Sticky Receipt ── */
+.bp-checkout-section {
+  position: relative;
+  padding: clamp(3.5rem, 7vh, 6rem) 0;
+  background: var(--bg-main);
+  border-top: 1px solid rgba(20, 23, 24, 0.06);
+}
+
+.bp-funnel-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: clamp(2rem, 4vw, 3.5rem);
+  align-items: start;
+}
+
+@media (max-width: 992px) {
+  .bp-funnel-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.bp-receipt-card {
+  position: sticky;
+  top: calc(var(--header-height) + 1.5rem);
+  background: #141718;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px;
+  padding: 2rem;
+  color: #FFFFFF;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+}
+
+.bp-receipt-title {
+  font-family: var(--sm-font-body);
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.2px;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.bp-receipt-line {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-family: var(--sm-font-body);
+  font-size: 0.88rem;
+  padding: 0.65rem 0;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+}
+
+.bp-receipt-line-lbl {
+  color: rgba(236, 238, 238, 0.7);
+}
+
+.bp-receipt-line-val {
+  font-weight: 700;
+  color: #FFFFFF;
+  text-align: right;
+}
+
+.bp-receipt-total {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 1.4rem 0 1rem;
+  border-top: 1.5px solid rgba(255, 255, 255, 0.15);
+  margin-top: 0.5rem;
+}
+
+.bp-total-lbl {
+  font-family: var(--sm-font-body);
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.bp-total-num {
+  font-family: var(--sm-font-heading);
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--color-primary);
+  line-height: 1;
+}
+
+.bp-buy-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  padding: 1rem 1.6rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #FF5A1F 0%, #E04B14 100%);
+  color: #FFFFFF;
+  font-family: var(--sm-font-body);
+  font-size: 1rem;
+  font-weight: 800;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(255, 90, 31, 0.35);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bp-buy-btn:hover {
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 12px 30px rgba(255, 90, 31, 0.5);
+}

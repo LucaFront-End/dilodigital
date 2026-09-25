@@ -1,0 +1,913 @@
+/* ================================================================
+   IMPI TRADEMARK PURCHASE & TRACKING FUNNEL — DILO DIGITAL SIGNATURE
+   Live Phonetic Radar, 3-Tier Packages, Dynamic Checkout, Live Tracking Simulator
+   ================================================================ */
+
+.impi-page {
+  position: relative;
+  width: 100%;
+  background: var(--bg-main);
+  padding-top: calc(var(--header-height) + 1rem);
+  padding-bottom: 0;
+  overflow: visible;
+}
+
+/* ── 1. Monumental Hero Section ── */
+.impi-hero-section {
+  position: relative;
+  padding: clamp(2.5rem, 5vh, 4.5rem) 0 clamp(3rem, 6vh, 5rem);
+  background: linear-gradient(180deg, rgba(255, 90, 31, 0.03) 0%, rgba(250, 250, 252, 0.6) 100%);
+  border-bottom: 1px solid rgba(20, 23, 24, 0.06);
+  overflow: hidden;
+}
+
+.impi-watermark-bg {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  font-family: var(--sm-font-heading);
+  font-size: clamp(8rem, 22vw, 20rem);
+  font-weight: 900;
+  line-height: 0.75;
+  color: rgba(255, 90, 31, 0.05);
+  pointer-events: none;
+  user-select: none;
+  z-index: 1;
+}
+
+.impi-hero-container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.impi-hero-header {
+  text-align: center;
+  max-width: 860px;
+  margin: 0 auto clamp(2rem, 4vh, 3.2rem);
+}
+
+.impi-hero-title {
+  font-family: var(--sm-font-heading);
+  font-size: clamp(3rem, 6vw, 6rem);
+  font-weight: 900;
+  line-height: 0.88;
+  letter-spacing: -2px;
+  text-transform: uppercase;
+  color: #141718;
+  margin-bottom: 1rem;
+}
+
+.impi-hero-desc {
+  font-family: var(--sm-font-body);
+  font-size: clamp(1.05rem, 1.25vw, 1.22rem);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+/* ── Live Phonetic Radar Box ── */
+.impi-radar-card {
+  max-width: 880px;
+  margin: 0 auto;
+  background: #FFFFFF;
+  border: 1px solid rgba(255, 90, 31, 0.25);
+  border-radius: 24px;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  box-shadow: 0 20px 50px rgba(255, 90, 31, 0.08), 0 4px 16px rgba(0, 0, 0, 0.04);
+  position: relative;
+  overflow: hidden;
+}
+
+.impi-radar-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #FF5A1F, #FF8A00, #10B981);
+}
+
+.impi-radar-badge-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-bottom: 1.2rem;
+}
+
+.impi-radar-live-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--sm-font-body);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+
+.impi-radar-pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  box-shadow: 0 0 10px var(--color-primary);
+  animation: radarPulse 1.8s infinite ease-in-out;
+}
+
+@keyframes radarPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.8); }
+}
+
+.impi-radar-input-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1.1fr auto;
+  gap: 0.85rem;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .impi-radar-input-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.impi-input {
+  width: 100%;
+  padding: 0.95rem 1.2rem;
+  border-radius: 12px;
+  border: 1.5px solid rgba(20, 23, 24, 0.12);
+  font-family: var(--sm-font-body);
+  font-size: 0.98rem;
+  color: var(--text-primary);
+  background: var(--bg-main);
+  transition: all 0.25s ease;
+  outline: none;
+}
+
+.impi-input:focus {
+  border-color: var(--color-primary);
+  background: #FFFFFF;
+  box-shadow: 0 0 0 4px rgba(255, 90, 31, 0.12);
+}
+
+.impi-select {
+  width: 100%;
+  padding: 0.95rem 1.2rem;
+  border-radius: 12px;
+  border: 1.5px solid rgba(20, 23, 24, 0.12);
+  font-family: var(--sm-font-body);
+  font-size: 0.94rem;
+  color: var(--text-primary);
+  background: var(--bg-main);
+  cursor: pointer;
+  outline: none;
+  transition: all 0.25s ease;
+}
+
+.impi-select:focus {
+  border-color: var(--color-primary);
+  background: #FFFFFF;
+}
+
+.impi-radar-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.95rem 1.6rem;
+  border-radius: 12px;
+  background: var(--color-primary);
+  color: #FFFFFF;
+  font-family: var(--sm-font-body);
+  font-size: 0.96rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: 0 4px 18px rgba(255, 90, 31, 0.35);
+  transition: all 0.25s ease;
+}
+
+.impi-radar-btn:hover {
+  background: #e04b14;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(255, 90, 31, 0.45);
+}
+
+/* Radar Scan Animation Feedback */
+.impi-scan-overlay {
+  display: none;
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  border-radius: 16px;
+  background: rgba(16, 185, 129, 0.06);
+  border: 1.5px solid rgba(16, 185, 129, 0.3);
+  animation: fadeIn 0.4s ease forwards;
+}
+
+.impi-scan-result-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+}
+
+.impi-score-badge {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #10B981;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--sm-font-heading);
+  font-size: 1.6rem;
+  font-weight: 900;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
+  flex-shrink: 0;
+}
+
+.impi-score-title {
+  font-family: var(--sm-font-body);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #065F46;
+  margin-bottom: 0.2rem;
+}
+
+.impi-score-desc {
+  font-family: var(--sm-font-body);
+  font-size: 0.86rem;
+  color: #047857;
+  line-height: 1.4;
+}
+
+/* ── 2. Scroll-Based 4-Phase Legal Methodology ── */
+.impi-method-section {
+  position: relative;
+  padding: clamp(3rem, 6vh, 5.5rem) 0;
+  background: #FFFFFF;
+  border-bottom: 1px solid rgba(20, 23, 24, 0.06);
+}
+
+.impi-method-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2.8rem;
+}
+
+.impi-method-card {
+  background: var(--bg-main);
+  border: 1px solid rgba(20, 23, 24, 0.08);
+  border-radius: 20px;
+  padding: 1.8rem 1.6rem;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.impi-method-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 90, 31, 0.3);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
+}
+
+.impi-card-phase-tag {
+  font-family: var(--sm-font-body);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin-bottom: 0.6rem;
+}
+
+.impi-card-num-watermark {
+  font-family: var(--sm-font-heading);
+  font-size: 2.4rem;
+  font-weight: 900;
+  color: var(--color-primary);
+  line-height: 1;
+  margin-bottom: 0.8rem;
+}
+
+.impi-card-phase-title {
+  font-family: var(--sm-font-body);
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+  color: #141718;
+  margin-bottom: 0.6rem;
+}
+
+.impi-card-phase-desc {
+  font-family: var(--sm-font-body);
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+
+/* ── 3. Interactive Pricing & Purchase Matrix ── */
+.impi-pricing-section {
+  position: relative;
+  padding: clamp(3.5rem, 7vh, 6rem) 0;
+  background: var(--bg-main);
+}
+
+.impi-pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.8rem;
+  margin-top: 3rem;
+  align-items: stretch;
+}
+
+@media (max-width: 992px) {
+  .impi-pricing-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.impi-tier-card {
+  position: relative;
+  background: #FFFFFF;
+  border: 1px solid rgba(20, 23, 24, 0.08);
+  border-radius: 24px;
+  padding: 2.2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.impi-tier-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 90, 31, 0.35);
+  box-shadow: 0 20px 45px rgba(255, 90, 31, 0.08);
+}
+
+.impi-tier-card.is-featured {
+  background: #141718;
+  color: #FFFFFF;
+  border-color: rgba(255, 90, 31, 0.5);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+  transform: scale(1.02);
+}
+
+.impi-tier-card.is-featured:hover {
+  transform: scale(1.03) translateY(-4px);
+}
+
+.impi-featured-ribbon {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #FF5A1F 0%, #FF8A00 100%);
+  color: #FFFFFF;
+  padding: 0.3rem 1rem;
+  border-radius: 999px;
+  font-family: var(--sm-font-body);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 14px rgba(255, 90, 31, 0.4);
+}
+
+.impi-tier-name {
+  font-family: var(--sm-font-body);
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+  margin-bottom: 0.4rem;
+}
+
+.impi-tier-concept {
+  font-family: var(--sm-font-body);
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  margin-bottom: 1.4rem;
+}
+
+.impi-tier-card.is-featured .impi-tier-concept {
+  color: rgba(236, 238, 238, 0.7);
+}
+
+.impi-price-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 0.3rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 1px solid rgba(20, 23, 24, 0.08);
+}
+
+.impi-tier-card.is-featured .impi-price-wrap {
+  border-bottom-color: rgba(255, 255, 255, 0.12);
+}
+
+.impi-price-val {
+  font-family: var(--sm-font-heading);
+  font-size: 2.8rem;
+  font-weight: 900;
+  color: var(--color-primary);
+  line-height: 1;
+}
+
+.impi-price-curr {
+  font-family: var(--sm-font-body);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-tertiary);
+}
+
+.impi-tier-card.is-featured .impi-price-curr {
+  color: rgba(236, 238, 238, 0.55);
+}
+
+.impi-tier-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  flex-grow: 1;
+}
+
+.impi-tier-feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  font-family: var(--sm-font-body);
+  font-size: 0.88rem;
+  line-height: 1.4;
+  color: var(--text-primary);
+}
+
+.impi-tier-card.is-featured .impi-tier-feature-item {
+  color: #ECEEEE;
+}
+
+.impi-tier-check-icon {
+  width: 16px;
+  height: 16px;
+  color: #10B981;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.impi-tier-select-btn {
+  width: 100%;
+  padding: 0.85rem 1.4rem;
+  border-radius: 999px;
+  border: 1.5px solid var(--color-primary);
+  background: transparent;
+  color: var(--color-primary);
+  font-family: var(--sm-font-body);
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.impi-tier-select-btn:hover {
+  background: var(--color-primary);
+  color: #FFFFFF;
+  box-shadow: 0 6px 20px rgba(255, 90, 31, 0.3);
+}
+
+.impi-tier-card.is-featured .impi-tier-select-btn {
+  background: var(--color-primary);
+  color: #FFFFFF;
+  border-color: var(--color-primary);
+  box-shadow: 0 6px 20px rgba(255, 90, 31, 0.4);
+}
+
+.impi-tier-card.is-featured .impi-tier-select-btn:hover {
+  background: #e04b14;
+}
+
+/* ── Add-On Customizer Strip ── */
+.impi-addons-box {
+  margin-top: 2.5rem;
+  background: #FFFFFF;
+  border: 1px solid rgba(20, 23, 24, 0.08);
+  border-radius: 20px;
+  padding: 1.8rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+.impi-addons-title {
+  font-family: var(--sm-font-body);
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -0.2px;
+  margin-bottom: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.impi-addons-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.impi-addon-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  padding: 1rem;
+  border-radius: 14px;
+  border: 1.5px solid rgba(20, 23, 24, 0.1);
+  background: var(--bg-main);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.impi-addon-card.is-checked {
+  border-color: var(--color-primary);
+  background: rgba(255, 90, 31, 0.04);
+}
+
+.impi-addon-checkbox {
+  accent-color: var(--color-primary);
+  width: 18px;
+  height: 18px;
+  margin-top: 3px;
+  cursor: pointer;
+}
+
+.impi-addon-meta {
+  flex: 1;
+}
+
+.impi-addon-name {
+  font-family: var(--sm-font-body);
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.impi-addon-desc {
+  font-family: var(--sm-font-body);
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.35;
+  margin: 0.2rem 0 0.4rem;
+}
+
+.impi-addon-price {
+  font-family: var(--sm-font-body);
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: var(--color-primary);
+}
+
+/* ── 4. Dynamic Live Checkout Funnel & Sticky Summary ── */
+.impi-checkout-section {
+  position: relative;
+  padding: clamp(3.5rem, 7vh, 6rem) 0;
+  background: #FFFFFF;
+  border-top: 1px solid rgba(20, 23, 24, 0.06);
+}
+
+.impi-funnel-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: clamp(2rem, 4vw, 3.5rem);
+  align-items: start;
+}
+
+@media (max-width: 992px) {
+  .impi-funnel-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.impi-steps-header {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid rgba(20, 23, 24, 0.08);
+  padding-bottom: 1.2rem;
+}
+
+.impi-step-tab {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--sm-font-body);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.impi-step-tab.is-active {
+  color: var(--color-primary);
+}
+
+.impi-step-badge {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(20, 23, 24, 0.06);
+  color: var(--text-tertiary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 800;
+  transition: all 0.2s ease;
+}
+
+.impi-step-tab.is-active .impi-step-badge {
+  background: var(--color-primary);
+  color: #FFFFFF;
+}
+
+/* Funnel Step Form Cards */
+.impi-form-group {
+  margin-bottom: 1.4rem;
+}
+
+.impi-form-label {
+  display: block;
+  font-family: var(--sm-font-body);
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.45rem;
+}
+
+.impi-type-radio-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (max-width: 600px) {
+  .impi-type-radio-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.impi-radio-box {
+  border: 1.5px solid rgba(20, 23, 24, 0.12);
+  background: var(--bg-main);
+  padding: 1rem;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.impi-radio-box.is-selected {
+  border-color: var(--color-primary);
+  background: rgba(255, 90, 31, 0.04);
+}
+
+.impi-radio-box-title {
+  font-family: var(--sm-font-body);
+  font-size: 0.94rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.impi-radio-box-desc {
+  font-family: var(--sm-font-body);
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+/* Sticky Order Receipt */
+.impi-receipt-card {
+  position: sticky;
+  top: calc(var(--header-height) + 1.5rem);
+  background: #141718;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px;
+  padding: 2rem;
+  color: #FFFFFF;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+}
+
+.impi-receipt-title {
+  font-family: var(--sm-font-body);
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.2px;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.impi-receipt-line {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-family: var(--sm-font-body);
+  font-size: 0.88rem;
+  padding: 0.65rem 0;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+}
+
+.impi-receipt-line-lbl {
+  color: rgba(236, 238, 238, 0.7);
+}
+
+.impi-receipt-line-val {
+  font-weight: 700;
+  color: #FFFFFF;
+  text-align: right;
+}
+
+.impi-receipt-total {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 1.4rem 0 1rem;
+  border-top: 1.5px solid rgba(255, 255, 255, 0.15);
+  margin-top: 0.5rem;
+}
+
+.impi-total-lbl {
+  font-family: var(--sm-font-body);
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.impi-total-num {
+  font-family: var(--sm-font-heading);
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--color-primary);
+  line-height: 1;
+}
+
+.impi-guarantee-note {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 0.9rem;
+  font-family: var(--sm-font-body);
+  font-size: 0.8rem;
+  color: rgba(236, 238, 238, 0.7);
+  line-height: 1.45;
+  margin-bottom: 1.4rem;
+}
+
+.impi-buy-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  padding: 1rem 1.6rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  color: #FFFFFF;
+  font-family: var(--sm-font-body);
+  font-size: 1rem;
+  font-weight: 800;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.35);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.impi-buy-btn:hover {
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 12px 30px rgba(16, 185, 129, 0.5);
+}
+
+/* ── 5. Client Tracking Portal Simulator ── */
+.impi-tracking-section {
+  position: relative;
+  padding: clamp(3.5rem, 7vh, 6rem) 0;
+  background: var(--bg-main);
+  border-top: 1px solid rgba(20, 23, 24, 0.06);
+}
+
+.impi-tracking-box {
+  background: #FFFFFF;
+  border: 1px solid rgba(20, 23, 24, 0.08);
+  border-radius: 24px;
+  padding: clamp(1.8rem, 3.5vw, 2.8rem);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
+}
+
+.impi-tracking-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(20, 23, 24, 0.08);
+  margin-bottom: 2rem;
+}
+
+.impi-folio-pill {
+  background: #141718;
+  color: #FFFFFF;
+  padding: 0.6rem 1.2rem;
+  border-radius: 999px;
+  font-family: monospace;
+  font-size: 0.95rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.impi-tracker-timeline {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.2rem;
+}
+
+@media (max-width: 992px) {
+  .impi-tracker-timeline {
+    grid-template-columns: 1fr;
+  }
+}
+
+.impi-tracker-step {
+  background: var(--bg-main);
+  border: 1px solid rgba(20, 23, 24, 0.08);
+  border-radius: 16px;
+  padding: 1.4rem;
+  position: relative;
+}
+
+.impi-tracker-step.is-done {
+  border-color: rgba(16, 185, 129, 0.4);
+  background: rgba(16, 185, 129, 0.03);
+}
+
+.impi-tracker-step.is-current {
+  border-color: rgba(255, 90, 31, 0.5);
+  background: rgba(255, 90, 31, 0.04);
+  box-shadow: 0 4px 18px rgba(255, 90, 31, 0.1);
+}
+
+.impi-step-status-tag {
+  font-family: var(--sm-font-body);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+
+.impi-tracker-step.is-done .impi-step-status-tag {
+  color: #10B981;
+}
+
+.impi-tracker-step.is-current .impi-step-status-tag {
+  color: var(--color-primary);
+}
+
+.impi-step-name {
+  font-family: var(--sm-font-body);
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: -0.2px;
+  color: #141718;
+  margin-bottom: 0.35rem;
+}
+
+.impi-step-detail {
+  font-family: var(--sm-font-body);
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}

@@ -1,0 +1,317 @@
+/* ================================================================
+   TRUSTED BY THE BEST — DUAL REVERSE INFINITE MARQUEE STYLES
+   White Canvas Edition + Dilo Digital Brand Identity
+   ================================================================ */
+
+.tb-section {
+  position: relative;
+  width: 100%;
+  min-height: clamp(600px, 80vh, 780px);
+  background: #ffffff;
+  color: var(--sm-black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: clamp(3rem, 6vh, 5rem) 0;
+  user-select: none;
+}
+
+/* --- Seamless Center Gradient Mask & Text (Sadu Media 100% Integrated) --- */
+.tb-center-hero {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(255, 255, 255, 0.4) 14%, 
+    rgba(255, 255, 255, 0.96) 26%, 
+    #ffffff 38%, 
+    #ffffff 62%, 
+    rgba(255, 255, 255, 0.96) 74%, 
+    rgba(255, 255, 255, 0.4) 86%, 
+    transparent 100%
+  );
+  padding: 1.5rem;
+}
+
+.tb-center-content {
+  pointer-events: auto;
+  position: relative;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  text-align: center;
+  max-width: 760px;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+}
+
+/* Tag Pill */
+.tb-tag-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: rgba(20, 23, 24, 0.05);
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid rgba(20, 23, 24, 0.08);
+  margin-bottom: clamp(0.8rem, 1.5vh, 1.2rem);
+}
+
+.tb-diamond-dot {
+  width: 7px;
+  height: 7px;
+  background: var(--sm-turquoise);
+  transform: rotate(45deg);
+  border-radius: 1px;
+}
+
+.tb-tag-text {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--sm-black);
+}
+
+/* Monumental Heading */
+.tb-title {
+  font-family: var(--sm-font-heading);
+  font-size: clamp(3.4rem, 6.5vw, 6.8rem);
+  font-weight: 900;
+  line-height: 0.86;
+  letter-spacing: -2px;
+  text-transform: uppercase;
+  color: #141718;
+  margin: 0;
+}
+
+.tb-title-accent {
+  background: linear-gradient(135deg, #FF5A1F 0%, #FF7E47 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+.tb-subtitle {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(1rem, 1.25vw, 1.22rem);
+  font-weight: 500;
+  line-height: 1.45;
+  color: rgba(20, 23, 24, 0.68);
+  margin: clamp(0.8rem, 1.5vh, 1.2rem) 0 clamp(1.2rem, 2vh, 1.6rem);
+  max-width: 520px;
+}
+
+/* Micro Stats Row */
+.tb-stats-row {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.8rem, 1.8vw, 1.8rem);
+  background: #ffffff;
+  padding: 0.55rem 1.4rem;
+  border-radius: 999px;
+  border: 1px solid rgba(20, 23, 24, 0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+
+.tb-stat-pill {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+}
+
+.tb-stat-num {
+  font-family: var(--sm-font-heading);
+  font-size: 1.35rem;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  color: var(--sm-turquoise);
+  line-height: 1;
+}
+
+.tb-stat-label {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: rgba(20, 23, 24, 0.6);
+  text-transform: uppercase;
+}
+
+.tb-stat-sep {
+  width: 1px;
+  height: 18px;
+  background: rgba(20, 23, 24, 0.1);
+}
+
+/* --- Dual Infinite Marquees in Opposite Directions --- */
+.tb-marquees-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.2rem, 2.2vh, 2rem);
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+.tb-marquee-wrapper {
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+}
+
+.tb-marquee-track {
+  display: flex;
+  gap: clamp(1.2rem, 1.8vw, 2rem);
+  width: max-content;
+  will-change: transform;
+}
+
+/* Track 1: Infinite motion to the LEFT <-- */
+.tb-track-left {
+  animation: tbScrollLeft 38s linear infinite;
+}
+
+/* Track 2: Infinite motion to the RIGHT --> */
+.tb-track-right {
+  animation: tbScrollRight 38s linear infinite;
+}
+
+/* --- The Brand Cards (Background continuous pass) --- */
+.tb-card {
+  width: clamp(230px, 18vw, 290px);
+  height: clamp(150px, 15vh, 185px);
+  flex-shrink: 0;
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid rgba(20, 23, 24, 0.08);
+  box-shadow: 0 8px 24px rgba(20, 23, 24, 0.04);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(1.2rem, 1.6vw, 1.5rem);
+  box-sizing: border-box;
+  cursor: default;
+  user-select: none;
+}
+
+.tb-card-icon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(20, 23, 24, 0.03);
+  border-radius: 12px;
+  color: #141718;
+}
+
+.tb-card-info {
+  display: flex;
+  flex-direction: column;
+  margin-top: auto;
+  margin-bottom: 0.5rem;
+}
+
+.tb-card-name {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+  color: #141718;
+  line-height: 1.2;
+}
+
+.tb-card-category {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.74rem;
+  font-weight: 500;
+  color: rgba(20, 23, 24, 0.5);
+  margin-top: 2px;
+}
+
+.tb-card-tag {
+  align-self: flex-start;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  color: rgba(20, 23, 24, 0.5);
+  background: rgba(20, 23, 24, 0.04);
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid rgba(20, 23, 24, 0.06);
+}
+
+/* --- Left and Right Vignette Edge Fades --- */
+.tb-mask {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: clamp(80px, 12vw, 180px);
+  z-index: 5;
+  pointer-events: none;
+}
+
+.tb-mask-left {
+  left: 0;
+  background: linear-gradient(90deg, #ffffff 0%, rgba(255, 255, 255, 0.8) 40%, rgba(255, 255, 255, 0) 100%);
+}
+
+.tb-mask-right {
+  right: 0;
+  background: linear-gradient(270deg, #ffffff 0%, rgba(255, 255, 255, 0.8) 40%, rgba(255, 255, 255, 0) 100%);
+}
+
+/* ================================================================
+   RESPONSIVE DESIGN
+   ================================================================ */
+@media (max-width: 900px) {
+  .tb-section {
+    padding: 3rem 0;
+    min-height: 540px;
+  }
+
+  .tb-center-content {
+    padding: 1rem;
+    max-width: 95%;
+  }
+
+  .tb-title {
+    font-size: 3rem;
+  }
+
+  .tb-subtitle {
+    font-size: 0.95rem;
+  }
+
+  .tb-stats-row {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.8rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .tb-card {
+    width: 210px;
+    height: 140px;
+    padding: 1rem;
+  }
+
+  .tb-card-name {
+    font-size: 1.1rem;
+  }
+}

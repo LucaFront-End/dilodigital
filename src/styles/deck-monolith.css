@@ -1,0 +1,516 @@
+/* ================================================================
+   THE DECK MONOLITH — NATIVE CSS STICKY 3D STACKING CARDS CSS
+   Design System: Manuka Display + Plus Jakarta Sans + Sadu Palette
+   100% Native CSS Sticky Engine: Zero Snap Bouncing, Zero Pin Jitter
+   ================================================================ */
+
+.sm-deck-section {
+  position: relative;
+  width: 100%;
+  background: var(--sm-gray);
+  color: var(--sm-black);
+  overflow: visible; /* Required for native CSS sticky */
+  padding: clamp(20px, 3.5vh, 35px) clamp(1rem, 3.5vw, 3.5rem) 0;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+/* --- Sticky Header Bar --- */
+.sm-deck-header-bar {
+  position: -webkit-sticky;
+  position: sticky;
+  top: clamp(65px, 8.5vh, 75px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 auto clamp(0.5rem, 1.5vh, 1.5rem);
+  padding: 0.4rem 0;
+  z-index: 100;
+  pointer-events: none;
+  gap: 1rem;
+}
+
+.sm-deck-header-bar > * {
+  pointer-events: auto;
+}
+
+.sm-deck-tag-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: rgba(22, 24, 24, 0.07);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid rgba(22, 24, 24, 0.08);
+  flex-shrink: 0;
+}
+
+.sm-deck-diamond-dot {
+  width: 7px;
+  height: 7px;
+  background: var(--sm-turquoise);
+  transform: rotate(45deg);
+  border-radius: 1px;
+}
+
+.sm-deck-tag-text {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--sm-black);
+}
+
+/* --- Interactive 6 Pillars Navigation & Pacing Dots --- */
+.sm-deck-nav-pills {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(22, 24, 24, 0.06);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 0.25rem 0.4rem;
+  border-radius: 999px;
+  border: 1px solid rgba(22, 24, 24, 0.08);
+}
+
+.sm-deck-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 0.25rem 0.65rem;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  color: rgba(22, 24, 24, 0.5);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.sm-deck-nav-btn:hover {
+  color: var(--sm-black);
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.sm-deck-nav-btn.is-active {
+  background: #141718;
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.sm-deck-nav-btn.is-active .sm-deck-nav-num {
+  color: var(--sm-turquoise);
+}
+
+.sm-deck-nav-num {
+  font-family: var(--sm-font-heading);
+  font-weight: 800;
+  font-size: 0.82rem;
+  letter-spacing: 0.5px;
+  color: rgba(22, 24, 24, 0.4);
+  transition: color 0.2s ease;
+}
+
+.sm-deck-counter {
+  display: flex;
+  align-items: baseline;
+  gap: 0.2rem;
+  font-family: var(--sm-font-heading);
+  font-size: 1.8rem;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  color: var(--sm-black);
+  background: rgba(236, 238, 238, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 0.2rem 0.8rem;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.sm-deck-num-current {
+  color: var(--sm-turquoise);
+  min-width: 2ch;
+  text-align: right;
+}
+
+.sm-deck-num-sep {
+  opacity: 0.3;
+  margin: 0 0.15rem;
+}
+
+.sm-deck-num-total {
+  opacity: 0.45;
+}
+
+/* --- Native Sticky Track --- */
+.sm-deck-track {
+  display: flow-root; /* Block formatting context: prevents any margin collapsing */
+  position: relative;
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding-bottom: 0;
+}
+
+/* Each Sticky Item: Lowered and balanced height for centered viewport framing */
+.sm-deck-sticky-item {
+  position: -webkit-sticky;
+  position: sticky;
+  top: clamp(140px, 18vh, 160px);
+  height: clamp(480px, 68vh, 590px);
+  margin-bottom: clamp(50vh, 65vh, 75vh);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1200px;
+  box-sizing: border-box;
+}
+
+.sm-deck-sticky-item:last-of-type {
+  margin-bottom: 0;
+}
+
+/* Trailing spacer ensures Card 6 docks with comfortable reading time, without excessive blank void */
+.sm-deck-spacer {
+  height: clamp(24vh, 30vh, 36vh);
+  width: 100%;
+  pointer-events: none;
+}
+
+/* --- The Monolith Card --- */
+.sm-deck-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #141718;
+  color: #eceeee;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 -20px 50px rgba(0, 0, 0, 0.55),
+    0 24px 70px -15px rgba(0, 0, 0, 0.65),
+    0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+  overflow: hidden;
+  transform-origin: center top;
+  will-change: transform;
+  display: flex;
+}
+
+.sm-deck-card-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+.sm-deck-card-inner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 56% 44%;
+  padding: clamp(1.2rem, 2.2vw, 2.2rem);
+  gap: clamp(1rem, 2vw, 2rem);
+  box-sizing: border-box;
+}
+
+/* Left Column */
+.sm-deck-card-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.sm-deck-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+}
+
+.sm-deck-card-number {
+  font-family: var(--sm-font-heading);
+  font-size: clamp(2rem, 3.2vw, 3rem);
+  font-weight: 900;
+  color: var(--sm-turquoise);
+  line-height: 0.8;
+  letter-spacing: -0.5px;
+}
+
+.sm-deck-pill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.sm-deck-pill-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.sm-deck-highlight-tag {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: rgba(236, 238, 238, 0.55);
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.sm-deck-card-title {
+  font-family: var(--sm-font-heading);
+  font-size: clamp(2.1rem, 3.8vw, 3.8rem);
+  font-weight: 900;
+  line-height: 0.88;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin: clamp(0.35rem, 0.7vh, 0.65rem) 0 clamp(0.2rem, 0.5vh, 0.45rem);
+}
+
+.sm-deck-card-concept {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(0.88rem, 1.1vw, 1.05rem);
+  font-weight: 400;
+  line-height: 1.4;
+  color: rgba(236, 238, 238, 0.75);
+  margin: 0 0 clamp(0.8rem, 1.4vh, 1.2rem);
+  max-width: 580px;
+}
+
+/* Disciplines Tag Grid */
+.sm-deck-disciplines {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.45rem 0.75rem;
+  margin-bottom: auto;
+}
+
+.sm-discipline-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(0.74rem, 0.9vw, 0.84rem);
+  font-weight: 500;
+  color: rgba(236, 238, 238, 0.85);
+  background: rgba(255, 255, 255, 0.04);
+  padding: 0.35rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sm-discipline-tag svg {
+  color: var(--sm-turquoise);
+  flex-shrink: 0;
+}
+
+/* Card Footer */
+.sm-deck-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: clamp(0.8rem, 1.5vh, 1.4rem);
+  padding-top: clamp(0.6rem, 1.2vh, 1rem);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sm-deck-stat-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.sm-deck-stat-val {
+  font-family: var(--sm-font-heading);
+  font-size: clamp(1.2rem, 1.8vw, 1.7rem);
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  color: var(--sm-turquoise);
+  line-height: 1;
+}
+
+.sm-deck-stat-lbl {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: rgba(236, 238, 238, 0.5);
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+.sm-deck-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--sm-turquoise);
+  color: var(--sm-black);
+  text-decoration: none;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+  padding: 0.55rem 1.25rem;
+  border-radius: 999px;
+  transition: transform 0.25s ease, background 0.25s ease;
+  flex-shrink: 0;
+}
+
+.sm-deck-cta-btn:hover {
+  transform: translateY(-2px);
+  background: #FF7033;
+}
+
+/* Right Column: Panoramic Media Window */
+.sm-deck-card-right {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.sm-deck-media-window {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #0d0f10;
+}
+
+.sm-deck-media-img,
+.sm-deck-media-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.sm-deck-media-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.45) 100%);
+  pointer-events: none;
+}
+
+.sm-deck-media-badge {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: rgba(20, 23, 24, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.sm-deck-media-pulse {
+  width: 6px;
+  height: 6px;
+  background: #10B981;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #10B981;
+}
+
+/* ================================================================
+   RESPONSIVE DESIGN (Tablets & Mobile)
+   ================================================================ */
+@media (max-width: 1100px) {
+  .sm-deck-nav-name {
+    display: none;
+  }
+  .sm-deck-nav-btn {
+    padding: 0.25rem 0.45rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .sm-deck-nav-pills {
+    display: none;
+  }
+}
+
+@media (max-width: 1024px) {
+  .sm-deck-card-inner {
+    grid-template-columns: 1fr;
+    padding: 1.5rem;
+    gap: 1.2rem;
+    overflow-y: auto;
+  }
+
+  .sm-deck-card-right {
+    display: none; /* Hide large media frame on smaller tablets to keep layout pristine */
+  }
+
+  .sm-deck-card-title {
+    font-size: clamp(2rem, 7vw, 3rem);
+  }
+
+  .sm-deck-disciplines {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .sm-deck-section {
+    padding: 20px 1rem 40px;
+  }
+
+  .sm-deck-card {
+    border-radius: 14px;
+  }
+
+  .sm-deck-card-inner {
+    padding: 1rem;
+  }
+
+  .sm-deck-card-title {
+    font-size: 1.8rem;
+  }
+
+  .sm-deck-card-concept {
+    font-size: 0.82rem;
+  }
+
+  .sm-deck-cta-btn {
+    font-size: 0.95rem;
+    padding: 0.45rem 0.9rem;
+  }
+}

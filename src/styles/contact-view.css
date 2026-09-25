@@ -1,0 +1,354 @@
+/* ================================================================
+   CONTACT VIEW ("CONTACTO") — DILO DIGITAL SIGNATURE EXPERIENCE
+   Intake Form, Direct Access Cards, Live WhatsApp Dispatch, FAQ Hub
+   ================================================================ */
+
+.ct-page {
+  position: relative;
+  width: 100%;
+  background: var(--bg-main);
+  padding-top: calc(var(--header-height) + 1.5rem);
+  padding-bottom: 0;
+  overflow: visible;
+}
+
+/* ── 1. Hero Section ── */
+.ct-hero-section {
+  position: relative;
+  padding: clamp(2.5rem, 5vh, 4rem) 0 clamp(2.5rem, 5vh, 3.5rem);
+  overflow: hidden;
+  border-bottom: 1px solid rgba(20, 23, 24, 0.06);
+}
+
+.ct-watermark-bg {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  font-family: var(--sm-font-heading);
+  font-size: clamp(8rem, 22vw, 20rem);
+  font-weight: 900;
+  line-height: 0.75;
+  color: rgba(20, 23, 24, 0.03);
+  pointer-events: none;
+  user-select: none;
+  z-index: 1;
+}
+
+.ct-hero-container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.ct-hero-title {
+  font-family: var(--sm-font-heading);
+  font-size: clamp(3rem, 6vw, 6rem);
+  font-weight: 900;
+  line-height: 0.88;
+  letter-spacing: -2px;
+  text-transform: uppercase;
+  color: #141718;
+  margin: 0 0 1.2rem;
+}
+
+.ct-hero-desc {
+  font-family: var(--sm-font-body);
+  font-size: clamp(1.05rem, 1.25vw, 1.22rem);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 680px;
+}
+
+/* ── 2. Contact Main Grid ── */
+.ct-main-section {
+  position: relative;
+  padding: clamp(3rem, 6vh, 5.5rem) 0;
+}
+
+.ct-main-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: clamp(2rem, 4vw, 3.8rem);
+  align-items: start;
+}
+
+@media (max-width: 992px) {
+  .ct-main-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Intake Form Card */
+.ct-form-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(20, 23, 24, 0.08);
+  border-radius: 28px;
+  padding: clamp(2rem, 3.5vw, 3rem);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
+}
+
+.ct-form-title {
+  font-family: var(--sm-font-body);
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+  color: #141718;
+  margin-bottom: 0.4rem;
+}
+
+.ct-form-subtitle {
+  font-family: var(--sm-font-body);
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+}
+
+.ct-field-group {
+  margin-bottom: 1.5rem;
+}
+
+.ct-label {
+  display: block;
+  font-family: var(--sm-font-body);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.ct-input, .ct-textarea, .ct-select {
+  width: 100%;
+  padding: 0.95rem 1.2rem;
+  border-radius: 14px;
+  border: 1.5px solid rgba(20, 23, 24, 0.12);
+  background: var(--bg-main);
+  font-family: var(--sm-font-body);
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  outline: none;
+  transition: all 0.25s ease;
+}
+
+.ct-input:focus, .ct-textarea:focus, .ct-select:focus {
+  border-color: var(--color-primary);
+  background: #FFFFFF;
+  box-shadow: 0 0 0 4px rgba(255, 90, 31, 0.1);
+}
+
+/* Service Multi-Select Pills */
+.ct-service-pills-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.ct-service-pill {
+  font-family: var(--sm-font-body);
+  font-size: 0.84rem;
+  font-weight: 700;
+  padding: 0.55rem 1.1rem;
+  border-radius: 999px;
+  background: var(--bg-main);
+  border: 1.5px solid rgba(20, 23, 24, 0.1);
+  color: var(--text-secondary);
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s ease;
+}
+
+.ct-service-pill:hover {
+  border-color: var(--color-primary);
+  color: var(--text-primary);
+}
+
+.ct-service-pill.is-active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #FFFFFF;
+  box-shadow: 0 4px 14px rgba(255, 90, 31, 0.3);
+}
+
+/* Budget Range Grid */
+.ct-budget-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+@media (max-width: 540px) {
+  .ct-budget-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ct-budget-option {
+  border: 1.5px solid rgba(20, 23, 24, 0.1);
+  background: var(--bg-main);
+  border-radius: 12px;
+  padding: 0.8rem 1rem;
+  font-family: var(--sm-font-body);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.ct-budget-option.is-selected {
+  border-color: var(--color-primary);
+  background: rgba(255, 90, 31, 0.05);
+  color: var(--color-primary);
+}
+
+.ct-submit-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  padding: 1.1rem 2rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #FF5A1F 0%, #E04B14 100%);
+  color: #FFFFFF;
+  font-family: var(--sm-font-body);
+  font-size: 1.05rem;
+  font-weight: 800;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(255, 90, 31, 0.35);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  margin-top: 1rem;
+}
+
+.ct-submit-btn:hover {
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 14px 35px rgba(255, 90, 31, 0.5);
+}
+
+/* ── Direct Access Cards (Right Column) ── */
+.ct-cards-stream {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.ct-direct-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(20, 23, 24, 0.08);
+  border-radius: 24px;
+  padding: 1.8rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  transition: all 0.3s ease;
+}
+
+.ct-direct-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 90, 31, 0.3);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+}
+
+.ct-direct-card.is-whatsapp {
+  background: linear-gradient(135deg, #141718 0%, #1A1D20 100%);
+  color: #FFFFFF;
+  border-color: rgba(16, 185, 129, 0.4);
+}
+
+.ct-direct-card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(255, 90, 31, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  color: var(--color-primary);
+}
+
+.ct-direct-card.is-whatsapp .ct-direct-card-icon {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10B981;
+}
+
+.ct-direct-title {
+  font-family: var(--sm-font-body);
+  font-size: 1.12rem;
+  font-weight: 800;
+  letter-spacing: -0.2px;
+  margin-bottom: 0.3rem;
+}
+
+.ct-direct-desc {
+  font-family: var(--sm-font-body);
+  font-size: 0.86rem;
+  line-height: 1.45;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+.ct-direct-card.is-whatsapp .ct-direct-desc {
+  color: rgba(236, 238, 238, 0.7);
+}
+
+.ct-direct-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--sm-font-body);
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: gap 0.2s ease;
+}
+
+.ct-direct-card.is-whatsapp .ct-direct-link {
+  color: #10B981;
+}
+
+.ct-direct-link:hover {
+  gap: 0.65rem;
+}
+
+/* ── FAQ Section ── */
+.ct-faq-section {
+  position: relative;
+  padding: clamp(3.5rem, 6vh, 5.5rem) 0;
+  background: #FFFFFF;
+  border-top: 1px solid rgba(20, 23, 24, 0.06);
+}
+
+.ct-faq-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+.ct-faq-card {
+  background: var(--bg-main);
+  border: 1px solid rgba(20, 23, 24, 0.08);
+  border-radius: 20px;
+  padding: 1.8rem 1.6rem;
+}
+
+.ct-faq-q {
+  font-family: var(--sm-font-body);
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #141718;
+  margin-bottom: 0.6rem;
+  line-height: 1.35;
+}
+
+.ct-faq-a {
+  font-family: var(--sm-font-body);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}

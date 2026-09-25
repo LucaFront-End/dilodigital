@@ -1,0 +1,412 @@
+/* ================================================================
+   ABOUT VIEW ("NOSOTROS") — DILO DIGITAL SIGNATURE OVERHAUL
+   Monumental Manifesto, 4 Convicciones Sticky Scroll, Squad Dossier, CDMX Hub
+   ================================================================ */
+
+.ab-page {
+  position: relative;
+  width: 100%;
+  background: var(--bg-main);
+  padding-top: calc(var(--header-height) + 1.5rem);
+  padding-bottom: 0;
+  overflow: visible;
+}
+
+/* ── 1. Monumental Hero Section ── */
+.ab-hero-section {
+  position: relative;
+  padding: clamp(2.5rem, 5vh, 4.5rem) 0 clamp(3.5rem, 6vh, 5rem);
+  overflow: hidden;
+  border-bottom: 1px solid rgba(20, 23, 24, 0.06);
+}
+
+.ab-watermark-bg {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  font-family: var(--sm-font-heading);
+  font-size: clamp(8rem, 22vw, 20rem);
+  font-weight: 900;
+  line-height: 0.75;
+  color: rgba(20, 23, 24, 0.03);
+  pointer-events: none;
+  user-select: none;
+  z-index: 1;
+}
+
+.ab-hero-container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.ab-hero-header {
+  max-width: 960px;
+}
+
+.ab-hero-title {
+  font-family: var(--sm-font-heading);
+  font-size: clamp(3.2rem, 6.4vw, 6.6rem);
+  font-weight: 900;
+  line-height: 0.88;
+  letter-spacing: -2px;
+  text-transform: uppercase;
+  color: #141718;
+  margin: 0 0 1.4rem;
+}
+
+.ab-hero-desc {
+  font-family: var(--sm-font-body);
+  font-size: clamp(1.1rem, 1.35vw, 1.28rem);
+  color: var(--text-secondary);
+  line-height: 1.65;
+  max-width: 740px;
+  margin-bottom: 2.5rem;
+}
+
+/* Hero Metrics Strip */
+.ab-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.2rem;
+  margin-top: 2.5rem;
+}
+
+@media (max-width: 992px) {
+  .ab-metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 540px) {
+  .ab-metrics-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ab-metric-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(20, 23, 24, 0.08);
+  border-radius: 20px;
+  padding: 1.8rem 1.4rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  transition: all 0.3s ease;
+}
+
+.ab-metric-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 90, 31, 0.3);
+  box-shadow: 0 12px 30px rgba(255, 90, 31, 0.08);
+}
+
+.ab-metric-num {
+  font-family: var(--sm-font-heading);
+  font-size: clamp(2.4rem, 3.5vw, 3.2rem);
+  font-weight: 900;
+  color: var(--color-primary);
+  line-height: 1;
+  margin-bottom: 0.4rem;
+}
+
+.ab-metric-lbl {
+  font-family: var(--sm-font-body);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.2rem;
+}
+
+.ab-metric-sub {
+  font-family: var(--sm-font-body);
+  font-size: 0.78rem;
+  color: var(--text-tertiary);
+  line-height: 1.35;
+}
+
+/* ── 2. SCROLL-BASED SECTION 1: 4 CONVICCIONES NO NEGOCIABLES ── */
+.ab-convictions-section {
+  position: relative;
+  padding: clamp(3.5rem, 7vh, 6.5rem) 0;
+  background: #141718;
+  color: #FFFFFF;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: visible !important;
+}
+
+.ab-convictions-grid {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+  align-items: start;
+  overflow: visible !important;
+}
+
+@media (max-width: 992px) {
+  .ab-convictions-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ab-sticky-left {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 130px;
+  height: fit-content;
+}
+
+.ab-conviction-stream {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.ab-conviction-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: clamp(2rem, 3.5vw, 2.8rem);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.ab-conviction-card:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 90, 31, 0.4);
+  transform: translateX(6px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.ab-conviction-watermark {
+  position: absolute;
+  top: -10px;
+  right: 20px;
+  font-family: var(--sm-font-heading);
+  font-size: clamp(4.5rem, 7vw, 6.5rem);
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.04);
+  line-height: 1;
+  pointer-events: none;
+}
+
+.ab-conviction-badge {
+  display: inline-block;
+  font-family: var(--sm-font-body);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  background: rgba(255, 90, 31, 0.1);
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 90, 31, 0.25);
+  margin-bottom: 0.8rem;
+}
+
+.ab-conviction-title {
+  font-family: var(--sm-font-body);
+  font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+  font-weight: 800;
+  letter-spacing: -0.4px;
+  color: #FFFFFF;
+  margin-bottom: 0.8rem;
+  line-height: 1.25;
+}
+
+.ab-conviction-desc {
+  font-family: var(--sm-font-body);
+  font-size: 1rem;
+  line-height: 1.65;
+  color: rgba(236, 238, 238, 0.75);
+}
+
+/* ── 3. SCROLL-BASED SECTION 2: EL SQUAD DILO & DISCIPLINAS ── */
+.ab-squad-section {
+  position: relative;
+  padding: clamp(3.5rem, 7vh, 6rem) 0;
+  background: #FFFFFF;
+}
+
+.ab-squad-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  margin: 2.2rem 0;
+  padding-bottom: 0.5rem;
+}
+
+.ab-squad-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.ab-squad-pill {
+  font-family: var(--sm-font-body);
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.55rem 1.2rem;
+  border-radius: 999px;
+  background: var(--bg-main);
+  border: 1.5px solid rgba(20, 23, 24, 0.08);
+  color: var(--text-secondary);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.25s ease;
+}
+
+.ab-squad-pill:hover {
+  background: rgba(20, 23, 24, 0.04);
+  color: var(--text-primary);
+}
+
+.ab-squad-pill.is-active {
+  background: #141718;
+  color: #FFFFFF;
+  border-color: #141718;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+}
+
+.ab-squad-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.8rem;
+}
+
+.ab-squad-card {
+  background: var(--bg-main);
+  border: 1px solid rgba(20, 23, 24, 0.08);
+  border-radius: 24px;
+  padding: 2.2rem;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.ab-squad-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 90, 31, 0.3);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+}
+
+.ab-squad-card-num {
+  font-family: var(--sm-font-heading);
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--color-primary);
+  line-height: 1;
+  margin-bottom: 0.8rem;
+}
+
+.ab-squad-role-title {
+  font-family: var(--sm-font-body);
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+  color: #141718;
+  margin-bottom: 0.6rem;
+}
+
+.ab-squad-role-desc {
+  font-family: var(--sm-font-body);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin-bottom: 1.4rem;
+}
+
+.ab-squad-tags-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.ab-squad-tool-tag {
+  font-family: var(--sm-font-body);
+  font-size: 0.74rem;
+  font-weight: 600;
+  background: #FFFFFF;
+  border: 1px solid rgba(20, 23, 24, 0.08);
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  color: var(--text-primary);
+}
+
+/* ── 4. SECTION 3: SEDE CDMX & CULTURA DE ESTUDIO ── */
+.ab-hub-section {
+  position: relative;
+  padding: clamp(3.5rem, 7vh, 6rem) 0;
+  background: var(--bg-main);
+  border-top: 1px solid rgba(20, 23, 24, 0.06);
+}
+
+.ab-hub-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+@media (max-width: 992px) {
+  .ab-hub-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ab-clock-card {
+  background: #141718;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 28px;
+  padding: clamp(2rem, 3.5vw, 3rem);
+  color: #FFFFFF;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+}
+
+.ab-clock-time-display {
+  font-family: var(--sm-font-heading);
+  font-size: clamp(3.2rem, 5.5vw, 5.2rem);
+  font-weight: 900;
+  color: var(--color-primary);
+  line-height: 1;
+  letter-spacing: -1px;
+  margin: 0.6rem 0;
+}
+
+.ab-clock-tz {
+  font-family: var(--sm-font-body);
+  font-size: 0.85rem;
+  color: rgba(236, 238, 238, 0.7);
+  font-weight: 600;
+}
+
+.ab-partners-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.ab-partner-item {
+  background: #FFFFFF;
+  border: 1px solid rgba(20, 23, 24, 0.08);
+  border-radius: 16px;
+  padding: 1.2rem;
+  font-family: var(--sm-font-body);
+  font-size: 0.88rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--text-primary);
+}
+
+.ab-partner-item-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  flex-shrink: 0;
+}

@@ -1,0 +1,94 @@
+/* Keyframes & Motion Animations */
+
+/* Floating elements */
+@keyframes float-slow {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-14px) rotate(1.5deg);
+  }
+}
+
+@keyframes float-reverse {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(12px) rotate(-1.5deg);
+  }
+}
+
+.animate-float {
+  animation: float-slow 6s ease-in-out infinite;
+}
+
+.animate-float-reverse {
+  animation: float-reverse 7s ease-in-out infinite;
+}
+
+/* Subtle Shimmer for Highlights */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.shimmer-bg {
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite;
+}
+
+/* Reveal on Scroll Elements */
+.reveal-init {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-init.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger Delays */
+.delay-1 { transition-delay: 100ms; }
+.delay-2 { transition-delay: 200ms; }
+.delay-3 { transition-delay: 300ms; }
+.delay-4 { transition-delay: 400ms; }
+.delay-5 { transition-delay: 500ms; }
+
+/* Scale Hover for Interactive Cards */
+.scale-on-hover {
+  transition: transform 0.4s var(--ease-out);
+}
+
+.scale-on-hover:hover {
+  transform: scale(1.025);
+}
+
+/* Pulse Ring for Status */
+@keyframes status-pulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(226, 28, 33, 0.5);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(226, 28, 33, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(226, 28, 33, 0);
+  }
+}
+
+.pulse-ring {
+  animation: status-pulse 2.5s infinite;
+}

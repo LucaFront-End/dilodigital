@@ -1,0 +1,87 @@
+@font-face {
+  font-family: 'Manuka';
+  src: url('/fonts/Manuka-Black.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Manuka';
+  src: url('/fonts/Manuka-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* Brand Palette */
+  --color-primary: #FF5A1F;
+  --color-primary-hover: #E04B14;
+  --color-primary-glow: rgba(255, 90, 31, 0.22);
+  --color-primary-light: #FFF5EE;
+  --color-primary-10: rgba(255, 90, 31, 0.08);
+
+  --color-accent: #FF5A1F;
+  --color-accent-hover: #E04B14;
+  --color-accent-light: #FFF5EE;
+
+  --color-dark: #101114;
+  --color-dark-surface: #18191E;
+  --color-dark-card: #21232A;
+
+  /* Crisp Light Backgrounds */
+  --bg-main: #FAFAFC;
+  --bg-surface: #FFFFFF;
+  --bg-subtle: #F3F4F7;
+  --bg-muted: #EAEAEE;
+
+  /* High-legibility Typography */
+  --text-primary: #121316;
+  --text-secondary: #525866;
+  --text-tertiary: #8E95A3;
+  --text-inverse: #FFFFFF;
+
+  /* Borders & Dividers */
+  --border-subtle: rgba(18, 19, 22, 0.06);
+  --border-light: #E5E7EB;
+  --border-medium: #D1D5DB;
+  --border-glow: rgba(255, 90, 31, 0.35);
+
+  /* Glassmorphism */
+  --glass-bg: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.7);
+  --glass-blur: blur(16px);
+  --glass-dark-bg: rgba(16, 17, 20, 0.88);
+
+  /* Shadows */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.03);
+  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 10px 30px -4px rgba(0, 0, 0, 0.06), 0 4px 12px -2px rgba(0, 0, 0, 0.02);
+  --shadow-lg: 0 24px 50px -12px rgba(0, 0, 0, 0.09), 0 8px 24px -4px rgba(0, 0, 0, 0.03);
+  --shadow-glow: 0 16px 40px rgba(255, 90, 31, 0.28);
+  --shadow-glow-sm: 0 6px 20px rgba(255, 90, 31, 0.22);
+
+  /* Fonts */
+  --sm-font-heading: 'Manuka', sans-serif;
+  --sm-font-body: 'Plus Jakarta Sans', sans-serif;
+  --font-display: 'Manuka', 'Syne', sans-serif;
+  --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Layout */
+  --header-height: 80px;
+  --container-max: 1380px;
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 36px;
+  --radius-pill: 9999px;
+
+  /* Transitions */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-elastic: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --duration-fast: 180ms;
+  --duration-normal: 320ms;
+  --duration-slow: 600ms;
+}

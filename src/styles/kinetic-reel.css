@@ -1,0 +1,589 @@
+/* ================================================================
+   THE KINETIC CINEMA REEL — HORIZONTAL SCROLL SHOWCASE STYLES
+   Design System: Manuka Display + Plus Jakarta Sans + Sadu Obsidian
+   ================================================================ */
+
+.kr-section {
+  position: relative;
+  width: 100%;
+  height: 400vh;
+  background: #0c0e10;
+  color: #eceeee;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+.kr-viewport {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(80px, 11vh, 95px) clamp(1.2rem, 3.5vw, 3.5rem) clamp(1.2rem, 2.5vh, 2rem);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* --- Top HUD Control Bar --- */
+.kr-hud-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.4rem 0 clamp(0.6rem, 1.5vh, 1.2rem);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  z-index: 10;
+  gap: 1.5rem;
+}
+
+.kr-hud-left {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
+}
+
+.kr-rec-dot {
+  width: 8px;
+  height: 8px;
+  background: #E21C21;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #E21C21;
+  animation: krPulse 1.8s infinite ease-in-out;
+}
+
+@keyframes krPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+.kr-hud-tag {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #eceeee;
+}
+
+/* Timeline Scrubber */
+.kr-timeline-wrapper {
+  flex: 1;
+  max-width: 420px;
+  display: flex;
+  align-items: center;
+}
+
+.kr-timeline-track {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  overflow: hidden;
+  position: relative;
+}
+
+.kr-timeline-fill {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #FF5A1F, #FF7E47);
+  border-radius: 999px;
+  box-shadow: 0 0 10px rgba(255, 90, 31, 0.6);
+  transition: width 0.1s linear;
+}
+
+.kr-hud-right {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  flex-shrink: 0;
+}
+
+.kr-counter {
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+  font-family: var(--sm-font-heading);
+  font-size: 1.6rem;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 0.2rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.kr-num-current {
+  color: var(--sm-turquoise);
+  min-width: 2ch;
+  text-align: right;
+}
+
+.kr-num-sep {
+  opacity: 0.3;
+}
+
+.kr-num-total {
+  opacity: 0.45;
+}
+
+.kr-nav-arrows {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.kr-arrow-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.kr-arrow-btn:hover {
+  background: var(--sm-turquoise);
+  color: var(--sm-black);
+  border-color: var(--sm-turquoise);
+  transform: scale(1.08);
+}
+
+/* --- Track Container & Horizontal Motion --- */
+.kr-track-container {
+  position: relative;
+  width: 100%;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  overflow: visible;
+}
+
+.kr-track {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.5rem, 2.5vw, 2.8rem);
+  will-change: transform;
+}
+
+/* --- The Monumental Panoramic Cards --- */
+.kr-card {
+  position: relative;
+  width: clamp(620px, 60vw, 880px);
+  height: clamp(460px, 68vh, 560px);
+  flex-shrink: 0;
+  border-radius: 24px;
+  background: #14171a;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 24px 70px -15px rgba(0, 0, 0, 0.75);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(1.5rem, 2.5vw, 2.4rem);
+  box-sizing: border-box;
+  transition: border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.kr-card:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 30px 90px -15px rgba(0, 0, 0, 0.85);
+}
+
+/* Media Background & Cinematic Vignette */
+.kr-card-media-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.kr-card-media-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: saturate(1.1);
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.kr-card:hover .kr-card-media-img {
+  transform: scale(1.05);
+}
+
+.kr-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, 
+    rgba(14, 16, 18, 0.45) 0%, 
+    rgba(14, 16, 18, 0.65) 45%,
+    rgba(14, 16, 18, 0.94) 85%
+  );
+  pointer-events: none;
+}
+
+.kr-card-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.7;
+  transition: opacity 0.4s ease;
+}
+
+.kr-card:hover .kr-card-glow {
+  opacity: 1;
+}
+
+/* Card Meta Top */
+.kr-card-meta-top {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.kr-badge-group {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.kr-category-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(14, 16, 18, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.kr-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.kr-client-tag {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgba(236, 238, 238, 0.65);
+  letter-spacing: 0.3px;
+  background: rgba(14, 16, 18, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.kr-watermark-number {
+  font-family: var(--sm-font-heading);
+  font-size: clamp(3.2rem, 5.5vw, 5.2rem);
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.18);
+  line-height: 0.8;
+  letter-spacing: -1px;
+}
+
+/* Card Content Bottom */
+.kr-card-content-bottom {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+}
+
+.kr-card-title {
+  font-family: var(--sm-font-heading);
+  font-size: clamp(2.2rem, 3.8vw, 3.8rem);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -1.2px;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin: 0 0 clamp(0.35rem, 0.8vh, 0.6rem);
+}
+
+.kr-card-summary {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(0.85rem, 1.05vw, 1rem);
+  line-height: 1.45;
+  color: rgba(236, 238, 238, 0.75);
+  margin: 0 0 clamp(0.8rem, 1.4vh, 1.2rem);
+  max-width: 680px;
+}
+
+/* Glassmorphic Metrics HUD */
+.kr-metrics-hud {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  background: rgba(20, 23, 26, 0.75);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  padding: clamp(0.7rem, 1.2vh, 0.95rem) clamp(0.9rem, 1.4vw, 1.4rem);
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: clamp(0.8rem, 1.5vh, 1.2rem);
+}
+
+.kr-metric-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.kr-metric-value {
+  font-family: var(--sm-font-heading);
+  font-size: clamp(1.4rem, 2vw, 1.85rem);
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  color: var(--sm-turquoise);
+  line-height: 1;
+}
+
+.kr-metric-label {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: rgba(236, 238, 238, 0.55);
+  text-transform: uppercase;
+  margin-top: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Footer Action Row */
+.kr-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.kr-tags-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.kr-tag-chip {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: rgba(236, 238, 238, 0.6);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.2rem 0.55rem;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.kr-explore-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--sm-turquoise);
+  color: var(--sm-black);
+  text-decoration: none;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+  padding: 0.55rem 1.25rem;
+  border-radius: 999px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-shrink: 0;
+}
+
+.kr-explore-btn:hover {
+  transform: translateY(-2px);
+  background: #FF7033;
+  box-shadow: 0 8px 24px rgba(255, 90, 31, 0.4);
+}
+
+/* --- 00. Introductory Slide --- */
+.kr-card-intro {
+  background: linear-gradient(135deg, #121417 0%, #1a1e22 100%);
+  width: clamp(480px, 45vw, 640px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.kr-intro-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.kr-intro-title {
+  font-family: var(--sm-font-heading);
+  font-size: clamp(3rem, 5.2vw, 5.5rem);
+  font-weight: 900;
+  line-height: 0.85;
+  letter-spacing: -1.5px;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin: 1.5rem 0 1rem;
+}
+
+.kr-text-highlight {
+  color: var(--sm-turquoise);
+}
+
+.kr-intro-desc {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(0.95rem, 1.15vw, 1.1rem);
+  line-height: 1.5;
+  color: rgba(236, 238, 238, 0.7);
+  margin-bottom: auto;
+}
+
+.kr-scroll-indicator {
+  display: flex;
+  align-items: center;
+  margin-top: 1.5rem;
+}
+
+.kr-scroll-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--sm-turquoise);
+  letter-spacing: 0.4px;
+  animation: krBounceHoriz 2s infinite ease-in-out;
+}
+
+@keyframes krBounceHoriz {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(8px); }
+}
+
+/* --- Final CTA Slide --- */
+.kr-card-cta {
+  background: linear-gradient(135deg, #131718 0%, #0d1214 100%);
+  width: clamp(480px, 45vw, 640px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-color: rgba(0, 168, 160, 0.3);
+}
+
+.kr-cta-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.kr-cta-title {
+  font-family: var(--sm-font-heading);
+  font-size: clamp(2.4rem, 4vw, 4rem);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -1.2px;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin: 1.5rem 0 1rem;
+}
+
+.kr-cta-desc {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(0.92rem, 1.1vw, 1.05rem);
+  line-height: 1.5;
+  color: rgba(236, 238, 238, 0.7);
+  margin-bottom: auto;
+}
+
+/* ================================================================
+   RESPONSIVE DESIGN (Tablets & Mobile)
+   ================================================================ */
+@media (max-width: 899px) {
+  .kr-section {
+    padding: 2rem 0;
+  }
+
+  .kr-viewport {
+    height: auto;
+    min-height: auto;
+    padding: 1rem 1rem 2rem;
+  }
+
+  .kr-timeline-wrapper,
+  .kr-nav-arrows {
+    display: none;
+  }
+
+  .kr-track-container {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: 1.5rem 0.5rem;
+  }
+
+  .kr-track {
+    gap: 1.2rem;
+  }
+
+  .kr-card {
+    width: 86vw;
+    height: auto;
+    min-height: 520px;
+    scroll-snap-align: center;
+    padding: 1.4rem;
+  }
+
+  .kr-card-title {
+    font-size: 2.2rem;
+  }
+
+  .kr-metrics-hud {
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
+
+  .kr-card-intro,
+  .kr-card-cta {
+    width: 86vw;
+  }
+}
