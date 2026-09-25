@@ -389,13 +389,14 @@
   }
 }
 
-/* Text typography: 1.5x larger, bold, authoritative, majestic */
+/* Text typography: bold, authoritative, majestic */
 .sm-line-title {
   font-family: var(--sm-font-heading);
-  font-size: clamp(2.8rem, 6.8vw, 8.4rem);
+  font-size: clamp(2.6rem, 6.2vw, 7.6rem);
   font-weight: 900;
-  line-height: 0.82;
-  letter-spacing: -1.8px;
+  line-height: 1.06;
+  letter-spacing: 0.03em;
+  word-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--sm-black);
   white-space: nowrap;
@@ -406,13 +407,14 @@
 /* Line 0: Opening hook statement — matches Sadu Media's commanding headline scale */
 .sm-line-0 .sm-line-title {
   font-family: var(--sm-font-heading);
-  font-size: clamp(2.3rem, 5.4vw, 7.2rem);
-  line-height: 0.84;
-  letter-spacing: -1.5px;
+  font-size: clamp(2.2rem, 5vw, 6.6rem);
+  line-height: 1.06;
+  letter-spacing: 0.03em;
+  word-spacing: 0.1em;
   font-weight: 900;
   text-transform: uppercase;
   color: var(--sm-black);
-  margin-bottom: clamp(0.2rem, 0.4vw, 0.6rem);
+  margin-bottom: clamp(0.3rem, 0.6vw, 0.8rem);
 }
 
 @media (max-width: 1199px) {

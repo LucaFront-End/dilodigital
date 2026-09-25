@@ -1,0 +1,586 @@
+/* ================================================================
+   CATEGORY KINETIC ANIMATIONS — DILO DIGITAL SIGNATURE
+   60fps GPU-Accelerated Interactive Visuals Replacing Static Images
+   ================================================================ */
+
+/* Base Animation Container */
+.cat-anim-container {
+  position: relative;
+  width: 100%;
+  height: 380px;
+  background: #141718;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.28), 0 0 40px rgba(255, 90, 31, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+
+.cat-anim-badge-top {
+  position: absolute;
+  top: 1.2rem;
+  left: 1.2rem;
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(20, 23, 24, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  font-family: var(--sm-font-body, system-ui, sans-serif);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+}
+
+.cat-anim-pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 10px #10B981;
+  animation: animPulse 2s infinite ease-in-out;
+}
+
+.cat-anim-badge-bottom {
+  position: absolute;
+  bottom: 1.2rem;
+  right: 1.2rem;
+  z-index: 10;
+  font-family: monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.55);
+  background: rgba(0, 0, 0, 0.5);
+  padding: 0.25rem 0.65rem;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Background Ambient Glow */
+.cat-anim-glow {
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  opacity: 0.45;
+  animation: glowFloat 8s infinite alternate ease-in-out;
+}
+
+@keyframes glowFloat {
+  0% { transform: scale(0.9) translate(-20px, -20px); }
+  50% { transform: scale(1.15) translate(20px, 15px); }
+  100% { transform: scale(0.95) translate(-10px, 20px); }
+}
+
+@keyframes animPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.5; }
+}
+
+/* ================================================================
+   1. BRANDING & DISEÑO ANIMATION
+   Vector Bezier Curves, Pantone Swatches & 3D Rotating Monogram
+   ================================================================ */
+.anim-branding-box {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.anim-brand-center-mark {
+  position: relative;
+  width: 130px;
+  height: 130px;
+  border-radius: 32px;
+  background: linear-gradient(135deg, rgba(255, 90, 31, 0.9), rgba(255, 142, 83, 0.85));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  font-family: var(--sm-font-heading, sans-serif);
+  font-size: 3.2rem;
+  font-weight: 900;
+  box-shadow: 0 16px 40px rgba(255, 90, 31, 0.45);
+  animation: brandMarkRotate 10s infinite ease-in-out;
+  z-index: 2;
+}
+
+@keyframes brandMarkRotate {
+  0%, 100% { transform: rotate(-3deg) scale(1); }
+  50% { transform: rotate(5deg) scale(1.04); }
+}
+
+.anim-brand-vector-grid {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.anim-brand-vector-path {
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+  animation: drawVectorPath 4s infinite alternate ease-in-out;
+}
+
+@keyframes drawVectorPath {
+  0% { stroke-dashoffset: 400; }
+  100% { stroke-dashoffset: 0; }
+}
+
+.anim-brand-chip {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 0.4rem 0.8rem;
+  border-radius: 12px;
+  color: #FFFFFF;
+  font-family: var(--sm-font-body, system-ui);
+  font-size: 0.74rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  animation: chipFloat 5s infinite ease-in-out;
+}
+
+.anim-brand-chip-1 { top: 22%; left: 10%; animation-delay: 0s; }
+.anim-brand-chip-2 { bottom: 22%; right: 10%; animation-delay: 2.5s; }
+.anim-brand-chip-3 { top: 26%; right: 12%; animation-delay: 1.2s; }
+
+@keyframes chipFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* Color Swatches Palette Floating */
+.anim-swatches-strip {
+  position: absolute;
+  bottom: 18%;
+  left: 12%;
+  display: flex;
+  gap: 0.4rem;
+  background: rgba(20, 23, 24, 0.8);
+  padding: 0.4rem 0.6rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.anim-swatch-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+}
+
+/* ================================================================
+   2. MARKETING DIGITAL & PERFORMANCE ANIMATION
+   ROAS Frequency Spectrum, Telemetry Radar & Conversion Nodes
+   ================================================================ */
+.anim-mkt-box {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.anim-mkt-radar-ring {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  border: 1.5px dashed rgba(255, 90, 31, 0.35);
+  animation: radarSpin 12s linear infinite;
+}
+
+.anim-mkt-radar-sweep {
+  position: absolute;
+  width: 110px;
+  height: 110px;
+  top: 0;
+  right: 0;
+  background: conic-gradient(from 0deg at 100% 100%, rgba(255, 90, 31, 0.4) 0deg, transparent 60deg);
+  border-radius: 100% 0 0 0;
+}
+
+@keyframes radarSpin {
+  100% { transform: rotate(360deg); }
+}
+
+.anim-mkt-bars-flex {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.8rem;
+  height: 120px;
+  z-index: 2;
+  margin-top: 1rem;
+}
+
+.anim-mkt-bar {
+  width: 24px;
+  border-radius: 8px 8px 3px 3px;
+  background: linear-gradient(180deg, #FF5A1F 0%, rgba(255, 90, 31, 0.2) 100%);
+  animation: barBounce 1.8s infinite ease-in-out alternate;
+}
+
+.anim-mkt-bar:nth-child(1) { height: 45%; animation-delay: 0.1s; }
+.anim-mkt-bar:nth-child(2) { height: 75%; animation-delay: 0.3s; }
+.anim-mkt-bar:nth-child(3) { height: 95%; animation-delay: 0s; background: linear-gradient(180deg, #10B981, rgba(16, 185, 129, 0.2)); }
+.anim-mkt-bar:nth-child(4) { height: 60%; animation-delay: 0.4s; }
+.anim-mkt-bar:nth-child(5) { height: 85%; animation-delay: 0.2s; }
+
+@keyframes barBounce {
+  0% { transform: scaleY(0.7); }
+  100% { transform: scaleY(1.1); }
+}
+
+.anim-mkt-kpi-badge {
+  position: absolute;
+  top: 24%;
+  right: 14%;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid #10B981;
+  color: #10B981;
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  font-family: monospace;
+  font-size: 0.85rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  z-index: 3;
+}
+
+/* ================================================================
+   3. DESARROLLO WEB & E-COMMERCE ANIMATION
+   Headless Code Reactor, Glass Terminal & Responsive Viewports
+   ================================================================ */
+.anim-web-box {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.anim-web-terminal {
+  width: 88%;
+  max-width: 380px;
+  background: rgba(20, 23, 24, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  padding: 1rem 1.25rem;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  font-family: 'Fira Code', monospace;
+  font-size: 0.82rem;
+  color: #E2E8F0;
+  line-height: 1.6;
+  z-index: 2;
+}
+
+.anim-terminal-header {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 0.75rem;
+}
+
+.anim-dot-red { width: 10px; height: 10px; border-radius: 50%; background: #EF4444; }
+.anim-dot-yellow { width: 10px; height: 10px; border-radius: 50%; background: #F59E0B; }
+.anim-dot-green { width: 10px; height: 10px; border-radius: 50%; background: #10B981; }
+
+.anim-code-token-kw { color: #A855F7; font-weight: 700; }
+.anim-code-token-fn { color: #38BDF8; }
+.anim-code-token-str { color: #34D399; }
+.anim-code-token-val { color: #F59E0B; }
+
+.anim-typing-cursor {
+  display: inline-block;
+  width: 7px;
+  height: 14px;
+  background: #FF5A1F;
+  margin-left: 4px;
+  animation: cursorBlink 0.9s infinite;
+}
+
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.anim-web-speed-pill {
+  position: absolute;
+  bottom: 15%;
+  right: 8%;
+  background: rgba(16, 185, 129, 0.18);
+  border: 1px solid #10B981;
+  color: #10B981;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  font-family: monospace;
+  font-size: 0.76rem;
+  font-weight: 800;
+  z-index: 3;
+}
+
+/* ================================================================
+   4. PRODUCCIÓN AUDIOVISUAL & 3D ANIMATION
+   Rotating Aperture, Audio Spectrum Waves & 4K Recording Beacon
+   ================================================================ */
+.anim-av-box {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.anim-av-lens-ring {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 90, 31, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 35px rgba(255, 90, 31, 0.25);
+  animation: lensPulse 6s infinite alternate ease-in-out;
+}
+
+@keyframes lensPulse {
+  0% { transform: scale(0.95); border-color: rgba(255, 90, 31, 0.3); }
+  100% { transform: scale(1.05); border-color: rgba(255, 142, 83, 0.6); }
+}
+
+.anim-av-aperture-core {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #FF5A1F 0%, #141718 70%);
+  animation: apertureRotate 14s linear infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+}
+
+@keyframes apertureRotate {
+  100% { transform: rotate(360deg); }
+}
+
+/* Audio Waveform Bars */
+.anim-av-waveform {
+  position: absolute;
+  bottom: 22%;
+  display: flex;
+  gap: 0.35rem;
+  align-items: center;
+  height: 36px;
+}
+
+.anim-av-wave-bar {
+  width: 4px;
+  height: 10px;
+  border-radius: 999px;
+  background: #A855F7;
+  animation: waveBarDance 1s infinite alternate ease-in-out;
+}
+
+.anim-av-wave-bar:nth-child(2n) { animation-delay: 0.2s; background: #FF5A1F; }
+.anim-av-wave-bar:nth-child(3n) { animation-delay: 0.4s; background: #38BDF8; }
+.anim-av-wave-bar:nth-child(4n) { animation-delay: 0.1s; }
+
+@keyframes waveBarDance {
+  0% { height: 6px; }
+  100% { height: 32px; }
+}
+
+.anim-av-rec-badge {
+  position: absolute;
+  top: 14%;
+  right: 12%;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid #EF4444;
+  color: #EF4444;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  font-family: monospace;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.anim-rec-blip {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #EF4444;
+  animation: recBlink 1s infinite;
+}
+
+@keyframes recBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.2; }
+}
+
+/* ================================================================
+   5. IA & SOLUCIONES EMPRESARIALES ANIMATION
+   Synaptic Neural Network, Floating AI Nodes & Quantum Core
+   ================================================================ */
+.anim-ia-box {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.anim-ia-core {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #38BDF8 0%, #0284C7 50%, #141718 90%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 50px rgba(56, 189, 248, 0.4);
+  animation: corePulse 3s infinite alternate ease-in-out;
+  z-index: 2;
+}
+
+@keyframes corePulse {
+  0% { transform: scale(0.92); box-shadow: 0 0 30px rgba(56, 189, 248, 0.3); }
+  100% { transform: scale(1.08); box-shadow: 0 0 60px rgba(56, 189, 248, 0.6); }
+}
+
+.anim-ia-nodes-mesh {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.anim-ia-pill-node {
+  position: absolute;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  color: #38BDF8;
+  font-family: monospace;
+  font-size: 0.74rem;
+  font-weight: 700;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  animation: nodeFloat 6s infinite ease-in-out;
+}
+
+.anim-ia-node-1 { top: 20%; left: 14%; animation-delay: 0s; }
+.anim-ia-node-2 { bottom: 22%; right: 14%; animation-delay: 2s; border-color: rgba(16, 185, 129, 0.4); color: #10B981; }
+.anim-ia-node-3 { top: 24%; right: 12%; animation-delay: 3.5s; border-color: rgba(255, 90, 31, 0.4); color: #FF7E47; }
+
+@keyframes nodeFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* ================================================================
+   6. DISEÑO DE ESPACIOS & STANDS ANIMATION
+   Isometric 3D Wireframe Blueprint, Spatial Grid & Caliper Vectors
+   ================================================================ */
+.anim-espacios-box {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.anim-iso-grid {
+  position: absolute;
+  width: 260px;
+  height: 180px;
+  border: 1.5px solid rgba(255, 90, 31, 0.25);
+  transform: rotateX(60deg) rotateZ(-45deg);
+  background-image: 
+    linear-gradient(rgba(255, 90, 31, 0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 90, 31, 0.15) 1px, transparent 1px);
+  background-size: 20px 20px;
+  animation: gridFloat 8s infinite alternate ease-in-out;
+}
+
+@keyframes gridFloat {
+  0% { transform: rotateX(60deg) rotateZ(-45deg) translateZ(0); }
+  100% { transform: rotateX(55deg) rotateZ(-42deg) translateZ(15px); }
+}
+
+.anim-iso-cube {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  border: 2px solid #FF5A1F;
+  border-radius: 12px;
+  background: rgba(255, 90, 31, 0.12);
+  transform: rotateX(55deg) rotateZ(35deg);
+  box-shadow: 0 20px 40px rgba(255, 90, 31, 0.3);
+  z-index: 2;
+  animation: cubeRotate 10s infinite alternate ease-in-out;
+}
+
+@keyframes cubeRotate {
+  0% { transform: rotateX(55deg) rotateZ(35deg) scale(0.95); }
+  100% { transform: rotateX(50deg) rotateZ(45deg) scale(1.05); }
+}
+
+.anim-dimension-badge {
+  position: absolute;
+  bottom: 18%;
+  left: 12%;
+  background: rgba(20, 23, 24, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 0.35rem 0.75rem;
+  border-radius: 8px;
+  color: #ECEEEE;
+  font-family: monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  z-index: 3;
+}

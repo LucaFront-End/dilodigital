@@ -283,11 +283,12 @@
   font-family: var(--sm-font-heading);
   font-size: clamp(2.1rem, 3.8vw, 3.8rem);
   font-weight: 900;
-  line-height: 0.88;
-  letter-spacing: -1px;
+  line-height: 1.12;
+  letter-spacing: 0.04em;
+  word-spacing: 0.12em;
   text-transform: uppercase;
   color: #ffffff;
-  margin: clamp(0.35rem, 0.7vh, 0.65rem) 0 clamp(0.2rem, 0.5vh, 0.45rem);
+  margin: clamp(0.35rem, 0.7vh, 0.65rem) 0 clamp(0.4rem, 0.8vh, 0.75rem);
 }
 
 .sm-deck-card-concept {

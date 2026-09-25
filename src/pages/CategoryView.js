@@ -6,6 +6,7 @@
 import { CATEGORIES } from '../data/categories.js';
 import { PROJECTS } from '../data/projects.js';
 import { renderFinalCta, initFinalCtaEvents } from '../components/FinalCta.js';
+import { renderCategoryHeroAnimation } from '../components/CategoryAnimations.js';
 
 function getWhatsAppUrl(subTitle, categoryTitle) {
   const text = `Hola Dilo Digital, me interesa cotizar el servicio de *${subTitle}* de la categoría *${categoryTitle}*. ¿Podríamos agendar una sesión estratégica?`;
@@ -76,24 +77,19 @@ export function renderCategoryView(slug = 'branding-diseno') {
               </div>
             </div>
 
-            <!-- Stats & Scope Card -->
-            <div class="cat-stats-card">
-              <div class="cat-stats-label">Métricas de Desempeño &middot; ${category.shortTitle}</div>
-              
-              <div class="cat-stats-grid">
-                ${category.stats.map(s => `
-                  <div class="cat-stat-box">
-                    <div class="cat-stat-val">${s.value}</div>
-                    <div class="cat-stat-lbl">${s.label}</div>
-                  </div>
-                `).join('')}
-              </div>
+            <!-- Right Column: Live Kinetic Discipline Animation & Performance Metrics -->
+            <div class="cat-hero-right">
+              ${renderCategoryHeroAnimation(category.id)}
 
-              <div class="cat-stats-note">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-                <span>Procesos estandarizados y metodologías comprobadas con +140 marcas en México.</span>
+              <div class="cat-stats-card-compact">
+                <div class="cat-stats-grid">
+                  ${category.stats.map(s => `
+                    <div class="cat-stat-box">
+                      <div class="cat-stat-val">${s.value}</div>
+                      <div class="cat-stat-lbl">${s.label}</div>
+                    </div>
+                  `).join('')}
+                </div>
               </div>
             </div>
           </div>
@@ -276,7 +272,16 @@ export function renderCategoryView(slug = 'branding-diseno') {
             ${relatedProjects.map(p => `
               <div class="case-card scale-on-hover">
                 <div class="case-media-box">
-                  <img src="${p.coverImage}" alt="${p.title}" loading="lazy">
+                  <div class="case-anim-wrap">
+                    <img src="${p.coverImage}" alt="${p.title}" loading="lazy" class="case-bg-img">
+                    <div class="case-anim-overlay">
+                      <span class="case-anim-scanline"></span>
+                      <div class="case-anim-badge">
+                        <span class="cat-anim-pulse-dot"></span>
+                        <span>CASO DE ÉXITO &middot; EN VIVO</span>
+                      </div>
+                    </div>
+                  </div>
                   <span class="case-badge-top">${p.categoryName}</span>
                 </div>
                 <div class="case-body">

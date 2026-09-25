@@ -7,6 +7,7 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { CATEGORIES } from '../data/categories.js';
+import { renderCategoryHeroAnimation } from './CategoryAnimations.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -184,20 +185,10 @@ export function renderDeckMonolith() {
 
               </div>
 
-              <!-- Right Column: Visual Media Showcase Frame -->
+              <!-- Right Column: Visual Kinetic Animation Stage -->
               <div class="sm-deck-card-right">
-                <div class="sm-deck-media-window">
-                  ${media.video ? `
-                    <video src="${media.video}" autoplay loop muted playsinline preload="auto" class="sm-deck-media-video"></video>
-                  ` : `
-                    <img src="${media.image}" alt="${cat.title}" loading="lazy" class="sm-deck-media-img" onerror="this.onerror=null; this.src='${media.fallback}';">
-                  `}
-                  <div class="sm-deck-media-overlay"></div>
-                  
-                  <div class="sm-deck-media-badge">
-                    <span class="sm-deck-media-pulse"></span>
-                    <span>CASO DE ÉXITO</span>
-                  </div>
+                <div class="sm-deck-media-window" style="background: transparent; border: none; overflow: visible; display: flex; align-items: center; justify-content: center;">
+                  ${renderCategoryHeroAnimation(cat.id)}
                 </div>
               </div>
 

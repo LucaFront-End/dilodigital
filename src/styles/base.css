@@ -85,9 +85,10 @@ img, svg, video {
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
   font-weight: 700;
-  letter-spacing: -0.03em;
+  letter-spacing: 0.03em;
+  word-spacing: 0.08em;
   color: var(--text-primary);
-  line-height: 1.12;
+  line-height: 1.15;
 }
 
 h1 {
@@ -140,7 +141,8 @@ p {
   font-family: var(--font-display);
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.03em;
+  word-spacing: 0.08em;
 }
 
 .badge {

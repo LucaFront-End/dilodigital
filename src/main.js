@@ -17,6 +17,7 @@ import './styles/branding-purchase.css';
 import './styles/about-view.css';
 import './styles/contact-view.css';
 import './styles/legal-chat.css';
+import './styles/category-animations.css';
 
 import { renderNavbar, initNavbarEvents } from './components/Navbar.js';
 import { renderFooter } from './components/Footer.js';
