@@ -30,13 +30,13 @@ lerna-debug.log*
 # Temporary / Scratch Analysis
 scratch/
 *.py
-sadu*.*
-extract_*
-inspect_*
-print_*
-parse_*
-save_*
-logo_raw.png
-logo_cropped.png
-logo_dark.png
-scratch_brief.txt
+/sadu*
+/extract_*
+/inspect_*
+/print_*
+/parse_*
+/save_*
+/logo_raw.png
+/logo_cropped.png
+/logo_dark.png
+/scratch_brief.txt

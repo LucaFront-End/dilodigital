@@ -1,0 +1,646 @@
+/* ================================================================
+   SADU MEDIA HERO & LOADER — PIXEL-PERFECT REPLICA CSS
+   Source: https://www.sadumedia.com
+   Technologies: GSAP, ScrollTrigger, CSS 3D Transforms, Pinned Stage
+   ================================================================ */
+
+@font-face {
+  font-family: 'Manuka';
+  src: url('/fonts/Manuka-Black.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Manuka';
+  src: url('/fonts/Manuka-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --sm-black: #161818;
+  --sm-gray: #eceeee;
+  --sm-white: #ffffff;
+  --sm-turquoise: #FF5A1F; /* Dilo Signature Brand Orange */
+  --sm-light-turquoise: #FF7E47;
+  --sm-orange: #FF5A1F;
+  --sm-orange-glow: rgba(255, 90, 31, 0.35);
+  --sm-font-heading: 'Manuka', sans-serif;
+  --sm-font-body: 'Plus Jakarta Sans', sans-serif;
+  --sm-ease-out: cubic-bezier(.23, 1, .32, 1);
+  --sm-ease-expo: cubic-bezier(.16, 1, .3, 1);
+}
+
+/* ================================================================
+   1. LOADER SECTION (Exact Sadu Media intro experience)
+   ================================================================ */
+.sm-loader-host {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  background: var(--sm-black);
+  z-index: 999999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  user-select: none;
+  font-family: var(--sm-font-heading);
+}
+
+/* Centered title wrapper */
+.sm-loader-content {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 1400px;
+  padding: 0 clamp(1rem, 3vw, 3rem);
+  pointer-events: none;
+}
+
+/* Top row: "WE" + placeholder slot + "ARE" */
+.sm-loader-row-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: clamp(1rem, 2.5vw, 2.8rem);
+  margin-bottom: 0;
+}
+
+/* Typography elements */
+.sm-loader-title {
+  font-family: var(--sm-font-heading);
+  font-size: clamp(4.5rem, 16vw, 18.5rem);
+  font-weight: 900;
+  line-height: 0.74;
+  letter-spacing: -3px;
+  text-transform: uppercase;
+  color: var(--sm-gray);
+  white-space: nowrap;
+  display: inline-flex;
+  overflow: visible;
+  perspective: 800px;
+}
+
+/* Individual character for 3D flip */
+.sm-loader-char {
+  display: inline-block;
+  transform-origin: bottom center;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+/* Desktop slot between "WE" and "ARE" */
+.sm-loader-placeholder-desktop {
+  flex: 1;
+  height: clamp(80px, 14vw, 214px);
+  min-width: clamp(100px, 18vw, 340px);
+  margin-top: clamp(6px, 1vw, 14px);
+  border-radius: 12px;
+  visibility: hidden; /* Layout anchor */
+  pointer-events: none;
+}
+
+/* Mobile placeholder */
+.sm-loader-placeholder-mobile {
+  display: none;
+  width: 80%;
+  aspect-ratio: 4 / 3;
+  margin: 1rem auto;
+  border-radius: 10px;
+  visibility: hidden;
+}
+
+@media (max-width: 1199px) {
+  .sm-loader-row-top {
+    justify-content: center;
+    gap: 1.5rem;
+  }
+  .sm-loader-placeholder-desktop {
+    display: none;
+  }
+  .sm-loader-placeholder-mobile {
+    display: block;
+  }
+  .sm-loader-title {
+    font-size: clamp(3.8rem, 18vw, 8rem);
+    letter-spacing: -1.5px;
+  }
+}
+
+/* Bottom title: "DILO DIGITAL" */
+.sm-loader-title-bottom {
+  margin-top: clamp(1.2rem, 2.5vw, 3rem);
+}
+
+@media (max-width: 1199px) {
+  .sm-loader-title-bottom {
+    margin-top: 1rem;
+  }
+}
+
+/* Media wrapper: sits behind text, opens as curtain, then expands to fullscreen */
+.sm-loader-medias {
+  position: absolute;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  z-index: 5;
+  overflow: hidden;
+  pointer-events: none;
+  background: var(--sm-black);
+  will-change: clip-path, transform, opacity;
+}
+
+/* Individual shutter images */
+.sm-loader-media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  will-change: opacity, transform;
+}
+
+.sm-loader-media img,
+.sm-loader-media video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  will-change: transform;
+}
+
+.sm-loader-media-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(22, 24, 24, 0.2);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* ================================================================
+   2. HERO COVER SECTION (.sm-home-cover)
+   ================================================================ */
+.sm-home-cover {
+  position: relative;
+  width: 100%;
+  background: var(--sm-gray);
+  color: var(--sm-black);
+  user-select: none;
+  overflow: visible;
+}
+
+/* --- Video Banner --- */
+.sm-hero-video-wrap {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 520px;
+  overflow: hidden;
+  background: var(--sm-black);
+  cursor: pointer;
+}
+
+.sm-hero-video-media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.sm-hero-video-media video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  will-change: transform;
+}
+
+.sm-hero-video-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.22);
+  pointer-events: none;
+}
+
+/* --- Follow-Mouse Diamond Cursor ("Play Reel") --- */
+.sm-follow-mouse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 30;
+  pointer-events: none;
+  mix-blend-difference: difference;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s ease;
+  font-family: var(--sm-font-heading);
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+}
+
+.sm-follow-mouse.is-active {
+  opacity: 1;
+}
+
+.sm-cursor-text-left,
+.sm-cursor-text-right {
+  display: inline-block;
+  will-change: transform;
+  white-space: nowrap;
+}
+
+.sm-cursor-diamond-box {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  transform: rotate(45deg);
+  will-change: transform;
+}
+
+.sm-cursor-center {
+  position: absolute;
+  inset: 0;
+  border: 2px solid var(--sm-turquoise);
+  border-radius: 2px;
+  will-change: transform;
+}
+
+.sm-cursor-corner {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: var(--sm-turquoise);
+  border-radius: 1px;
+}
+
+.sm-cursor-corner.c-t {
+  top: -7px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.sm-cursor-corner.c-r {
+  top: 50%;
+  right: -7px;
+  transform: translateY(-50%);
+}
+.sm-cursor-corner.c-b {
+  bottom: -7px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.sm-cursor-corner.c-l {
+  top: 50%;
+  left: -7px;
+  transform: translateY(-50%);
+}
+
+/* ================================================================
+   3. TYPOGRAPHY LINES — PINNED KINETIC STAGE
+   ================================================================ */
+.sm-lines-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: var(--sm-gray);
+  color: var(--sm-black);
+  text-align: center;
+  padding-top: clamp(145px, 20vh, 215px);
+  padding-bottom: clamp(15px, 3vh, 30px);
+  padding-left: clamp(1rem, 2vw, 2.5rem);
+  padding-right: clamp(1rem, 2vw, 2.5rem);
+  overflow: hidden;
+  will-change: transform;
+}
+
+/* Stacking stage: holds lines in natural non-collapsing flex column */
+.sm-lines-stage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.2rem, 0.5vw, 0.75rem);
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+/* Each line container */
+.sm-line-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  will-change: transform, opacity;
+}
+
+.sm-line-sticky-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(8px, 1.2vw, 20px);
+  width: 100%;
+  padding: 0.05rem clamp(0.5rem, 1vw, 1.5rem);
+  white-space: nowrap;
+  will-change: transform;
+}
+
+@media (max-width: 1199px) {
+  .sm-lines-wrapper {
+    padding-top: clamp(100px, 15vh, 140px);
+  }
+  .sm-lines-stage {
+    gap: 1rem;
+  }
+  .sm-line-sticky-inner {
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+}
+
+/* Text typography: 1.5x larger, bold, authoritative, majestic */
+.sm-line-title {
+  font-family: var(--sm-font-heading);
+  font-size: clamp(2.8rem, 6.8vw, 8.4rem);
+  font-weight: 900;
+  line-height: 0.82;
+  letter-spacing: -1.8px;
+  text-transform: uppercase;
+  color: var(--sm-black);
+  white-space: nowrap;
+  display: inline-flex;
+  perspective: 800px;
+}
+
+/* Line 0: Opening hook statement — matches Sadu Media's commanding headline scale */
+.sm-line-0 .sm-line-title {
+  font-family: var(--sm-font-heading);
+  font-size: clamp(2.3rem, 5.4vw, 7.2rem);
+  line-height: 0.84;
+  letter-spacing: -1.5px;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--sm-black);
+  margin-bottom: clamp(0.2rem, 0.4vw, 0.6rem);
+}
+
+@media (max-width: 1199px) {
+  .sm-line-0 .sm-line-title {
+    font-size: clamp(1.8rem, 6.5vw, 3.2rem);
+    white-space: normal;
+    text-align: center;
+    line-height: 0.95;
+    letter-spacing: -0.5px;
+  }
+}
+
+.sm-line-char {
+  display: inline-block;
+  transform-origin: bottom center;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+/* Image thumbnails flanking text */
+.sm-line-thumbs {
+  display: flex;
+  align-items: center;
+  gap: clamp(4px, 0.5vw, 10px);
+  flex-shrink: 0;
+}
+
+@media (max-width: 1199px) {
+  .sm-line-thumbs {
+    display: none;
+  }
+}
+
+.sm-thumb {
+  width: clamp(38px, 4.0vw, 64px);
+  aspect-ratio: 16 / 10;
+  border-radius: 4px;
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.14);
+  transform-origin: bottom center;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+}
+
+.sm-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Fallback video posters to prevent black flash */
+.sm-video-fallback-img,
+.sm-hero-video-poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.sm-loader-media video,
+.sm-hero-video-media video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 2;
+  will-change: transform;
+}
+
+/* ================================================================
+   4. EDITORIAL SUBTITLE & 3D TUMBLING BUTTON (Inside Stage)
+   ================================================================ */
+.sm-stage-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.8rem, 1.4vw, 1.5rem);
+  margin-top: clamp(0.6rem, 1.4vw, 1.6rem);
+  width: 100%;
+  max-width: 860px;
+  will-change: transform, opacity;
+}
+
+.sm-subtitle-text {
+  font-family: var(--sm-font-body);
+  font-size: clamp(0.98rem, 1.22vw, 1.18rem);
+  font-weight: 500;
+  line-height: 1.6;
+  color: rgba(20, 23, 24, 0.78);
+  text-transform: none;
+  letter-spacing: -0.2px;
+  text-align: center;
+  margin: 0;
+}
+
+/* 3D Tumbling Button */
+.sm-button-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.2rem;
+  background: transparent;
+  padding: 0;
+}
+
+.sm-btn-3d {
+  position: relative;
+  display: inline-block;
+  perspective: 800px;
+  transform-style: preserve-3d;
+  height: 50px;
+  min-width: 190px;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: var(--sm-font-heading);
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 1.55rem;
+  letter-spacing: -0.5px;
+  user-select: none;
+}
+
+.sm-btn-flipper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.45s var(--sm-ease-expo);
+  will-change: transform;
+}
+
+.sm-btn-3d:hover .sm-btn-flipper {
+  transform: rotateX(-90deg);
+}
+
+.sm-btn-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1.8rem;
+  border-radius: 4px;
+  white-space: nowrap;
+  backface-visibility: hidden;
+}
+
+/* Face Top (starts rotated 90deg, rolls down when button rotates -90deg) */
+.sm-btn-face.f-top {
+  background: var(--sm-black);
+  color: var(--sm-gray);
+  border: 1px solid var(--sm-black);
+  transform: rotateX(90deg) translateZ(25px);
+}
+
+/* Face Main (front facing) */
+.sm-btn-face.f-main {
+  background: var(--sm-black);
+  color: var(--sm-gray);
+  transform: translateZ(25px);
+}
+
+/* Face Bottom */
+.sm-btn-face.f-bot {
+  background: var(--sm-turquoise);
+  color: var(--sm-black);
+  transform: rotateX(-90deg) translateZ(25px);
+}
+
+/* ================================================================
+   5. VIDEO POPUP MODAL (1080p Vimeo reel)
+   ================================================================ */
+.sm-popup {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  z-index: 9999999;
+  background: rgba(10, 10, 10, 0.95);
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.sm-popup.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.sm-popup-video-box {
+  position: relative;
+  width: 90vw;
+  max-width: 1280px;
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.8);
+  background: #000;
+}
+
+.sm-popup-video-box video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Close 3D Button */
+.sm-popup-close-btn {
+  position: absolute;
+  top: clamp(1rem, 2.5vw, 2.5rem);
+  right: clamp(1rem, 2.5vw, 2.5rem);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+}
