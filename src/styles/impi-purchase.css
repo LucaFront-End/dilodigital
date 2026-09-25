@@ -784,6 +784,363 @@
   background: #e04b14;
 }
 
+/* Selected state across all tier cards */
+.impi-tier-card.is-selected {
+  border-color: #FF5A1F !important;
+  box-shadow: 0 12px 35px rgba(255, 90, 31, 0.2) !important;
+  transform: translateY(-4px);
+}
+
+.impi-tier-card.is-selected .impi-tier-select-btn {
+  background: #FF5A1F;
+  color: #FFFFFF;
+  border-color: #FF5A1F;
+}
+
+/* ── Split Column 3: Declaración de Uso (Top) & Contrato Legal (Bottom) ── */
+.impi-tier-split-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  height: 100%;
+}
+
+.impi-tier-half {
+  flex: 1;
+  padding: 1.5rem 1.6rem !important;
+  border-radius: 20px !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.impi-tier-half .impi-price-val {
+  font-size: 2.1rem !important;
+}
+
+.impi-tier-half .impi-tier-concept {
+  margin-bottom: 0.75rem !important;
+  font-size: 0.82rem !important;
+  line-height: 1.35 !important;
+}
+
+.impi-tier-half .impi-price-wrap {
+  margin-bottom: 0.9rem !important;
+  padding-bottom: 0.75rem !important;
+}
+
+.impi-tier-half .impi-tier-features {
+  margin-bottom: 1rem !important;
+  gap: 0.45rem !important;
+}
+
+.impi-tier-half .impi-tier-feature-item {
+  font-size: 0.8rem !important;
+}
+
+.impi-tier-half .impi-tier-select-btn {
+  padding: 0.65rem 1rem !important;
+  font-size: 0.85rem !important;
+}
+
+/* Strikethrough price & Promo badge */
+.impi-price-old {
+  font-family: var(--sm-font-heading);
+  font-size: 1.45rem;
+  color: #94A3B8;
+  text-decoration: line-through;
+  margin-right: 0.35rem;
+  font-weight: 700;
+  display: inline-block;
+}
+
+.impi-promo-badge {
+  background: rgba(239, 68, 68, 0.1);
+  color: #DC2626;
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+}
+
+/* ── Fixed Floating Cotizador Bar (Docked at Bottom from Start) ── */
+.impi-floating-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  background: rgba(20, 23, 24, 0.96);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1.5px solid rgba(255, 90, 31, 0.35);
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.45);
+  padding: 0.85rem 1.5rem;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.impi-floating-bar.is-expanded {
+  padding: 1.15rem 1.5rem;
+  background: rgba(15, 18, 20, 0.98);
+  border-top-color: #FF5A1F;
+  box-shadow: 0 -12px 50px rgba(255, 90, 31, 0.3);
+}
+
+.impi-floating-inner {
+  max-width: var(--container-max, 1280px);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.impi-floating-left {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  min-width: 0;
+}
+
+.impi-floating-status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 10px #10B981;
+  animation: radarPulse 1.8s infinite ease-in-out;
+  flex-shrink: 0;
+}
+
+.impi-floating-plan-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.impi-floating-pill-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #FF5A1F;
+}
+
+.impi-floating-plan-title {
+  font-family: var(--sm-font-body);
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: -0.2px;
+}
+
+.impi-floating-plan-detail {
+  font-size: 0.78rem;
+  color: #94A3B8;
+  display: none;
+}
+
+.impi-floating-bar.is-expanded .impi-floating-plan-detail {
+  display: block;
+}
+
+.impi-floating-right {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  flex-shrink: 0;
+}
+
+.impi-floating-price-box {
+  text-align: right;
+}
+
+.impi-floating-price-lbl {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #94A3B8;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.impi-floating-price-val {
+  font-family: var(--sm-font-heading);
+  font-size: 1.85rem;
+  font-weight: 900;
+  color: #FF5A1F;
+  line-height: 1;
+}
+
+.impi-floating-bar.is-expanded .impi-floating-price-val {
+  font-size: 2.2rem;
+  color: #FF6E38;
+}
+
+.impi-floating-cta-btn {
+  background: linear-gradient(135deg, #FF5A1F 0%, #FF7A00 100%);
+  color: #FFFFFF;
+  padding: 0.75rem 1.6rem;
+  border-radius: 999px;
+  font-family: var(--sm-font-body);
+  font-size: 0.95rem;
+  font-weight: 800;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  box-shadow: 0 4px 18px rgba(255, 90, 31, 0.45);
+  transition: all 0.25s ease;
+}
+
+.impi-floating-cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 90, 31, 0.6);
+}
+
+@media (max-width: 768px) {
+  .impi-floating-bar {
+    padding: 0.75rem 1rem;
+  }
+  .impi-floating-inner {
+    gap: 0.8rem;
+  }
+  .impi-floating-plan-title {
+    font-size: 0.88rem;
+    max-width: 140px;
+  }
+  .impi-floating-price-val {
+    font-size: 1.45rem;
+  }
+  .impi-floating-cta-btn {
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+  }
+}
+
+/* ── Form Logo / Image File Dropzone ── */
+.impi-file-dropzone {
+  position: relative;
+  border: 2px dashed rgba(20, 23, 24, 0.18);
+  border-radius: 14px;
+  padding: 1.3rem 1.2rem;
+  background: var(--bg-main);
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.impi-file-dropzone:hover,
+.impi-file-dropzone.is-dragover {
+  border-color: #FF5A1F;
+  background: rgba(255, 90, 31, 0.04);
+}
+
+.impi-dropzone-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.impi-dropzone-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 90, 31, 0.1);
+  color: #FF5A1F;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.impi-dropzone-text strong {
+  display: block;
+  font-family: var(--sm-font-body);
+  font-size: 0.92rem;
+  color: var(--text-primary);
+  margin-bottom: 0.2rem;
+}
+
+.impi-dropzone-text span {
+  font-size: 0.78rem;
+  color: var(--text-tertiary);
+}
+
+.impi-file-preview {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.6rem;
+  background: #FFFFFF;
+  border-radius: 12px;
+  border: 1px solid rgba(20, 23, 24, 0.08);
+}
+
+.impi-preview-thumb {
+  width: 52px;
+  height: 52px;
+  border-radius: 8px;
+  object-fit: contain;
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+}
+
+.impi-preview-meta {
+  flex: 1;
+  text-align: left;
+}
+
+.impi-preview-name {
+  display: block;
+  font-family: var(--sm-font-body);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #141718;
+}
+
+.impi-preview-size {
+  font-size: 0.76rem;
+  color: #10B981;
+  font-weight: 600;
+}
+
+.impi-preview-remove-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(239, 68, 68, 0.1);
+  color: #EF4444;
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+}
+
+.impi-preview-remove-btn:hover {
+  background: #EF4444;
+  color: #FFFFFF;
+}
+
+/* Ensure padding at bottom of page so floating bar doesn't obscure content */
+.impi-page {
+  padding-bottom: 95px !important;
+}
+
 /* ── Add-On Customizer Strip ── */
 .impi-addons-box {
   margin-top: 2.5rem;

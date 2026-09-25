@@ -300,13 +300,13 @@ export function renderImpiLandingView(initialQuery = '') {
               <button class="impi-tier-select-btn" data-cursor="hover">Seleccionar Dictamen</button>
             </div>
 
-            <!-- TIER 2 (FEATURED) -->
-            <div class="impi-tier-card is-featured" data-tier="completo" data-price="6976">
+            <!-- TIER 2 (FEATURED - EN MEDIO) -->
+            <div class="impi-tier-card is-featured" data-tier="completo" data-price="7899">
               <div class="impi-featured-ribbon">MÁS ELEGIDO &middot; GARANTIZADO</div>
-              <div class="impi-tier-name">Registro Completo IMPI (10 Años)</div>
-              <div class="impi-tier-concept">Trámite integral de principio a fin. Incluye los derechos gubernamentales obligatorios.</div>
+              <div class="impi-tier-name">Viabilidad + Registro + Derechos del IMPI</div>
+              <div class="impi-tier-concept">Trámite integral de principio a fin. Incluye los derechos gubernamentales obligatorios y dictamen.</div>
               <div class="impi-price-wrap">
-                <span class="impi-price-val">$6,976</span>
+                <span class="impi-price-val">$7,899</span>
                 <span class="impi-price-curr">MXN neto</span>
               </div>
               <ul class="impi-tier-features">
@@ -338,33 +338,73 @@ export function renderImpiLandingView(initialQuery = '') {
               <button class="impi-tier-select-btn" data-cursor="hover">Contratar Registro Completo</button>
             </div>
 
-            <!-- TIER 3 -->
-            <div class="impi-tier-card" data-tier="corporativo" data-price="11990">
-              <div class="impi-tier-name">Blindaje Corporativo Multi-Clase</div>
-              <div class="impi-tier-concept">Para empresas, franquicias o marcas con expansión a múltiples líneas de productos y servicios.</div>
-              <div class="impi-price-wrap">
-                <span class="impi-price-val">$11,990</span>
-                <span class="impi-price-curr">MXN neto</span>
+            <!-- TIER 3 & 4 (COLUMNA DIVIDIDA: DECLARACIÓN DE USO + CONTRATO LEGAL) -->
+            <div class="impi-tier-split-col">
+              
+              <!-- 3A: Declaración de Uso -->
+              <div class="impi-tier-card impi-tier-half" data-tier="declaracion" data-price="2999">
+                <div>
+                  <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.3rem;">
+                    <div class="impi-tier-name" style="font-size: 1.15rem; margin-bottom: 0;">Declaración de Uso</div>
+                    <span class="impi-promo-badge">-$300 MXN OFF</span>
+                  </div>
+                  <div style="font-size: 0.78rem; font-weight: 700; color: #10B981; margin-bottom: 0.35rem;">(Incluye Honorarios y Pago IMPI)</div>
+                  <div class="impi-tier-concept" style="font-size: 0.82rem; margin-bottom: 0.75rem;">
+                    Obligatoria al 3er año de registro para mantener vigente y no perder tu marca ante el IMPI.
+                  </div>
+                  <div class="impi-price-wrap" style="margin-bottom: 0.85rem; padding-bottom: 0.65rem;">
+                    <del class="impi-price-old">$3,299</del>
+                    <span class="impi-price-val" style="font-size: 2.3rem;">$2,999</span>
+                    <span class="impi-price-curr">MXN neto</span>
+                  </div>
+                  <ul class="impi-tier-features" style="margin-bottom: 0.85rem; gap: 0.45rem;">
+                    <li class="impi-tier-feature-item" style="font-size: 0.82rem;">
+                      <svg class="impi-tier-check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                      <span><strong>Pago de derechos oficiales IMPI incluido</strong></span>
+                    </li>
+                    <li class="impi-tier-feature-item" style="font-size: 0.82rem;">
+                      <svg class="impi-tier-check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                      <span>Redacción jurídica y presentación formal</span>
+                    </li>
+                    <li class="impi-tier-feature-item" style="font-size: 0.82rem;">
+                      <svg class="impi-tier-check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                      <span>Constancia y acuse oficial con folio</span>
+                    </li>
+                  </ul>
+                </div>
+                <button class="impi-tier-select-btn" data-cursor="hover">Seleccionar Declaración de Uso</button>
               </div>
-              <ul class="impi-tier-features">
-                <li class="impi-tier-feature-item">
-                  <svg class="impi-tier-check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  <span><strong>2 Clases NIZA completas incluidas</strong></span>
-                </li>
-                <li class="impi-tier-feature-item">
-                  <svg class="impi-tier-check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  <span>Derechos oficiales de ambas clases cubiertos</span>
-                </li>
-                <li class="impi-tier-feature-item">
-                  <svg class="impi-tier-check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  <span>Vigilancia y monitoreo antipiratería por 1 año</span>
-                </li>
-                <li class="impi-tier-feature-item">
-                  <svg class="impi-tier-check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  <span>Asesoría jurídica prioritaria y contrato de cesión</span>
-                </li>
-              </ul>
-              <button class="impi-tier-select-btn" data-cursor="hover">Seleccionar Multi-Clase</button>
+
+              <!-- 3B: Contrato Legal de Cesión -->
+              <div class="impi-tier-card impi-tier-half" data-tier="contrato" data-price="1200">
+                <div>
+                  <div class="impi-tier-name" style="font-size: 1.15rem; margin-bottom: 0.2rem;">Contrato Legal de Cesión</div>
+                  <div style="font-size: 0.78rem; font-weight: 700; color: #0284C7; margin-bottom: 0.35rem;">Blindaje de Derechos de Logotipo</div>
+                  <div class="impi-tier-concept" style="font-size: 0.82rem; margin-bottom: 0.75rem;">
+                    Cesión legal y patrimonial de derechos de autor para asegurar que el diseñador no reclame tu logo.
+                  </div>
+                  <div class="impi-price-wrap" style="margin-bottom: 0.85rem; padding-bottom: 0.65rem;">
+                    <span class="impi-price-val" style="font-size: 2.3rem;">$1,200</span>
+                    <span class="impi-price-curr">MXN neto</span>
+                  </div>
+                  <ul class="impi-tier-features" style="margin-bottom: 0.85rem; gap: 0.45rem;">
+                    <li class="impi-tier-feature-item" style="font-size: 0.82rem;">
+                      <svg class="impi-tier-check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                      <span>Redactado por abogados especialistas en PI</span>
+                    </li>
+                    <li class="impi-tier-feature-item" style="font-size: 0.82rem;">
+                      <svg class="impi-tier-check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                      <span>Válido y exigible ante el IMPI y Notario</span>
+                    </li>
+                    <li class="impi-tier-feature-item" style="font-size: 0.82rem;">
+                      <svg class="impi-tier-check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                      <span>Formato digital con firma electrónica</span>
+                    </li>
+                  </ul>
+                </div>
+                <button class="impi-tier-select-btn" data-cursor="hover">Seleccionar Contrato Legal</button>
+              </div>
+
             </div>
 
           </div>
@@ -466,10 +506,46 @@ export function renderImpiLandingView(initialQuery = '') {
 
                 <div class="impi-form-group">
                   <label class="impi-form-label">Descripción de productos o servicios que ampara</label>
-                  <textarea class="impi-input" id="co-brand-desc" rows="3" placeholder="Ej. Cafetería, venta de café en grano, bebidas preparadas, tienda física y online."></textarea>
+                  <textarea class="impi-input" id="co-brand-desc" rows="2" placeholder="Ej. Cafetería, venta de café en grano, bebidas preparadas, tienda física y online."></textarea>
                 </div>
 
-                <button class="btn btn-primary btn-lg btn-glow" id="btn-next-to-step-2" style="width: 100%; justify-content: center;" data-cursor="hover">
+                <!-- Logo / Image Upload Field (Applies to Any Package) -->
+                <div class="impi-form-group">
+                  <label class="impi-form-label" style="display: flex; justify-content: space-between; align-items: center;">
+                    <span>Logotipo o boceto de tu marca</span>
+                    <span style="font-size: 0.76rem; color: #10B981; font-weight: 700; background: rgba(16, 185, 129, 0.1); padding: 0.2rem 0.55rem; border-radius: 999px;">Aplica para cualquier paquete &middot; Opcional</span>
+                  </label>
+
+                  <div class="impi-file-dropzone" id="impi-dropzone">
+                    <input type="file" id="co-brand-logo-file" accept="image/png, image/jpeg, image/webp, image/svg+xml, application/pdf" style="display: none;">
+                    
+                    <div class="impi-dropzone-content" id="dropzone-prompt">
+                      <div class="impi-dropzone-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                          <polyline points="17 8 12 3 7 8"></polyline>
+                          <line x1="12" y1="3" x2="12" y2="15"></line>
+                        </svg>
+                      </div>
+                      <div class="impi-dropzone-text">
+                        <strong>Haz clic para adjuntar tu logotipo o arrastra el archivo aquí</strong>
+                        <span>Formatos: PNG, JPG, SVG, WebP o PDF (Diseño preliminar o definitivo &middot; Máx. 15MB)</span>
+                      </div>
+                    </div>
+
+                    <!-- File Preview Card -->
+                    <div class="impi-file-preview" id="dropzone-preview" style="display: none;">
+                      <img id="logo-preview-img" src="" alt="Vista previa del logotipo" class="impi-preview-thumb">
+                      <div class="impi-preview-meta">
+                        <span class="impi-preview-name" id="logo-file-name">logotipo.png</span>
+                        <span class="impi-preview-size" id="logo-file-size">1.2 MB &middot; Listo para expediente</span>
+                      </div>
+                      <button type="button" class="impi-preview-remove-btn" id="btn-remove-logo" title="Eliminar imagen">&times;</button>
+                    </div>
+                  </div>
+                </div>
+
+                <button class="btn btn-primary btn-lg btn-glow" id="btn-next-to-step-2" style="width: 100%; justify-content: center; margin-top: 1rem;" data-cursor="hover">
                   <span>Continuar a Datos del Titular</span>
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
                 </button>
@@ -571,8 +647,8 @@ export function renderImpiLandingView(initialQuery = '') {
               </div>
 
               <div class="impi-receipt-row">
-                <span style="font-weight: 600;" id="rec-plan-name">Registro Completo IMPI (10 Años)</span>
-                <span class="impi-receipt-row-val" id="rec-plan-price">$6,976.41</span>
+                <span style="font-weight: 600;" id="rec-plan-name">Dictamen & Viabilidad Previa</span>
+                <span class="impi-receipt-row-val" id="rec-plan-price">$1,490.00</span>
               </div>
 
               <div id="receipt-addons-container">
@@ -580,14 +656,14 @@ export function renderImpiLandingView(initialQuery = '') {
               </div>
 
               <div class="impi-receipt-row">
-                <span style="color: #10B981; font-weight: 600;">Derechos oficiales IMPI ($3,126.41)</span>
-                <span style="color: #10B981; font-weight: 700;">INCLUIDO</span>
+                <span style="color: #10B981; font-weight: 600;" id="rec-official-fees-title">Derechos oficiales IMPI</span>
+                <span style="color: #10B981; font-weight: 700;" id="rec-official-fees-val">FASE PREVIA</span>
               </div>
 
               <div class="impi-receipt-total">
                 <span class="impi-receipt-total-label">Total a Pagar:</span>
                 <div style="text-align: right;">
-                  <span class="impi-receipt-total-val" id="rec-total-price">$6,976.41</span>
+                  <span class="impi-receipt-total-val" id="rec-total-price">$1,490.00</span>
                   <div style="font-size: 0.72rem; color: rgba(236, 238, 238, 0.5); font-weight: 600;">Moneda Nacional &middot; IVA incluido</div>
                 </div>
               </div>
@@ -833,6 +909,39 @@ export function renderImpiLandingView(initialQuery = '') {
         </div>
       </div>
 
+      <!-- 7. FIXED FLOATING COTIZADOR BAR (Active from start with Viabilidad default, expands on tier selection) -->
+      <aside class="impi-floating-bar" id="impi-floating-bar" aria-label="Cotizador Flotante de Registro de Marca">
+        <div class="impi-floating-inner">
+          <div class="impi-floating-left">
+            <span class="impi-floating-status-dot"></span>
+            <div class="impi-floating-plan-info">
+              <div class="impi-floating-pill-tag">
+                <span>Cotizador en Vivo &middot; Protección Legal IMPI</span>
+              </div>
+              <div class="impi-floating-plan-title" id="floating-plan-title">
+                Dictamen & Viabilidad Previa
+              </div>
+              <div class="impi-floating-plan-detail" id="floating-plan-detail">
+                Búsqueda fonética en base oficial IMPI + Dictamen por abogado especialista en &lt; 24 hrs.
+              </div>
+            </div>
+          </div>
+
+          <div class="impi-floating-right">
+            <div class="impi-floating-price-box">
+              <div class="impi-floating-price-lbl">Total estimado:</div>
+              <div class="impi-floating-price-val" id="floating-price-val">$1,490 MXN</div>
+            </div>
+            <button class="impi-floating-cta-btn" id="btn-floating-cta" data-cursor="hover">
+              <span>Contratar en Línea</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </aside>
+
     </main>
   `;
 }
@@ -840,9 +949,41 @@ export function renderImpiLandingView(initialQuery = '') {
 export function initImpiEvents(autoOpenModal = false) {
   initFinalCtaEvents();
 
-  // State Management for Dynamic Pricing
-  let selectedTier = 'completo';
-  let basePrice = 6976.41;
+  // Tier Metadata Definition
+  const tierMeta = {
+    dictamen: {
+      name: 'Dictamen & Viabilidad Previa',
+      price: 1490,
+      detail: 'Búsqueda fonética en base oficial IMPI + Dictamen por abogado especialista en < 24 hrs.',
+      feeTitle: 'Derechos oficiales IMPI',
+      feeVal: 'FASE PREVIA (No aplican aún)'
+    },
+    completo: {
+      name: 'Viabilidad + Registro + Derechos del IMPI',
+      price: 7899,
+      detail: 'Expediente completo de Marca Mixta + $3,126.41 derechos oficiales IMPI incluidos por 10 años.',
+      feeTitle: 'Derechos oficiales IMPI ($3,126.41)',
+      feeVal: 'INCLUIDO'
+    },
+    declaracion: {
+      name: 'Declaración de Uso (Incluye Honorarios y Pago IMPI)',
+      price: 2999,
+      detail: 'Pago de derechos oficiales IMPI incluidos + Trámite obligatorio al 3er año (Ahorras $300 MXN).',
+      feeTitle: 'Pago oficial de tasa IMPI',
+      feeVal: 'INCLUIDO'
+    },
+    contrato: {
+      name: 'Contrato Legal de Cesión de Derechos',
+      price: 1200,
+      detail: 'Cesión patrimonial y de autoría sobre logotipo y nombre comercial con validez oficial.',
+      feeTitle: 'Honorarios de Cesión Legal / Notarial',
+      feeVal: 'INCLUIDO'
+    }
+  };
+
+  // State Management: Default to Dictamen & Viabilidad from the start
+  let selectedTier = 'dictamen';
+  let basePrice = 1490;
   let activeAddons = {
     monitoreo: false,
     clase: false,
@@ -885,10 +1026,33 @@ export function initImpiEvents(autoOpenModal = false) {
     if (totalEl) {
       totalEl.textContent = `$${total.toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
     }
+
+    const currentMeta = tierMeta[selectedTier] || tierMeta.dictamen;
+    const planNameEl = document.getElementById('rec-plan-name');
+    const planPriceEl = document.getElementById('rec-plan-price');
+    const recFeeTitle = document.getElementById('rec-official-fees-title');
+    const recFeeVal = document.getElementById('rec-official-fees-val');
+    const floatingPlanTitle = document.getElementById('floating-plan-title');
+    const floatingPlanDetail = document.getElementById('floating-plan-detail');
+    const floatingPriceVal = document.getElementById('floating-price-val');
+
+    if (planNameEl) planNameEl.textContent = currentMeta.name;
+    if (planPriceEl) planPriceEl.textContent = `$${basePrice.toLocaleString('es-MX', { minimumFractionDigits: 2 })}`;
+    if (recFeeTitle) recFeeTitle.textContent = currentMeta.feeTitle;
+    if (recFeeVal) recFeeVal.textContent = currentMeta.feeVal;
+    if (floatingPlanTitle) floatingPlanTitle.textContent = currentMeta.name;
+    if (floatingPlanDetail) floatingPlanDetail.textContent = currentMeta.detail;
+    if (floatingPriceVal) floatingPriceVal.textContent = `$${total.toLocaleString('es-MX')} MXN`;
   }
 
   // Tier Card Selection
   const tierCards = document.querySelectorAll('.impi-tier-card');
+  const floatingBar = document.getElementById('impi-floating-bar');
+
+  // Mark Dictamen as default active
+  const defaultCard = document.querySelector('.impi-tier-card[data-tier="dictamen"]');
+  if (defaultCard) defaultCard.classList.add('is-selected');
+
   tierCards.forEach(card => {
     const tier = card.dataset.tier;
     const price = parseFloat(card.dataset.price);
@@ -900,16 +1064,11 @@ export function initImpiEvents(autoOpenModal = false) {
       selectedTier = tier;
       basePrice = price;
 
-      const planNameEl = document.getElementById('rec-plan-name');
-      const planPriceEl = document.getElementById('rec-plan-price');
-      if (planNameEl) {
-        if (tier === 'dictamen') planNameEl.textContent = 'Dictamen & Viabilidad Previa';
-        else if (tier === 'completo') planNameEl.textContent = 'Registro Completo IMPI (10 Años)';
-        else if (tier === 'corporativo') planNameEl.textContent = 'Blindaje Corporativo Multi-Clase';
+      // Expand floating bar when any tier is selected
+      if (floatingBar) {
+        floatingBar.classList.add('is-expanded');
       }
-      if (planPriceEl) {
-        planPriceEl.textContent = `$${price.toLocaleString('es-MX')}`;
-      }
+
       recalculateTotal();
     };
 
@@ -925,6 +1084,88 @@ export function initImpiEvents(autoOpenModal = false) {
         selectTier();
       }
     });
+  });
+
+  // Floating CTA Button
+  document.getElementById('btn-floating-cta')?.addEventListener('click', () => {
+    sounds.playClick();
+    document.getElementById('seccion-checkout')?.scrollIntoView({ behavior: 'smooth' });
+  });
+
+  // Image Upload Handling (Logo Dropzone)
+  const dropzone = document.getElementById('impi-dropzone');
+  const fileInput = document.getElementById('co-brand-logo-file');
+  const dropzonePrompt = document.getElementById('dropzone-prompt');
+  const dropzonePreview = document.getElementById('dropzone-preview');
+  const previewImg = document.getElementById('logo-preview-img');
+  const fileNameEl = document.getElementById('logo-file-name');
+  const fileSizeEl = document.getElementById('logo-file-size');
+  const btnRemoveLogo = document.getElementById('btn-remove-logo');
+  let uploadedLogoData = null;
+
+  dropzone?.addEventListener('click', (e) => {
+    if (e.target.closest('#btn-remove-logo')) return;
+    fileInput?.click();
+  });
+
+  fileInput?.addEventListener('change', (e) => {
+    const file = e.target.files?.[0];
+    if (file) handleFile(file);
+  });
+
+  ['dragenter', 'dragover'].forEach(name => {
+    dropzone?.addEventListener(name, (e) => {
+      e.preventDefault();
+      dropzone.classList.add('is-dragover');
+    });
+  });
+
+  ['dragleave', 'drop'].forEach(name => {
+    dropzone?.addEventListener(name, (e) => {
+      e.preventDefault();
+      dropzone.classList.remove('is-dragover');
+    });
+  });
+
+  dropzone?.addEventListener('drop', (e) => {
+    const file = e.dataTransfer?.files?.[0];
+    if (file) handleFile(file);
+  });
+
+  function handleFile(file) {
+    if (file.size > 15 * 1024 * 1024) {
+      alert('El archivo supera el límite de 15MB. Por favor sube una imagen de menor peso.');
+      return;
+    }
+    sounds.playPop();
+    const isImage = file.type.startsWith('image/');
+    if (fileNameEl) fileNameEl.textContent = file.name;
+    if (fileSizeEl) fileSizeEl.textContent = `${(file.size / (1024 * 1024)).toFixed(2)} MB · Listo para expediente`;
+
+    if (isImage) {
+      const reader = new FileReader();
+      reader.onload = (evt) => {
+        uploadedLogoData = { name: file.name, dataUrl: evt.target.result };
+        if (previewImg) previewImg.src = evt.target.result;
+        if (dropzonePrompt) dropzonePrompt.style.display = 'none';
+        if (dropzonePreview) dropzonePreview.style.display = 'flex';
+      };
+      reader.readAsDataURL(file);
+    } else {
+      uploadedLogoData = { name: file.name, isPdf: true };
+      if (previewImg) previewImg.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="%23FF5A1F" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>';
+      if (dropzonePrompt) dropzonePrompt.style.display = 'none';
+      if (dropzonePreview) dropzonePreview.style.display = 'flex';
+    }
+  }
+
+  btnRemoveLogo?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    sounds.playClick();
+    if (fileInput) fileInput.value = '';
+    uploadedLogoData = null;
+    if (dropzonePrompt) dropzonePrompt.style.display = 'flex';
+    if (dropzonePreview) dropzonePreview.style.display = 'none';
   });
 
   // Add-on Checkbox Listeners
@@ -1347,21 +1588,24 @@ export function initImpiEvents(autoOpenModal = false) {
 
     const folio = `IMPI-2026-${Math.floor(1000 + Math.random() * 9000)}-MX`;
 
+    const logoNote = uploadedLogoData ? ` | Logotipo: ${uploadedLogoData.name}` : '';
+
     // Save purchase order to CMS
     saveLeadToCms({
       name: ownerName,
       phone: ownerPhone,
       email: document.getElementById('co-owner-email')?.value || '',
       brandName: brandName,
-      notes: `Orden Pagada: ${folio} | Total: ${totalText} | Addons: ${addonsList.join(', ')}`,
+      notes: `Orden Pagada: ${folio} | Total: ${totalText} | Addons: ${addonsList.join(', ')}${logoNote}`,
       type: 'checkout',
       statusScenario: 'verde',
       source: '#/registro-marca-compra'
     });
 
-    const whatsappMessage = `¡Hola Dilo Digital MX! ⚖️🛡️ Acabo de comprar el *Registro de Marca ante el IMPI* en línea:\n\n` +
+    const whatsappMessage = `¡Hola Dilo Digital MX! ⚖️🛡️ Acabo de contratar el trámite de *Protección de Marca ante el IMPI* en línea:\n\n` +
       `• *Folio de Orden:* ${folio}\n` +
       `• *Marca a Registrar:* ${brandName}\n` +
+      (uploadedLogoData ? `• *Logotipo / Boceto:* Adjunto cargado ("${uploadedLogoData.name}")\n` : '') +
       `• *Titular:* ${ownerName}\n` +
       `• *Teléfono:* ${ownerPhone}\n` +
       `• *Plan Seleccionado:* ${document.getElementById('rec-plan-name')?.textContent}\n` +
