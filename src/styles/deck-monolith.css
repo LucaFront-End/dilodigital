@@ -400,9 +400,12 @@
   width: 100%;
   height: 100%;
   border-radius: 14px;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: #0d0f10;
+  overflow: visible;
+  border: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .sm-deck-media-img,
