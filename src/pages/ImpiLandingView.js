@@ -1,11 +1,12 @@
 // ================================================================
 // REGISTRO DE MARCA IMPI — DIRECT PURCHASE & TRACKING FUNNEL
-// Live Phonetic Sonar, 3-Tier Packages, Add-On Configurator, Live Tracker Simulator
+// Live Phonetic Sonar, 3-Stage Coincidencias Scanner, Lead CMS & EasyLex Stages
 // ================================================================
 
 import confetti from 'canvas-confetti';
 import { sounds } from '../utils/SoundEngine.js';
 import { renderFinalCta, initFinalCtaEvents } from '../components/FinalCta.js';
+import { saveLeadToCms } from '../utils/LeadCms.js';
 
 export function renderImpiLandingView(initialQuery = '') {
   return `
@@ -25,7 +26,7 @@ export function renderImpiLandingView(initialQuery = '') {
               REGISTRA TU MARCA ANTE EL IMPI <span class="cat-hero-title-accent">EN LÍNEA</span>
             </h1>
             <p class="impi-hero-desc">
-              Blindaje legal por 10 años en México. Análisis de viabilidad fonética gratuito en tiempo real, 
+              Blindaje legal por 10 años en México. Análisis de coincidencias de marca en tiempo real, 
               trámite garantizado con abogados especialistas y portal de seguimiento 24/7.
             </p>
           </div>
@@ -47,7 +48,7 @@ export function renderImpiLandingView(initialQuery = '') {
                 type="text" 
                 class="impi-input" 
                 id="impi-search-name" 
-                placeholder="Escribe el nombre de tu marca..." 
+                placeholder="Escribe el nombre de tu marca (Ej. Nova Coffee)..." 
                 value="${initialQuery}"
                 required
               >
@@ -66,27 +67,94 @@ export function renderImpiLandingView(initialQuery = '') {
                   <circle cx="11" cy="11" r="8"></circle>
                   <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                 </svg>
-                <span>Analizar Viabilidad</span>
+                <span>Analizar Coincidencias de Marca</span>
               </button>
             </div>
 
-            <!-- Sonar Scan Result Feedback -->
+            <!-- Sonar Scan Feedback (3-Stage Animation & Dynamic Result Scenarios) -->
             <div class="impi-scan-overlay" id="impi-scan-overlay">
-              <div class="impi-scan-result-flex">
-                <div style="display: flex; align-items: center; gap: 1rem;">
-                  <div class="impi-score-badge" id="impi-score-val">96%</div>
-                  <div>
-                    <div class="impi-score-title" id="impi-score-title">Marca Preliminarmente Viable para Registro</div>
-                    <div class="impi-score-desc" id="impi-score-desc">
-                      Sin anterioridades idénticas detectadas en la clase seleccionada. Puedes proceder con la compra y el depósito oficial.
+              
+              <!-- 3-Stage Progress Box -->
+              <div class="impi-scanning-box" id="impi-scanning-box" style="display: none;">
+                <div class="impi-scan-brand-header">
+                  <div class="impi-scan-brand-title">
+                    Auditoría Fonética Oficial: <span id="scan-target-brand" style="color: #FF5A1F;"></span>
+                  </div>
+                  <span class="impi-scan-brand-tag">Barrido IMPI 2026</span>
+                </div>
+
+                <div class="impi-scan-progress-bar-wrap">
+                  <div class="impi-scan-progress-bar-fill" id="scan-prog-fill"></div>
+                </div>
+
+                <div class="impi-scan-stages-grid">
+                  <!-- Stage 1 -->
+                  <div class="impi-scan-stage-item is-active" id="scan-stage-1">
+                    <div class="impi-stage-icon-wrap" id="stage-icon-1">1</div>
+                    <div class="impi-stage-meta">
+                      <h5>Buscando coincidencias</h5>
+                      <p>Rastreo de nombres idénticos en marcas registradas y solicitudes en trámite.</p>
+                    </div>
+                  </div>
+
+                  <!-- Stage 2 -->
+                  <div class="impi-scan-stage-item" id="scan-stage-2">
+                    <div class="impi-stage-icon-wrap" id="stage-icon-2">2</div>
+                    <div class="impi-stage-meta">
+                      <h5>Analizando similitudes</h5>
+                      <p>Evaluación fonética, gramatical e ideológica en las 45 clases NIZA.</p>
+                    </div>
+                  </div>
+
+                  <!-- Stage 3 -->
+                  <div class="impi-scan-stage-item" id="scan-stage-3">
+                    <div class="impi-stage-icon-wrap" id="stage-icon-3">3</div>
+                    <div class="impi-stage-meta">
+                      <h5>Revisando posibles conflictos</h5>
+                      <p>Detección de marcas notorias, anterioridades y riesgos de oposición.</p>
                     </div>
                   </div>
                 </div>
-
-                <button class="btn btn-dark btn-sm" id="btn-jump-to-buy" data-cursor="hover">
-                  Iniciar Registro Directo &rarr;
-                </button>
               </div>
+
+              <!-- Result Card (Green, Yellow, or Red) -->
+              <div class="impi-result-card is-green" id="impi-result-card" style="display: none;">
+                <div class="impi-result-top-flex">
+                  <div class="impi-result-main-info">
+                    <div class="impi-res-score-badge" id="res-score-badge">96%</div>
+                    <div>
+                      <div class="impi-res-title" id="res-title">No encontramos coincidencias exactas</div>
+                      <div class="impi-res-desc" id="res-desc">
+                        Tu marca tiene buenas señales iniciales. Realicemos una búsqueda de viabilidad completa antes de presentar tu solicitud.
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Interactive Scenario Switcher for Verification -->
+                  <div class="impi-scenario-switcher">
+                    <span class="impi-scenario-pill-label">Probar:</span>
+                    <button class="impi-scenario-pill-btn is-active" id="pill-opt-green" data-scenario="green">🟢 Sin coincidencias</button>
+                    <button class="impi-scenario-pill-btn" id="pill-opt-yellow" data-scenario="yellow">🟡 Marcas similares</button>
+                    <button class="impi-scenario-pill-btn" id="pill-opt-red" data-scenario="red">🔴 Coincidencia relevante</button>
+                  </div>
+                </div>
+
+                <div class="impi-result-actions-flex">
+                  <div style="font-size: 0.82rem; color: #475569; display: flex; align-items: center; gap: 0.5rem;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span>Datos registrados en CRM legal &middot; Expediente técnico preliminar generado</span>
+                  </div>
+
+                  <button class="btn-solicitar-viabilidad" id="btn-solicitar-viabilidad" data-cursor="hover">
+                    <span>Solicitar análisis de viabilidad detallado</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                      <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
             </div>
 
           </div>
@@ -94,57 +162,92 @@ export function renderImpiLandingView(initialQuery = '') {
         </div>
       </section>
 
-      <!-- 2. SCROLL-BASED 4-PHASE LEGAL METHODOLOGY -->
+      <!-- 2. EASYLEX-STYLE 4-STAGE OFFICIAL REGISTRATION PROCESS -->
       <section class="impi-method-section">
         <div class="container">
-          <div style="text-align: center; max-width: 680px; margin: 0 auto;">
+          <div style="text-align: center; max-width: 720px; margin: 0 auto;">
             <div class="cat-tag-wrap" style="display: inline-flex;">
               <span class="cat-diamond-dot"></span>
-              <span class="cat-tag-text">METODOLOGÍA JURÍDICA DILO</span>
+              <span class="cat-tag-text">METODOLOGÍA JURÍDICA OFICIAL IMPI</span>
             </div>
             <h2 class="impi-hero-title" style="font-size: clamp(2.2rem, 4vw, 3.8rem); margin-bottom: 0.6rem;">
-              CÓMO BLINDAMOS TU MARCA <span class="cat-hero-title-accent">PASO A PASO</span>
+              ETAPAS DEL REGISTRO DE MARCA <span class="cat-hero-title-accent">PASO A PASO</span>
             </h2>
             <p style="font-family: var(--sm-font-body); color: var(--text-secondary); font-size: 1.05rem;">
-              Un proceso riguroso respaldado por abogados especialistas en Propiedad Intelectual.
+              El proceso formal ante el Instituto Mexicano de la Propiedad Industrial, gestionado de principio a fin por abogados especializados.
             </p>
           </div>
 
           <div class="impi-method-grid">
+            <!-- ETAPA 1 -->
             <div class="impi-method-card">
-              <div class="impi-card-phase-tag">Fase 01 &middot; 24 Horas</div>
+              <div class="impi-card-phase-tag">Etapa 01 &middot; 24 Horas Hábiles</div>
               <div class="impi-card-num-watermark">01</div>
-              <h3 class="impi-card-phase-title">Búsqueda Fonética & Dictamen</h3>
+              <h3 class="impi-card-phase-title">Estudio de Viabilidad y Búsqueda Fonética</h3>
               <p class="impi-card-phase-desc">
-                Rastreo exhaustivo en las 45 clases NIZA y marcas vigentes para detectar similitudes antes de ingresar pagos ante el gobierno.
+                Revisamos en las 45 clases NIZA si tu marca es viable y si no existen nombres idénticos o similares fonéticamente que puedan ser un obstáculo ante el IMPI.
               </p>
             </div>
 
+            <!-- ETAPA 2 -->
             <div class="impi-method-card">
-              <div class="impi-card-phase-tag">Fase 02 &middot; Día 2 a 3</div>
+              <div class="impi-card-phase-tag">Etapa 02 &middot; Día 1 a 3</div>
               <div class="impi-card-num-watermark">02</div>
-              <h3 class="impi-card-phase-title">Depósito Digital Oficial</h3>
+              <h3 class="impi-card-phase-title">Solicitud Formal y Pago de Derechos</h3>
               <p class="impi-card-phase-desc">
-                Pago de derechos oficiales ante el IMPI, generación de línea de captura SAT y radicación del expediente con número de folio oficial.
+                Preparamos el expediente técnico formal, clasificamos tus productos o servicios y realizamos la presentación oficial con el pago de derechos federales SAT.
               </p>
             </div>
 
+            <!-- ETAPA 3 -->
             <div class="impi-method-card">
-              <div class="impi-card-phase-tag">Fase 03 &middot; Mes 1 a 4</div>
+              <div class="impi-card-phase-tag">Etapa 03 &middot; Mes 1 a 4</div>
               <div class="impi-card-num-watermark">03</div>
-              <h3 class="impi-card-phase-title">Examen de Fondo & Gaceta</h3>
+              <h3 class="impi-card-phase-title">Examen de Forma, Fondo y Gaceta</h3>
               <p class="impi-card-phase-desc">
-                Publicación en la Gaceta de la Propiedad Industrial y contestación de avisos u oficios de forma incluidos sin honorarios extras.
+                El IMPI revisa los requisitos legales y publica la marca en la Gaceta de la Propiedad Industrial para el periodo de oposiciones. Damos seguimiento y atendemos cualquier aviso u oficio.
               </p>
             </div>
 
+            <!-- ETAPA 4 -->
             <div class="impi-method-card">
-              <div class="impi-card-phase-tag">Fase 04 &middot; Entrega</div>
+              <div class="impi-card-phase-tag">Etapa 04 &middot; Resolución Oficial</div>
               <div class="impi-card-num-watermark">04</div>
-              <h3 class="impi-card-phase-title">Título de Marca por 10 Años</h3>
+              <h3 class="impi-card-phase-title">Obtención y Entrega del Título Oficial</h3>
               <p class="impi-card-phase-desc">
-                Expedición del Título de Registro de Marca con validez jurídica en toda la República Mexicana y derecho de uso exclusivo del símbolo ®.
+                Una vez aprobada la resolución por el IMPI, te entregamos tu Título de Registro de Marca oficial con vigencia de 10 años renovables en todo el territorio mexicano y uso exclusivo del símbolo ®.
               </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2.5 IMPI REJECTION & REQUIREMENT RESCUE BANNER -->
+      <section class="impi-rescue-section">
+        <div class="container">
+          <div class="impi-rescue-card">
+            <div class="impi-rescue-content">
+              <div class="impi-rescue-badge">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                <span>Defensa Legal Especializada IMPI</span>
+              </div>
+              <h2 class="impi-rescue-title">¿Recibiste un requerimiento o rechazo del IMPI?</h2>
+              <p class="impi-rescue-desc">
+                No pierdas tu dinero ni des por perdida tu marca. Si solicitaste tu registro por tu cuenta o con otro despacho y el IMPI te notificó una <strong>cita de anterioridad, impedimento legal u oficio de forma</strong>, nuestros abogados contestan el requerimiento dentro del plazo fatal para defender tu derecho.
+              </p>
+            </div>
+
+            <div class="impi-rescue-actions">
+              <button class="btn-rescue-action" id="btn-open-req-banner" data-cursor="hover">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+                <span>Atender Requerimiento / Rechazo del IMPI</span>
+              </button>
+              <div class="impi-rescue-guarantee-note">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Diagnóstico legal inicial sin costo &middot; Contestación en &lt; 72 horas</span>
+              </div>
             </div>
           </div>
         </div>
@@ -398,27 +501,28 @@ export function renderImpiLandingView(initialQuery = '') {
                     <input type="text" class="impi-input" id="co-owner-name" placeholder="Ej. Ana Lucía Morales" required>
                   </div>
                   <div class="impi-form-group">
-                    <label class="impi-form-label">RFC del Titular</label>
-                    <input type="text" class="impi-input" id="co-owner-rfc" placeholder="RFC con homoclave" required>
+                    <label class="impi-form-label">RFC (Opcional para factura)</label>
+                    <input type="text" class="impi-input" id="co-owner-rfc" placeholder="Ej. MOLA890412XX1">
                   </div>
                 </div>
 
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
                   <div class="impi-form-group">
-                    <label class="impi-form-label">Correo para Notificaciones Oficiales</label>
-                    <input type="email" class="impi-input" id="co-owner-email" placeholder="titular@tuempresa.com" required>
+                    <label class="impi-form-label">Teléfono / WhatsApp de Notificaciones</label>
+                    <input type="tel" class="impi-input" id="co-owner-phone" placeholder="Ej. 55 1234 5678" required>
                   </div>
                   <div class="impi-form-group">
-                    <label class="impi-form-label">WhatsApp de Contacto Directo</label>
-                    <input type="tel" class="impi-input" id="co-owner-phone" placeholder="+52 55 0000 0000" required>
+                    <label class="impi-form-label">Correo Electrónico</label>
+                    <input type="email" class="impi-input" id="co-owner-email" placeholder="Ej. ana@miempresa.com" required>
                   </div>
                 </div>
 
                 <div style="display: flex; gap: 1rem; margin-top: 1rem;">
-                  <button class="btn btn-outline" id="btn-back-to-step-1" data-cursor="hover">Atrás</button>
-                  <button class="btn btn-primary btn-glow" id="btn-next-to-step-3" style="flex: 1; justify-content: center;" data-cursor="hover">
-                    <span>Continuar a Pago & Confirmación</span>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                  <button class="btn btn-secondary btn-lg" id="btn-back-to-step-1" style="flex: 1; justify-content: center;">
+                    &larr; Volver
+                  </button>
+                  <button class="btn btn-primary btn-lg btn-glow" id="btn-next-to-step-3" style="flex: 2; justify-content: center;">
+                    <span>Revisar Resumen y Pago &rarr;</span>
                   </button>
                 </div>
               </div>
@@ -426,76 +530,66 @@ export function renderImpiLandingView(initialQuery = '') {
               <!-- STEP 3: PAGO -->
               <div id="step-3-form" style="display: none;">
                 <h3 style="font-family: var(--sm-font-body); font-size: 1.25rem; font-weight: 800; margin-bottom: 1.2rem;">
-                  Paso 3: Método de Pago Seguro & Facturación
+                  Paso 3: Métodos de Pago Seguros
                 </h3>
 
-                <div style="display: flex; flex-direction: column; gap: 0.85rem; margin-bottom: 1.5rem;">
-                  <label style="display: flex; align-items: center; justify-content: space-between; padding: 1rem; border: 1.5px solid var(--color-primary); background: rgba(255, 90, 31, 0.04); border-radius: 14px; cursor: pointer;">
-                    <div style="display: flex; align-items: center; gap: 0.8rem;">
-                      <input type="radio" name="payment-method" value="card" checked style="accent-color: var(--color-primary);">
-                      <div>
-                        <div style="font-family: var(--sm-font-body); font-weight: 700; font-size: 0.95rem;">Tarjeta de Crédito / Débito (Stripe Seguro)</div>
-                        <div style="font-family: var(--sm-font-body); font-size: 0.8rem; color: var(--text-secondary);">Visa, Mastercard, AMEX o 3 Meses sin Intereses</div>
-                      </div>
+                <div class="impi-payment-methods">
+                  <div class="impi-pay-card is-selected">
+                    <input type="radio" name="pay-method" value="spei" checked style="accent-color: var(--color-primary);">
+                    <div>
+                      <div style="font-weight: 700; color: #141718; font-size: 0.95rem;">Transferencia Bancaria SPEI / CLABE Directa (Sin comisión)</div>
+                      <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.2rem;">Confirmación inmediata y emisión de factura fiscal CFDI 4.0 al instante.</div>
                     </div>
-                    <span class="badge badge-dark">Instantáneo</span>
-                  </label>
+                  </div>
 
-                  <label style="display: flex; align-items: center; justify-content: space-between; padding: 1rem; border: 1.5px solid rgba(20, 23, 24, 0.12); border-radius: 14px; cursor: pointer;">
-                    <div style="display: flex; align-items: center; gap: 0.8rem;">
-                      <input type="radio" name="payment-method" value="spei" style="accent-color: var(--color-primary);">
-                      <div>
-                        <div style="font-family: var(--sm-font-body); font-weight: 700; font-size: 0.95rem;">Transferencia Bancaria (SPEI / Banco)</div>
-                        <div style="font-family: var(--sm-font-body); font-size: 0.8rem; color: var(--text-secondary);">Línea de captura con CLABE Interbancaria BBVA</div>
-                      </div>
+                  <div class="impi-pay-card">
+                    <input type="radio" name="pay-method" value="card" style="accent-color: var(--color-primary);">
+                    <div>
+                      <div style="font-weight: 700; color: #141718; font-size: 0.95rem;">Tarjeta de Crédito o Débito (Hasta 3 MSI con Visa / Mastercard)</div>
+                      <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.2rem;">Procesamiento seguro encriptado TLS 256-bit mediante Stripe México.</div>
                     </div>
-                    <span class="badge" style="background: rgba(20, 23, 24, 0.06); color: var(--text-secondary);">Sin Comisión</span>
-                  </label>
+                  </div>
                 </div>
 
-                <div style="display: flex; gap: 1rem;">
-                  <button class="btn btn-outline" id="btn-back-to-step-2" data-cursor="hover">Atrás</button>
-                  <button class="impi-buy-btn" id="btn-complete-impi-order" data-cursor="hover">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                    <span id="btn-buy-label">Confirmar & Pagar $6,976.41 MXN</span>
+                <div style="display: flex; gap: 1rem; margin-top: 1.8rem;">
+                  <button class="btn btn-secondary btn-lg" id="btn-back-to-step-2" style="flex: 1; justify-content: center;">
+                    &larr; Volver
+                  </button>
+                  <button class="impi-buy-btn" id="btn-complete-impi-order" style="flex: 2;">
+                    <span>Confirmar y Blindar mi Marca 🔒</span>
                   </button>
                 </div>
               </div>
 
             </div>
 
-            <!-- Right: Dynamic Sticky Receipt -->
+            <!-- Right: Real-time Order Summary Receipt -->
             <div class="impi-receipt-card">
               <div class="impi-receipt-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                 <span>Resumen de tu Orden</span>
-                <span class="badge badge-primary" style="font-size: 0.72rem; padding: 0.2rem 0.6rem;">Oficial IMPI</span>
               </div>
 
-              <div class="impi-receipt-line">
-                <span class="impi-receipt-line-lbl" id="rec-plan-name">Registro Completo IMPI (10 Años)</span>
-                <span class="impi-receipt-line-val" id="rec-plan-price">$6,976.41 MXN</span>
+              <div class="impi-receipt-row">
+                <span style="font-weight: 600;" id="rec-plan-name">Registro Completo IMPI (10 Años)</span>
+                <span class="impi-receipt-row-val" id="rec-plan-price">$6,976.41</span>
               </div>
 
-              <div class="impi-receipt-line">
-                <span class="impi-receipt-line-lbl">&bull; Derechos Oficiales IMPI (con IVA)</span>
-                <span class="impi-receipt-line-val" style="color: #10B981;">Incluidos</span>
+              <div id="receipt-addons-container">
+                <!-- Dynamically injected active add-ons -->
               </div>
 
-              <div class="impi-receipt-line">
-                <span class="impi-receipt-line-lbl">&bull; Búsqueda Fonética Previa ($1,200)</span>
-                <span class="impi-receipt-line-val" style="color: #10B981;">GRATIS</span>
+              <div class="impi-receipt-row">
+                <span style="color: #10B981; font-weight: 600;">Derechos oficiales IMPI ($3,126.41)</span>
+                <span style="color: #10B981; font-weight: 700;">INCLUIDO</span>
               </div>
-
-              <!-- Add-ons in receipt (dynamically shown) -->
-              <div id="receipt-addons-container"></div>
 
               <div class="impi-receipt-total">
-                <span class="impi-total-lbl">Total Neto</span>
-                <span class="impi-total-num" id="rec-total-price">$6,976.41</span>
-              </div>
-
-              <div class="impi-guarantee-note">
-                🔒 <strong>Garantía Dilo de Viabilidad:</strong> Si durante el dictamen previo nuestro abogado dictamina que la marca tiene riesgo alto de rechazo, te asesoramos sin costo en el rediseño o buscamos otra opción sin cobrarte un peso extra.
+                <span class="impi-receipt-total-label">Total a Pagar:</span>
+                <div style="text-align: right;">
+                  <span class="impi-receipt-total-val" id="rec-total-price">$6,976.41</span>
+                  <div style="font-size: 0.72rem; color: rgba(236, 238, 238, 0.5); font-weight: 600;">Moneda Nacional &middot; IVA incluido</div>
+                </div>
               </div>
 
               <div style="display: flex; align-items: center; justify-content: center; gap: 0.6rem; font-family: var(--sm-font-body); font-size: 0.78rem; color: rgba(236, 238, 238, 0.6); font-weight: 600;">
@@ -567,11 +661,183 @@ export function renderImpiLandingView(initialQuery = '') {
       <!-- Signature Final CTA -->
       ${renderFinalCta()}
 
+      <!-- ======================================================== -->
+      <!-- MODAL 1: LEAD INTAKE (Analizar Coincidencias de Marca)   -->
+      <!-- ======================================================== -->
+      <div class="dilo-modal-backdrop" id="modal-coincidencias">
+        <div class="dilo-modal-dialog">
+          <div class="dilo-modal-header">
+            <button class="dilo-modal-close" id="btn-close-coincidencias-modal" aria-label="Cerrar modal">&times;</button>
+            <div class="dilo-modal-badge">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
+              <span>Auditoría Fonética Oficial IMPI</span>
+            </div>
+            <h3 class="dilo-modal-title">Analizar Coincidencias de Marca</h3>
+            <p class="dilo-modal-subtitle">
+              Ingresa tus datos para registrar la consulta técnica en el sistema y ejecutar el barrido en las 45 clases NIZA.
+            </p>
+          </div>
+
+          <div class="dilo-modal-body">
+            <form id="form-coincidencias-lead" class="dilo-modal-form-grid">
+              <div class="dilo-modal-field">
+                <label class="dilo-modal-label">Nombre exacto de tu marca</label>
+                <input 
+                  type="text" 
+                  class="dilo-modal-input" 
+                  id="lead-brand-name" 
+                  placeholder="Ej. Nova Coffee" 
+                  value="${initialQuery}" 
+                  required
+                >
+              </div>
+
+              <div class="dilo-modal-field">
+                <label class="dilo-modal-label">Tu nombre completo</label>
+                <input 
+                  type="text" 
+                  class="dilo-modal-input" 
+                  id="lead-full-name" 
+                  placeholder="Ej. Roberto González Garza" 
+                  required
+                >
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="dilo-modal-field">
+                  <label class="dilo-modal-label">Teléfono / WhatsApp</label>
+                  <input 
+                    type="tel" 
+                    class="dilo-modal-input" 
+                    id="lead-phone" 
+                    placeholder="Ej. 55 1234 5678" 
+                    required
+                  >
+                </div>
+                <div class="dilo-modal-field">
+                  <label class="dilo-modal-label">Correo electrónico</label>
+                  <input 
+                    type="email" 
+                    class="dilo-modal-input" 
+                    id="lead-email" 
+                    placeholder="Ej. roberto@empresa.com" 
+                    required
+                  >
+                </div>
+              </div>
+
+              <div class="dilo-modal-field">
+                <label class="dilo-modal-label">Clasificación NIZA estimada (Opcional)</label>
+                <select class="dilo-modal-select" id="lead-class">
+                  <option value="Clase 35">Clase 35 &middot; Comercio, Ecommerce, Servicios Empresariales</option>
+                  <option value="Clase 42">Clase 42 &middot; Software, Apps, Desarrollo Web, Tecnología</option>
+                  <option value="Clase 25">Clase 25 &middot; Ropa, Calzado, Moda, Textiles</option>
+                  <option value="Clase 43">Clase 43 &middot; Cafeterías, Restaurantes, Alimentos Preparados</option>
+                  <option value="Clase 41">Clase 41 &middot; Educación, Cursos, Eventos, Entretenimiento</option>
+                  <option value="Sugerir por Abogado">No sé mi clase &middot; Recomendarme la adecuada</option>
+                </select>
+              </div>
+
+              <div class="dilo-modal-security-note">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Registro confidencial encriptado. No genera antecedentes públicos ante el IMPI.</span>
+              </div>
+
+              <button type="submit" class="btn-modal-submit" id="btn-submit-coincidencias" data-cursor="hover">
+                <span>Iniciar Análisis de Coincidencias</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======================================================== -->
+      <!-- MODAL 2: REQUERIMIENTO O RECHAZO DEL IMPI RESCUE        -->
+      <!-- ======================================================== -->
+      <div class="dilo-modal-backdrop" id="modal-requerimiento">
+        <div class="dilo-modal-dialog">
+          <div class="dilo-modal-header">
+            <button class="dilo-modal-close" id="btn-close-req-modal" aria-label="Cerrar modal">&times;</button>
+            <div class="dilo-modal-badge" style="background: rgba(245, 158, 11, 0.15); color: #D97706;">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon></svg>
+              <span>Rescate Legal y Contestación de Oficios</span>
+            </div>
+            <h3 class="dilo-modal-title">Defensa ante Requerimiento o Rechazo del IMPI</h3>
+            <p class="dilo-modal-subtitle">
+              Evaluamos el oficio recibido y redactamos la contestación jurídica antes de que venza el plazo fatal.
+            </p>
+          </div>
+
+          <div class="dilo-modal-body">
+            <form id="form-requerimiento-lead" class="dilo-modal-form-grid">
+              <div class="dilo-modal-field">
+                <label class="dilo-modal-label">Tu nombre completo o razón social</label>
+                <input type="text" class="dilo-modal-input" id="req-full-name" placeholder="Ej. Mariana Soto Villalobos" required>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="dilo-modal-field">
+                  <label class="dilo-modal-label">WhatsApp de contacto</label>
+                  <input type="tel" class="dilo-modal-input" id="req-phone" placeholder="Ej. 55 9876 5432" required>
+                </div>
+                <div class="dilo-modal-field">
+                  <label class="dilo-modal-label">Correo electrónico</label>
+                  <input type="email" class="dilo-modal-input" id="req-email" placeholder="Ej. mariana@empresa.com" required>
+                </div>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="dilo-modal-field">
+                  <label class="dilo-modal-label">Número de expediente / folio IMPI</label>
+                  <input type="text" class="dilo-modal-input" id="req-expediente" placeholder="Ej. 2891402 / MX">
+                </div>
+                <div class="dilo-modal-field">
+                  <label class="dilo-modal-label">Días restantes para contestar</label>
+                  <select class="dilo-modal-select" id="req-plazo">
+                    <option value="Menos de 15 días (Urgente)">Menos de 15 días (Urgente)</option>
+                    <option value="15 a 30 días">15 a 30 días</option>
+                    <option value="Más de 30 días">Más de 30 días</option>
+                    <option value="No estoy seguro">No estoy seguro de la fecha</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="dilo-modal-field">
+                <label class="dilo-modal-label">Tipo de notificación u oficio</label>
+                <select class="dilo-modal-select" id="req-tipo">
+                  <option value="Cita de Anterioridad / Marca Similar">Cita de Anterioridad / Marca Similar (Impedimento legal)</option>
+                  <option value="Requerimiento de Forma / Precisión de Productos">Requerimiento de Forma (Aclaración de actividades o logotipo)</option>
+                  <option value="Oposición de un Tercero">Oposición presentada por otra empresa o marca</option>
+                  <option value="Negativa o Rechazo Provisional">Negativa provisional o resolución de fondo</option>
+                  <option value="Otro tipo de oficio">Otro tipo de requerimiento oficial</option>
+                </select>
+              </div>
+
+              <div class="dilo-modal-field">
+                <label class="dilo-modal-label">Comentarios o resumen del oficio</label>
+                <textarea class="dilo-modal-textarea" id="req-desc" rows="2" placeholder="Describe brevemente qué solicitó el examinador o qué marca citaron como obstáculo..."></textarea>
+              </div>
+
+              <button type="submit" class="btn-modal-submit" id="btn-submit-req" style="background: #141718;" data-cursor="hover">
+                <span>Solicitar Defensa Legal Inmediata</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF5A1F" stroke-width="2.5">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
     </main>
   `;
 }
 
-export function initImpiEvents() {
+export function initImpiEvents(autoOpenModal = false) {
   initFinalCtaEvents();
 
   // State Management for Dynamic Pricing
@@ -598,55 +864,62 @@ export function initImpiEvents() {
   function recalculateTotal() {
     let total = basePrice;
     const addonsContainer = document.getElementById('receipt-addons-container');
-    if (!addonsContainer) return;
-
-    addonsContainer.innerHTML = '';
+    if (addonsContainer) addonsContainer.innerHTML = '';
 
     Object.keys(activeAddons).forEach(key => {
       if (activeAddons[key]) {
         total += addonPrices[key];
-        const line = document.createElement('div');
-        line.className = 'impi-receipt-line';
-        line.innerHTML = `
-          <span class="impi-receipt-line-lbl">+ ${addonNames[key]}</span>
-          <span class="impi-receipt-line-val">$${addonPrices[key].toLocaleString()} MXN</span>
-        `;
-        addonsContainer.appendChild(line);
+        if (addonsContainer) {
+          const row = document.createElement('div');
+          row.className = 'impi-receipt-row';
+          row.innerHTML = `
+            <span style="color: var(--text-secondary); font-size: 0.85rem;">+ ${addonNames[key]}</span>
+            <span class="impi-receipt-row-val">+$${addonPrices[key].toLocaleString('es-MX')}</span>
+          `;
+          addonsContainer.appendChild(row);
+        }
       }
     });
 
     const totalEl = document.getElementById('rec-total-price');
-    const btnLabelEl = document.getElementById('btn-buy-label');
-    const formatted = `$${total.toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} MXN`;
-
-    if (totalEl) totalEl.textContent = formatted.replace(' MXN', '');
-    if (btnLabelEl) btnLabelEl.textContent = `Confirmar & Pagar ${formatted}`;
+    if (totalEl) {
+      totalEl.textContent = `$${total.toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    }
   }
 
-  // Tier Card Selectors
-  document.querySelectorAll('.impi-tier-card').forEach(card => {
-    const btn = card.querySelector('.impi-tier-select-btn');
-    const selectTier = () => {
-      document.querySelectorAll('.impi-tier-card').forEach(c => c.classList.remove('is-featured'));
-      card.classList.add('is-featured');
+  // Tier Card Selection
+  const tierCards = document.querySelectorAll('.impi-tier-card');
+  tierCards.forEach(card => {
+    const tier = card.dataset.tier;
+    const price = parseFloat(card.dataset.price);
 
-      selectedTier = card.dataset.tier;
-      basePrice = parseFloat(card.dataset.price);
+    const selectTier = () => {
+      sounds.playClick();
+      tierCards.forEach(c => c.classList.remove('is-selected'));
+      card.classList.add('is-selected');
+      selectedTier = tier;
+      basePrice = price;
 
       const planNameEl = document.getElementById('rec-plan-name');
       const planPriceEl = document.getElementById('rec-plan-price');
-      const tierTitle = card.querySelector('.impi-tier-name')?.textContent || '';
-
-      if (planNameEl) planNameEl.textContent = tierTitle;
-      if (planPriceEl) planPriceEl.textContent = `$${basePrice.toLocaleString()} MXN`;
-
+      if (planNameEl) {
+        if (tier === 'dictamen') planNameEl.textContent = 'Dictamen & Viabilidad Previa';
+        else if (tier === 'completo') planNameEl.textContent = 'Registro Completo IMPI (10 Años)';
+        else if (tier === 'corporativo') planNameEl.textContent = 'Blindaje Corporativo Multi-Clase';
+      }
+      if (planPriceEl) {
+        planPriceEl.textContent = `$${price.toLocaleString('es-MX')}`;
+      }
       recalculateTotal();
-      sounds.playPop();
-
-      document.getElementById('seccion-checkout')?.scrollIntoView({ behavior: 'smooth' });
     };
 
-    btn?.addEventListener('click', selectTier);
+    const btn = card.querySelector('.impi-tier-select-btn');
+    btn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      selectTier();
+      document.getElementById('seccion-checkout')?.scrollIntoView({ behavior: 'smooth' });
+    });
+
     card.addEventListener('click', (e) => {
       if (!e.target.closest('.impi-tier-select-btn')) {
         selectTier();
@@ -671,60 +944,324 @@ export function initImpiEvents() {
     });
   });
 
-  // Sonic Phonetic Radar Scanner
+  // ================================================================
+  // MODAL 1: LEAD INTAKE (Analizar Coincidencias de Marca)
+  // ================================================================
+  const modalCoincidencias = document.getElementById('modal-coincidencias');
+  const btnCloseCoincidencias = document.getElementById('btn-close-coincidencias-modal');
   const btnRunSonar = document.getElementById('btn-run-sonar');
   const searchInput = document.getElementById('impi-search-name');
-  const scanOverlay = document.getElementById('impi-scan-overlay');
-  const btnJumpToBuy = document.getElementById('btn-jump-to-buy');
+  const leadBrandInput = document.getElementById('lead-brand-name');
+  const leadFullNameInput = document.getElementById('lead-full-name');
+  const leadPhoneInput = document.getElementById('lead-phone');
+  const leadEmailInput = document.getElementById('lead-email');
+  const leadClassSelect = document.getElementById('lead-class');
+  const formCoincidencias = document.getElementById('form-coincidencias-lead');
 
-  btnRunSonar?.addEventListener('click', () => {
-    const brandName = searchInput?.value.trim();
-    if (!brandName) {
-      searchInput?.focus();
-      return;
-    }
-
+  function openCoincidenciasModal(prefilledBrand = '') {
+    const brand = prefilledBrand || searchInput?.value.trim() || '';
+    if (leadBrandInput) leadBrandInput.value = brand;
+    modalCoincidencias?.classList.add('is-active');
     sounds.playClick();
-    btnRunSonar.innerHTML = `
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="spin">
-        <line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line>
-        <line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line>
-      </svg>
-      <span>Escaneando Clases...</span>
-    `;
+    if (!brand) {
+      leadBrandInput?.focus();
+    } else {
+      leadFullNameInput?.focus();
+    }
+  }
+
+  function closeCoincidenciasModal() {
+    modalCoincidencias?.classList.remove('is-active');
+    sounds.playClick();
+  }
+
+  btnRunSonar?.addEventListener('click', (e) => {
+    e.preventDefault();
+    openCoincidenciasModal(searchInput?.value.trim());
+  });
+
+  btnCloseCoincidencias?.addEventListener('click', closeCoincidenciasModal);
+
+  modalCoincidencias?.addEventListener('click', (e) => {
+    if (e.target === modalCoincidencias) {
+      closeCoincidenciasModal();
+    }
+  });
+
+  // Auto open modal if requested via hash query (?open=coincidencias)
+  if (autoOpenModal) {
+    setTimeout(() => {
+      openCoincidenciasModal(searchInput?.value.trim());
+    }, 350);
+  }
+
+  // ================================================================
+  // 3-STAGE SCANNING ANIMATION & 3 DYNAMIC RESULT SCENARIOS
+  // ================================================================
+  const scanOverlay = document.getElementById('impi-scan-overlay');
+  const scanningBox = document.getElementById('impi-scanning-box');
+  const resultCard = document.getElementById('impi-result-card');
+  const scanTargetBrand = document.getElementById('scan-target-brand');
+  const scanProgFill = document.getElementById('scan-prog-fill');
+
+  const stage1 = document.getElementById('scan-stage-1');
+  const stage2 = document.getElementById('scan-stage-2');
+  const stage3 = document.getElementById('scan-stage-3');
+  const icon1 = document.getElementById('stage-icon-1');
+  const icon2 = document.getElementById('stage-icon-2');
+  const icon3 = document.getElementById('stage-icon-3');
+
+  const resScoreBadge = document.getElementById('res-score-badge');
+  const resTitle = document.getElementById('res-title');
+  const resDesc = document.getElementById('res-desc');
+  const btnSolicitarViabilidad = document.getElementById('btn-solicitar-viabilidad');
+
+  const pillGreen = document.getElementById('pill-opt-green');
+  const pillYellow = document.getElementById('pill-opt-yellow');
+  const pillRed = document.getElementById('pill-opt-red');
+
+  let currentCapturedLead = null;
+  let activeScenario = 'green';
+
+  // Apply Scenario Content
+  function setScenario(type, brandName = '') {
+    activeScenario = type;
+    const name = brandName || currentCapturedLead?.brandName || searchInput?.value.trim() || 'Tu Marca';
+
+    // Update switcher pill classes
+    [pillGreen, pillYellow, pillRed].forEach(p => p?.classList.remove('is-active'));
+    resultCard?.classList.remove('is-green', 'is-yellow', 'is-red');
+
+    if (type === 'green') {
+      pillGreen?.classList.add('is-active');
+      resultCard?.classList.add('is-green');
+      if (resScoreBadge) resScoreBadge.textContent = '96%';
+      if (resTitle) resTitle.textContent = '“No encontramos coincidencias exactas”';
+      if (resDesc) resDesc.textContent = '“Tu marca tiene buenas señales iniciales. Realicemos una búsqueda de viabilidad completa antes de presentar tu solicitud.”';
+    } else if (type === 'yellow') {
+      pillYellow?.classList.add('is-active');
+      resultCard?.classList.add('is-yellow');
+      if (resScoreBadge) resScoreBadge.textContent = '64%';
+      if (resTitle) resTitle.textContent = '“Encontramos marcas similares”';
+      if (resDesc) resDesc.textContent = '“Detectamos nombres que podrían requerir una revisión más detallada.”';
+    } else if (type === 'red') {
+      pillRed?.classList.add('is-active');
+      resultCard?.classList.add('is-red');
+      if (resScoreBadge) resScoreBadge.textContent = '28%';
+      if (resTitle) resTitle.textContent = '“Encontramos una coincidencia relevante”';
+      if (resDesc) resDesc.textContent = '“Existen registros o solicitudes similares que debemos analizar antes de continuar.”';
+    }
+  }
+
+  // Switcher Pill Clicks
+  pillGreen?.addEventListener('click', () => { sounds.playClick(); setScenario('green'); });
+  pillYellow?.addEventListener('click', () => { sounds.playClick(); setScenario('yellow'); });
+  pillRed?.addEventListener('click', () => { sounds.playClick(); setScenario('red'); });
+
+  // Determine initial scenario based on brand
+  function evaluateBrandScenario(brand) {
+    const b = brand.toLowerCase();
+    const highRisk = ['nike', 'apple', 'starbucks', 'coca', 'dilo', 'amazon', 'zara', 'corona', 'bimbo', 'oxxo', 'walmart', 'gucci', 'ford'];
+    const mediumRisk = ['digital', 'coffee', 'cafe', 'tech', 'nova', 'sol', 'luna', 'grupo', 'mexico', 'mx', 'studio', 'lab'];
+
+    if (highRisk.some(w => b.includes(w))) return 'red';
+    if (mediumRisk.some(w => b.includes(w))) return 'yellow';
+    return 'green';
+  }
+
+  // Lead Form Submission
+  formCoincidencias?.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const brandName = leadBrandInput?.value.trim() || 'Mi Marca';
+    const fullName = leadFullNameInput?.value.trim() || 'Cliente Dilo';
+    const phone = leadPhoneInput?.value.trim() || '';
+    const email = leadEmailInput?.value.trim() || '';
+    const nizaClass = leadClassSelect?.value || 'Clase 35';
+
+    const determinedScenario = evaluateBrandScenario(brandName);
+
+    // Save lead in CMS
+    currentCapturedLead = saveLeadToCms({
+      name: fullName,
+      phone: phone,
+      email: email,
+      brandName: brandName,
+      nizaClass: nizaClass,
+      statusScenario: determinedScenario,
+      type: 'coincidencias',
+      source: '#/registro-marca'
+    });
+
+    // Close modal
+    closeCoincidenciasModal();
+
+    // Sync values into radar and checkout form
+    if (searchInput) searchInput.value = brandName;
+    const coBrand = document.getElementById('co-brand-name');
+    const coOwner = document.getElementById('co-owner-name');
+    const coPhone = document.getElementById('co-owner-phone');
+    const coEmail = document.getElementById('co-owner-email');
+    if (coBrand) coBrand.value = brandName;
+    if (coOwner) coOwner.value = fullName;
+    if (coPhone) coPhone.value = phone;
+    if (coEmail) coEmail.value = email;
+
+    // Start 3-Stage Scanning Sequence
+    if (scanOverlay) scanOverlay.style.display = 'block';
+    if (scanningBox) scanningBox.style.display = 'block';
+    if (resultCard) resultCard.style.display = 'none';
+    if (scanTargetBrand) scanTargetBrand.textContent = `"${brandName}"`;
+
+    scanOverlay?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    // Stage 1 Reset
+    if (scanProgFill) scanProgFill.style.width = '33%';
+    stage1?.classList.add('is-active'); stage1?.classList.remove('is-done');
+    stage2?.classList.remove('is-active', 'is-done');
+    stage3?.classList.remove('is-active', 'is-done');
+    if (icon1) icon1.innerHTML = '1';
+    if (icon2) icon2.innerHTML = '2';
+    if (icon3) icon3.innerHTML = '3';
+    sounds.playClick();
+
+    // Stage 2: Analizando similitudes (after 900ms)
+    setTimeout(() => {
+      if (scanProgFill) scanProgFill.style.width = '66%';
+      stage1?.classList.remove('is-active'); stage1?.classList.add('is-done');
+      if (icon1) icon1.innerHTML = '✓';
+      stage2?.classList.add('is-active');
+      sounds.playPop();
+    }, 900);
+
+    // Stage 3: Revisando posibles conflictos (after 1800ms)
+    setTimeout(() => {
+      if (scanProgFill) scanProgFill.style.width = '100%';
+      stage2?.classList.remove('is-active'); stage2?.classList.add('is-done');
+      if (icon2) icon2.innerHTML = '✓';
+      stage3?.classList.add('is-active');
+      sounds.playPop();
+    }, 1800);
+
+    // Complete Sequence: Reveal Result Card (after 2700ms)
+    setTimeout(() => {
+      stage3?.classList.remove('is-active'); stage3?.classList.add('is-done');
+      if (icon3) icon3.innerHTML = '✓';
+      sounds.playSuccess();
+
+      // Show Result Card
+      setScenario(determinedScenario, brandName);
+      if (scanningBox) scanningBox.style.display = 'none';
+      if (resultCard) {
+        resultCard.style.display = 'block';
+        resultCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+
+      if (determinedScenario === 'green') {
+        confetti({
+          particleCount: 50,
+          spread: 70,
+          origin: { y: 0.4 }
+        });
+      }
+    }, 2700);
+  });
+
+  // Button: "Solicitar análisis de viabilidad detallado"
+  btnSolicitarViabilidad?.addEventListener('click', () => {
+    sounds.playSuccess();
+    const brand = currentCapturedLead?.brandName || searchInput?.value.trim() || 'Mi Marca';
+    const name = currentCapturedLead?.name || '';
+    const phone = currentCapturedLead?.phone || '';
+    const scenarioMsg = resTitle?.textContent || 'Viabilidad';
+
+    // Transfer info to checkout and scroll down
+    const coBrand = document.getElementById('co-brand-name');
+    if (coBrand && brand) coBrand.value = brand;
+
+    document.getElementById('seccion-checkout')?.scrollIntoView({ behavior: 'smooth' });
+
+    // Also trigger WhatsApp lead dispatch option
+    const waText = `¡Hola Dilo Digital! ⚖️🛡️ Acabo de analizar las coincidencias de mi marca *${brand}* en su radar legal.\n\n` +
+      `• *Resultado Preliminar:* ${scenarioMsg}\n` +
+      (name ? `• *Titular:* ${name}\n` : '') +
+      (phone ? `• *Teléfono:* ${phone}\n` : '') +
+      `• *Estatus:* Deseo *Solicitar el análisis de viabilidad detallado* con sus abogados especialistas para proceder con la protección oficial.`;
 
     setTimeout(() => {
-      btnRunSonar.innerHTML = `
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-        </svg>
-        <span>Analizar Viabilidad</span>
-      `;
-
-      if (scanOverlay) {
-        scanOverlay.style.display = 'block';
-        sounds.playSuccess();
-        const scoreTitle = document.getElementById('impi-score-title');
-        const scoreDesc = document.getElementById('impi-score-desc');
-        if (scoreTitle) scoreTitle.textContent = `"${brandName}" tiene 96% de Viabilidad Preliminar`;
-        if (scoreDesc) scoreDesc.textContent = `No se detectaron marcas idénticas registradas en México. Clasificación NIZA optimizada para trámite directo.`;
-
-        // Sync brand name into checkout form
-        const coName = document.getElementById('co-brand-name');
-        if (coName) coName.value = brandName;
+      const askWa = confirm(`¡Excelente! Hemos cargado los datos de "${brand}" en el checkout. ¿Deseas también enviar la solicitud de análisis de viabilidad directamente a WhatsApp con nuestro abogado especialista?`);
+      if (askWa) {
+        window.open(`https://wa.me/525592441070?text=${encodeURIComponent(waText)}`, '_blank');
       }
-    }, 700);
+    }, 400);
   });
 
-  btnJumpToBuy?.addEventListener('click', () => {
-    document.getElementById('seccion-checkout')?.scrollIntoView({ behavior: 'smooth' });
-    const coName = document.getElementById('co-brand-name');
-    if (coName && searchInput?.value) {
-      coName.value = searchInput.value;
-    }
+  // ================================================================
+  // MODAL 2: REQUERIMIENTO O RECHAZO DEL IMPI RESCUE
+  // ================================================================
+  const modalReq = document.getElementById('modal-requerimiento');
+  const btnOpenReqBanner = document.getElementById('btn-open-req-banner');
+  const btnCloseReq = document.getElementById('btn-close-req-modal');
+  const formReq = document.getElementById('form-requerimiento-lead');
+
+  function openReqModal() {
+    modalReq?.classList.add('is-active');
+    sounds.playClick();
+  }
+
+  function closeReqModal() {
+    modalReq?.classList.remove('is-active');
+    sounds.playClick();
+  }
+
+  btnOpenReqBanner?.addEventListener('click', openReqModal);
+  btnCloseReq?.addEventListener('click', closeReqModal);
+  modalReq?.addEventListener('click', (e) => {
+    if (e.target === modalReq) closeReqModal();
   });
 
-  // Radio Box Modalidad Selection
+  formReq?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    sounds.playSuccess();
+
+    const nombre = document.getElementById('req-full-name')?.value.trim() || 'Titular';
+    const phone = document.getElementById('req-phone')?.value.trim() || '';
+    const email = document.getElementById('req-email')?.value.trim() || '';
+    const expediente = document.getElementById('req-expediente')?.value.trim() || 'Sin folio especificado';
+    const plazo = document.getElementById('req-plazo')?.value || 'No especificado';
+    const tipo = document.getElementById('req-tipo')?.value || 'Requerimiento IMPI';
+    const desc = document.getElementById('req-desc')?.value.trim() || 'Sin comentarios adicionales';
+
+    saveLeadToCms({
+      name: nombre,
+      phone: phone,
+      email: email,
+      brandName: expediente,
+      notes: `Tipo: ${tipo} | Plazo: ${plazo} | Detalle: ${desc}`,
+      type: 'rechazo_impi',
+      statusScenario: 'rojo',
+      source: '#/registro-marca-rescate'
+    });
+
+    closeReqModal();
+
+    const waMsg = `¡Hola Dilo Digital! ⚠️⚖️ Recibí un requerimiento o rechazo del IMPI y requiero asistencia jurídica de rescate urgente:\n\n` +
+      `• *Titular:* ${nombre}\n` +
+      `• *Expediente / Folio IMPI:* ${expediente}\n` +
+      `• *Tipo de Notificación:* ${tipo}\n` +
+      `• *Plazo Restante:* ${plazo}\n` +
+      `• *Teléfono:* ${phone}\n` +
+      `• *Correo:* ${email}\n` +
+      `• *Detalle del Oficio:* ${desc}\n\n` +
+      `Solicito el diagnóstico de viabilidad y cotización para redactar la contestación oficial. ¡Gracias!`;
+
+    window.open(`https://wa.me/525592441070?text=${encodeURIComponent(waMsg)}`, '_blank');
+    alert('¡Tu solicitud de defensa legal ha sido registrada! Te hemos transferido a WhatsApp con un abogado de Propiedad Intelectual para evaluar tu oficio.');
+  });
+
+  // ================================================================
+  // CHECKOUT FUNNEL LOGIC
+  // ================================================================
   const radioMixta = document.getElementById('radio-mixta');
   const radioNominativa = document.getElementById('radio-nominativa');
   radioMixta?.addEventListener('click', () => {
@@ -738,7 +1275,6 @@ export function initImpiEvents() {
     sounds.playPop();
   });
 
-  // Funnel Step Switching
   const step1Form = document.getElementById('step-1-form');
   const step2Form = document.getElementById('step-2-form');
   const step3Form = document.getElementById('step-3-form');
@@ -810,6 +1346,18 @@ export function initImpiEvents() {
     if (activeAddons.cesion) addonsList.push('Cesión de Derechos');
 
     const folio = `IMPI-2026-${Math.floor(1000 + Math.random() * 9000)}-MX`;
+
+    // Save purchase order to CMS
+    saveLeadToCms({
+      name: ownerName,
+      phone: ownerPhone,
+      email: document.getElementById('co-owner-email')?.value || '',
+      brandName: brandName,
+      notes: `Orden Pagada: ${folio} | Total: ${totalText} | Addons: ${addonsList.join(', ')}`,
+      type: 'checkout',
+      statusScenario: 'verde',
+      source: '#/registro-marca-compra'
+    });
 
     const whatsappMessage = `¡Hola Dilo Digital MX! ⚖️🛡️ Acabo de comprar el *Registro de Marca ante el IMPI* en línea:\n\n` +
       `• *Folio de Orden:* ${folio}\n` +

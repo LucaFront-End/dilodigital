@@ -203,54 +203,332 @@
   box-shadow: 0 8px 24px rgba(255, 90, 31, 0.45);
 }
 
-/* Radar Scan Animation Feedback */
+/* ── Radar Scan 3-Stage Animation & Dynamic Result Scenarios ── */
 .impi-scan-overlay {
   display: none;
-  margin-top: 1.5rem;
-  padding: 1.5rem;
-  border-radius: 16px;
-  background: rgba(16, 185, 129, 0.06);
-  border: 1.5px solid rgba(16, 185, 129, 0.3);
-  animation: fadeIn 0.4s ease forwards;
+  margin-top: 1.8rem;
+  border-radius: 20px;
+  animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.impi-scan-result-flex {
+/* 3-Stage Scanning Animated Box */
+.impi-scanning-box {
+  background: #FFFFFF;
+  border: 1.5px solid rgba(255, 90, 31, 0.3);
+  border-radius: 20px;
+  padding: clamp(1.5rem, 3vw, 2.2rem);
+  box-shadow: 0 10px 30px rgba(255, 90, 31, 0.08);
+}
+
+.impi-scan-brand-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 1.2rem;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
 }
 
-.impi-score-badge {
-  width: 52px;
-  height: 52px;
+.impi-scan-brand-title {
+  font-family: var(--sm-font-heading);
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #141718;
+}
+
+.impi-scan-brand-tag {
+  background: rgba(255, 90, 31, 0.1);
+  color: #FF5A1F;
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+/* Progress Track */
+.impi-scan-progress-bar-wrap {
+  position: relative;
+  height: 8px;
+  background: #E2E8F0;
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 1.6rem;
+}
+
+.impi-scan-progress-bar-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 15%;
+  background: linear-gradient(90deg, #FF5A1F, #FF8E53);
+  border-radius: 999px;
+  transition: width 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 3 Stages Horizontal Sequence */
+.impi-scan-stages-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+  .impi-scan-stages-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.impi-scan-stage-item {
+  background: #F8FAFC;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 14px;
+  padding: 1rem 1.1rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  transition: all 0.3s ease;
+}
+
+.impi-scan-stage-item.is-active {
+  background: rgba(255, 90, 31, 0.05);
+  border-color: #FF5A1F;
+  box-shadow: 0 4px 14px rgba(255, 90, 31, 0.15);
+}
+
+.impi-scan-stage-item.is-done {
+  background: rgba(16, 185, 129, 0.05);
+  border-color: #10B981;
+}
+
+.impi-stage-icon-wrap {
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
+  background: #E2E8F0;
+  color: #64748B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 800;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.impi-scan-stage-item.is-active .impi-stage-icon-wrap {
+  background: #FF5A1F;
+  color: #FFFFFF;
+  animation: pulseDot 1.5s infinite;
+}
+
+.impi-scan-stage-item.is-done .impi-stage-icon-wrap {
   background: #10B981;
   color: #FFFFFF;
+}
+
+.impi-stage-meta h5 {
+  margin: 0 0 0.2rem 0;
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #1E293B;
+  letter-spacing: -0.2px;
+}
+
+.impi-stage-meta p {
+  margin: 0;
+  font-size: 0.76rem;
+  color: #64748B;
+  line-height: 1.35;
+}
+
+/* ── Result Cards (Green, Yellow, Red) ── */
+.impi-result-card {
+  border-radius: 20px;
+  padding: clamp(1.6rem, 3.2vw, 2.2rem);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+}
+
+/* Scenario 1: Green (No encontramos coincidencias exactas) */
+.impi-result-card.is-green {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, #FFFFFF 65%);
+  border: 1.5px solid rgba(16, 185, 129, 0.4);
+}
+
+.impi-result-card.is-green .impi-res-score-badge {
+  background: #10B981;
+  color: #FFFFFF;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
+}
+
+.impi-result-card.is-green .impi-res-title {
+  color: #065F46;
+}
+
+.impi-result-card.is-green .impi-res-desc {
+  color: #047857;
+}
+
+/* Scenario 2: Yellow (Encontramos marcas similares) */
+.impi-result-card.is-yellow {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.09) 0%, #FFFFFF 65%);
+  border: 1.5px solid rgba(245, 158, 11, 0.45);
+}
+
+.impi-result-card.is-yellow .impi-res-score-badge {
+  background: #F59E0B;
+  color: #FFFFFF;
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
+}
+
+.impi-result-card.is-yellow .impi-res-title {
+  color: #92400E;
+}
+
+.impi-result-card.is-yellow .impi-res-desc {
+  color: #B45309;
+}
+
+/* Scenario 3: Red (Encontramos una coincidencia relevante) */
+.impi-result-card.is-red {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.09) 0%, #FFFFFF 65%);
+  border: 1.5px solid rgba(239, 68, 68, 0.45);
+}
+
+.impi-result-card.is-red .impi-res-score-badge {
+  background: #EF4444;
+  color: #FFFFFF;
+  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.35);
+}
+
+.impi-result-card.is-red .impi-res-title {
+  color: #991B1B;
+}
+
+.impi-result-card.is-red .impi-res-desc {
+  color: #B91C1C;
+}
+
+/* Result Flex Layout */
+.impi-result-top-flex {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.4rem;
+}
+
+.impi-result-main-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.2rem;
+  flex: 1;
+  min-width: 280px;
+}
+
+.impi-res-score-badge {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--sm-font-heading);
   font-size: 1.6rem;
   font-weight: 900;
-  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
   flex-shrink: 0;
 }
 
-.impi-score-title {
-  font-family: var(--sm-font-body);
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: #065F46;
-  margin-bottom: 0.2rem;
+.impi-res-title {
+  font-family: var(--sm-font-heading);
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1.25;
+  margin-bottom: 0.45rem;
+  letter-spacing: -0.3px;
 }
 
-.impi-score-desc {
+.impi-res-desc {
   font-family: var(--sm-font-body);
-  font-size: 0.86rem;
-  color: #047857;
-  line-height: 1.4;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+/* Result Footer Actions */
+.impi-result-actions-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgba(20, 23, 24, 0.08);
+}
+
+.btn-solicitar-viabilidad {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.95rem 1.8rem;
+  background: #141718;
+  color: #FFFFFF;
+  border-radius: 999px;
+  font-family: var(--sm-font-body);
+  font-size: 0.95rem;
+  font-weight: 800;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(20, 23, 24, 0.25);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+}
+
+.btn-solicitar-viabilidad:hover {
+  background: #FF5A1F;
+  color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(255, 90, 31, 0.4);
+}
+
+/* Scenario Preview Switcher Pills */
+.impi-scenario-switcher {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(20, 23, 24, 0.04);
+  padding: 0.3rem 0.4rem;
+  border-radius: 999px;
+  gap: 0.3rem;
+}
+
+.impi-scenario-pill-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #64748B;
+  padding-left: 0.5rem;
+}
+
+.impi-scenario-pill-btn {
+  border: none;
+  background: transparent;
+  padding: 0.3rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.impi-scenario-pill-btn.is-active {
+  background: #FFFFFF;
+  color: #0F172A;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
 }
 
 /* ── 2. Scroll-Based 4-Phase Legal Methodology ── */
@@ -911,3 +1189,291 @@
   color: var(--text-secondary);
   line-height: 1.45;
 }
+
+/* ── 6. IMPI Rejection & Requirement Rescue Banner ── */
+.impi-rescue-section {
+  position: relative;
+  padding: clamp(3.5rem, 6vh, 5.5rem) 0;
+  background: #141718;
+  color: #FFFFFF;
+  overflow: hidden;
+}
+
+.impi-rescue-card {
+  position: relative;
+  background: linear-gradient(135deg, rgba(255, 90, 31, 0.12) 0%, rgba(20, 23, 24, 0.95) 50%, rgba(245, 158, 11, 0.1) 100%);
+  border: 1.5px solid rgba(255, 90, 31, 0.3);
+  border-radius: 28px;
+  padding: clamp(2rem, 4vw, 3.5rem);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 40px rgba(255, 90, 31, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2.2rem;
+}
+
+.impi-rescue-content {
+  flex: 1;
+  min-width: 300px;
+}
+
+.impi-rescue-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(245, 158, 11, 0.18);
+  color: #FBBF24;
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.impi-rescue-title {
+  font-family: var(--sm-font-heading);
+  font-size: clamp(1.8rem, 3.2vw, 2.7rem);
+  font-weight: 800;
+  color: #FFFFFF;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.impi-rescue-desc {
+  font-family: var(--sm-font-body);
+  font-size: 1.05rem;
+  color: #CBD5E1;
+  line-height: 1.6;
+  max-width: 680px;
+}
+
+.impi-rescue-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+.btn-rescue-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: #FF5A1F;
+  color: #FFFFFF;
+  padding: 1.05rem 2rem;
+  border-radius: 999px;
+  font-family: var(--sm-font-body);
+  font-size: 1rem;
+  font-weight: 800;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(255, 90, 31, 0.45);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn-rescue-action:hover {
+  background: #ff733f;
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 12px 32px rgba(255, 90, 31, 0.6);
+}
+
+.impi-rescue-guarantee-note {
+  font-size: 0.8rem;
+  color: #94A3B8;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* ── 7. Universal Modal System (Lead Intake & Requerimiento) ── */
+.dilo-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.2rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dilo-modal-backdrop.is-active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.dilo-modal-dialog {
+  background: #FFFFFF;
+  border-radius: 24px;
+  width: 100%;
+  max-width: 540px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(20, 23, 24, 0.08);
+  transform: translateY(20px) scale(0.96);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.dilo-modal-backdrop.is-active .dilo-modal-dialog {
+  transform: translateY(0) scale(1);
+}
+
+.dilo-modal-header {
+  padding: 1.8rem 2rem 1.2rem 2rem;
+  border-bottom: 1px solid rgba(20, 23, 24, 0.08);
+  position: relative;
+}
+
+.dilo-modal-close {
+  position: absolute;
+  top: 1.4rem;
+  right: 1.4rem;
+  background: #F1F5F9;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748B;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dilo-modal-close:hover {
+  background: #E2E8F0;
+  color: #0F172A;
+  transform: rotate(90deg);
+}
+
+.dilo-modal-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(255, 90, 31, 0.1);
+  color: #FF5A1F;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+
+.dilo-modal-title {
+  font-family: var(--sm-font-heading);
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #141718;
+  letter-spacing: -0.3px;
+  margin: 0 0 0.35rem 0;
+}
+
+.dilo-modal-subtitle {
+  font-family: var(--sm-font-body);
+  font-size: 0.88rem;
+  color: #64748B;
+  margin: 0;
+  line-height: 1.45;
+}
+
+.dilo-modal-body {
+  padding: 1.6rem 2rem 2rem 2rem;
+}
+
+.dilo-modal-form-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.dilo-modal-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.dilo-modal-label {
+  font-family: var(--sm-font-body);
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: #334155;
+}
+
+.dilo-modal-input,
+.dilo-modal-select,
+.dilo-modal-textarea {
+  width: 100%;
+  padding: 0.85rem 1.1rem;
+  background: #F8FAFC;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 12px;
+  font-family: var(--sm-font-body);
+  font-size: 0.92rem;
+  color: #0F172A;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.dilo-modal-input:focus,
+.dilo-modal-select:focus,
+.dilo-modal-textarea:focus {
+  background: #FFFFFF;
+  border-color: #FF5A1F;
+  box-shadow: 0 0 0 4px rgba(255, 90, 31, 0.12);
+}
+
+.dilo-modal-security-note {
+  font-size: 0.78rem;
+  color: #64748B;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  line-height: 1.35;
+  margin-top: 0.2rem;
+}
+
+.btn-modal-submit {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  background: #FF5A1F;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 12px;
+  font-family: var(--sm-font-body);
+  font-size: 1rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(255, 90, 31, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  transition: all 0.25s ease;
+  margin-top: 0.5rem;
+}
+
+.btn-modal-submit:hover {
+  background: #e04b14;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(255, 90, 31, 0.45);
+}
+

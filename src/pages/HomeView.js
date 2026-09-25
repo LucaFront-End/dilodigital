@@ -71,7 +71,7 @@ export function renderHomeView() {
                   required
                 >
                 <button type="submit" class="btn btn-primary" data-cursor="hover">
-                  <span>Consultar Viabilidad</span>
+                  <span>Analizar Coincidencias de Marca</span>
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                     <circle cx="11" cy="11" r="8"></circle>
                     <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
@@ -240,7 +240,7 @@ export function initHomeEvents() {
     const query = document.getElementById('home-impi-input')?.value.trim();
     if (query) {
       sounds.playSuccess();
-      window.location.hash = `#/registro-marca?q=${encodeURIComponent(query)}`;
+      window.location.hash = `#/registro-marca?q=${encodeURIComponent(query)}&open=coincidencias`;
     }
   });
 }

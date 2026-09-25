@@ -1,0 +1,431 @@
+/* ================================================================
+   DILO DIGITAL — LEGAL CHAT & WHATSAPP FLOATING WIDGET
+   Direct IP Lawyer Assistance, WhatsApp Quick Dispatch & Interactive Bot
+   ================================================================ */
+
+.legal-chat-toggle-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9990;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.75rem 1.25rem 0.75rem 0.85rem;
+  background: #141718;
+  color: #FFFFFF;
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28), 0 0 20px rgba(255, 90, 31, 0.18);
+  font-family: var(--sm-font-body, system-ui, sans-serif);
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+
+.legal-chat-toggle-btn:hover {
+  transform: translateY(-3px) scale(1.02);
+  border-color: rgba(255, 90, 31, 0.5);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.35), 0 0 25px rgba(255, 90, 31, 0.3);
+}
+
+.legal-chat-avatar-badge {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #25D366;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  flex-shrink: 0;
+}
+
+.legal-chat-pulse {
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #10B981;
+  border: 2px solid #141718;
+  animation: pulseDot 2s infinite;
+}
+
+@keyframes pulseDot {
+  0% { transform: scale(0.9); opacity: 1; }
+  50% { transform: scale(1.3); opacity: 0.6; }
+  100% { transform: scale(0.9); opacity: 1; }
+}
+
+.legal-chat-label {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  line-height: 1.15;
+}
+
+.legal-chat-title-tag {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #FF7E47;
+  font-weight: 800;
+}
+
+.legal-chat-title-main {
+  font-size: 0.88rem;
+  color: #FFFFFF;
+  font-weight: 700;
+}
+
+/* Floating Window Container */
+.legal-chat-panel {
+  position: fixed;
+  bottom: 84px;
+  right: 24px;
+  width: 380px;
+  max-width: calc(100vw - 32px);
+  height: 540px;
+  max-height: calc(100vh - 110px);
+  background: #FFFFFF;
+  border-radius: 20px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.22), 0 0 0 1px rgba(20, 23, 24, 0.08);
+  z-index: 9991;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transform: translateY(20px) scale(0.96);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.legal-chat-panel.is-open {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Panel Header */
+.legal-chat-header {
+  background: #141718;
+  color: #FFFFFF;
+  padding: 1.1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.legal-chat-header-profile {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.legal-chat-lawyer-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FF5A1F, #FF8E53);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: #FFFFFF;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.legal-chat-header-info h4 {
+  margin: 0;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: -0.2px;
+}
+
+.legal-chat-header-info p {
+  margin: 0.15rem 0 0 0;
+  font-size: 0.74rem;
+  color: #10B981;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-weight: 600;
+}
+
+.legal-chat-close-btn {
+  background: transparent;
+  border: none;
+  color: #94A3B8;
+  cursor: pointer;
+  padding: 0.4rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.legal-chat-close-btn:hover {
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Tab Selector */
+.legal-chat-tabs {
+  display: flex;
+  background: #F8FAFC;
+  padding: 0.4rem 0.5rem;
+  border-bottom: 1px solid #E2E8F0;
+}
+
+.legal-chat-tab-btn {
+  flex: 1;
+  padding: 0.55rem 0.75rem;
+  border: none;
+  background: transparent;
+  font-family: var(--sm-font-body, system-ui, sans-serif);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #64748B;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  transition: all 0.2s ease;
+}
+
+.legal-chat-tab-btn.is-active {
+  background: #FFFFFF;
+  color: #0F172A;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+/* Tab Content Areas */
+.legal-chat-content-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #FFFFFF;
+}
+
+.legal-chat-tab-panel {
+  display: none;
+  flex-direction: column;
+  height: 100%;
+}
+
+.legal-chat-tab-panel.is-active {
+  display: flex;
+}
+
+/* WhatsApp Direct Panel */
+.wa-tab-body {
+  padding: 1.25rem;
+  overflow-y: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.wa-msg-bubble {
+  background: #F0FDF4;
+  border: 1px solid #BBF7D0;
+  border-radius: 16px 16px 16px 4px;
+  padding: 1rem;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: #166534;
+}
+
+.wa-prompt-title {
+  font-size: 0.76rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #64748B;
+  margin-top: 0.2rem;
+}
+
+.wa-quick-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.wa-chip-btn {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  padding: 0.65rem 0.9rem;
+  border-radius: 12px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #334155;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.wa-chip-btn:hover {
+  background: #EEF2F6;
+  border-color: #CBD5E1;
+  color: #0F172A;
+  transform: translateX(2px);
+}
+
+.wa-launch-footer {
+  padding: 1rem 1.25rem;
+  background: #F8FAFC;
+  border-top: 1px solid #E2E8F0;
+}
+
+.btn-wa-full {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  background: #25D366;
+  color: #FFFFFF;
+  padding: 0.85rem 1rem;
+  border-radius: 14px;
+  font-weight: 800;
+  font-size: 0.92rem;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
+  transition: all 0.2s ease;
+}
+
+.btn-wa-full:hover {
+  background: #20bd5a;
+  box-shadow: 0 6px 18px rgba(37, 211, 102, 0.45);
+  transform: translateY(-1px);
+}
+
+/* Interactive Bot Panel */
+.bot-messages-area {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.bot-msg {
+  max-width: 86%;
+  padding: 0.85rem 1rem;
+  border-radius: 16px;
+  font-size: 0.85rem;
+  line-height: 1.45;
+}
+
+.bot-msg.is-bot {
+  background: #F1F5F9;
+  color: #1E293B;
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+
+.bot-msg.is-user {
+  background: #141718;
+  color: #FFFFFF;
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+
+.bot-quick-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.4rem;
+}
+
+.bot-chip {
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  color: #334155;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.35rem 0.65rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.bot-chip:hover {
+  border-color: #FF5A1F;
+  color: #FF5A1F;
+  background: rgba(255, 90, 31, 0.05);
+}
+
+.bot-input-footer {
+  padding: 0.75rem 1rem;
+  background: #F8FAFC;
+  border-top: 1px solid #E2E8F0;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.bot-input-field {
+  flex: 1;
+  padding: 0.65rem 0.9rem;
+  border-radius: 10px;
+  border: 1px solid #CBD5E1;
+  font-family: var(--sm-font-body, system-ui, sans-serif);
+  font-size: 0.85rem;
+  outline: none;
+}
+
+.bot-input-field:focus {
+  border-color: #FF5A1F;
+}
+
+.bot-send-btn {
+  background: #141718;
+  color: #FFFFFF;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.bot-send-btn:hover {
+  background: #FF5A1F;
+}
+
+@media (max-width: 480px) {
+  .legal-chat-panel {
+    bottom: 78px;
+    right: 12px;
+    width: calc(100vw - 24px);
+    height: 480px;
+  }
+  .legal-chat-toggle-btn {
+    bottom: 16px;
+    right: 16px;
+  }
+}

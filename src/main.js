@@ -16,10 +16,12 @@ import './styles/impi-purchase.css';
 import './styles/branding-purchase.css';
 import './styles/about-view.css';
 import './styles/contact-view.css';
+import './styles/legal-chat.css';
 
 import { renderNavbar, initNavbarEvents } from './components/Navbar.js';
 import { renderFooter } from './components/Footer.js';
 import { renderEstimatorModal, initEstimatorEvents } from './components/EstimatorModal.js';
+import { renderLegalChatWidget, initLegalChatEvents } from './components/LegalChatWidget.js';
 import { CustomCursor } from './utils/Cursor.js';
 
 import { renderHomeView, initHomeEvents } from './pages/HomeView.js';
@@ -82,8 +84,9 @@ class App {
     } else if (path === '#/registro-marca') {
       activeRoute = 'registro-marca';
       const initialQuery = params.get('q') || '';
+      const shouldAutoOpen = params.get('open') === 'coincidencias' || params.get('analyze') === '1' || params.get('analyze') === 'true';
       mainContentHtml = renderImpiLandingView(initialQuery);
-      initCallback = initImpiEvents;
+      initCallback = () => initImpiEvents(shouldAutoOpen);
     } else if (path === '#/portafolio') {
       activeRoute = 'portafolio';
       const cat = params.get('cat') || 'all';
@@ -112,11 +115,13 @@ class App {
       </div>
       ${renderFooter()}
       ${renderEstimatorModal()}
+      ${renderLegalChatWidget()}
     `;
 
     // Initialize Global and Page Events
     initNavbarEvents();
     initEstimatorEvents();
+    initLegalChatEvents();
     if (initCallback) {
       initCallback();
     }
