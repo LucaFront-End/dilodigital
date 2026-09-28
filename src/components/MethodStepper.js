@@ -1,12 +1,12 @@
 // ================================================================
 // EL MÉTODO DILO — 4-STEP SCROLL-DRIVEN & VISUAL PROCESS PIPELINE
-// Minimalist, Editorial, Interactive Stepper with Real Lotties
+// Minimalist, Editorial, Interactive Stepper with Generative Canvases
 // ================================================================
 
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import lottie from 'lottie-web/build/player/lottie_svg.js';
 import { sounds } from '../utils/SoundEngine.js';
+import { MethodCanvasesManager } from '../utils/MethodCanvases.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -18,7 +18,6 @@ const METHOD_STEPS = [
     title: 'Diagnóstico & Blindaje Legal IMPI',
     desc: 'Búsqueda fonética exhaustiva en las 45 clases NIZA y análisis de viabilidad para garantizar que tu marca sea 100% registrable antes de invertir un solo peso.',
     duration: 'Semana 1',
-    lottiePath: '/lotties/shield.json',
     chips: [
       'Búsqueda fonética express 24h',
       'Dictamen jurídico de viabilidad',
@@ -32,7 +31,6 @@ const METHOD_STEPS = [
     title: 'Identidad Visual & Prototipado',
     desc: 'Diseño de sistemas de identidad únicos, manual de marca y wireframes interactivos en Figma aprobados con tu equipo antes de escribir código.',
     duration: 'Semanas 2 a 3',
-    lottiePath: '/lotties/branding.json',
     chips: [
       'Manual de identidad & tipografía',
       'Prototipo navegable en Figma',
@@ -46,7 +44,6 @@ const METHOD_STEPS = [
     title: 'Desarrollo Headless Ultrarrápido',
     desc: 'Ingeniería web moderna con arquitectura headless de carga inferior a 0.8s, pasarelas de pago Stripe / Mercado Pago y experiencia 100% responsiva.',
     duration: 'Semanas 3 a 4',
-    lottiePath: '/lotties/web.json',
     chips: [
       'Carga sub-segundo (95+ PageSpeed)',
       'Integración Wix Headless & Pagos',
@@ -60,7 +57,6 @@ const METHOD_STEPS = [
     title: 'Lanzamiento & Tracción Comercial',
     desc: 'Puesta en marcha con monitoreo en vivo, campañas de Meta y Google Ads optimizadas por ROAS y analítica transparente para escalar ventas.',
     duration: 'Continuo / Mensual',
-    lottiePath: '/lotties/rocket.json',
     chips: [
       'Campañas de Ads por ROAS',
       'Dashboard analítico en vivo',
@@ -68,6 +64,8 @@ const METHOD_STEPS = [
     ]
   }
 ];
+
+let globalCanvasManager = null;
 
 export function renderMethodStepper() {
   return `
@@ -122,7 +120,7 @@ export function renderMethodStepper() {
           </div>
         </aside>
 
-        <!-- Right Column: The 4 Step Cards with Real Lotties -->
+        <!-- Right Column: The 4 Step Cards with Generative Canvases -->
         <div class="ms-cards-col" id="ms-cards-col">
           ${METHOD_STEPS.map((step, idx) => `
             <article class="ms-card ${idx === 0 ? 'is-active' : ''}" id="ms-card-${idx}" data-step-index="${idx}">
@@ -140,12 +138,16 @@ export function renderMethodStepper() {
                 <span class="ms-card-num-watermark">${step.num}</span>
               </div>
 
-              <!-- Visual Lottie Animation Stage -->
-              <div class="ms-card-lottie-stage">
-                <div class="ms-lottie-player" 
-                     id="ms-lottie-player-${idx}" 
-                     data-lottie-path="${step.lottiePath}"
-                     aria-label="Animación del paso ${step.num}">
+              <!-- Generative Interactive Canvas Stage -->
+              <div class="ms-canvas-stage">
+                <canvas class="ms-particle-canvas" 
+                        id="ms-canvas-${idx}" 
+                        data-step-index="${idx}"
+                        aria-label="Simulación visual cinemática de ${step.title}">
+                </canvas>
+                <div class="ms-canvas-hint" aria-hidden="true">
+                  <span class="ms-canvas-hint-dot"></span>
+                  <span>Interactúa con el cursor</span>
                 </div>
               </div>
 
@@ -180,53 +182,13 @@ export function initMethodStepperEvents() {
   const trackerSteps = document.querySelectorAll('.ms-tracker-step');
   const lineFill = document.getElementById('ms-tracker-line-fill');
   const cardsCol = document.getElementById('ms-cards-col');
-  const lottiePlayers = document.querySelectorAll('.ms-lottie-player');
 
-  // 1. Initialize Lottie Animations safely
-  const animInstances = new Map();
-
-  function loadSingleLottie(el) {
-    if (animInstances.has(el)) return;
-    const lottiePath = el.getAttribute('data-lottie-path');
-    if (!lottiePath) return;
-
-    try {
-      const anim = lottie.loadAnimation({
-        container: el,
-        renderer: 'svg',
-        loop: true,
-        autoplay: true,
-        path: lottiePath
-      });
-      animInstances.set(el, anim);
-    } catch (err) {
-      console.warn('[MethodStepper] Lottie animation error for', lottiePath, err);
-    }
+  // 1. Initialize Generative Particle & Wave Canvases
+  if (globalCanvasManager) {
+    globalCanvasManager.destroy();
   }
-
-  if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        const el = entry.target;
-        if (entry.isIntersecting) {
-          if (!animInstances.has(el)) {
-            loadSingleLottie(el);
-          } else {
-            animInstances.get(el)?.play();
-          }
-        } else {
-          if (animInstances.has(el)) {
-            animInstances.get(el)?.pause();
-          }
-        }
-      });
-    }, { threshold: 0.1 });
-
-    lottiePlayers.forEach((lp) => observer.observe(lp));
-  } else {
-    // Fallback: load all immediately
-    lottiePlayers.forEach((lp) => loadSingleLottie(lp));
-  }
+  globalCanvasManager = new MethodCanvasesManager();
+  globalCanvasManager.init();
 
   // 2. Active Step Switcher
   function setActiveStep(activeIndex) {

@@ -320,37 +320,70 @@
   color: rgba(255, 90, 31, 0.16);
 }
 
-/* ── Visual Lottie Stage (Clean & Editorial) ── */
-.ms-card-lottie-stage {
+/* ── Generative Kinetic Canvas Stage (Obsidian Luxury Tech) ── */
+.ms-canvas-stage {
+  position: relative;
   width: 100%;
-  height: 160px;
-  background: #F9FAFB;
+  height: 180px;
+  background: #090C10;
   border-radius: 18px;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 2px 14px rgba(0, 0, 0, 0.5), 0 4px 20px rgba(0, 0, 0, 0.06);
   overflow: hidden;
+  margin-bottom: 1.5rem;
   transition: all 0.35s ease;
+  cursor: crosshair;
 }
 
-.ms-card.is-active .ms-card-lottie-stage {
-  background: rgba(255, 90, 31, 0.03);
-  border-color: rgba(255, 90, 31, 0.15);
+.ms-card.is-active .ms-canvas-stage {
+  border-color: rgba(255, 90, 31, 0.4);
+  box-shadow: inset 0 2px 16px rgba(255, 90, 31, 0.12), 0 8px 28px rgba(255, 90, 31, 0.15);
 }
 
-.ms-lottie-player {
-  width: 120px;
-  height: 120px;
-  display: flex;
+.ms-particle-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.ms-canvas-hint {
+  position: absolute;
+  bottom: 10px;
+  right: 12px;
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
+  gap: 0.4rem;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 0.22rem 0.6rem;
+  border-radius: 9999px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  color: rgba(255, 255, 255, 0.65);
+  pointer-events: none;
+  transition: all 0.3s ease;
+  z-index: 2;
 }
 
-.ms-lottie-player svg {
-  width: 100% !important;
-  height: 100% !important;
+.ms-canvas-hint-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #FF5A1F;
+  box-shadow: 0 0 6px #FF5A1F;
+}
+
+.ms-canvas-stage:hover .ms-canvas-hint {
+  color: #FFFFFF;
+  border-color: rgba(255, 90, 31, 0.4);
+  background: rgba(17, 24, 39, 0.85);
 }
 
 /* Card Content */
@@ -448,13 +481,8 @@
     border-radius: 20px;
   }
 
-  .ms-card-lottie-stage {
-    height: 135px;
-  }
-
-  .ms-lottie-player {
-    width: 95px;
-    height: 95px;
+  .ms-canvas-stage {
+    height: 150px;
   }
 
   .ms-card-chips {
