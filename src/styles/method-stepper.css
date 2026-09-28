@@ -404,7 +404,8 @@
   inset: 0;
   z-index: -10;
   opacity: 0;
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
 }
 
@@ -412,34 +413,211 @@
   opacity: 1;
 }
 
-/* Step 0: Legal IMPI — Deep Obsidian & Amber/Orange Legal Shield Atmosphere */
+/* Subtle Architectural Matrix Grid with Radial Vignette */
+.ss-grid-matrix {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.085) 1.2px, transparent 0);
+  background-size: 34px 34px;
+  mask-image: radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 0.85) 25%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 0.85) 25%, transparent 75%);
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.65;
+}
+
+/* Floating Liquid Aurora Light Orbs */
+.ss-aurora-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform, opacity;
+  z-index: 0;
+}
+
+@keyframes ssAuroraFloat1 {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  33% { transform: translate3d(45px, 30px, 0) scale(1.08); }
+  66% { transform: translate3d(-35px, -25px, 0) scale(0.94); }
+  100% { transform: translate3d(0, 0, 0) scale(1); }
+}
+
+@keyframes ssAuroraFloat2 {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  33% { transform: translate3d(-40px, -35px, 0) scale(1.1); }
+  66% { transform: translate3d(35px, 28px, 0) scale(0.92); }
+  100% { transform: translate3d(0, 0, 0) scale(1); }
+}
+
+@keyframes ssAuroraFloat3 {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  33% { transform: translate3d(28px, -35px, 0) scale(1.06); }
+  66% { transform: translate3d(-30px, 25px, 0) scale(0.96); }
+  100% { transform: translate3d(0, 0, 0) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ss-aurora-orb {
+    animation: none !important;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Step 0: Legal IMPI — Blindaje & Título Oficial
+   Deep Obsidian, Amber Gold Seal, Sapphire Jurídico & Dilo Orange
+   ───────────────────────────────────────────────────────────── */
 .ss-bg-layer[data-bg-index="0"] {
   background: 
-    radial-gradient(ellipse at 25% 45%, rgba(255, 90, 31, 0.16) 0%, transparent 60%),
-    radial-gradient(ellipse at 80% 30%, rgba(30, 58, 138, 0.22) 0%, transparent 60%),
-    linear-gradient(180deg, #06080E 0%, #0C121F 45%, #121A2D 100%);
+    radial-gradient(ellipse at 20% 50%, rgba(255, 90, 31, 0.08) 0%, transparent 60%),
+    linear-gradient(180deg, #05070D 0%, #0A111E 45%, #10192A 100%);
 }
 
-/* Step 1: Branding & Identidad — Deep Midnight Violet & Creative Orange Glow */
+.ss-bg-layer[data-bg-index="0"] .orb-amber {
+  top: 10%;
+  left: 12%;
+  width: 640px;
+  height: 640px;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.32) 0%, rgba(217, 119, 6, 0.12) 50%, transparent 70%);
+  filter: blur(105px);
+  animation: ssAuroraFloat1 20s ease-in-out infinite alternate;
+}
+
+.ss-bg-layer[data-bg-index="0"] .orb-sapphire {
+  top: 25%;
+  right: 12%;
+  width: 560px;
+  height: 560px;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.28) 0%, rgba(30, 58, 138, 0.14) 50%, transparent 70%);
+  filter: blur(120px);
+  animation: ssAuroraFloat2 24s ease-in-out infinite alternate;
+}
+
+.ss-bg-layer[data-bg-index="0"] .orb-orange {
+  bottom: 8%;
+  left: 36%;
+  width: 520px;
+  height: 520px;
+  background: radial-gradient(circle, rgba(255, 90, 31, 0.24) 0%, rgba(255, 126, 71, 0.08) 55%, transparent 75%);
+  filter: blur(95px);
+  animation: ssAuroraFloat3 18s ease-in-out infinite alternate;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Step 1: Branding & Identidad — Diseño de Marca & Estrategia
+   Midnight Violet, Magenta Creativo, Dilo Orange & Rose Studio
+   ───────────────────────────────────────────────────────────── */
 .ss-bg-layer[data-bg-index="1"] {
   background: 
-    radial-gradient(ellipse at 30% 40%, rgba(255, 90, 31, 0.2) 0%, rgba(147, 51, 234, 0.14) 50%, transparent 70%),
-    radial-gradient(ellipse at 75% 60%, rgba(255, 126, 71, 0.12) 0%, transparent 60%),
-    linear-gradient(180deg, #080A12 0%, #141126 45%, #1C1835 100%);
+    radial-gradient(ellipse at 25% 45%, rgba(168, 85, 247, 0.08) 0%, transparent 60%),
+    linear-gradient(180deg, #070810 0%, #130E24 45%, #1C1534 100%);
 }
 
-/* Step 2: Web Headless — Cybernetic Dark Cyan & Blue Edge Atmosphere */
+.ss-bg-layer[data-bg-index="1"] .orb-magenta {
+  top: 12%;
+  left: 14%;
+  width: 620px;
+  height: 620px;
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.32) 0%, rgba(126, 34, 206, 0.14) 50%, transparent 70%);
+  filter: blur(110px);
+  animation: ssAuroraFloat1 22s ease-in-out infinite alternate;
+}
+
+.ss-bg-layer[data-bg-index="1"] .orb-dilo {
+  top: 30%;
+  right: 10%;
+  width: 550px;
+  height: 550px;
+  background: radial-gradient(circle, rgba(255, 90, 31, 0.28) 0%, rgba(234, 88, 12, 0.12) 55%, transparent 75%);
+  filter: blur(100px);
+  animation: ssAuroraFloat2 19s ease-in-out infinite alternate;
+}
+
+.ss-bg-layer[data-bg-index="1"] .orb-rose {
+  bottom: 10%;
+  left: 38%;
+  width: 490px;
+  height: 490px;
+  background: radial-gradient(circle, rgba(236, 72, 153, 0.24) 0%, rgba(190, 24, 93, 0.1) 50%, transparent 70%);
+  filter: blur(95px);
+  animation: ssAuroraFloat3 21s ease-in-out infinite alternate;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Step 2: Web Headless — Arquitectura Sub-Segundo & PageSpeed 100
+   Cybernetic Obsidian, Electric Cyan, Cobalt Engine & Emerald Speed
+   ───────────────────────────────────────────────────────────── */
 .ss-bg-layer[data-bg-index="2"] {
   background: 
-    radial-gradient(ellipse at 28% 45%, rgba(16, 185, 129, 0.14) 0%, rgba(59, 130, 246, 0.18) 45%, transparent 70%),
-    radial-gradient(ellipse at 80% 35%, rgba(255, 90, 31, 0.1) 0%, transparent 50%),
-    linear-gradient(180deg, #050810 0%, #0A1628 45%, #0E203B 100%);
+    radial-gradient(ellipse at 25% 45%, rgba(6, 182, 212, 0.08) 0%, transparent 60%),
+    linear-gradient(180deg, #040710 0%, #081526 45%, #0B1E38 100%);
 }
 
-/* Step 3: Lanzamiento & ROAS — Cosmic Rocket Plasma & Growth Ember Atmosphere */
+.ss-bg-layer[data-bg-index="2"] .orb-cyan {
+  top: 14%;
+  left: 16%;
+  width: 630px;
+  height: 630px;
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.32) 0%, rgba(14, 116, 144, 0.14) 50%, transparent 70%);
+  filter: blur(105px);
+  animation: ssAuroraFloat1 21s ease-in-out infinite alternate;
+}
+
+.ss-bg-layer[data-bg-index="2"] .orb-cobalt {
+  top: 28%;
+  right: 12%;
+  width: 580px;
+  height: 580px;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.3) 0%, rgba(29, 78, 216, 0.12) 55%, transparent 70%);
+  filter: blur(115px);
+  animation: ssAuroraFloat2 25s ease-in-out infinite alternate;
+}
+
+.ss-bg-layer[data-bg-index="2"] .orb-emerald {
+  bottom: 8%;
+  left: 35%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.24) 0%, rgba(5, 150, 105, 0.09) 50%, transparent 70%);
+  filter: blur(95px);
+  animation: ssAuroraFloat3 17s ease-in-out infinite alternate;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Step 3: Lanzamiento & ROAS — Tráfico Calificado & Conversión
+   Cosmic Dark Crimson, Solar Orange Plasma, Ember Gold & Crimson Peak
+   ───────────────────────────────────────────────────────────── */
 .ss-bg-layer[data-bg-index="3"] {
   background: 
-    radial-gradient(ellipse at 30% 50%, rgba(255, 90, 31, 0.25) 0%, rgba(245, 158, 11, 0.12) 50%, transparent 70%),
-    radial-gradient(ellipse at 75% 30%, rgba(225, 29, 72, 0.14) 0%, transparent 60%),
-    linear-gradient(180deg, #0A0A12 0%, #1D1218 45%, #2B151D 100%);
+    radial-gradient(ellipse at 25% 45%, rgba(255, 90, 31, 0.1) 0%, transparent 60%),
+    linear-gradient(180deg, #07060B 0%, #170C14 45%, #25101A 100%);
+}
+
+.ss-bg-layer[data-bg-index="3"] .orb-solar {
+  top: 12%;
+  left: 15%;
+  width: 650px;
+  height: 650px;
+  background: radial-gradient(circle, rgba(255, 90, 31, 0.34) 0%, rgba(249, 115, 22, 0.16) 50%, transparent 70%);
+  filter: blur(110px);
+  animation: ssAuroraFloat1 18s ease-in-out infinite alternate;
+}
+
+.ss-bg-layer[data-bg-index="3"] .orb-amber-gold {
+  top: 25%;
+  right: 14%;
+  width: 570px;
+  height: 570px;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.28) 0%, rgba(217, 119, 6, 0.13) 55%, transparent 70%);
+  filter: blur(120px);
+  animation: ssAuroraFloat2 23s ease-in-out infinite alternate;
+}
+
+.ss-bg-layer[data-bg-index="3"] .orb-crimson {
+  bottom: 8%;
+  left: 36%;
+  width: 530px;
+  height: 530px;
+  background: radial-gradient(circle, rgba(244, 63, 94, 0.26) 0%, rgba(225, 29, 72, 0.1) 50%, transparent 70%);
+  filter: blur(100px);
+  animation: ssAuroraFloat3 20s ease-in-out infinite alternate;
 }

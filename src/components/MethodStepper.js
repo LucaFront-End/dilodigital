@@ -148,11 +148,31 @@ export function renderMethodStepper() {
         <!-- Film Grain Texture -->
         <div class="ss-grain"></div>
 
-        <!-- Dynamic Cross-Fading Background Layers per Step -->
-        <div class="ss-bg-layer is-active" data-bg-index="0"></div>
-        <div class="ss-bg-layer" data-bg-index="1"></div>
-        <div class="ss-bg-layer" data-bg-index="2"></div>
-        <div class="ss-bg-layer" data-bg-index="3"></div>
+        <!-- Dynamic Liquid Mesh Auroras per Step (Stripe / Linear Luxury Glow) -->
+        <div class="ss-bg-layer is-active" data-bg-index="0">
+          <div class="ss-grid-matrix"></div>
+          <div class="ss-aurora-orb orb-amber"></div>
+          <div class="ss-aurora-orb orb-sapphire"></div>
+          <div class="ss-aurora-orb orb-orange"></div>
+        </div>
+        <div class="ss-bg-layer" data-bg-index="1">
+          <div class="ss-grid-matrix"></div>
+          <div class="ss-aurora-orb orb-magenta"></div>
+          <div class="ss-aurora-orb orb-dilo"></div>
+          <div class="ss-aurora-orb orb-rose"></div>
+        </div>
+        <div class="ss-bg-layer" data-bg-index="2">
+          <div class="ss-grid-matrix"></div>
+          <div class="ss-aurora-orb orb-cyan"></div>
+          <div class="ss-aurora-orb orb-cobalt"></div>
+          <div class="ss-aurora-orb orb-emerald"></div>
+        </div>
+        <div class="ss-bg-layer" data-bg-index="3">
+          <div class="ss-grid-matrix"></div>
+          <div class="ss-aurora-orb orb-solar"></div>
+          <div class="ss-aurora-orb orb-amber-gold"></div>
+          <div class="ss-aurora-orb orb-crimson"></div>
+        </div>
       </div>
     </div>
   </section>
