@@ -21,16 +21,16 @@ export function renderHomeView() {
       <!-- 1. HERO SECTION -->
       ${renderSaduHero()}
 
-      <!-- 2. TRUSTED BY CLIENTS LOGO GARDEN -->
-      ${renderTrustedBy()}
-
-      <!-- 3. CLEAN & AIRY SERVICES SHOWCASE (DINAMETRA STYLE WITH REAL LOTTIES) -->
+      <!-- 2. CLEAN & AIRY SERVICES SHOWCASE (DINAMETRA STYLE WITH REAL LOTTIES) -->
       ${renderDinametraServices()}
 
-      <!-- 4. THE KINETIC CINEMA REEL — HORIZONTAL SCROLL SHOWCASE (6 Insignia Cases) -->
+      <!-- 3. THE KINETIC CINEMA REEL — HORIZONTAL SCROLL SHOWCASE (6 Insignia Cases) -->
       ${renderKineticReel()}
 
-      <!-- 6. IMPI EXPRESS VIABILITY SCANNER BANNER -->
+      <!-- 4. TRUSTED BY THE BEST — DUAL REVERSE INFINITE CAROUSELS (White Canvas Edition) -->
+      ${renderTrustedBy()}
+
+      <!-- 5. IMPI EXPRESS VIABILITY SCANNER BANNER -->
       <section class="container" style="margin-top: clamp(3rem, 6vh, 5rem); margin-bottom: clamp(3rem, 6vw, 6rem);">
         <div class="impi-express-banner">
           <div class="impi-banner-grid">
@@ -196,14 +196,14 @@ export function initHomeEvents() {
   // 1. Initialize Pixel-Perfect Sadu Hero Interactive Events
   initSaduHeroEvents();
 
-  // 2. Initialize Trusted By The Best Reverse Marquee Events
-  initTrustedByEvents();
-
-  // 3. Initialize Dinametra-Style Clean Services with Lotties Events
+  // 2. Initialize Dinametra-Style Clean Services with Lotties Events
   initDinametraServicesEvents();
 
-  // 4. Initialize The Kinetic Cinema Reel Horizontal Showcase Events
+  // 3. Initialize The Kinetic Cinema Reel Horizontal Showcase Events
   initKineticReelEvents();
+
+  // 4. Initialize Trusted By The Best Reverse Marquee Events
+  initTrustedByEvents();
 
   // 5. Initialize El Método Dilo 4-Step Stepper Events
   initMethodStepperEvents();
