@@ -6,6 +6,7 @@ import { SoundwaveCanvas } from '../utils/SoundwaveCanvas.js';
 import { renderSaduHero, initSaduHeroEvents } from '../components/SaduHero.js';
 import { renderDinametraServices, initDinametraServicesEvents } from '../components/DinametraServices.js';
 import { renderKineticReel, initKineticReelEvents } from '../components/KineticReel.js';
+import { renderWorksWheel, initWorksWheelEvents } from '../components/WorksWheel.js';
 import { renderTrustedBy, initTrustedByEvents } from '../components/TrustedBy.js';
 import { renderMethodStepper, initMethodStepperEvents } from '../components/MethodStepper.js';
 import { renderTestimonialsMarquee, initTestimonialsMarqueeEvents } from '../components/TestimonialsMarquee.js';
@@ -24,8 +25,8 @@ export function renderHomeView() {
       <!-- 2. CLEAN & AIRY SERVICES SHOWCASE (DINAMETRA STYLE WITH REAL LOTTIES) -->
       ${renderDinametraServices()}
 
-      <!-- 3. THE KINETIC CINEMA REEL — HORIZONTAL SCROLL SHOWCASE (6 Insignia Cases) -->
-      ${renderKineticReel()}
+      <!-- 3. WORKS WHEEL — 3D CYLINDRICAL DRUM & CONCENTRIC RING (CASOS INSIGNIA) -->
+      ${renderWorksWheel()}
 
       <!-- 4. TRUSTED BY THE BEST — DUAL REVERSE INFINITE CAROUSELS (White Canvas Edition) -->
       ${renderTrustedBy()}
@@ -199,8 +200,8 @@ export function initHomeEvents() {
   // 2. Initialize Dinametra-Style Clean Services with Lotties Events
   initDinametraServicesEvents();
 
-  // 3. Initialize The Kinetic Cinema Reel Horizontal Showcase Events
-  initKineticReelEvents();
+  // 3. Initialize The Works Wheel 3D Rotating Showcase Events
+  initWorksWheelEvents();
 
   // 4. Initialize Trusted By The Best Reverse Marquee Events
   initTrustedByEvents();

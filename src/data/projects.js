@@ -137,6 +137,52 @@ export const PROJECTS = [
       "Generación automática de contratos y anexos en PDF",
       "Notificaciones automáticas en tiempo real a asesores"
     ]
+  },
+  {
+    id: "case-nomada",
+    title: "Nómada Coffee Specialty Roasters",
+    category: "branding",
+    categoryName: "Branding & Ecommerce",
+    client: "Nómada Coffee Co.",
+    location: "Monterrey, N.L.",
+    year: "2025",
+    summary: "Identidad editorial, packaging biodegradable con foil dorado y plataforma Shopify Headless de suscripción de café.",
+    metrics: [
+      { label: "Suscripciones", value: "+190%" },
+      { label: "Sesión Promedio", value: "3m 45s" },
+      { label: "LTV de Cliente", value: "+62%" }
+    ],
+    tags: ["Branding Café", "Packaging", "Shopify Headless", "Suscripción"],
+    coverImage: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=1200&q=80",
+    deliverables: [
+      "Diseño de bolsas y empaques con foil dorado",
+      "Tienda de suscripción mensual con pasarela Stripe",
+      "Estrategia de contenido visual para redes",
+      "Registro de marca mixta IMPI Clase 30"
+    ]
+  },
+  {
+    id: "case-vesta",
+    title: "Vesta Living Mobiliario Contemporáneo",
+    category: "web-ecommerce",
+    categoryName: "E-Commerce 3D & Performance",
+    client: "Vesta Living",
+    location: "Puebla / Cholula",
+    year: "2025",
+    summary: "Showroom digital con visualizador 3D de muebles en tiempo real y campañas integradas de Google Shopping y Meta Ads.",
+    metrics: [
+      { label: "PageSpeed", value: "100/100" },
+      { label: "Conversión", value: "3.8%" },
+      { label: "Ventas Catálogo", value: "+210%" }
+    ],
+    tags: ["Visualizador 3D", "PageSpeed 100", "Google Shopping", "Meta Ads"],
+    coverImage: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=80",
+    deliverables: [
+      "Configurador 3D interactivo en WebGL",
+      "Integración de pasarela de pagos con MSI",
+      "Feed automatizado para Google Merchant Center",
+      "Optimización SEO para categorías de alta intención"
+    ]
   }
 ];
 

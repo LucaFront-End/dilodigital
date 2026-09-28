@@ -7,6 +7,7 @@ import './styles/pages.css';
 import './styles/sadu-hero.css';
 import './styles/deck-monolith.css';
 import './styles/kinetic-reel.css';
+import './styles/works-wheel.css';
 import './styles/trusted-by.css';
 import './styles/method-stepper.css';
 import './styles/testimonials.css';

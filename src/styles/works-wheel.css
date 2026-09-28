@@ -1,0 +1,762 @@
+/* ================================================================
+   WORKS WHEEL — 3D CYLINDRICAL DRUM & CONCENTRIC RING (PROYECTOS)
+   Obsidian Dark Luxury Atmosphere · Fluid 3D Perspective
+   ================================================================ */
+
+.ww-root {
+  position: relative;
+  width: 100%;
+  background-color: #06080E;
+  color: #FFFFFF;
+  overflow: clip;
+  box-sizing: border-box;
+  padding: clamp(2rem, 4vh, 3.5rem) 0 0;
+  isolation: isolate;
+}
+
+/* ── Top HUD Navigation Bar ── */
+.ww-hud-bar {
+  width: 100%;
+  max-width: 100rem;
+  margin: 0 auto;
+  padding: 0 clamp(1.5rem, 3.5vw, 4rem) 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  box-sizing: border-box;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  position: relative;
+  z-index: 20;
+}
+
+.ww-hud-left {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.ww-rec-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #FF5A1F;
+  box-shadow: 0 0 10px #FF5A1F;
+  animation: wwPulseDot 2s infinite ease-in-out;
+}
+
+@keyframes wwPulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+.ww-hud-tag {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+}
+
+/* Central HUD Controls: Ring Mode & Arrow Buttons */
+.ww-hud-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.ww-btn-ring {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #FFFFFF;
+  padding: 0.4rem 0.85rem;
+  border-radius: 9999px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ww-btn-ring:hover {
+  background: rgba(255, 90, 31, 0.16);
+  border-color: rgba(255, 90, 31, 0.4);
+  color: #FF7E47;
+  transform: translateY(-1px);
+}
+
+.ww-nav-arrows {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.ww-arrow-btn {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ww-arrow-btn:hover {
+  background: #FF5A1F;
+  border-color: #FF5A1F;
+  box-shadow: 0 0 12px rgba(255, 90, 31, 0.4);
+  transform: translateY(-1px);
+}
+
+.ww-hud-right {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.ww-counter {
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.ww-counter-active {
+  color: #FF5A1F;
+  font-size: 1.15rem;
+}
+
+.ww-counter-sep {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.ww-counter-total {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.ww-full-portfolio-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #FFFFFF;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.ww-full-portfolio-btn:hover {
+  border-color: #FF5A1F;
+  color: #FF7E47;
+  background: rgba(255, 90, 31, 0.1);
+}
+
+/* ── 3D Interactive Stage Container ── */
+.ww-stage-wrapper {
+  position: relative;
+  width: 100%;
+  height: clamp(620px, 86vh, 840px);
+  overflow: hidden;
+  user-select: none;
+}
+
+.ww-stage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  outline: none;
+  overflow: hidden;
+  touch-action: pan-x;
+}
+
+.ww-stage:active {
+  cursor: grabbing;
+}
+
+/* Ambient Category Dynamic Radial Glow */
+.ww-ambient-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 900px;
+  height: 700px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle at 50% 50%, rgba(255, 90, 31, 0.3) 0%, transparent 70%);
+  filter: blur(120px);
+  pointer-events: none;
+  z-index: 0;
+  transition: background 0.8s ease;
+  opacity: 0.75;
+}
+
+/* Subtle Architectural Matrix Dots */
+.ww-grid-matrix {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.08) 1.2px, transparent 0);
+  background-size: 34px 34px;
+  mask-image: radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 0.9) 20%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 0.9) 20%, transparent 80%);
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.55;
+}
+
+/* ── The 3D Wheel ── */
+.ww-wheel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-style: preserve-3d;
+  will-change: transform;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* The Individual 3D Card */
+.ww-card {
+  position: absolute;
+  transform-origin: center center;
+  backface-visibility: hidden;
+  will-change: transform, opacity;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.ww-card-face {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #0D131F;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 24px 50px -15px rgba(0, 0, 0, 0.75);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  transform-origin: center center;
+}
+
+.ww-card:hover .ww-card-face {
+  border-color: rgba(255, 90, 31, 0.6);
+  box-shadow: 0 30px 60px -12px rgba(255, 90, 31, 0.25), 0 0 30px rgba(255, 90, 31, 0.15);
+}
+
+.ww-card-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ww-card:hover .ww-card-img {
+  transform: scale(1.05);
+}
+
+.ww-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(6, 8, 14, 0.75) 0%,
+    rgba(6, 8, 14, 0.15) 45%,
+    rgba(6, 8, 14, 0.88) 100%
+  );
+  pointer-events: none;
+}
+
+/* Card Header: Category & Metric */
+.ww-card-top-row {
+  position: absolute;
+  top: 1rem;
+  left: 1.15rem;
+  right: 1.15rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.ww-card-cat {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: rgba(6, 8, 14, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ww-cat-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.ww-card-metric-pill {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 90, 31, 0.2);
+  border: 1px solid rgba(255, 90, 31, 0.5);
+  color: #FF8F5E;
+  padding: 0.22rem 0.6rem;
+  border-radius: 9999px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+/* Card Footer */
+.ww-card-bottom-row {
+  position: absolute;
+  bottom: 1.15rem;
+  left: 1.15rem;
+  right: 1.15rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  z-index: 2;
+}
+
+.ww-card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  pointer-events: none;
+}
+
+.ww-card-client {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.65);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.ww-card-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 800;
+  line-height: 1.25;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.ww-card-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(255, 255, 255, 0.95);
+  color: #06080E;
+  border: none;
+  border-radius: 9999px;
+  padding: 0.45rem 0.85rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  pointer-events: auto;
+}
+
+.ww-card-action-btn:hover {
+  background: #FF5A1F;
+  color: #FFFFFF;
+  transform: translateY(-1px);
+}
+
+/* ── Central Resting Disc (turn = 0) ── */
+.ww-ring-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: auto;
+  cursor: pointer;
+  z-index: 15;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.ww-ring-disc {
+  position: relative;
+  width: clamp(240px, 32vw, 340px);
+  height: clamp(240px, 32vw, 340px);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(14, 20, 32, 0.92) 0%, rgba(6, 8, 14, 0.98) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.8), inset 0 0 30px rgba(255, 90, 31, 0.12);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1.5rem;
+  box-sizing: border-box;
+}
+
+.ww-ring-radar {
+  position: absolute;
+  inset: -12px;
+  border-radius: 50%;
+  border: 1px dashed rgba(255, 90, 31, 0.35);
+  animation: wwRadarSpin 28s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes wwRadarSpin {
+  100% { transform: rotate(360deg); }
+}
+
+.ww-ring-eyebrow {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #FF7E47;
+  margin-bottom: 0.6rem;
+  text-transform: uppercase;
+}
+
+.ww-ring-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(1.4rem, 2.2vw, 2rem);
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  line-height: 1.1;
+  color: #FFFFFF;
+  margin: 0 0 0.85rem;
+}
+
+.ww-ring-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.35rem 0.75rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.2s ease;
+}
+
+.ww-ring-disc:hover .ww-ring-hint {
+  background: rgba(255, 90, 31, 0.2);
+  border-color: rgba(255, 90, 31, 0.4);
+  color: #FF8F5E;
+}
+
+/* ── Left HUD: Project Details (m > 0) ── */
+.ww-front-hud {
+  position: absolute;
+  top: 50%;
+  left: clamp(1.5rem, 5vw, 6rem);
+  transform: translateY(-50%);
+  max-width: clamp(280px, 32vw, 420px);
+  z-index: 18;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.ww-hud-category-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(6, 8, 14, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 90, 31, 0.3);
+  padding: 0.3rem 0.8rem;
+  border-radius: 9999px;
+  width: fit-content;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #FF7E47;
+}
+
+.ww-hud-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #FF5A1F;
+  box-shadow: 0 0 8px #FF5A1F;
+}
+
+.ww-hud-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(1.6rem, 2.5vw, 2.4rem);
+  font-weight: 900;
+  line-height: 1.12;
+  letter-spacing: -0.5px;
+  color: #FFFFFF;
+  margin: 0;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+}
+
+.ww-hud-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.ww-metric-chip {
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.35rem 0.75rem;
+  border-radius: 10px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.ww-metric-val {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #FF5A1F;
+}
+
+.ww-metric-lbl {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.66rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.ww-hud-desc {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(0.85rem, 1vw, 0.95rem);
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.75);
+  margin: 0;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+}
+
+.ww-hud-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.4rem;
+}
+
+.ww-cta-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #FF5A1F;
+  color: #FFFFFF;
+  padding: 0.65rem 1.25rem;
+  border-radius: 9999px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 6px 20px rgba(255, 90, 31, 0.4);
+}
+
+.ww-cta-primary:hover {
+  background: #FF7842;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(255, 90, 31, 0.55);
+}
+
+.ww-cta-secondary {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #FFFFFF;
+  padding: 0.65rem 1.15rem;
+  border-radius: 9999px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.ww-cta-secondary:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+/* ── Right Index Column ── */
+.ww-index-nav {
+  position: absolute;
+  top: 50%;
+  right: clamp(1.5rem, 3.5vw, 4rem);
+  transform: translateY(-50%);
+  z-index: 18;
+  pointer-events: auto;
+}
+
+.ww-index-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.ww-index-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.4);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  padding: 0.35rem 0.75rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.ww-index-num {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  opacity: 0.6;
+}
+
+.ww-index-btn:hover {
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.ww-index-btn.is-active {
+  color: #FF5A1F;
+  font-weight: 700;
+  background: rgba(255, 90, 31, 0.12);
+  border: 1px solid rgba(255, 90, 31, 0.3);
+}
+
+.ww-index-btn.is-active .ww-index-num {
+  opacity: 1;
+}
+
+/* ── Bottom Gesture Drag Hint ── */
+.ww-bottom-hint {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.4);
+  pointer-events: none;
+  z-index: 15;
+  background: rgba(6, 8, 14, 0.6);
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.ww-drag-icon {
+  display: grid;
+  place-items: center;
+  animation: wwBounceY 2s infinite ease-in-out;
+}
+
+@keyframes wwBounceY {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+/* ── Responsive Adaptations ── */
+@media (max-width: 1100px) {
+  .ww-index-nav {
+    display: none;
+  }
+  .ww-front-hud {
+    max-width: 340px;
+    left: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .ww-hud-bar {
+    flex-wrap: wrap;
+    padding-bottom: 0.75rem;
+  }
+  .ww-hud-controls {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    margin-top: 0.5rem;
+  }
+  .ww-front-hud {
+    position: absolute;
+    top: auto;
+    bottom: 3.5rem;
+    left: 1rem;
+    right: 1rem;
+    max-width: 100%;
+    transform: none;
+    background: rgba(6, 8, 14, 0.9);
+    padding: 1rem;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .ww-hud-title {
+    font-size: 1.35rem;
+  }
+  .ww-hud-desc {
+    display: none;
+  }
+}
