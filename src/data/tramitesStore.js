@@ -3,6 +3,16 @@
 // Manages Viabilidad and Registro IMPI workflows, stages, comments, and updates
 // ================================================================
 
+import {
+  fetchTramitesFromWix,
+  saveTramiteToWix,
+  updateTramiteInWix,
+  DEFAULT_REGISTRADOR,
+  DEFAULT_CLIENT,
+  getWixCurrentMember,
+  setWixCurrentMember
+} from '../lib/wixClient.js';
+
 const STORAGE_KEY = 'dilo_tramites_db';
 const AUTH_KEY = 'dilo_auth_user';
 
@@ -290,6 +300,12 @@ export function updateTramiteRecord(id, updates) {
 
   all[index] = updated;
   saveTramitesToStore(all);
+
+  // Background sync with Wix Headless CMS
+  updateTramiteInWix(id, updates).catch(err => {
+    console.warn('[TramitesStore] Wix Headless sync offline:', err);
+  });
+
   return updated;
 }
 
@@ -332,7 +348,61 @@ export function createNewTramite(data) {
 
   all.unshift(newTramite);
   saveTramitesToStore(all);
+
+  // Background sync with Wix Headless CMS
+  saveTramiteToWix(newTramite).catch(err => {
+    console.warn('[TramitesStore] Wix Headless insert offline:', err);
+  });
+
   return newTramite;
+}
+
+// Bidirectional sync with live Wix CMS collection "Tramites"
+export async function syncTramitesWithWix() {
+  try {
+    const wixItems = await fetchTramitesFromWix();
+    if (!wixItems || !Array.isArray(wixItems) || wixItems.length === 0) {
+      return getTramitesFromStore();
+    }
+
+    const localItems = getTramitesFromStore();
+    const localMap = new Map(localItems.map(item => [item.id, item]));
+
+    // Merge Wix items with local
+    wixItems.forEach(wix => {
+      const code = wix.codigo || wix.id || wix._id;
+      if (!code) return;
+      const existing = localMap.get(code);
+
+      const merged = {
+        id: code,
+        type: wix.tipo || existing?.type || (code.startsWith('REG') ? 'registro' : 'viabilidad'),
+        brandName: wix.marca || wix.brandName || existing?.brandName || 'Marca',
+        clientName: wix.cliente || wix.clientName || existing?.clientName || 'Cliente Dilo',
+        clientEmail: wix.email || wix.clientEmail || existing?.clientEmail || '',
+        clientPhone: wix.telefono || existing?.clientPhone || '',
+        nizaClass: wix.claseNiza || existing?.nizaClass || '',
+        entryDate: wix.fechaIngreso || existing?.entryDate || new Date().toISOString().split('T')[0],
+        deadlineDate: wix.fechaLimite || existing?.deadlineDate || calculateNextMonthlyUpdate(60),
+        lastUpdateDate: wix.ultimaActualizacion || existing?.lastUpdateDate || new Date().toISOString(),
+        nextUpdateLimit: wix.siguienteActualizacion || existing?.nextUpdateLimit || calculateNextMonthlyUpdate(30),
+        currentStage: wix.etapaActual || existing?.currentStage || 'solicitud_recibida',
+        comments: wix.comentarios || existing?.comments || '',
+        lawyer: wix.abogado || existing?.lawyer || 'Lic. Daniel Garza',
+        folioImpi: wix.folioImpi || existing?.folioImpi || '',
+        history: existing?.history || []
+      };
+
+      localMap.set(code, merged);
+    });
+
+    const mergedList = Array.from(localMap.values());
+    saveTramitesToStore(mergedList);
+    return mergedList;
+  } catch (err) {
+    console.warn('[TramitesStore] Error sincronizando con Wix:', err);
+    return getTramitesFromStore();
+  }
 }
 
 // Auth State Helpers
@@ -340,32 +410,20 @@ export function getActiveUser() {
   try {
     const raw = localStorage.getItem(AUTH_KEY);
     if (!raw) {
-      // Default initial role: Registrador (so user can inspect and test immediately)
-      const defaultUser = {
-        name: 'Lic. Daniel Garza',
-        email: 'dgarza@dilodigital.com',
-        role: 'registrador',
-        title: 'Equipo Legal & Registrador IMPI',
-        avatarText: 'DG'
-      };
-      localStorage.setItem(AUTH_KEY, JSON.stringify(defaultUser));
-      return defaultUser;
+      const member = getWixCurrentMember() || DEFAULT_REGISTRADOR;
+      localStorage.setItem(AUTH_KEY, JSON.stringify(member));
+      return member;
     }
     return JSON.parse(raw);
   } catch {
-    return {
-      name: 'Lic. Daniel Garza',
-      email: 'dgarza@dilodigital.com',
-      role: 'registrador',
-      title: 'Equipo Legal & Registrador IMPI',
-      avatarText: 'DG'
-    };
+    return DEFAULT_REGISTRADOR;
   }
 }
 
 export function setActiveUser(user) {
   try {
     localStorage.setItem(AUTH_KEY, JSON.stringify(user));
+    setWixCurrentMember(user);
     window.dispatchEvent(new CustomEvent('dilo:auth-changed', { detail: user }));
   } catch (err) {
     console.error('[TramitesStore] Error saving auth:', err);
@@ -374,23 +432,11 @@ export function setActiveUser(user) {
 
 export function switchRole(role = 'registrador') {
   if (role === 'registrador') {
-    const regUser = {
-      name: 'Lic. Daniel Garza',
-      email: 'dgarza@dilodigital.com',
-      role: 'registrador',
-      title: 'Equipo Legal & Registrador IMPI',
-      avatarText: 'DG'
-    };
+    const regUser = { ...DEFAULT_REGISTRADOR };
     setActiveUser(regUser);
     return regUser;
   } else {
-    const clientUser = {
-      name: 'Ana Lucía Morales',
-      email: 'cliente@solaria.mx',
-      role: 'client',
-      title: 'Titular de Marca · Solaria Coffee MX',
-      avatarText: 'AM'
-    };
+    const clientUser = { ...DEFAULT_CLIENT };
     setActiveUser(clientUser);
     return clientUser;
   }

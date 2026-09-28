@@ -10,6 +10,7 @@ import {
   createNewTramite, 
   getActiveUser, 
   switchRole, 
+  syncTramitesWithWix,
   ETAPAS_VIABILIDAD, 
   ETAPAS_REGISTRO, 
   formatDisplayDate, 
@@ -40,7 +41,10 @@ export function renderUserSectionView() {
                 <span>Dilo Digital MX</span>
                 <span>&bull;</span>
                 <span>Protección Legal 24/7</span>
-                <span class="badge badge-primary" style="font-size: 0.68rem; padding: 0.15rem 0.5rem; margin-left: 0.4rem;">Wix Sync Ready</span>
+                <span class="badge" style="background: rgba(16, 185, 129, 0.12); color: #10B981; border: 1px solid rgba(16, 185, 129, 0.3); font-size: 0.7rem; padding: 0.18rem 0.55rem; margin-left: 0.4rem; display: inline-flex; align-items: center; gap: 0.35rem; border-radius: 9999px; font-weight: 600;">
+                  <span style="width: 6px; height: 6px; border-radius: 50%; background: #10B981; box-shadow: 0 0 8px #10B981; display: inline-block;"></span>
+                  Wix Headless Conectado
+                </span>
               </div>
             </div>
           </div>
@@ -677,4 +681,13 @@ export function initUserSectionEvents() {
 
   // Initial listener attachment
   attachViewListeners();
+
+  // Background sync with Wix Headless CMS
+  syncTramitesWithWix().then(updatedList => {
+    if (updatedList && container && window.location.hash.includes('portal')) {
+      console.log('[UserSectionView] ✅ Sincronización Wix Headless completada en vista');
+    }
+  }).catch(err => {
+    console.warn('[UserSectionView] Sync offline note:', err);
+  });
 }

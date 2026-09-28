@@ -3,6 +3,8 @@
 // Stores inquiries, phonetic radar scans & IMPI requirement cases
 // ================================================================
 
+import { sendLeadToWix } from '../lib/wixClient.js';
+
 const STORAGE_KEY = 'dilo_leads_cms';
 
 export function saveLeadToCms(leadData) {
@@ -25,11 +27,29 @@ export function saveLeadToCms(leadData) {
       type: leadData.type || 'coincidencias', // 'coincidencias' | 'rechazo_impi' | 'chat_inquiry' | 'checkout'
       statusScenario: leadData.statusScenario || 'verde', // 'verde' | 'amarillo' | 'rojo'
       notes: leadData.notes || '',
-      syncedToCrm: true
+      syncedToCrm: true,
+      wixStatus: 'pending_sync'
     };
 
     existing.unshift(newLead);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(existing));
+
+    // Live sync to Wix Headless CMS in background
+    sendLeadToWix(newLead)
+      .then(res => {
+        if (res?.success) {
+          newLead.wixStatus = 'synced_wix';
+          newLead.wixId = res.item?._id || res.item?.id;
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(existing));
+          console.log(`[DILO CMS] ☁️ Sincronizado en Wix Headless CMS: ${newLead.brandName}`);
+        } else {
+          newLead.wixStatus = 'cached_offline';
+        }
+      })
+      .catch(err => {
+        newLead.wixStatus = 'cached_offline';
+        console.warn('[DILO CMS] Wix Headless sync offline/fallback:', err);
+      });
 
     // Dispatch global event for live monitoring/debugging
     window.dispatchEvent(new CustomEvent('dilo:new-lead', { detail: newLead }));
