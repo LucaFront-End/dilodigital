@@ -1,492 +1,395 @@
 /* ================================================================
-   EL MÉTODO DILO — 4-STEP SCROLL-DRIVEN & VISUAL METHODOLOGY
-   Editorial, Clean, Minimalist with Sticky Tracker & Lotties
+   EL MÉTODO DILO — SERVICES STACK (KNNEKT STUDIO / 21ST.DEV)
+   Stacking Cards Scroll Physics + Algorithmic Line Drawings
    ================================================================ */
 
-.ms-section {
+.ss-root {
   position: relative;
-  padding: clamp(5rem, 8vw, 8rem) 0;
-  background: #FFFFFF;
-  border-top: 1px solid rgba(0, 0, 0, 0.06);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  isolation: isolate;
+  width: 100%;
+  color: #16253F;
   box-sizing: border-box;
 }
 
-.ms-container {
-  max-width: 1240px;
-  margin: 0 auto;
-  padding: 0 clamp(1.25rem, 3.5vw, 2.5rem);
-  box-sizing: border-box;
-}
-
-.ms-layout {
-  display: grid;
-  grid-template-columns: minmax(300px, 380px) 1fr;
-  gap: clamp(2.5rem, 5vw, 5.5rem);
-  align-items: start;
+/* ── Stacking Panels ── */
+.ss-panels-wrapper {
   position: relative;
+  width: 100%;
 }
 
-/* ── Sticky Left Column ── */
-.ms-sticky-col {
+.ss-panel {
   position: -webkit-sticky;
   position: sticky;
-  top: 120px;
-  align-self: flex-start;
-  height: fit-content;
-  display: flex;
-  flex-direction: column;
-  z-index: 10;
-}
-
-.ms-tag-wrap {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  background: rgba(255, 90, 31, 0.08);
-  padding: 0.35rem 0.85rem;
-  border-radius: 9999px;
-  border: 1px solid rgba(255, 90, 31, 0.2);
-  width: fit-content;
-  margin-bottom: 1.25rem;
-}
-
-.ms-diamond-dot {
-  width: 7px;
-  height: 7px;
-  background: #FF5A1F;
-  border-radius: 50%;
-  box-shadow: 0 0 8px rgba(255, 90, 31, 0.6);
-}
-
-.ms-tag-text {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.6px;
-  text-transform: uppercase;
-  color: #FF5A1F;
-}
-
-.ms-title {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: clamp(2.8rem, 4.5vw, 4.2rem);
-  font-weight: 900;
-  line-height: 0.95;
-  letter-spacing: -0.035em;
-  text-transform: uppercase;
-  color: #111827;
-  margin: 0 0 1.2rem;
-}
-
-.ms-title-accent {
-  background: linear-gradient(135deg, #FF5A1F 0%, #FF8A50 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  display: inline-block;
-}
-
-.ms-subtitle {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: clamp(0.95rem, 1.1vw, 1.05rem);
-  font-weight: 400;
-  line-height: 1.6;
-  color: #6B7280;
-  margin: 0 0 2.2rem;
-  max-width: 360px;
-}
-
-/* ── Vertical Step Tracker & Scrubber ── */
-.ms-tracker {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  padding-left: 28px;
-  margin-bottom: 2.5rem;
-}
-
-/* Track background line */
-.ms-tracker-line-bg {
-  position: absolute;
-  left: 7px;
-  top: 8px;
-  bottom: 8px;
-  width: 2px;
-  background: rgba(0, 0, 0, 0.08);
-  border-radius: 2px;
-}
-
-/* Animated active progress fill line */
-.ms-tracker-line-fill {
-  position: absolute;
-  left: 7px;
-  top: 8px;
-  width: 2px;
-  height: 0%;
-  background: #FF5A1F;
-  border-radius: 2px;
-  transition: height 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 0 10px rgba(255, 90, 31, 0.5);
-}
-
-/* Tracker Step Buttons */
-.ms-tracker-step {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 0.85rem;
-  cursor: pointer;
-  background: none;
-  border: none;
-  padding: 0;
-  text-align: left;
-  user-select: none;
-  transition: opacity 0.3s ease, transform 0.2s ease;
-  opacity: 0.45;
-}
-
-.ms-tracker-step:hover {
-  opacity: 0.8;
-  transform: translateX(2px);
-}
-
-.ms-tracker-step.is-active {
-  opacity: 1;
-}
-
-.ms-step-dot {
-  position: absolute;
-  left: -28px;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: #FFFFFF;
-  border: 2px solid rgba(0, 0, 0, 0.2);
-  display: flex;
+  top: 0;
+  min-height: 100vh;
+  width: 100%;
+  max-width: 104.5rem;
+  margin: 0 auto;
+  display: grid;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  z-index: 2;
+  padding: 1.5rem 1rem;
+  box-sizing: border-box;
+  transform-origin: top center;
 }
 
-.ms-tracker-step.is-active .ms-step-dot {
-  border-color: #FF5A1F;
-  background: #FF5A1F;
-  box-shadow: 0 0 0 4px rgba(255, 90, 31, 0.2);
-  transform: scale(1.15);
+@media (min-width: 1024px) {
+  .ss-panel {
+    grid-template-columns: 1fr 1fr;
+    padding: 3rem clamp(2rem, 4vw, 4.5rem);
+  }
 }
 
-.ms-step-num {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 1.05rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: #111827;
-  transition: color 0.3s ease;
+/* Mobile Title */
+.ss-mobile-title {
+  margin-bottom: 1.25rem;
 }
 
-.ms-tracker-step.is-active .ms-step-num {
-  color: #FF5A1F;
+@media (min-width: 1024px) {
+  .ss-mobile-title {
+    display: none;
+  }
 }
 
-.ms-step-name {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.92rem;
-  font-weight: 600;
-  color: #6B7280;
-  transition: color 0.3s ease;
-}
-
-.ms-tracker-step.is-active .ms-step-name {
-  color: #111827;
-  font-weight: 700;
-}
-
-/* Sticky CTA Button */
-.ms-sticky-cta {
-  display: inline-flex;
-}
-
-.ms-cta-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  background: #111827;
-  color: #FFFFFF;
-  padding: 0.75rem 1.6rem;
-  border-radius: 9999px;
-  border: none;
+.ss-mobile-eyebrow {
+  display: block;
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 0.88rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 4px 16px rgba(17, 24, 39, 0.12);
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 0.35rem;
 }
 
-.ms-cta-button:hover {
-  background: #FF5A1F;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(255, 90, 31, 0.3);
-}
-
-/* ── Right Column: The 4 Step Cards ── */
-.ms-cards-col {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(2rem, 3.5vh, 2.75rem);
-}
-
-.ms-card {
-  position: relative;
-  background: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 26px;
-  padding: clamp(1.75rem, 3vw, 2.5rem);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.03);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  opacity: 0.65;
-  transform: translateY(0);
-  box-sizing: border-box;
-  scroll-margin-top: 140px;
-}
-
-.ms-card:hover {
-  opacity: 0.9;
-  border-color: rgba(0, 0, 0, 0.15);
-}
-
-.ms-card.is-active {
-  opacity: 1;
-  border-color: rgba(255, 90, 31, 0.45);
-  box-shadow: 
-    0 20px 48px rgba(255, 90, 31, 0.09),
-    0 4px 16px rgba(0, 0, 0, 0.04);
-  transform: translateY(-4px);
-}
-
-/* Top Meta Row in Card */
-.ms-card-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1.25rem;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-}
-
-.ms-card-badge-wrap {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
-
-.ms-card-badge {
+.ss-mobile-heading {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.75rem;
+  font-size: 1.5rem;
   font-weight: 800;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  color: #FF5A1F;
-  background: rgba(255, 90, 31, 0.08);
-  padding: 0.25rem 0.65rem;
-  border-radius: 9999px;
-  border: 1px solid rgba(255, 90, 31, 0.2);
-}
-
-.ms-card-duration {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: #9CA3AF;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-}
-
-.ms-card-num-watermark {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: clamp(2.8rem, 4.5vw, 3.8rem);
-  font-weight: 900;
-  color: rgba(0, 0, 0, 0.06);
-  line-height: 0.8;
-  letter-spacing: -0.04em;
-  transition: color 0.4s ease;
-  user-select: none;
-}
-
-.ms-card.is-active .ms-card-num-watermark {
-  color: rgba(255, 90, 31, 0.16);
-}
-
-/* ── Generative Kinetic Canvas Stage (Obsidian Luxury Tech) ── */
-.ms-canvas-stage {
-  position: relative;
-  width: 100%;
-  height: 180px;
-  background: #090C10;
-  border-radius: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: inset 0 2px 14px rgba(0, 0, 0, 0.5), 0 4px 20px rgba(0, 0, 0, 0.06);
-  overflow: hidden;
-  margin-bottom: 1.5rem;
-  transition: all 0.35s ease;
-  cursor: crosshair;
-}
-
-.ms-card.is-active .ms-canvas-stage {
-  border-color: rgba(255, 90, 31, 0.4);
-  box-shadow: inset 0 2px 16px rgba(255, 90, 31, 0.12), 0 8px 28px rgba(255, 90, 31, 0.15);
-}
-
-.ms-particle-canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-.ms-canvas-hint {
-  position: absolute;
-  bottom: 10px;
-  right: 12px;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  background: rgba(0, 0, 0, 0.65);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  padding: 0.22rem 0.6rem;
-  border-radius: 9999px;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.3px;
-  color: rgba(255, 255, 255, 0.65);
-  pointer-events: none;
-  transition: all 0.3s ease;
-  z-index: 2;
-}
-
-.ms-canvas-hint-dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: #FF5A1F;
-  box-shadow: 0 0 6px #FF5A1F;
-}
-
-.ms-canvas-stage:hover .ms-canvas-hint {
   color: #FFFFFF;
-  border-color: rgba(255, 90, 31, 0.4);
-  background: rgba(17, 24, 39, 0.85);
+  margin: 0;
+  line-height: 1.2;
 }
 
-/* Card Content */
-.ms-card-title {
+/* Card Container */
+.ss-card-container {
+  width: 100%;
+  max-width: 42.5rem;
+  margin: 0 auto;
+  will-change: transform, opacity;
+  transform-origin: top center;
+  transition: transform 0.15s ease-out, opacity 0.15s ease-out;
+}
+
+@media (min-width: 1024px) {
+  .ss-card-container {
+    grid-column: 2;
+    margin: 0;
+  }
+}
+
+/* The Stacking Card */
+.ss-card {
+  position: relative;
+  background: linear-gradient(180deg, #E6EDF8 0%, #F8FAFC 100%);
+  border: 1px solid rgba(22, 37, 63, 0.08);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(10, 16, 28, 0.25), 0 2px 10px rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
+}
+
+@media (min-width: 1024px) {
+  .ss-card {
+    border-radius: 24px;
+  }
+}
+
+/* SVG Line Drawing Container */
+.ss-animation-box {
+  width: 100%;
+  padding: 1.25rem 1.25rem 0.5rem;
+  box-sizing: border-box;
+}
+
+@media (min-width: 1024px) {
+  .ss-animation-box {
+    padding: 2rem 2.5rem 0.5rem;
+  }
+}
+
+.ss-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+/* Animated Step Mono Caption */
+.ss-step-caption {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  letter-spacing: 1px;
+  font-weight: 500;
+  font-size: 22px;
+  fill: #16253F;
+  fill-opacity: 0.5;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+/* Card Content: Text & Capabilities */
+.ss-card-content {
+  padding: 1.25rem 1.5rem 1.75rem;
+  box-sizing: border-box;
+}
+
+@media (min-width: 1024px) {
+  .ss-card-content {
+    padding: 1.75rem 2.75rem 2.5rem;
+  }
+}
+
+.ss-card-desc {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: clamp(1.4rem, 2vw, 1.85rem);
-  font-weight: 800;
-  line-height: 1.25;
-  letter-spacing: -0.025em;
-  color: #111827;
-  margin: 0 0 0.6rem;
+  font-size: clamp(1rem, 1.1vw, 1.15rem);
+  line-height: 1.55;
+  color: #16253F;
+  font-weight: 500;
+  margin: 0 0 1.75rem;
+  max-width: 36rem;
 }
 
-.ms-card-desc {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: clamp(0.92rem, 1.05vw, 1rem);
-  line-height: 1.6;
-  color: #6B7280;
-  margin: 0 0 1.35rem;
+.ss-caps-header {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(22, 37, 63, 0.7);
+  margin-bottom: 0.85rem;
 }
 
-/* Minimalist Deliverables Chips */
-.ms-card-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+/* Capabilities Grid */
+.ss-caps-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.55rem;
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.ms-card-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  background: #F3F4F6;
-  border: 1px solid rgba(0, 0, 0, 0.04);
-  border-radius: 9999px;
-  padding: 0.35rem 0.8rem;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: #374151;
-  transition: all 0.25s ease;
+@media (max-width: 540px) {
+  .ss-caps-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
-.ms-card.is-active .ms-card-chip {
-  background: #FFFFFF;
-  border-color: rgba(255, 90, 31, 0.2);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-}
-
-.ms-chip-icon {
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-  background: rgba(255, 90, 31, 0.12);
-  color: #FF5A1F;
+.ss-cap-chip {
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 0.55rem;
+  background: #D3E3F6;
+  border: 1px solid rgba(22, 37, 63, 0.05);
+  border-radius: 9px;
+  padding: 0.55rem 0.85rem;
+  box-sizing: border-box;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: #16253F;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+
+.ss-cap-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #16253F;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   flex-shrink: 0;
 }
 
-.ms-chip-icon svg {
-  width: 9px;
-  height: 9px;
+/* Active Capability Chip: Lights up in sync with the SVG drawing */
+.ss-cap-chip.is-active {
+  background: #FF5A1F;
+  color: #FFFFFF;
+  border-color: #FF5A1F;
+  box-shadow: 0 4px 14px rgba(255, 90, 31, 0.35);
+  transform: translateY(-1px);
 }
 
-/* ── Responsive Adaptations ── */
-@media (max-width: 960px) {
-  .ms-layout {
-    grid-template-columns: 1fr;
-    gap: 3rem;
-  }
+.ss-cap-chip.is-active .ss-cap-dot {
+  background: #FFFFFF;
+  box-shadow: 0 0 6px #FFFFFF;
+}
 
-  .ms-sticky-col {
-    position: static;
-    top: auto;
-  }
+/* ── Sticky Backdrop: Left Titles + Film Grain + Gradient ── */
+.ss-sticky-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: -10;
+  pointer-events: none;
+}
 
-  .ms-tracker {
-    display: none;
-  }
+.ss-sticky-inner {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  max-width: 104.5rem;
+  margin: 0 auto;
+  display: grid;
+  align-items: center;
+  overflow: hidden;
+  padding: 0 clamp(2rem, 4vw, 4.5rem);
+  box-sizing: border-box;
+}
 
-  .ms-card {
-    opacity: 1 !important;
-    transform: none !important;
+/* Left Column Desktop Titles */
+.ss-left-col {
+  display: none;
+  grid-column: 1;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  max-width: 440px;
+  pointer-events: auto;
+  z-index: 10;
+}
+
+@media (min-width: 1024px) {
+  .ss-left-col {
+    display: flex;
   }
 }
 
-@media (max-width: 600px) {
-  .ms-card {
-    padding: 1.5rem 1.25rem;
-    border-radius: 20px;
-  }
+.ss-left-eyebrow-box {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  background: rgba(255, 90, 31, 0.12);
+  border: 1px solid rgba(255, 90, 31, 0.3);
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  width: fit-content;
+  margin-bottom: 1.5rem;
+}
 
-  .ms-canvas-stage {
-    height: 150px;
-  }
+.ss-left-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #FF5A1F;
+  box-shadow: 0 0 8px #FF5A1F;
+}
 
-  .ms-card-chips {
-    flex-direction: column;
-    align-items: flex-start;
+.ss-left-eyebrow {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #FF7E47;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.ss-left-titles-viewport {
+  position: relative;
+  height: 120px;
+  margin-bottom: 2.5rem;
+}
+
+.ss-left-title {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.ss-left-title.is-active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.ss-left-title h2 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(2.2rem, 3.2vw, 3rem);
+  font-weight: 800;
+  color: #FFFFFF;
+  line-height: 1.15;
+  margin: 0;
+  letter-spacing: -0.025em;
+}
+
+.ss-left-cta {
+  display: flex;
+}
+
+.ss-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: #FF5A1F;
+  color: #FFFFFF;
+  padding: 0.85rem 1.8rem;
+  border-radius: 9999px;
+  border: none;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(255, 90, 31, 0.35);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ss-cta-btn:hover {
+  background: #FF7842;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(255, 90, 31, 0.5);
+}
+
+/* Animated Film Grain Overlay */
+.ss-grain {
+  position: absolute;
+  inset: 0;
+  z-index: -5;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.ss-grain::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 140%;
+  height: 140%;
+  opacity: 0.05;
+  background-image: url('https://cdn.21st.dev/assets/mirror/07/0779a346a8a608cb9830a8892152beae5fd79088a7a4f4a50a9d9ebf435e5404.png');
+  animation: ss-grain 8s steps(10) infinite;
+}
+
+@keyframes ss-grain {
+  0% { transform: translate(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translate(-5%, -10%); }
+  20%, 40%, 60%, 80%, 100% { transform: translate(-15%, -20%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ss-grain::after {
+    animation: none;
   }
+}
+
+/* Background Deep Luxury Gradient */
+.ss-bg-gradient {
+  position: absolute;
+  inset: 0;
+  z-index: -10;
+  background: linear-gradient(180deg, #070A14 0%, #0D1627 45%, #14233D 75%, #1B325B 100%);
 }

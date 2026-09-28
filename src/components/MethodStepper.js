@@ -1,176 +1,154 @@
 // ================================================================
-// EL MÉTODO DILO — 4-STEP SCROLL-DRIVEN & VISUAL PROCESS PIPELINE
-// Minimalist, Editorial, Interactive Stepper with Generative Canvases
+// EL MÉTODO DILO — SERVICES STACK (KNNEKT STUDIO / 21ST.DEV)
+// Algorithmic Line Drawings + Stacking Cards Scroll Physics
 // ================================================================
 
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { sounds } from '../utils/SoundEngine.js';
-import { MethodCanvasesManager } from '../utils/MethodCanvases.js';
+import { SCENES, W, H, prog } from './ServicesStackScenes.js';
 
-gsap.registerPlugin(ScrollTrigger);
-
-const METHOD_STEPS = [
+export const DILO_SERVICES = [
   {
-    num: '01',
-    phase: 'FASE 01 · INVESTIGACIÓN & BLINDAJE',
-    stepName: 'Diagnóstico',
-    title: 'Diagnóstico & Blindaje Legal IMPI',
-    desc: 'Búsqueda fonética exhaustiva en las 45 clases NIZA y análisis de viabilidad para garantizar que tu marca sea 100% registrable antes de invertir un solo peso.',
-    duration: 'Semana 1',
-    chips: [
-      'Búsqueda fonética express 24h',
-      'Dictamen jurídico de viabilidad',
-      'Ingreso oficial ante el IMPI'
-    ]
+    id: "legal",
+    title: "01. Diagnóstico & Blindaje Legal IMPI",
+    text: "Protegemos tu nombre, activos intangibles y modelo de negocio ante el IMPI antes de invertir capital. Búsqueda fonética express, dictamen jurídico y título oficial sin burocracia.",
+    capabilities: [
+      "Búsqueda Fonética IMPI",
+      "Dictamen & Contratos",
+      "Asignación de Marca (IP)",
+      "Clasificación NIZA",
+      "Expediente Oficial IMPI",
+      "Título de Concesión"
+    ],
   },
   {
-    num: '02',
-    phase: 'FASE 02 · DISEÑO & IDENTIDAD',
-    stepName: 'Identidad',
-    title: 'Identidad Visual & Prototipado',
-    desc: 'Diseño de sistemas de identidad únicos, manual de marca y wireframes interactivos en Figma aprobados con tu equipo antes de escribir código.',
-    duration: 'Semanas 2 a 3',
-    chips: [
-      'Manual de identidad & tipografía',
-      'Prototipo navegable en Figma',
-      'Dirección de arte cinematográfica'
-    ]
+    id: "growth",
+    title: "02. Estrategia & Identidad Visual",
+    text: "Construimos marcas memorables con posicionamiento claro en el mercado, diseño de logotipo, manual de identidad integral y validación comercial antes de programar.",
+    capabilities: [
+      "Posicionamiento",
+      "Branding & Logo",
+      "Canales Digitales",
+      "Diseño de Contenido",
+      "Generación de Demanda",
+      "Retención & Comunidad"
+    ],
   },
   {
-    num: '03',
-    phase: 'FASE 03 · DESARROLLO HEADLESS',
-    stepName: 'Desarrollo',
-    title: 'Desarrollo Headless Ultrarrápido',
-    desc: 'Ingeniería web moderna con arquitectura headless de carga inferior a 0.8s, pasarelas de pago Stripe / Mercado Pago y experiencia 100% responsiva.',
-    duration: 'Semanas 3 a 4',
-    chips: [
-      'Carga sub-segundo (95+ PageSpeed)',
-      'Integración Wix Headless & Pagos',
-      'SEO técnico & microdatos schema'
-    ]
+    id: "technology",
+    title: "03. Ingeniería Web Headless",
+    text: "Desarrollamos plataformas digitales ultrarrápidas con carga sub-segundo (< 0.8s), arquitectura headless, integración de pagos (Stripe / Mercado Pago) y analítica avanzada para alta conversión.",
+    capabilities: [
+      "Sitio Web Headless",
+      "App & Mobile First",
+      "Ops Stack & Cloud",
+      "Integraciones & Pagos",
+      "Analítica & PageSpeed",
+      "Automatización Total"
+    ],
   },
   {
-    num: '04',
-    phase: 'FASE 04 · LANZAMIENTO & ESCALA',
-    stepName: 'Escala',
-    title: 'Lanzamiento & Tracción Comercial',
-    desc: 'Puesta en marcha con monitoreo en vivo, campañas de Meta y Google Ads optimizadas por ROAS y analítica transparente para escalar ventas.',
-    duration: 'Continuo / Mensual',
-    chips: [
-      'Campañas de Ads por ROAS',
-      'Dashboard analítico en vivo',
-      'Optimización continua y soporte'
-    ]
+    id: "ai",
+    title: "04. Automatización con IA & Escala",
+    text: "Activamos sistemas de captación continua con pauta optimizada por ROAS y agentes de inteligencia artificial que califican leads 24/7 y automatizan la operación comercial.",
+    capabilities: [
+      "Prompt Systems",
+      "Estructuración de Datos",
+      "Agentes IA a la Medida",
+      "Flujos Automatizados",
+      "Ventas & Soporte 24/7",
+      "Escala con Tu Equipo"
+    ],
   }
 ];
-
-let globalCanvasManager = null;
 
 export function renderMethodStepper() {
   return `
   <!-- ================================================================
-       EL MÉTODO DILO — 4-STEP SCROLL-DRIVEN & VISUAL METHODOLOGY
+       EL MÉTODO DILO — 4-STEP SERVICES STACK PIPELINE
        ================================================================ -->
-  <section class="ms-section" id="metodo-dilo">
-    <div class="ms-container">
-      <div class="ms-layout">
+  <section class="ss-root" id="metodo-dilo">
+    <div class="ss-panels-wrapper">
+      ${DILO_SERVICES.map((s, i) => `
+        <div class="ss-panel" data-panel="${i}">
+          <div class="ss-card-container" data-card="${i}">
+            
+            <!-- Mobile Eyebrow & Title -->
+            <div class="ss-mobile-title">
+              <span class="ss-mobile-eyebrow">Bajo el Método Dilo, ejecutamos</span>
+              <h3 class="ss-mobile-heading">${s.title}</h3>
+            </div>
+
+            <!-- The Stacking White Canvas Card -->
+            <article class="ss-card" data-service-id="${s.id}">
+              
+              <!-- Algorithmic Animated Vector Line Drawing -->
+              <div class="ss-animation-box">
+                <svg class="ss-svg" id="ss-svg-${s.id}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${s.title}">
+                  <g class="ss-scene-draw" id="ss-draw-${s.id}"></g>
+                  <text class="ss-step-caption" id="ss-caption-${s.id}" x="90" y="514"></text>
+                </svg>
+              </div>
+
+              <!-- Card Content: Text & Active Capability Chips -->
+              <div class="ss-card-content">
+                <p class="ss-card-desc">${s.text}</p>
+                
+                <div class="ss-caps-header">
+                  <span>Alcance de esta etapa</span>
+                </div>
+
+                <ul class="ss-caps-grid" aria-label="Capacidades de ${s.title}">
+                  ${s.capabilities.map((c) => `
+                    <li class="ss-cap-chip" data-cap="${c}">
+                      <span class="ss-cap-dot"></span>
+                      <span class="ss-cap-name">${c}</span>
+                    </li>
+                  `).join('')}
+                </ul>
+              </div>
+
+            </article>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+
+    <!-- Sticky Backdrop: Left Titles + Grain Overlay + Luxury Gradient -->
+    <div class="ss-sticky-backdrop" aria-hidden="true">
+      <div class="ss-sticky-inner">
         
-        <!-- Left Column: Sticky Title & Interactive Vertical Scrubber -->
-        <aside class="ms-sticky-col">
-          <div class="ms-tag-wrap">
-            <span class="ms-diamond-dot"></span>
-            <span class="ms-tag-text">METODOLOGÍA PROBADA</span>
+        <!-- Left Column Header: Sticks alongside stacking cards on desktop -->
+        <div class="ss-left-col">
+          <div class="ss-left-eyebrow-box">
+            <span class="ss-left-dot"></span>
+            <span class="ss-left-eyebrow">Bajo el Método Dilo, ejecutamos</span>
           </div>
 
-          <h2 class="ms-title">
-            EL MÉTODO<br>
-            <span class="ms-title-accent">DILO.</span>
-          </h2>
-
-          <p class="ms-subtitle">
-            De la idea inicial a la escala comercial en 4 fases claras, ágiles y orientadas a resultados tangibles.
-          </p>
-
-          <!-- Interactive Vertical Scrubber / Step Tracker -->
-          <nav class="ms-tracker" id="ms-tracker" aria-label="Fases del Método Dilo">
-            <div class="ms-tracker-line-bg"></div>
-            <div class="ms-tracker-line-fill" id="ms-tracker-line-fill"></div>
-
-            ${METHOD_STEPS.map((step, idx) => `
-              <button type="button" class="ms-tracker-step ${idx === 0 ? 'is-active' : ''}" data-target-step="${idx}">
-                <span class="ms-step-dot"></span>
-                <span class="ms-step-num">${step.num}</span>
-                <span class="ms-step-name">${step.stepName}</span>
-              </button>
+          <div class="ss-left-titles-viewport">
+            ${DILO_SERVICES.map((s, i) => `
+              <div class="ss-left-title ${i === 0 ? 'is-active' : ''}" data-left-title="${i}">
+                <h2>${s.title}</h2>
+              </div>
             `).join('')}
-          </nav>
+          </div>
 
-          <!-- Quick CTA Button -->
-          <div class="ms-sticky-cta">
-            <button type="button" class="ms-cta-button" 
+          <div class="ss-left-cta">
+            <button type="button" class="ss-cta-btn" 
                     onclick="window.dispatchEvent(new CustomEvent('open-cotizador-modal'))" 
                     data-cursor="cotizar">
-              <span>Cotizar Mi Proyecto</span>
+              <span>Cotizar con este Método</span>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                 <line x1="5" y1="12" x2="19" y2="12"></line>
                 <polyline points="12 5 19 12 12 19"></polyline>
               </svg>
             </button>
           </div>
-        </aside>
-
-        <!-- Right Column: The 4 Step Cards with Generative Canvases -->
-        <div class="ms-cards-col" id="ms-cards-col">
-          ${METHOD_STEPS.map((step, idx) => `
-            <article class="ms-card ${idx === 0 ? 'is-active' : ''}" id="ms-card-${idx}" data-step-index="${idx}">
-              <div class="ms-card-top">
-                <div class="ms-card-badge-wrap">
-                  <span class="ms-card-badge">${step.phase}</span>
-                  <span class="ms-card-duration">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <circle cx="12" cy="12" r="10"></circle>
-                      <polyline points="12 6 12 12 16 14"></polyline>
-                    </svg>
-                    ${step.duration}
-                  </span>
-                </div>
-                <span class="ms-card-num-watermark">${step.num}</span>
-              </div>
-
-              <!-- Generative Interactive Canvas Stage -->
-              <div class="ms-canvas-stage">
-                <canvas class="ms-particle-canvas" 
-                        id="ms-canvas-${idx}" 
-                        data-step-index="${idx}"
-                        aria-label="Simulación visual cinemática de ${step.title}">
-                </canvas>
-                <div class="ms-canvas-hint" aria-hidden="true">
-                  <span class="ms-canvas-hint-dot"></span>
-                  <span>Interactúa con el cursor</span>
-                </div>
-              </div>
-
-              <h3 class="ms-card-title">${step.title}</h3>
-              <p class="ms-card-desc">${step.desc}</p>
-
-              <!-- Deliverables Checklist Chips -->
-              <ul class="ms-card-chips">
-                ${step.chips.map(chip => `
-                  <li class="ms-card-chip">
-                    <span class="ms-chip-icon">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                        <polyline points="20 6 9 17 4 12"></polyline>
-                      </svg>
-                    </span>
-                    <span>${chip}</span>
-                  </li>
-                `).join('')}
-              </ul>
-            </article>
-          `).join('')}
         </div>
 
+        <!-- Film Grain Texture -->
+        <div class="ss-grain"></div>
+
+        <!-- Luxury Deep Gradient Backdrop -->
+        <div class="ss-bg-gradient"></div>
       </div>
     </div>
   </section>
@@ -178,83 +156,133 @@ export function renderMethodStepper() {
 }
 
 export function initMethodStepperEvents() {
-  const cards = document.querySelectorAll('.ms-card');
-  const trackerSteps = document.querySelectorAll('.ms-tracker-step');
-  const lineFill = document.getElementById('ms-tracker-line-fill');
-  const cardsCol = document.getElementById('ms-cards-col');
+  const root = document.getElementById('metodo-dilo');
+  if (!root) return;
 
-  // 1. Initialize Generative Particle & Wave Canvases
-  if (globalCanvasManager) {
-    globalCanvasManager.destroy();
-  }
-  globalCanvasManager = new MethodCanvasesManager();
-  globalCanvasManager.init();
+  const panels = Array.from(root.querySelectorAll('[data-panel]'));
+  const cards = Array.from(root.querySelectorAll('[data-card]'));
+  const leftTitles = Array.from(root.querySelectorAll('[data-left-title]'));
 
-  // 2. Active Step Switcher
-  function setActiveStep(activeIndex) {
-    cards.forEach((card, i) => {
-      card.classList.toggle('is-active', i === activeIndex);
+  // -------------------------------------------------------------
+  // 1. STACKING CARDS SCROLL ENGINE
+  // -------------------------------------------------------------
+  let rafScroll = 0;
+
+  const fitPanels = () => {
+    const vh = window.innerHeight;
+    panels.forEach((panel) => {
+      panel.style.top = `${Math.min(0, vh - panel.offsetHeight)}px`;
     });
-    trackerSteps.forEach((step, i) => {
-      step.classList.toggle('is-active', i === activeIndex);
-    });
+  };
 
-    if (lineFill && trackerSteps.length > 1) {
-      const progressPercent = (activeIndex / (trackerSteps.length - 1)) * 100;
-      lineFill.style.height = `${progressPercent}%`;
-    }
-  }
+  const updateScroll = () => {
+    rafScroll = 0;
+    const vh = window.innerHeight;
+    let activeIdx = 0;
 
-  // 3. ScrollTrigger for Each Card (Tracks viewport focus)
-  if (cards.length > 0) {
-    cards.forEach((card, idx) => {
-      ScrollTrigger.create({
-        trigger: card,
-        start: 'top 55%',
-        end: 'bottom 45%',
-        onEnter: () => setActiveStep(idx),
-        onEnterBack: () => setActiveStep(idx)
-      });
-    });
-  }
-
-  // 4. Smooth Scrubber Line Fill based on scroll position within cards column
-  if (cardsCol && lineFill) {
-    ScrollTrigger.create({
-      trigger: cardsCol,
-      start: 'top 60%',
-      end: 'bottom 60%',
-      onUpdate: (self) => {
-        const pct = Math.min(100, Math.max(0, self.progress * 100));
-        lineFill.style.height = `${pct}%`;
+    panels.forEach((panel, i) => {
+      const top = panel.getBoundingClientRect().top;
+      if (top <= vh * 0.5) {
+        activeIdx = i;
       }
+
+      const next = panels[i + 1];
+      const card = cards[i];
+      if (!card) return;
+
+      const covered = next ? Math.min(1, Math.max(0, 1 - next.getBoundingClientRect().top / vh)) : 0;
+      card.style.opacity = String(Math.max(0, 1 - covered * 1.4));
+      card.style.transform = `scale(${1 - covered * 0.06}) translateY(${-covered * 40}px)`;
     });
-  }
 
-  // 5. Interactive Click on Tracker Steps (Smooth scroll to targeted card)
-  trackerSteps.forEach((stepBtn, idx) => {
-    stepBtn.addEventListener('click', () => {
-      try {
-        sounds.playClick();
-      } catch (e) {
-        // sound engine safety
+    leftTitles.forEach((tEl, i) => {
+      tEl.classList.toggle('is-active', i === activeIdx);
+    });
+  };
+
+  const scheduleScroll = () => {
+    if (!rafScroll) rafScroll = requestAnimationFrame(updateScroll);
+  };
+
+  fitPanels();
+  updateScroll();
+  window.addEventListener('scroll', scheduleScroll, { passive: true });
+  window.addEventListener('resize', () => {
+    fitPanels();
+    scheduleScroll();
+  });
+
+  // -------------------------------------------------------------
+  // 2. MATHEMATICAL SVG ANIMATION ENGINE
+  // -------------------------------------------------------------
+  const clocks = { legal: 0, growth: 0, technology: 0, ai: 0 };
+  let isSectionVisible = false;
+  let rafAnim = 0;
+  let lastTime = 0;
+
+  function tick(now) {
+    if (!lastTime) lastTime = now;
+    const delta = Math.min(0.1, (now - lastTime) / 1000);
+    lastTime = now;
+
+    DILO_SERVICES.forEach((service) => {
+      const scene = SCENES[service.id];
+      if (!scene) return;
+
+      clocks[service.id] = (clocks[service.id] + delta) % scene.loop;
+      const t = clocks[service.id];
+
+      const drawContainer = document.getElementById(`ss-draw-${service.id}`);
+      if (drawContainer) {
+        drawContainer.innerHTML = scene.draw(t);
       }
-      setActiveStep(idx);
 
-      const targetCard = document.getElementById(`ms-card-${idx}`);
-      if (targetCard) {
-        const headerOffset = 130;
-        const targetPos = targetCard.getBoundingClientRect().top + window.scrollY - headerOffset;
-        window.scrollTo({
-          top: targetPos,
-          behavior: 'smooth'
+      // Find active step & capability
+      const activeStep = scene.steps.find(([a, b]) => t >= a && t < b);
+      const captionEl = document.getElementById(`ss-caption-${service.id}`);
+
+      if (captionEl && activeStep) {
+        const [a, b, name] = activeStep;
+        const o = prog(t, a, a + 0.3) * (1 - prog(t, b - 0.3, b));
+        captionEl.textContent = name;
+        captionEl.style.opacity = o.toFixed(3);
+        captionEl.setAttribute('y', (514 + (1 - o) * 8).toFixed(1));
+      }
+
+      // Light up matching capability chip
+      const cardEl = root.querySelector(`[data-service-id="${service.id}"]`);
+      if (cardEl) {
+        const activeCap = activeStep ? activeStep[2] : null;
+        const chips = cardEl.querySelectorAll('.ss-cap-chip');
+        chips.forEach((chip) => {
+          chip.classList.toggle('is-active', chip.getAttribute('data-cap') === activeCap);
         });
       }
     });
-  });
 
-  // 6. Refresh ScrollTrigger after a short delay
-  setTimeout(() => {
-    ScrollTrigger.refresh();
-  }, 150);
+    if (isSectionVisible) {
+      rafAnim = requestAnimationFrame(tick);
+    }
+  }
+
+  // IntersectionObserver to only compute 60fps SVG when visible
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isSectionVisible = entry.isIntersecting;
+          cancelAnimationFrame(rafAnim);
+          lastTime = 0;
+          if (isSectionVisible) {
+            rafAnim = requestAnimationFrame(tick);
+          }
+        });
+      },
+      { threshold: 0.05 }
+    );
+    observer.observe(root);
+  } else {
+    isSectionVisible = true;
+    rafAnim = requestAnimationFrame(tick);
+  }
 }
