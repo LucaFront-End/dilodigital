@@ -4,7 +4,7 @@ import { PROJECTS, TESTIMONIALS } from '../data/projects.js';
 import { sounds } from '../utils/SoundEngine.js';
 import { SoundwaveCanvas } from '../utils/SoundwaveCanvas.js';
 import { renderSaduHero, initSaduHeroEvents } from '../components/SaduHero.js';
-import { renderDeckMonolith, initDeckMonolithEvents } from '../components/DeckMonolith.js';
+import { renderDinametraServices, initDinametraServicesEvents } from '../components/DinametraServices.js';
 import { renderKineticReel, initKineticReelEvents } from '../components/KineticReel.js';
 import { renderTrustedBy, initTrustedByEvents } from '../components/TrustedBy.js';
 import { renderMethodStepper, initMethodStepperEvents } from '../components/MethodStepper.js';
@@ -18,36 +18,17 @@ export function renderHomeView() {
 
   return `
     <main class="page-home">
-      <!-- 1. PIXEL-PERFECT SADU MEDIA REPLICA HERO SECTION -->
+      <!-- 1. HERO SECTION -->
       ${renderSaduHero()}
 
-      <!-- 2. KINETIC TICKER MARQUEE -->
-      <section class="ticker-wrap" aria-hidden="true">
-        <div class="ticker-track">
-          <div class="ticker-item"><span>01. BRANDING & IDENTIDAD</span> <span class="dot"></span></div>
-          <div class="ticker-item"><span>02. PERFORMANCE MARKETING & ADS</span> <span class="dot"></span></div>
-          <div class="ticker-item"><span>03. DESARROLLO WEB WIX HEADLESS</span> <span class="dot"></span></div>
-          <div class="ticker-item"><span>04. REGISTRO DE MARCA IMPI</span> <span class="dot"></span></div>
-          <div class="ticker-item"><span>05. PRODUCCIÓN AUDIOVISUAL & UGC</span> <span class="dot"></span></div>
-          <div class="ticker-item"><span>06. AUTOMATIZACIÓN & CRM</span> <span class="dot"></span></div>
-          <!-- Repeat for infinite illusion -->
-          <div class="ticker-item"><span>01. BRANDING & IDENTIDAD</span> <span class="dot"></span></div>
-          <div class="ticker-item"><span>02. PERFORMANCE MARKETING & ADS</span> <span class="dot"></span></div>
-          <div class="ticker-item"><span>03. DESARROLLO WEB WIX HEADLESS</span> <span class="dot"></span></div>
-          <div class="ticker-item"><span>04. REGISTRO DE MARCA IMPI</span> <span class="dot"></span></div>
-          <div class="ticker-item"><span>05. PRODUCCIÓN AUDIOVISUAL & UGC</span> <span class="dot"></span></div>
-          <div class="ticker-item"><span>06. AUTOMATIZACIÓN & CRM</span> <span class="dot"></span></div>
-        </div>
-      </section>
+      <!-- 2. TRUSTED BY CLIENTS LOGO GARDEN -->
+      ${renderTrustedBy()}
 
-      <!-- 3. THE DECK MONOLITH — 3D SCROLL-PINNED STACKING CARDS (6 Master Disciplines) -->
-      ${renderDeckMonolith()}
+      <!-- 3. CLEAN & AIRY SERVICES SHOWCASE (DINAMETRA STYLE WITH REAL LOTTIES) -->
+      ${renderDinametraServices()}
 
       <!-- 4. THE KINETIC CINEMA REEL — HORIZONTAL SCROLL SHOWCASE (6 Insignia Cases) -->
       ${renderKineticReel()}
-
-      <!-- 5. TRUSTED BY THE BEST — DUAL REVERSE INFINITE CAROUSELS (White Canvas Edition) -->
-      ${renderTrustedBy()}
 
       <!-- 6. IMPI EXPRESS VIABILITY SCANNER BANNER -->
       <section class="container" style="margin-top: clamp(3rem, 6vh, 5rem); margin-bottom: clamp(3rem, 6vw, 6rem);">
@@ -215,14 +196,14 @@ export function initHomeEvents() {
   // 1. Initialize Pixel-Perfect Sadu Hero Interactive Events
   initSaduHeroEvents();
 
-  // 2. Initialize The Deck Monolith 3D Stacking Cards Events
-  initDeckMonolithEvents();
-
-  // 3. Initialize The Kinetic Cinema Reel Horizontal Showcase Events
-  initKineticReelEvents();
-
-  // 4. Initialize Trusted By The Best Reverse Marquee Events
+  // 2. Initialize Trusted By The Best Reverse Marquee Events
   initTrustedByEvents();
+
+  // 3. Initialize Dinametra-Style Clean Services with Lotties Events
+  initDinametraServicesEvents();
+
+  // 4. Initialize The Kinetic Cinema Reel Horizontal Showcase Events
+  initKineticReelEvents();
 
   // 5. Initialize El Método Dilo 4-Step Stepper Events
   initMethodStepperEvents();

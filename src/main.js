@@ -19,6 +19,7 @@ import './styles/contact-view.css';
 import './styles/legal-chat.css';
 import './styles/category-animations.css';
 import './styles/user-portal.css';
+import './styles/dinametra-services.css';
 
 import { renderNavbar, initNavbarEvents } from './components/Navbar.js';
 import { renderFooter } from './components/Footer.js';

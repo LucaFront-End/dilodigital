@@ -15,12 +15,11 @@ const METHOD_STEPS = [
     phase: 'FASE 01 · DIAGNÓSTICO & BLINDAJE',
     title: 'Auditoría Profunda & Viabilidad Legal',
     tagline: 'Antes de construir, protegemos el terreno comercial.',
-    desc: 'Analizamos la situación actual de tu modelo de negocio, tu competencia directa y la viabilidad legal de tu marca ante el IMPI. Definimos la estrategia de comunicación y los objetivos comerciales de corto y mediano plazo.',
+    desc: 'Analizamos a tu competencia directa y validamos la viabilidad legal de tu marca ante el IMPI antes de iniciar la inversión.',
     duration: 'Semana 1',
     deliverables: [
       'Búsqueda fonética y dictamen IMPI',
       'Benchmarking competitivo y buyer persona',
-      'Roadmap estratégico de proyecto',
       'Definición de KPIs de negocio'
     ]
   },
@@ -29,13 +28,12 @@ const METHOD_STEPS = [
     phase: 'FASE 02 · ARQUITECTURA & IDENTIDAD',
     title: 'Diseño de Marca & Prototipado UX/UI',
     tagline: 'Donde la estética premium se une con la alta conversión.',
-    desc: 'Creamos el sistema visual que representará a tu marca (logotipo, tipografía, paleta cromática y manual corporativo) y prototipamos en Figma la arquitectura de interacción de tu sitio web o embudo publicitario a 60fps.',
+    desc: 'Diseñamos tu identidad visual completa y prototipamos en Figma la experiencia de usuario con interacciones fluidas a 60fps.',
     duration: 'Semanas 2 a 3',
     deliverables: [
-      'Identidad visual completa y guías de uso',
-      'Wireframes y prototipo interactivo en Figma',
-      'Estructura de copy orientado a ventas',
-      'Aprobación de dirección de arte'
+      'Identidad visual completa y manual',
+      'Prototipo interactivo en Figma',
+      'Estructura de copy orientado a ventas'
     ]
   },
   {
@@ -43,13 +41,12 @@ const METHOD_STEPS = [
     phase: 'FASE 03 · INGENIERÍA & PRODUCCIÓN',
     title: 'Desarrollo Headless & Activos Cinemáticos',
     tagline: 'Código ultrarrápido y contenido de alto impacto visual.',
-    desc: 'Traducimos el diseño a código limpio y ultrarrápido con arquitectura headless (0.8s de carga). Al mismo tiempo, producimos las piezas audiovisuales y el contenido con creadores UGC listos para pauta publicitaria.',
+    desc: 'Desarrollamos con arquitectura headless para tiempos de carga inferiores a 1s y producimos piezas audiovisuales UGC para pauta.',
     duration: 'Semanas 3 a 4',
     deliverables: [
-      'Sitio web responsive sub-segundo en Google PageSpeed',
-      'Integración de pagos (Stripe/Mercado Pago) y CRM WhatsApp',
-      'Assets audiovisuales 4K y banco de anuncios UGC',
-      'Pruebas exhaustivas de rendimiento y QA'
+      'Sitio web responsive con carga sub-segundo',
+      'Integración de pagos (Stripe/Mercado Pago)',
+      'Piezas audiovisuales y banco de anuncios UGC'
     ]
   },
   {
@@ -57,13 +54,12 @@ const METHOD_STEPS = [
     phase: 'FASE 04 · DESPLIEGUE & ESCALA',
     title: 'Lanzamiento Oficial & Performance Continuo',
     tagline: 'El lanzamiento es solo el inicio del crecimiento.',
-    desc: 'Publicamos la plataforma en producción, activamos las campañas de Meta y Google Ads optimizadas por ROAS y configuramos dashboards de Business Intelligence en Looker Studio para medir el retorno en tiempo real.',
+    desc: 'Activamos tus campañas de Meta y Google Ads optimizadas por ROAS con dashboards de analítica en tiempo real.',
     duration: 'Continuo / Mensual',
     deliverables: [
-      'Puesta en marcha con monitoreo 24/7',
+      'Lanzamiento oficial con monitoreo continuo',
       'Estructura de pauta Full-Funnel activada',
-      'Dashboard analítico en vivo y optimización semanal',
-      'Sesión mensual de balance estratégico'
+      'Dashboard analítico en vivo en Looker Studio'
     ]
   }
 ];

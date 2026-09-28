@@ -1,0 +1,414 @@
+/* ================================================================
+   DILO DIGITAL — DINAMETRA-INSPIRED CLEAN & AIRY SERVICES DESIGN
+   Spacious, Visual-First, High-Impact Lotties, Minimal Text
+   ================================================================ */
+
+.dm-services-section {
+  position: relative;
+  width: 100%;
+  background: #FFFFFF;
+  padding: clamp(5rem, 9vw, 8rem) 0;
+  box-sizing: border-box;
+}
+
+.dm-container {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 4vw, 2.5rem);
+  box-sizing: border-box;
+}
+
+/* --- Section Header --- */
+.dm-section-header {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto clamp(3.5rem, 6vw, 5.5rem);
+}
+
+.dm-eyebrow-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 90, 31, 0.08);
+  border: 1px solid rgba(255, 90, 31, 0.18);
+  color: var(--color-primary, #FF5A1F);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 0.35rem 0.9rem;
+  border-radius: 9999px;
+  margin-bottom: 1.25rem;
+}
+
+.dm-eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-primary, #FF5A1F);
+  box-shadow: 0 0 8px rgba(255, 90, 31, 0.6);
+}
+
+.dm-section-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: #111827;
+  margin: 0 0 1.2rem;
+}
+
+.dm-section-subtitle {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(1rem, 1.2vw, 1.15rem);
+  line-height: 1.6;
+  color: #6B7280;
+  margin: 0 auto;
+}
+
+/* --- Service Rows (Alternating Layout) --- */
+.dm-services-list {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(4rem, 8vw, 7rem);
+}
+
+.dm-service-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: clamp(2.5rem, 6vw, 5.5rem);
+}
+
+.dm-service-row.is-reversed {
+  direction: rtl;
+}
+
+.dm-service-row.is-reversed > * {
+  direction: ltr;
+}
+
+/* Content Column */
+.dm-content-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.dm-item-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: #FF5A1F;
+  margin-bottom: 0.75rem;
+}
+
+.dm-item-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(1.8rem, 2.8vw, 2.5rem);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: #111827;
+  margin: 0 0 1rem;
+}
+
+.dm-item-desc {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+  line-height: 1.65;
+  color: #6B7280;
+  margin: 0 0 1.75rem;
+  max-width: 480px;
+}
+
+/* Bullet Points */
+.dm-bullets-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-bottom: 2.25rem;
+  width: 100%;
+}
+
+.dm-bullet-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1F2937;
+}
+
+.dm-bullet-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(255, 90, 31, 0.1);
+  color: #FF5A1F;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.dm-bullet-item:hover .dm-bullet-icon {
+  transform: translateX(2px);
+  background: rgba(255, 90, 31, 0.2);
+}
+
+/* Button Row */
+.dm-btn-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.dm-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: #111827;
+  color: #FFFFFF;
+  padding: 0.75rem 1.6rem;
+  border-radius: 9999px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 14px rgba(17, 24, 39, 0.12);
+  border: 1px solid transparent;
+}
+
+.dm-btn-primary:hover {
+  background: #FF5A1F;
+  color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255, 90, 31, 0.3);
+}
+
+.dm-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: transparent;
+  color: #4B5563;
+  padding: 0.75rem 1.25rem;
+  border-radius: 9999px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  border: 1px solid #E5E7EB;
+}
+
+.dm-btn-secondary:hover {
+  color: #111827;
+  border-color: #111827;
+  background: #F9FAFB;
+}
+
+/* --- Visual Lottie Column --- */
+.dm-visual-col {
+  width: 100%;
+}
+
+.dm-lottie-card {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 11;
+  min-height: 340px;
+  max-height: 440px;
+  background: #F9FAFB;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 28px;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: 0 12px 36px -8px rgba(0, 0, 0, 0.04);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.dm-lottie-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 48px -10px rgba(0, 0, 0, 0.08);
+  border-color: rgba(255, 90, 31, 0.2);
+}
+
+.dm-lottie-ambient-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80%;
+  height: 80%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 90, 31, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.dm-lottie-container {
+  width: 100%;
+  height: 100%;
+  max-width: 440px;
+  max-height: 380px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+}
+
+.dm-lottie-container svg {
+  width: 100% !important;
+  height: 100% !important;
+  transform: scale(1.05);
+}
+
+/* --- Comparison Section (Dilo vs. Todos) --- */
+.dm-comparison-section {
+  position: relative;
+  width: 100%;
+  background: #F9FAFB;
+  padding: clamp(4.5rem, 8vw, 7rem) 0;
+  border-top: 1px solid #F3F4F6;
+  border-bottom: 1px solid #F3F4F6;
+}
+
+.dm-comparison-table-wrap {
+  width: 100%;
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.dm-comparison-table {
+  width: 100%;
+  min-width: 680px;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.dm-comparison-table th {
+  padding: 1.25rem 1.5rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #111827;
+  border-bottom: 1px solid #F3F4F6;
+}
+
+.dm-comparison-table th.is-dilo {
+  color: #FF5A1F;
+  background: rgba(255, 90, 31, 0.04);
+  position: relative;
+}
+
+.dm-comparison-table td {
+  padding: 1.1rem 1.5rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.9rem;
+  color: #4B5563;
+  border-bottom: 1px solid #F3F4F6;
+  vertical-align: middle;
+}
+
+.dm-comparison-table td.is-dilo {
+  background: rgba(255, 90, 31, 0.04);
+  font-weight: 700;
+  color: #111827;
+}
+
+.dm-comparison-table tr:last-child td {
+  border-bottom: none;
+}
+
+.dm-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 600;
+  font-size: 0.88rem;
+}
+
+.dm-status-icon-check {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.15);
+  color: #10B981;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.dm-status-icon-dilo {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #FF5A1F;
+  color: #FFFFFF;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(255, 90, 31, 0.35);
+}
+
+.dm-status-icon-cross {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #F3F4F6;
+  color: #9CA3AF;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 960px) {
+  .dm-service-row {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  
+  .dm-service-row.is-reversed {
+    direction: ltr;
+  }
+
+  .dm-lottie-card {
+    min-height: 280px;
+    aspect-ratio: auto;
+    height: 320px;
+  }
+
+  .dm-section-header {
+    text-align: left;
+  }
+
+  .dm-eyebrow-pill {
+    margin-left: 0;
+  }
+}
