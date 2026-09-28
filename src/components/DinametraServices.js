@@ -17,6 +17,7 @@ const SERVICES_DATA = [
     eyebrow: 'PROTECCIÓN & BLINDAJE LEGAL',
     title: 'Registro de Marca IMPI & Búsqueda Fonética',
     description: 'Protegemos tu nombre, logotipo y patrimonio comercial en México con dictamen legal en 24 horas y seguimiento online.',
+    statHighlight: '+140 Marcas Blindadas ante el IMPI',
     bullets: [
       'Búsqueda fonética en las 45 clases NIZA del IMPI',
       'Dictamen de viabilidad antes de pagar derechos gubernamentales',
@@ -32,7 +33,13 @@ const SERVICES_DATA = [
       href: '#/portal-tramites'
     },
     lottiePath: '/lotties/shield.json',
-    accentGlow: 'rgba(255, 90, 31, 0.08)'
+    accentColor: '#FF5A1F',
+    accentGlow: 'rgba(255, 90, 31, 0.12)',
+    floatingChips: [
+      { icon: '🛡️', text: 'Dictamen en 24h', pos: 'chip-top-left' },
+      { icon: '⚡', text: '45 Clases NIZA', pos: 'chip-top-right' },
+      { icon: '⭐', text: '98.4% Viabilidad', pos: 'chip-bottom-left' }
+    ]
   },
   {
     id: 'marketing',
@@ -41,6 +48,7 @@ const SERVICES_DATA = [
     eyebrow: 'CONVERSIÓN & ESCALABILIDAD',
     title: 'Publicidad en Meta, Google & TikTok Ads',
     description: 'Estrategias orientadas a ventas reales y prospectos calificados, optimizando cada peso con atribución multicanal y ROAS positivo.',
+    statHighlight: '4.8x ROAS Promedio en Pauta Ads',
     bullets: [
       'Google Search, Shopping & Display con intención de compra',
       'Meta Ads (Facebook e Instagram) con audiencias de alto valor',
@@ -56,7 +64,13 @@ const SERVICES_DATA = [
       href: '#/portafolio'
     },
     lottiePath: '/lotties/marketing.json',
-    accentGlow: 'rgba(255, 90, 31, 0.08)'
+    accentColor: '#FF5A1F',
+    accentGlow: 'rgba(255, 90, 31, 0.12)',
+    floatingChips: [
+      { icon: '📈', text: '4.8x ROAS Atribuido', pos: 'chip-top-right' },
+      { icon: '🎯', text: 'Google & Meta Premier', pos: 'chip-bottom-left' },
+      { icon: '🔥', text: '+380K Leads Calificados', pos: 'chip-top-left' }
+    ]
   },
   {
     id: 'web-ecommerce',
@@ -65,6 +79,7 @@ const SERVICES_DATA = [
     eyebrow: 'HEADLESS & EXPERIENCIA DIGITAL',
     title: 'Desarrollo Web & Tiendas Online de Alta Velocidad',
     description: 'Sitios web ultrarrápidos con tiempos de carga inferiores a 1 segundo, diseñados en Figma y desarrollados con arquitectura Headless.',
+    statHighlight: '0.8s Velocidad de Carga Extrema',
     bullets: [
       'Wix Headless, React & Vite de última generación',
       'Pasarelas de pago integradas: Stripe, Mercado Pago y SPEI',
@@ -80,7 +95,13 @@ const SERVICES_DATA = [
       href: '#/servicio/desarrollo-web-headless'
     },
     lottiePath: '/lotties/web.json',
-    accentGlow: 'rgba(56, 189, 248, 0.08)'
+    accentColor: '#38BDF8',
+    accentGlow: 'rgba(56, 189, 248, 0.12)',
+    floatingChips: [
+      { icon: '⚡', text: '0.8s Carga Instantánea', pos: 'chip-top-left' },
+      { icon: '🛒', text: 'Stripe & Mercado Pago', pos: 'chip-bottom-right' },
+      { icon: '✨', text: 'Headless React', pos: 'chip-bottom-left' }
+    ]
   },
   {
     id: 'branding',
@@ -89,6 +110,7 @@ const SERVICES_DATA = [
     eyebrow: 'AUTORIDAD & PERCEPCIÓN DE VALOR',
     title: 'Branding que Vende y Construye Prestigio',
     description: 'Creamos identidades memorables que destacan de inmediato en tu industria y te permiten justificar precios más altos.',
+    statHighlight: '+200 Identidades Creadas con Éxito',
     bullets: [
       'Naming estratégico y conceptualización de marca',
       'Manual de identidad visual completo: logotipo, paleta y tipografías',
@@ -103,7 +125,13 @@ const SERVICES_DATA = [
       href: '#/portafolio'
     },
     lottiePath: '/lotties/branding.json',
-    accentGlow: 'rgba(168, 85, 247, 0.08)'
+    accentColor: '#A855F7',
+    accentGlow: 'rgba(168, 85, 247, 0.12)',
+    floatingChips: [
+      { icon: '💎', text: '100% Vectorial & Manual', pos: 'chip-top-right' },
+      { icon: '👑', text: 'Naming Estratégico', pos: 'chip-bottom-left' },
+      { icon: '📦', text: 'Empaques Premium', pos: 'chip-top-left' }
+    ]
   },
   {
     id: 'automatizacion',
@@ -112,6 +140,7 @@ const SERVICES_DATA = [
     eyebrow: 'IA & EFICIENCIA OPERATIVA',
     title: 'Automatizaciones & Agentes de IA 24/7',
     description: 'Responde a cada prospecto en menos de 30 segundos por WhatsApp, califica automáticamente y sincroniza todo con tu CRM.',
+    statHighlight: '< 30s Tiempo de Respuesta Automático',
     bullets: [
       'Conexión oficial de WhatsApp Business API con CRM (Kommo / HubSpot)',
       'Agentes conversacionales con Inteligencia Artificial',
@@ -127,7 +156,13 @@ const SERVICES_DATA = [
       href: '#/contacto'
     },
     lottiePath: '/lotties/automatizacion.json',
-    accentGlow: 'rgba(16, 185, 129, 0.08)'
+    accentColor: '#10B981',
+    accentGlow: 'rgba(16, 185, 129, 0.12)',
+    floatingChips: [
+      { icon: '🤖', text: 'WhatsApp API 24/7', pos: 'chip-top-left' },
+      { icon: '⚡', text: '< 30s Respuesta IA', pos: 'chip-bottom-right' },
+      { icon: '🔗', text: 'CRM Sincronizado', pos: 'chip-bottom-left' }
+    ]
   },
   {
     id: 'reportes',
@@ -136,6 +171,7 @@ const SERVICES_DATA = [
     eyebrow: 'DATOS REALES & TRANSPARENCIA',
     title: 'Reportes en Tiempo Real & Analítica de Crecimiento',
     description: 'Dashboards claros sin tecnicismos confusos: visualiza en tiempo real tu costo por lead, ROAS y facturación generada.',
+    statHighlight: '100% Transparencia en Datos Reales',
     bullets: [
       'Dashboards interactivos en Looker Studio y Google Analytics 4',
       'Métricas claras de costo por adquisición y embudo de conversión',
@@ -150,7 +186,13 @@ const SERVICES_DATA = [
       href: '#/contacto'
     },
     lottiePath: '/lotties/reportes.json',
-    accentGlow: 'rgba(2, 132, 199, 0.08)'
+    accentColor: '#0284C7',
+    accentGlow: 'rgba(2, 132, 199, 0.12)',
+    floatingChips: [
+      { icon: '📊', text: 'Looker Studio en Vivo', pos: 'chip-top-right' },
+      { icon: '🎯', text: 'Atribución Multicanal', pos: 'chip-bottom-left' },
+      { icon: '💰', text: 'Ventas en Tiempo Real', pos: 'chip-top-left' }
+    ]
   }
 ];
 
@@ -218,6 +260,13 @@ export function renderDinametraServices() {
                 </div>
 
                 <h3 class="dm-item-title">${srv.title}</h3>
+
+                ${srv.statHighlight ? `
+                  <div class="dm-highlight-stat-pill">
+                    <span class="dm-stat-dot" style="background: ${srv.accentColor};"></span>
+                    <span>${srv.statHighlight}</span>
+                  </div>
+                ` : ''}
                 
                 <p class="dm-item-desc">${srv.description}</p>
 
@@ -258,7 +307,20 @@ export function renderDinametraServices() {
 
               <!-- Visual Lottie Column (Right) -->
               <div class="dm-deck-visual">
-                <div class="dm-lottie-card">
+                <div class="dm-lottie-card" style="--accent-glow: ${srv.accentGlow}; --accent-color: ${srv.accentColor};">
+                  <!-- Tech background grid mesh & glow orb -->
+                  <div class="dm-lottie-mesh-bg"></div>
+                  <div class="dm-lottie-glow-orb" style="background: radial-gradient(circle, ${srv.accentGlow} 0%, transparent 70%);"></div>
+
+                  <!-- Floating Interactive Micro-Badges -->
+                  ${srv.floatingChips.map((chip, cIdx) => `
+                    <div class="dm-floating-chip ${chip.pos}" style="animation-delay: ${cIdx * 0.5}s;">
+                      <span class="dm-chip-icon">${chip.icon}</span>
+                      <span class="dm-chip-text">${chip.text}</span>
+                    </div>
+                  `).join('')}
+
+                  <!-- Lottie interactive canvas -->
                   <div class="dm-lottie-container" 
                        id="lottie-container-${srv.id}" 
                        data-lottie-path="${srv.lottiePath}"
@@ -283,105 +345,363 @@ export function renderDinametraServices() {
     <section class="dm-comparison-section" id="comparativo-dilo">
       <div class="dm-container">
         
-        <header class="dm-section-header" style="margin-bottom: clamp(2.5rem, 5vw, 4rem);">
+        <header class="dm-section-header" style="margin-bottom: clamp(2rem, 4vw, 3.5rem);">
           <div class="dm-eyebrow-pill">
             <span class="dm-eyebrow-dot"></span>
-            <span>Dilo Digital vs. Todos</span>
+            <span>Matriz Comparativa de Rendimiento</span>
           </div>
           <h2 class="dm-section-title">
-            Acelera tu éxito con <span style="color: #FF5A1F;">Dilo Digital</span>
+            ¿Por qué elegir a <span style="color: #FF5A1F;">Dilo Digital</span>?
           </h2>
           <p class="dm-section-subtitle">
-            Compara por qué las empresas líderes eligen nuestro modelo frente a agencias tradicionales o freelancers.
+            Compara objetivamente nuestro modelo integrado frente a la contratación tradicional de empleados, agencias convencionales o freelancers.
           </p>
         </header>
 
+        <!-- High-Impact 4-KPI Visual Metric Strip -->
+        <div class="dm-comparison-kpis">
+          <div class="dm-kpi-card">
+            <div class="dm-kpi-icon">⚡</div>
+            <div class="dm-kpi-val">&lt; 30s</div>
+            <div class="dm-kpi-label">Tiempo de respuesta inicial con IA en WhatsApp</div>
+          </div>
+          <div class="dm-kpi-card">
+            <div class="dm-kpi-icon">🛡️</div>
+            <div class="dm-kpi-val">24 Horas</div>
+            <div class="dm-kpi-label">Dictamen oficial de viabilidad legal ante el IMPI</div>
+          </div>
+          <div class="dm-kpi-card">
+            <div class="dm-kpi-icon">📈</div>
+            <div class="dm-kpi-val">4.8x</div>
+            <div class="dm-kpi-label">ROAS promedio en pauta digital Meta &amp; Google</div>
+          </div>
+          <div class="dm-kpi-card">
+            <div class="dm-kpi-icon">🚀</div>
+            <div class="dm-kpi-val">0.8s</div>
+            <div class="dm-kpi-label">Velocidad de carga en arquitectura Web Headless</div>
+          </div>
+        </div>
+
+        <!-- Visual Battle Comparison Table -->
         <div class="dm-comparison-table-wrap">
           <table class="dm-comparison-table" aria-label="Tabla comparativa de Dilo Digital">
             <thead>
               <tr>
-                <th>Criterio &amp; Metodología</th>
-                <th class="is-dilo">Dilo Digital MX ⚡</th>
-                <th>In-House (Empleado)</th>
-                <th>Agencias Tradicionales</th>
-                <th>Freelancers</th>
+                <th style="width: 26%;">Criterio &amp; Metodología</th>
+                <th class="is-dilo-hero" style="width: 28%;">
+                  <div class="dm-dilo-hero-tag">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    Elección Recomendada
+                  </div>
+                  <div class="dm-dilo-hero-title">
+                    <span>Dilo Digital MX</span>
+                    <span class="dm-eyebrow-dot"></span>
+                  </div>
+                  <div class="dm-dilo-hero-sub">Modelo Ágil &amp; Respaldo Integral</div>
+                </th>
+                <th style="width: 15%;">In-House (Empleado)</th>
+                <th style="width: 16%;">Agencias Tradicionales</th>
+                <th style="width: 15%;">Freelancers</th>
               </tr>
             </thead>
             <tbody>
+              <!-- Row 1: Tiempo de respuesta -->
               <tr>
-                <td><strong>Tiempo de respuesta</strong></td>
-                <td class="is-dilo">
-                  <div class="dm-status-badge">
-                    <span class="dm-status-icon-dilo"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
-                    <span>&lt; 30 segundos (con IA)</span>
+                <td>
+                  <div class="dm-criterion-cell">
+                    <span class="dm-criterion-icon">⚡</span>
+                    <div>
+                      <div class="dm-criterion-name">Tiempo de respuesta</div>
+                      <div class="dm-criterion-desc">Atención a clientes y modificaciones</div>
+                    </div>
                   </div>
                 </td>
-                <td>Horario de oficina estándar</td>
-                <td>24 a 72 horas hábiles</td>
-                <td>Variable e impredecible</td>
+                <td class="is-dilo">
+                  <div class="dm-dilo-cell-content">
+                    <div class="dm-dilo-primary-val">
+                      <span class="dm-check-circle"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="3.5"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                      <span>&lt; 30 segundos</span>
+                    </div>
+                    <span class="dm-dilo-pill">⚡ IA + WhatsApp 24/7</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="dm-comp-chip is-warn">
+                    <span>⏳ Horario de oficina estándar</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="dm-comp-chip is-warn">
+                    <span>⏳ 24 a 72 horas hábiles</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="dm-comp-chip is-bad">
+                    <span>❌ Variable e impredecible</span>
+                  </div>
+                </td>
               </tr>
+
+              <!-- Row 2: Registro IMPI -->
               <tr>
-                <td><strong>Registro de Marca IMPI</strong></td>
-                <td class="is-dilo">
-                  <div class="dm-status-badge">
-                    <span class="dm-status-icon-dilo"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
-                    <span>100% digital + Portal en vivo</span>
+                <td>
+                  <div class="dm-criterion-cell">
+                    <span class="dm-criterion-icon">🛡️</span>
+                    <div>
+                      <div class="dm-criterion-name">Registro de Marca IMPI</div>
+                      <div class="dm-criterion-desc">Protección y blindaje jurídico</div>
+                    </div>
                   </div>
                 </td>
-                <td><span class="dm-status-icon-cross"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span> No disponible</td>
-                <td>Burocrático y lento</td>
-                <td><span class="dm-status-icon-cross"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span> Sin respaldo jurídico</td>
+                <td class="is-dilo">
+                  <div class="dm-dilo-cell-content">
+                    <div class="dm-dilo-primary-val">
+                      <span class="dm-check-circle"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="3.5"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                      <span>100% Digital con Abogados</span>
+                    </div>
+                    <span class="dm-dilo-pill">🛡️ Dictamen 24h + Portal en vivo</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="dm-comp-chip is-bad">
+                    <span>❌ No disponible / Sin especialidad</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="dm-comp-chip is-warn">
+                    <span>⏳ Trámite burocrático y lento</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="dm-comp-chip is-bad">
+                    <span>❌ Sin respaldo jurídico oficial</span>
+                  </div>
+                </td>
               </tr>
+
+              <!-- Row 3: Precios y Honorarios -->
               <tr>
-                <td><strong>Precios &amp; Honorarios</strong></td>
-                <td class="is-dilo">
-                  <div class="dm-status-badge">
-                    <span class="dm-status-icon-dilo"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
-                    <span>Fijos, claros y sin sorpresas</span>
+                <td>
+                  <div class="dm-criterion-cell">
+                    <span class="dm-criterion-icon">💎</span>
+                    <div>
+                      <div class="dm-criterion-name">Precios y Honorarios</div>
+                      <div class="dm-criterion-desc">Estructura de costos e inversión</div>
+                    </div>
                   </div>
                 </td>
-                <td>Salario fijo + Cargas sociales</td>
-                <td>Fee mensual inflado + extras</td>
-                <td>Tarifas variables</td>
+                <td class="is-dilo">
+                  <div class="dm-dilo-cell-content">
+                    <div class="dm-dilo-primary-val">
+                      <span class="dm-check-circle"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="3.5"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                      <span>Precios Fijos Transparentes</span>
+                    </div>
+                    <span class="dm-dilo-pill">✅ Cero costos ocultos ni sorpresas</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="dm-comp-chip is-warn">
+                    <span>⚠️ Salario fijo + IMSS + Liquidaciones</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="dm-comp-chip is-bad">
+                    <span>❌ Fee mensual inflado + extras</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="dm-comp-chip is-warn">
+                    <span>⚠️ Tarifas variables por hora</span>
+                  </div>
+                </td>
               </tr>
+
+              <!-- Row 4: Enfoque de Campañas -->
               <tr>
-                <td><strong>Enfoque de Campañas</strong></td>
-                <td class="is-dilo">
-                  <div class="dm-status-badge">
-                    <span class="dm-status-icon-dilo"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
-                    <span>Ventas, ROAS y Atribución</span>
+                <td>
+                  <div class="dm-criterion-cell">
+                    <span class="dm-criterion-icon">📈</span>
+                    <div>
+                      <div class="dm-criterion-name">Enfoque de Campañas</div>
+                      <div class="dm-criterion-desc">Objetivo de pauta publicitaria</div>
+                    </div>
                   </div>
                 </td>
-                <td>Enfoque generalista</td>
-                <td>Vanity metrics (likes y clics)</td>
-                <td>Solo entrega de archivos</td>
+                <td class="is-dilo">
+                  <div class="dm-dilo-cell-content">
+                    <div class="dm-dilo-primary-val">
+                      <span class="dm-check-circle"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="3.5"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                      <span>Ventas, ROAS y Atribución</span>
+                    </div>
+                    <span class="dm-dilo-pill">🎯 Retorno de inversión medible</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="dm-comp-chip is-warn">
+                    <span>⚠️ Una sola disciplina / Generalista</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="dm-comp-chip is-bad">
+                    <span>❌ Vanity metrics (likes y clics)</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="dm-comp-chip is-bad">
+                    <span>❌ Solo entrega de archivos sueltos</span>
+                  </div>
+                </td>
               </tr>
+
+              <!-- Row 5: Tecnología Digital -->
               <tr>
-                <td><strong>Tecnología Digital</strong></td>
-                <td class="is-dilo">
-                  <div class="dm-status-badge">
-                    <span class="dm-status-icon-dilo"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
-                    <span>Wix Headless + IA + Make</span>
+                <td>
+                  <div class="dm-criterion-cell">
+                    <span class="dm-criterion-icon">🚀</span>
+                    <div>
+                      <div class="dm-criterion-name">Infraestructura Digital</div>
+                      <div class="dm-criterion-desc">Stack tecnológico y automatización</div>
+                    </div>
                   </div>
                 </td>
-                <td>Herramientas básicas</td>
-                <td>Plantillas prediseñadas</td>
-                <td>Dependencia de plugins</td>
+                <td class="is-dilo">
+                  <div class="dm-dilo-cell-content">
+                    <div class="dm-dilo-primary-val">
+                      <span class="dm-check-circle"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="3.5"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                      <span>Wix Headless + IA + Make</span>
+                    </div>
+                    <span class="dm-dilo-pill">⚡ Carga &lt; 0.8s y máxima seguridad</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="dm-comp-chip is-warn">
+                    <span>⚠️ Herramientas básicas limitadas</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="dm-comp-chip is-warn">
+                    <span>⚠️ Plantillas WordPress lentas</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="dm-comp-chip is-warn">
+                    <span>⚠️ Dependencia de plugins vulnerables</span>
+                  </div>
+                </td>
               </tr>
+
+              <!-- Row 6: Portal de Seguimiento -->
               <tr>
-                <td><strong>Portal de Seguimiento</strong></td>
-                <td class="is-dilo">
-                  <div class="dm-status-badge">
-                    <span class="dm-status-icon-dilo"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
-                    <span>Actualizaciones mensuales 24/7</span>
+                <td>
+                  <div class="dm-criterion-cell">
+                    <span class="dm-criterion-icon">📱</span>
+                    <div>
+                      <div class="dm-criterion-name">Portal de Clientes</div>
+                      <div class="dm-criterion-desc">Monitoreo de estado y métricas</div>
+                    </div>
                   </div>
                 </td>
-                <td>Minutas internas</td>
-                <td>Reportes estáticos en PDF</td>
-                <td>Sin portal disponible</td>
+                <td class="is-dilo">
+                  <div class="dm-dilo-cell-content">
+                    <div class="dm-dilo-primary-val">
+                      <span class="dm-check-circle"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="3.5"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                      <span>Portal 24/7 en Tiempo Real</span>
+                    </div>
+                    <span class="dm-dilo-pill">📱 Estatus mensual y alertas activas</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="dm-comp-chip is-bad">
+                    <span>❌ Minutas y correos desordenados</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="dm-comp-chip is-warn">
+                    <span>⚠️ Reportes estáticos en PDF</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="dm-comp-chip is-bad">
+                    <span>❌ Sin portal ni sistema central</span>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Row 7: Garantía y Respaldo -->
+              <tr>
+                <td>
+                  <div class="dm-criterion-cell">
+                    <span class="dm-criterion-icon">👑</span>
+                    <div>
+                      <div class="dm-criterion-name">Garantía y Acompañamiento</div>
+                      <div class="dm-criterion-desc">Compromiso con el resultado</div>
+                    </div>
+                  </div>
+                </td>
+                <td class="is-dilo">
+                  <div class="dm-dilo-cell-content">
+                    <div class="dm-dilo-primary-val">
+                      <span class="dm-check-circle"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="3.5"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                      <span>Garantía Legal Dilo Digital</span>
+                    </div>
+                    <span class="dm-dilo-pill">⭐ Sustitución sin costo en viabilidad</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="dm-comp-chip is-bad">
+                    <span>❌ Sin garantías de desempeño</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="dm-comp-chip is-bad">
+                    <span>❌ Contratos forzosos de 6 a 12 meses</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="dm-comp-chip is-bad">
+                    <span>❌ Alto riesgo de abandono del proyecto</span>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Row 8: Action Row -->
+              <tr>
+                <td></td>
+                <td class="is-dilo" style="padding-top: 1.5rem; padding-bottom: 1.5rem;">
+                  <a href="#/cotizar" class="dm-dilo-col-cta" data-cursor="hover">
+                    <span>Iniciar con Dilo Digital ⚡</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                      <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                  </a>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
               </tr>
             </tbody>
           </table>
+        </div>
+
+        <!-- Trust Badges Bar -->
+        <div class="dm-comparison-trust-bar">
+          <div class="dm-trust-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            <span>Gestores y Abogados Acreditados IMPI</span>
+          </div>
+          <div class="dm-trust-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span>Facturación SAT CFDI 4.0 Inmediata</span>
+          </div>
+          <div class="dm-trust-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            <span>Contrato de Confidencialidad (NDA)</span>
+          </div>
+          <div class="dm-trust-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            <span>Atención Directa en WhatsApp 24/7</span>
+          </div>
         </div>
 
       </div>
