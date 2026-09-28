@@ -1,27 +1,27 @@
 // ================================================================
-// WORKS WHEEL (CRAFTERUI / 21ST.DEV)
-// Pure 1:1 Implementation of the WorksWheel Component
-// Tailored only with Dilo typography (Syne / Plus Jakarta Sans) & colors
+// WORKS WHEEL (CRAFTERUI / 21ST.DEV) — DILO LIGHT EDITION
+// Pure 1:1 Architecture with Tuned Full-Viewport Geometry,
+// Silky Smooth Physics, Minimalist Interactive Project Details
 // ================================================================
 
 import { PROJECTS } from '../data/projects.js';
 
-/* Geometry matching the original works-wheel */
-const CARD_H = 0.38;     // front card height, of the stage
-const CARD_MAX_W = 0.34; // never wider than this much of the stage
-const CARD_RATIO = 1.45; // card width / height
-const STEP = 40;         // degrees between cards on the drum
-const DRUM = 2.22;       // drum radius, in card heights
-const LENS = 2.7;        // perspective distance
-const RING_R = 1.14;     // ring radius
-const BOW = 1.82;        // arc's radius for the side-on wheel curve
-const TITLE = 0.124;     // ring label and front-card title
-const INDEX = 0.04;      // index down the right-hand side
-const CULL = 1.6;        // culling distance
-const WHEEL_UNITS = 900;
-const DRAG_UNITS = 420;
-const SETTLE = 140;
-const EASE = 0.12;
+/* Tuned Geometry: Perfectly fitted to viewport so top & bottom cards NEVER clip */
+const CARD_H = 0.28;      // 28% of stage height (leaves 45-60px margin top & bottom)
+const CARD_MAX_W = 0.29;  // Never wider than 29% of stage width
+const CARD_RATIO = 1.45;  // Width / Height ratio
+const STEP = 40;          // Degrees between cards on the drum
+const DRUM = 2.22;        // Drum radius in card heights
+const LENS = 2.7;         // Perspective distance
+const RING_R = 1.05;      // Ring radius tuned for perfect non-clipping diameter
+const BOW = 1.82;         // Lateral arc curve
+const CULL = 1.6;         // Distance cutoff
+
+/* Buttery smooth physics */
+const WHEEL_UNITS = 1300; // Refined wheel sensitivity for silky navigation
+const DRAG_UNITS = 450;   // Smooth pointer drag
+const SETTLE = 180;       // Quiet time before settling onto integer card
+const EASE = 0.085;       // Liquid inertia easing (soft glide)
 
 const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
 const lerp = (a, b, t) => a + (b - a) * t;
@@ -37,22 +37,33 @@ function place(ringDeg, drumDeg, ringR, drumR, bow, m) {
   );
 }
 
-export const DILO_WORKS = PROJECTS.slice(0, 8).map(p => ({
+export const DILO_WORKS = PROJECTS.slice(0, 8).map((p) => ({
+  id: p.id,
   title: p.title,
+  category: p.category,
+  categoryName: p.categoryName || 'Caso Insignia',
+  client: p.client || 'Cliente Dilo',
+  location: p.location || 'México',
   image: p.coverImage,
+  metricVal: p.metrics?.[0]?.value || '+100%',
+  metricLbl: p.metrics?.[0]?.label || 'Impacto Comprobado',
   href: `#/portafolio?cat=${p.category}`
 }));
 
 export function renderWorksWheel(label = "Casos '26", action = "Ver Caso") {
   return `
   <!-- ================================================================
-       WORKS WHEEL — PURE 1:1 REPLICATION FOR DILO DIGITAL
+       WORKS WHEEL — DILO LIGHT CANVAS EDITION (NON-CLIPPING & SMOOTH)
        ================================================================ -->
   <section 
     class="ww-root" 
     id="proyectos" 
     aria-label="${label}"
   >
+    <!-- Soft Ambient Light Glow & Subtle Grid Matrix -->
+    <div class="ww-ambient-light" aria-hidden="true"></div>
+    <div class="ww-grid-matrix" aria-hidden="true"></div>
+
     <div 
       class="ww-stage" 
       id="ww-stage" 
@@ -81,12 +92,21 @@ export function renderWorksWheel(label = "Casos '26", action = "Ver Caso") {
                 draggable="false" 
                 class="ww-card-img" 
               />
+              <div class="ww-card-scrim"></div>
+
+              <!-- Minimalist Interactive Meta Pill: Client & Metric -->
+              <div class="ww-card-meta">
+                <span class="ww-card-client">${item.client}</span>
+                <span class="ww-card-metric-badge">${item.metricVal}</span>
+              </div>
+
+              <!-- Action Hover Affordance -->
               ${action ? `
                 <span class="ww-card-action">
                   <svg viewBox="0 0 12 12" class="ww-action-svg" aria-hidden="true">
                     <path d="M3 9 9 3M4 3h5v5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path>
                   </svg>
-                  ${action}
+                  <span>${action}</span>
                 </span>
               ` : ''}
             </span>
@@ -95,21 +115,48 @@ export function renderWorksWheel(label = "Casos '26", action = "Ver Caso") {
       </div>
     </div>
 
-    <!-- Ring title and front-card title trade places across transition -->
+    <!-- Ring Center Title (At rest, scales gently down as m -> 1) -->
     <div 
       class="ww-ring-label" 
       id="ww-ring-label"
     >
-      ${label}
+      <span class="ww-ring-text">${label}</span>
+      <span class="ww-ring-sub">Portafolio Seleccionado</span>
     </div>
 
+    <!-- Front Card Details on Left (Fades in as drum opens m -> 1) -->
     <div 
-      class="ww-front-title" 
-      id="ww-front-title"
+      class="ww-front-details" 
+      id="ww-front-details"
     >
-      ${DILO_WORKS[0]?.title || ''}
+      <div class="ww-front-eyebrow">
+        <span class="ww-eyebrow-dot"></span>
+        <span id="ww-front-cat">${DILO_WORKS[0]?.categoryName}</span>
+      </div>
+
+      <h2 
+        class="ww-front-title" 
+        id="ww-front-title"
+      >
+        ${DILO_WORKS[0]?.title || ''}
+      </h2>
+
+      <!-- Minimalist Impact Metric Badge -->
+      <div class="ww-front-metric">
+        <span class="ww-metric-value" id="ww-front-metric-val">${DILO_WORKS[0]?.metricVal}</span>
+        <span class="ww-metric-label" id="ww-front-metric-lbl">${DILO_WORKS[0]?.metricLbl}</span>
+      </div>
+
+      <a href="${DILO_WORKS[0]?.href}" class="ww-front-link" id="ww-front-link" data-cursor="explore">
+        <span>Explorar caso de estudio</span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
     </div>
 
+    <!-- Right-Hand Clean Index List -->
     <ol class="ww-index-list" id="ww-index-list">
       ${DILO_WORKS.map((item, i) => `
         <li key="${item.title}">
@@ -118,7 +165,8 @@ export function renderWorksWheel(label = "Casos '26", action = "Ver Caso") {
             class="ww-index-btn ${i === 0 ? 'is-active' : ''}" 
             data-index="${i}"
           >
-            ${item.title}
+            <span class="ww-index-num">${String(i + 1).padStart(2, '0')}</span>
+            <span class="ww-index-name">${item.title}</span>
           </button>
         </li>
       `).join('')}
@@ -134,7 +182,12 @@ export function initWorksWheelEvents() {
   const stageEl = document.getElementById('ww-stage');
   const wheelEl = document.getElementById('ww-wheel');
   const labelEl = document.getElementById('ww-ring-label');
+  const frontDetailsEl = document.getElementById('ww-front-details');
   const titleEl = document.getElementById('ww-front-title');
+  const catEl = document.getElementById('ww-front-cat');
+  const metricValEl = document.getElementById('ww-front-metric-val');
+  const metricLblEl = document.getElementById('ww-front-metric-lbl');
+  const linkEl = document.getElementById('ww-front-link');
   const cardEls = Array.from(root.querySelectorAll('[data-wheel-card]'));
   const indexBtns = Array.from(root.querySelectorAll('[data-index]'));
 
@@ -142,7 +195,7 @@ export function initWorksWheelEvents() {
   const count = items.length;
   const last = Math.max(count - 1, 0);
 
-  // Wheel's position and target
+  // Wheel position & target
   let turn = 0;
   let target = 0;
   let active = 0;
@@ -157,7 +210,7 @@ export function initWorksWheelEvents() {
     const drumR = cardH * DRUM;
     const ringR = cardH * RING_R;
     const ringScale = count
-      ? clamp((((2 * Math.PI * ringR) / count) * 0.82) / (cardW || 1), 0.16, 1)
+      ? clamp((((2 * Math.PI * ringR) / count) * 0.85) / (cardW || 1), 0.2, 1)
       : 1;
 
     return {
@@ -168,8 +221,6 @@ export function initWorksWheelEvents() {
       drumR,
       bow: cardH * BOW,
       depth: cardH * LENS,
-      title: cardH * TITLE,
-      index: cardH * INDEX,
     };
   }
 
@@ -182,10 +233,6 @@ export function initWorksWheelEvents() {
     metrics = calculateMetrics();
 
     stageEl.style.perspective = `${metrics.depth}px`;
-    if (labelEl) labelEl.style.fontSize = `${metrics.title}px`;
-    if (titleEl) titleEl.style.fontSize = `${metrics.title}px`;
-    const indexList = document.getElementById('ww-index-list');
-    if (indexList) indexList.style.fontSize = `${metrics.index}px`;
   }
 
   applyStageSizing();
@@ -201,7 +248,7 @@ export function initWorksWheelEvents() {
     target = clamp(next, 0, last + 1);
   };
 
-  // rAF Draw loop (exactly like React useEffect in works-wheel.tsx)
+  // rAF Draw loop (Fluid 60/120fps with EASE = 0.085)
   let rafId = 0;
 
   function draw() {
@@ -210,7 +257,7 @@ export function initWorksWheelEvents() {
     if (!stageH) return;
 
     const gap = target - turn;
-    if (Math.abs(gap) < 0.0005) {
+    if (Math.abs(gap) < 0.0004) {
       turn = target;
     } else {
       turn += gap * (reducedMotion ? 1 : EASE);
@@ -255,14 +302,29 @@ export function initWorksWheelEvents() {
       }
     }
 
-    if (labelEl) labelEl.style.opacity = String(1 - m);
-    if (titleEl) titleEl.style.opacity = String(m);
+    // Smooth cross-fade between center ring label and left front details
+    if (labelEl) {
+      labelEl.style.opacity = String(Math.max(0, 1 - m * 1.4));
+      labelEl.style.transform = `translate(-50%, -50%) scale(${lerp(1, 0.9, m)})`;
+      labelEl.style.pointerEvents = m > 0.3 ? 'none' : 'auto';
+    }
+
+    if (frontDetailsEl) {
+      frontDetailsEl.style.opacity = String(clamp((m - 0.2) / 0.75, 0, 1));
+      frontDetailsEl.style.transform = `translateY(${lerp(18, 0, m)}px)`;
+      frontDetailsEl.style.pointerEvents = m < 0.4 ? 'none' : 'auto';
+    }
 
     const near = clamp(Math.round(pos), 0, last);
     if (near !== active) {
       active = near;
-      if (titleEl && items[active]) {
-        titleEl.textContent = items[active].title;
+      const item = items[active];
+      if (item) {
+        if (titleEl) titleEl.textContent = item.title;
+        if (catEl) catEl.textContent = item.categoryName;
+        if (metricValEl) metricValEl.textContent = item.metricVal;
+        if (metricLblEl) metricLblEl.textContent = item.metricLbl;
+        if (linkEl) linkEl.href = item.href;
       }
       indexBtns.forEach((btn, idx) => {
         btn.classList.toggle('is-active', idx === active);
@@ -273,7 +335,7 @@ export function initWorksWheelEvents() {
 
   rafId = requestAnimationFrame(draw);
 
-  // Wheel listener
+  // Silky smooth mouse wheel listener
   let settlingTimer = 0;
 
   const onWheel = (event) => {
@@ -291,11 +353,11 @@ export function initWorksWheelEvents() {
 
   stageEl?.addEventListener('wheel', onWheel, { passive: false });
 
-  // Pointer drag gestures
+  // Tactile pointer drag gestures
   let drag = null;
 
   stageEl?.addEventListener('pointerdown', (event) => {
-    if (event.target.closest('button')) return;
+    if (event.target.closest('button') || event.target.closest('a')) return;
     drag = event.clientY;
     stageEl.setPointerCapture(event.pointerId);
   });
@@ -308,30 +370,48 @@ export function initWorksWheelEvents() {
 
   const onPointerUp = () => {
     drag = null;
-    if (target > 1) {
+    if (target > 0.45) {
       to(Math.round(target));
+    } else {
+      to(0); // Snap back to ring
     }
   };
 
   stageEl?.addEventListener('pointerup', onPointerUp);
   stageEl?.addEventListener('pointercancel', onPointerUp);
 
-  // Key navigation
+  // Keyboard navigation
   stageEl?.addEventListener('keydown', (event) => {
-    if (event.key === 'ArrowDown') {
+    if (event.key === 'ArrowDown' || event.key === 'ArrowRight') {
       to(Math.round(target) + 1);
       event.preventDefault();
-    } else if (event.key === 'ArrowUp') {
+    } else if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') {
       to(Math.round(target) - 1);
       event.preventDefault();
     }
   });
 
-  // Index buttons
+  // Clicking right-hand index items
   indexBtns.forEach((btn, i) => {
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
       to(i + 1);
+    });
+  });
+
+  // Clicking center ring label opens drum to item 0
+  labelEl?.addEventListener('click', () => {
+    to(1);
+  });
+
+  // Clicking card
+  cardEls.forEach((card, i) => {
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('.ww-card-action')) return; // allow link navigation
+      if (target === 0 || Math.round(target) !== i + 1) {
+        e.preventDefault();
+        to(i + 1);
+      }
     });
   });
 }

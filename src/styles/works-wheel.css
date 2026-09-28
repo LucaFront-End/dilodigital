@@ -1,36 +1,67 @@
 /* ================================================================
-   WORKS WHEEL (CRAFTERUI / 21ST.DEV)
-   Pure 1:1 CSS Stylesheet with Dilo Typography & Colors
+   WORKS WHEEL (CRAFTERUI / 21ST.DEV) — DILO LIGHT CANVAS EDITION
+   Non-clipping full viewport geometry, refined typography,
+   buttery smooth liquid easing, minimalist interactive project data
    ================================================================ */
 
 .ww-root {
   position: relative;
   width: 100%;
   height: 100vh;
-  min-height: 28rem;
-  background-color: #06080E;
-  color: #FFFFFF;
+  min-height: 640px;
+  max-height: 980px;
+  background-color: #FAFAFC;
+  color: #141718;
   overflow: hidden;
   user-select: none;
   -webkit-user-select: none;
   box-sizing: border-box;
+  isolation: isolate;
 }
 
-/* Stage */
+/* Soft Ambient Light Glow & Subtle Grid Matrix */
+.ww-ambient-light {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 850px;
+  height: 650px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle at 50% 50%, rgba(255, 90, 31, 0.07) 0%, transparent 68%);
+  filter: blur(100px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ww-grid-matrix {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 1px 1px, rgba(22, 37, 63, 0.05) 1.2px, transparent 0);
+  background-size: 34px 34px;
+  mask-image: radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 0.8) 25%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 0.8) 25%, transparent 80%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── Interactive Stage ── */
 .ww-stage {
   position: absolute;
   inset: 0;
+  width: 100%;
+  height: 100%;
   cursor: grab;
   touch-action: pan-x;
   outline: none;
   overflow: hidden;
+  z-index: 5;
 }
 
 .ww-stage:active {
   cursor: grabbing;
 }
 
-/* 3D Wheel Container */
+/* ── 3D Wheel Container ── */
 .ww-wheel {
   position: absolute;
   top: 50%;
@@ -40,7 +71,7 @@
   pointer-events: none;
 }
 
-/* Card */
+/* ── The 3D Card ── */
 .ww-card {
   position: absolute;
   backface-visibility: hidden;
@@ -51,24 +82,24 @@
   display: block;
 }
 
-/* Card Face */
+/* Card Face: Clean White Surface & Delicate Border */
 .ww-card-face {
   position: relative;
   display: block;
   width: 100%;
   height: 100%;
   overflow: hidden;
-  border-radius: 0.75rem; /* rounded-lg */
-  background-color: #121824;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 18px 40px -18px rgba(0, 0, 0, 0.85);
+  border-radius: 14px;
+  background-color: #FFFFFF;
+  border: 1px solid rgba(22, 37, 63, 0.08);
+  box-shadow: 0 16px 36px -12px rgba(22, 37, 63, 0.12), 0 2px 6px rgba(0, 0, 0, 0.03);
   transform-origin: center center;
   transition: box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
 .ww-card:hover .ww-card-face {
-  border-color: rgba(255, 90, 31, 0.45);
-  box-shadow: 0 24px 50px -15px rgba(255, 90, 31, 0.25);
+  border-color: rgba(255, 90, 31, 0.4);
+  box-shadow: 0 22px 45px -12px rgba(255, 90, 31, 0.22), 0 4px 12px rgba(0, 0, 0, 0.04);
 }
 
 .ww-card-img {
@@ -77,122 +108,306 @@
   object-fit: cover;
   display: block;
   pointer-events: none;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Action Pill Affordance (Shown on hover at bottom-right) */
-.ww-card-action {
+.ww-card:hover .ww-card-img {
+  transform: scale(1.04);
+}
+
+/* Bottom Scrim Gradient for crisp text readability */
+.ww-card-scrim {
   position: absolute;
-  right: 0.75rem;
-  bottom: 0.75rem;
+  inset: auto 0 0 0;
+  height: 48%;
+  background: linear-gradient(180deg, transparent 0%, rgba(12, 18, 30, 0.8) 100%);
+  pointer-events: none;
+}
+
+/* Minimalist Meta Pill: Client + Metric */
+.ww-card-meta {
+  position: absolute;
+  bottom: 0.65rem;
+  left: 0.75rem;
   display: flex;
   align-items: center;
-  gap: 0.35rem;
-  border-radius: 9999px;
-  padding: 0.3rem 0.65rem;
+  gap: 0.45rem;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.ww-card-client {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.72rem;
-  font-weight: 600;
-  background: rgba(6, 8, 14, 0.85);
+  font-size: 0.68rem;
+  font-weight: 700;
   color: #FFFFFF;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.ww-card-metric-badge {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 0.64rem;
+  font-weight: 800;
+  background: #FF5A1F;
+  color: #FFFFFF;
+  padding: 0.12rem 0.45rem;
+  border-radius: 9999px;
+  box-shadow: 0 2px 6px rgba(255, 90, 31, 0.4);
+}
+
+/* Action Hover Affordance Pill */
+.ww-card-action {
+  position: absolute;
+  right: 0.65rem;
+  bottom: 0.65rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  border-radius: 9999px;
+  padding: 0.25rem 0.6rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.95);
+  color: #141718;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
   opacity: 0;
-  transform: translateY(4px);
+  transform: translateY(3px);
   transition: opacity 0.2s ease, transform 0.2s ease;
   pointer-events: none;
+  z-index: 3;
 }
 
 .ww-card:hover .ww-card-action {
   opacity: 1;
   transform: translateY(0);
   background: #FF5A1F;
-  border-color: #FF5A1F;
   color: #FFFFFF;
 }
 
 .ww-action-svg {
-  width: 10px;
-  height: 10px;
+  width: 9px;
+  height: 9px;
   display: inline-block;
 }
 
-/* Ring Title Label (Center at rest, fades out as m -> 1) */
+/* ── Ring Center Title (At rest, scales gently down as m -> 1) ── */
 .ww-ring-label {
-  pointer-events: none;
+  pointer-events: auto;
+  cursor: pointer;
   position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  font-family: 'Syne', sans-serif;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  color: #FFFFFF;
-  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
-  will-change: opacity;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  will-change: opacity, transform;
+  z-index: 10;
 }
 
-/* Front Card Title (Left-hand side, fades in as m -> 1) */
-.ww-front-title {
+.ww-ring-text {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(1.4rem, 2.3vw, 2.1rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: #141718;
+  line-height: 1.1;
+  transition: color 0.2s ease;
+}
+
+.ww-ring-label:hover .ww-ring-text {
+  color: #FF5A1F;
+}
+
+.ww-ring-sub {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(20, 23, 24, 0.45);
+  margin-top: 0.25rem;
+}
+
+/* ── Front Card Details on Left (Fades in as drum opens m -> 1) ── */
+.ww-front-details {
   pointer-events: none;
   position: absolute;
   top: 50%;
-  left: 8%;
+  left: clamp(2rem, 5.5vw, 6.5rem);
   transform: translateY(-50%);
-  max-width: 32vw;
-  font-family: 'Syne', sans-serif;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  line-height: 1.12;
-  color: #FFFFFF;
-  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.8);
+  max-width: clamp(260px, 28vw, 360px);
+  z-index: 15;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
   opacity: 0;
-  will-change: opacity;
+  will-change: opacity, transform;
 }
 
-/* Right-Hand Index List */
+.ww-front-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #FF5A1F;
+}
+
+.ww-eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #FF5A1F;
+  box-shadow: 0 0 6px rgba(255, 90, 31, 0.6);
+}
+
+.ww-front-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(1.35rem, 2vw, 1.85rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.18;
+  color: #141718;
+  margin: 0.15rem 0 0.5rem;
+}
+
+.ww-front-metric {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  background: rgba(255, 90, 31, 0.08);
+  border: 1px solid rgba(255, 90, 31, 0.22);
+  border-radius: 9999px;
+  padding: 0.3rem 0.85rem;
+  width: fit-content;
+  margin-bottom: 0.65rem;
+}
+
+.ww-metric-value {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #FF5A1F;
+}
+
+.ww-metric-label {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #4B5563;
+}
+
+.ww-front-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #141718;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  width: fit-content;
+}
+
+.ww-front-link:hover {
+  color: #FF5A1F;
+  transform: translateX(3px);
+}
+
+/* ── Right-Hand Clean Index List ── */
 .ww-index-list {
   position: absolute;
-  top: 7.5%;
-  right: 2.5%;
-  text-align: right;
-  line-height: 1.85;
+  top: 50%;
+  right: clamp(1.5rem, 3.5vw, 4.5rem);
+  transform: translateY(-50%);
   list-style: none;
   padding: 0;
   margin: 0;
-  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  z-index: 15;
+  pointer-events: auto;
 }
 
 .ww-index-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
   background: transparent;
   border: none;
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(20, 23, 24, 0.45);
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: inherit;
+  font-size: 0.82rem;
   font-weight: 500;
   cursor: pointer;
-  padding: 0.15rem 0.5rem;
-  border-radius: 4px;
-  transition: color 0.15s ease;
+  padding: 0.25rem 0.65rem;
+  border-radius: 6px;
+  transition: all 0.18s ease;
   outline: none;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.ww-index-num {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  opacity: 0.6;
 }
 
 .ww-index-btn:hover {
-  color: #FFFFFF;
+  color: #141718;
+  background: rgba(22, 37, 63, 0.04);
 }
 
 .ww-index-btn.is-active {
   color: #FF5A1F;
   font-weight: 700;
+  background: rgba(255, 90, 31, 0.1);
+  transform: translateX(-4px);
 }
 
-/* Responsive adjustment for small screens */
-@media (max-width: 768px) {
-  .ww-front-title {
-    left: 5%;
-    max-width: 60vw;
-  }
+.ww-index-btn.is-active .ww-index-num {
+  opacity: 1;
+}
+
+/* ── Responsive Adjustments ── */
+@media (max-width: 1024px) {
   .ww-index-list {
     display: none;
+  }
+  .ww-front-details {
+    left: 2rem;
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .ww-front-details {
+    position: absolute;
+    top: auto;
+    bottom: 2rem;
+    left: 1.5rem;
+    right: 1.5rem;
+    max-width: 100%;
+    transform: none;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 0.85rem 1.15rem;
+    border-radius: 12px;
+    border: 1px solid rgba(22, 37, 63, 0.08);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
   }
 }
