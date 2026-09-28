@@ -1,6 +1,7 @@
 // ================================================================
 // EL MÉTODO DILO — SERVICES STACK (KNNEKT STUDIO / 21ST.DEV)
-// Algorithmic Line Drawings + Stacking Cards Scroll Physics
+// Algorithmic Line Drawings + Dynamic Cross-Fading Backgrounds
+// Tailored 100% to Dilo Digital Mexico Agency Deliverables
 // ================================================================
 
 import { SCENES, W, H, prog } from './ServicesStackScenes.js';
@@ -9,14 +10,14 @@ export const DILO_SERVICES = [
   {
     id: "legal",
     title: "01. Diagnóstico & Blindaje Legal IMPI",
-    text: "Protegemos tu nombre, activos intangibles y modelo de negocio ante el IMPI antes de invertir capital. Búsqueda fonética express, dictamen jurídico y título oficial sin burocracia.",
+    text: "Protegemos tu nombre, activos y modelo ante el IMPI antes de invertir capital. Búsqueda fonética express, dictamen jurídico y título oficial sin burocracia.",
     capabilities: [
       "Búsqueda Fonética IMPI",
       "Dictamen & Contratos",
       "Asignación de Marca (IP)",
       "Clasificación NIZA",
       "Expediente Oficial IMPI",
-      "Título de Concesión"
+      "Título de Concesión ®"
     ],
   },
   {
@@ -25,7 +26,7 @@ export const DILO_SERVICES = [
     text: "Construimos marcas memorables con posicionamiento claro en el mercado, diseño de logotipo, manual de identidad integral y validación comercial antes de programar.",
     capabilities: [
       "Posicionamiento",
-      "Branding & Logo",
+      "Monograma & Logo",
       "Canales Digitales",
       "Diseño de Contenido",
       "Generación de Demanda",
@@ -35,27 +36,27 @@ export const DILO_SERVICES = [
   {
     id: "technology",
     title: "03. Ingeniería Web Headless",
-    text: "Desarrollamos plataformas digitales ultrarrápidas con carga sub-segundo (< 0.8s), arquitectura headless, integración de pagos (Stripe / Mercado Pago) y analítica avanzada para alta conversión.",
+    text: "Desarrollamos plataformas digitales ultrarrápidas con carga sub-segundo (< 0.8s), arquitectura headless, integración de pagos y analítica de alta conversión.",
     capabilities: [
       "Sitio Web Headless",
-      "App & Mobile First",
+      "Arquitectura Mobile-First",
       "Ops Stack & Cloud",
-      "Integraciones & Pagos",
+      "Integraciones API",
       "Analítica & PageSpeed",
-      "Automatización Total"
+      "Carga Sub-Segundo (0.8s)"
     ],
   },
   {
     id: "ai",
-    title: "04. Automatización con IA & Escala",
-    text: "Activamos sistemas de captación continua con pauta optimizada por ROAS y agentes de inteligencia artificial que califican leads 24/7 y automatizan la operación comercial.",
+    title: "04. Lanzamiento & Escala por ROAS",
+    text: "Activamos sistemas de captación continua con pauta en Meta & Google Ads optimizada por ROAS y flujos automatizados de WhatsApp para escalar ventas.",
     capabilities: [
-      "Prompt Systems",
-      "Estructuración de Datos",
-      "Agentes IA a la Medida",
-      "Flujos Automatizados",
-      "Ventas & Soporte 24/7",
-      "Escala con Tu Equipo"
+      "Campañas Meta & Google Ads",
+      "Funnel de Conversión",
+      "Calificación de Prospectos",
+      "Automatización WhatsApp",
+      "Dashboard de Métricas",
+      "Escala por ROAS"
     ],
   }
 ];
@@ -112,7 +113,7 @@ export function renderMethodStepper() {
       `).join('')}
     </div>
 
-    <!-- Sticky Backdrop: Left Titles + Grain Overlay + Luxury Gradient -->
+    <!-- Sticky Backdrop: Left Titles + Film Grain + Dynamic Cross-Fading Backgrounds -->
     <div class="ss-sticky-backdrop" aria-hidden="true">
       <div class="ss-sticky-inner">
         
@@ -147,8 +148,11 @@ export function renderMethodStepper() {
         <!-- Film Grain Texture -->
         <div class="ss-grain"></div>
 
-        <!-- Luxury Deep Gradient Backdrop -->
-        <div class="ss-bg-gradient"></div>
+        <!-- Dynamic Cross-Fading Background Layers per Step -->
+        <div class="ss-bg-layer is-active" data-bg-index="0"></div>
+        <div class="ss-bg-layer" data-bg-index="1"></div>
+        <div class="ss-bg-layer" data-bg-index="2"></div>
+        <div class="ss-bg-layer" data-bg-index="3"></div>
       </div>
     </div>
   </section>
@@ -162,15 +166,17 @@ export function initMethodStepperEvents() {
   const panels = Array.from(root.querySelectorAll('[data-panel]'));
   const cards = Array.from(root.querySelectorAll('[data-card]'));
   const leftTitles = Array.from(root.querySelectorAll('[data-left-title]'));
+  const bgLayers = Array.from(root.querySelectorAll('[data-bg-index]'));
 
   // -------------------------------------------------------------
-  // 1. STACKING CARDS SCROLL ENGINE
+  // 1. STACKING CARDS SCROLL ENGINE & BACKGROUND CROSS-FADE
   // -------------------------------------------------------------
   let rafScroll = 0;
 
   const fitPanels = () => {
     const vh = window.innerHeight;
     panels.forEach((panel) => {
+      // Keep panel reachable and centered
       panel.style.top = `${Math.min(0, vh - panel.offsetHeight)}px`;
     });
   };
@@ -181,8 +187,8 @@ export function initMethodStepperEvents() {
     let activeIdx = 0;
 
     panels.forEach((panel, i) => {
-      const top = panel.getBoundingClientRect().top;
-      if (top <= vh * 0.5) {
+      const rect = panel.getBoundingClientRect();
+      if (rect.top <= vh * 0.5) {
         activeIdx = i;
       }
 
@@ -191,12 +197,18 @@ export function initMethodStepperEvents() {
       if (!card) return;
 
       const covered = next ? Math.min(1, Math.max(0, 1 - next.getBoundingClientRect().top / vh)) : 0;
-      card.style.opacity = String(Math.max(0, 1 - covered * 1.4));
-      card.style.transform = `scale(${1 - covered * 0.06}) translateY(${-covered * 40}px)`;
+      card.style.opacity = String(Math.max(0, 1 - covered * 1.35));
+      card.style.transform = `scale(${1 - covered * 0.055}) translateY(${-covered * 34}px)`;
     });
 
+    // Update Left Titles
     leftTitles.forEach((tEl, i) => {
       tEl.classList.toggle('is-active', i === activeIdx);
+    });
+
+    // Update Cross-Fading Backgrounds per Step
+    bgLayers.forEach((bg, i) => {
+      bg.classList.toggle('is-active', i === activeIdx);
     });
   };
 
