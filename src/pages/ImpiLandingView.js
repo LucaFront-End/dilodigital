@@ -7,6 +7,7 @@ import confetti from 'canvas-confetti';
 import { sounds } from '../utils/SoundEngine.js';
 import { renderFinalCta, initFinalCtaEvents } from '../components/FinalCta.js';
 import { saveLeadToCms } from '../utils/LeadCms.js';
+import { createNewTramite } from '../data/tramitesStore.js';
 
 export function renderImpiLandingView(initialQuery = '') {
   return `
@@ -699,9 +700,14 @@ export function renderImpiLandingView(initialQuery = '') {
                 </p>
               </div>
 
-              <div class="impi-folio-pill">
-                <span>Expediente:</span>
-                <span style="color: var(--color-primary);">IMPI-2026-9482-MX</span>
+              <div style="display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap;">
+                <div class="impi-folio-pill">
+                  <span>Expediente:</span>
+                  <span style="color: var(--color-primary);">IMPI-2026-9482-MX</span>
+                </div>
+                <a href="#/portal-tramites" class="btn btn-outline btn-sm" style="display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.45rem 1rem; border-radius: 999px; text-decoration: none; font-size: 0.82rem; font-weight: 700;" data-cursor="hover">
+                  <span>Abrir Portal de Trámites &rarr;</span>
+                </a>
               </div>
             </div>
 
@@ -1590,16 +1596,30 @@ export function initImpiEvents(autoOpenModal = false) {
 
     const logoNote = uploadedLogoData ? ` | Logotipo: ${uploadedLogoData.name}` : '';
 
+    const clientEmailVal = document.getElementById('co-owner-email')?.value || '';
+
     // Save purchase order to CMS
     saveLeadToCms({
       name: ownerName,
       phone: ownerPhone,
-      email: document.getElementById('co-owner-email')?.value || '',
+      email: clientEmailVal,
       brandName: brandName,
       notes: `Orden Pagada: ${folio} | Total: ${totalText} | Addons: ${addonsList.join(', ')}${logoNote}`,
       type: 'checkout',
       statusScenario: 'verde',
       source: '#/registro-marca-compra'
+    });
+
+    // Create real trámite in Portal store
+    createNewTramite({
+      type: selectedTier === 'dictamen' ? 'viabilidad' : 'registro',
+      brandName: brandName,
+      clientName: ownerName,
+      clientEmail: clientEmailVal || 'cliente@solaria.mx',
+      clientPhone: ownerPhone,
+      nizaClass: document.getElementById('impi-search-class')?.value || 'Clase 35',
+      comments: `Orden en línea confirmada (${folio}). Plan: ${document.getElementById('rec-plan-name')?.textContent}. Expediente radicado para dictamen.`,
+      currentStage: selectedTier === 'dictamen' ? 'solicitud_recibida' : 'preparacion'
     });
 
     const whatsappMessage = `¡Hola Dilo Digital MX! ⚖️🛡️ Acabo de contratar el trámite de *Protección de Marca ante el IMPI* en línea:\n\n` +

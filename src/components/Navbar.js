@@ -52,6 +52,12 @@ export function renderNavbar(activeRoute = 'home') {
 
           <!-- Contact -->
           <a href="#/contacto" class="nav-item ${activeRoute === 'contacto' ? 'active' : ''}" data-cursor="hover">Contacto</a>
+
+          <!-- Portal Trámites IMPI -->
+          <a href="#/portal-tramites" class="nav-item ${activeRoute === 'portal-tramites' ? 'active' : ''}" data-cursor="hover" style="display: flex; align-items: center; gap: 0.35rem; color: #38BDF8;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            <span>Portal Trámites</span>
+          </a>
         </nav>
 
         <!-- Actions -->
@@ -98,6 +104,10 @@ export function renderNavbar(activeRoute = 'home') {
             <a href="#/portafolio" class="mobile-nav-link">Portafolio</a>
             <a href="#/nosotros" class="mobile-nav-link">Nosotros</a>
             <a href="#/contacto" class="mobile-nav-link" style="color: var(--color-primary);">Contacto Directo</a>
+            <a href="#/portal-tramites" class="mobile-nav-link" style="color: #38BDF8; display: flex; align-items: center; justify-content: space-between;">
+              <span>⚖️ Portal Trámites IMPI</span>
+              <span style="font-size: 0.72rem; background: rgba(56, 189, 248, 0.15); padding: 0.15rem 0.5rem; border-radius: 999px;">Clientes &amp; Staff</span>
+            </a>
           </div>
           <div style="margin-top: 2rem;">
             <button class="btn btn-primary btn-lg btn-glow" style="width: 100%; justify-content: center;" onclick="window.dispatchEvent(new CustomEvent('open-cotizador-modal'))">

@@ -18,6 +18,7 @@ import './styles/about-view.css';
 import './styles/contact-view.css';
 import './styles/legal-chat.css';
 import './styles/category-animations.css';
+import './styles/user-portal.css';
 
 import { renderNavbar, initNavbarEvents } from './components/Navbar.js';
 import { renderFooter } from './components/Footer.js';
@@ -33,6 +34,7 @@ import { renderImpiLandingView, initImpiEvents } from './pages/ImpiLandingView.j
 import { renderPortfolioView, initPortfolioEvents } from './pages/PortfolioView.js';
 import { renderAboutView, initAboutEvents } from './pages/AboutView.js';
 import { renderContactView, initContactEvents } from './pages/ContactView.js';
+import { renderUserSectionView, initUserSectionEvents } from './pages/UserSectionView.js';
 
 class App {
   constructor() {
@@ -101,6 +103,10 @@ class App {
       activeRoute = 'contacto';
       mainContentHtml = renderContactView();
       initCallback = initContactEvents;
+    } else if (path === '#/portal' || path === '#/portal-tramites' || path === '#/mi-cuenta' || path === '#/usuario') {
+      activeRoute = 'portal-tramites';
+      mainContentHtml = renderUserSectionView();
+      initCallback = initUserSectionEvents;
     } else {
       // Fallback
       activeRoute = 'home';

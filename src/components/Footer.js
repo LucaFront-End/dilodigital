@@ -47,6 +47,11 @@ export function renderFooter() {
                   ★ Registro de Marca IMPI Online
                 </a>
               </li>
+              <li>
+                <a href="#/portal-tramites" data-cursor="hover" style="color: #38BDF8; font-weight: 700;">
+                  ⚖️ Portal de Trámites &amp; Mis Marcas
+                </a>
+              </li>
               <li><a href="#/servicio/desarrollo-web-wix-headless" data-cursor="hover">Desarrollo Web Headless</a></li>
               <li><a href="#/servicio/meta-google-ads-performance" data-cursor="hover">Performance Ads (Google & Meta)</a></li>
               <li><a href="#/servicio/produccion-audiovisual-ugc" data-cursor="hover">Contenido UGC & Drone 4K</a></li>
