@@ -113,42 +113,13 @@ export function renderMethodStepper() {
       `).join('')}
     </div>
 
-    <!-- Sticky Backdrop: Left Titles + Film Grain + Dynamic Cross-Fading Backgrounds -->
+    <!-- Sticky Backdrop: Full-Bleed Background + Centered Desktop Titles -->
     <div class="ss-sticky-backdrop" aria-hidden="true">
-      <div class="ss-sticky-inner">
-        
-        <!-- Left Column Header: Sticks alongside stacking cards on desktop -->
-        <div class="ss-left-col">
-          <div class="ss-left-eyebrow-box">
-            <span class="ss-left-dot"></span>
-            <span class="ss-left-eyebrow">Bajo el Método Dilo, ejecutamos</span>
-          </div>
-
-          <div class="ss-left-titles-viewport">
-            ${DILO_SERVICES.map((s, i) => `
-              <div class="ss-left-title ${i === 0 ? 'is-active' : ''}" data-left-title="${i}">
-                <h2>${s.title}</h2>
-              </div>
-            `).join('')}
-          </div>
-
-          <div class="ss-left-cta">
-            <button type="button" class="ss-cta-btn" 
-                    onclick="window.dispatchEvent(new CustomEvent('open-cotizador-modal'))" 
-                    data-cursor="cotizar">
-              <span>Cotizar con este Método</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
-              </svg>
-            </button>
-          </div>
-        </div>
-
-        <!-- Film Grain Texture -->
+      <div class="ss-sticky-bg-full">
+        <!-- Film Grain Texture (Full Viewport Width) -->
         <div class="ss-grain"></div>
 
-        <!-- Dynamic Liquid Mesh Auroras per Step (Stripe / Linear Luxury Glow) -->
+        <!-- Dynamic Liquid Mesh Auroras per Step (100% Full Viewport Width, Edge-to-Edge) -->
         <div class="ss-bg-layer is-active" data-bg-index="0">
           <div class="ss-grid-matrix"></div>
           <div class="ss-aurora-orb orb-amber"></div>
@@ -172,6 +143,36 @@ export function renderMethodStepper() {
           <div class="ss-aurora-orb orb-solar"></div>
           <div class="ss-aurora-orb orb-amber-gold"></div>
           <div class="ss-aurora-orb orb-crimson"></div>
+        </div>
+
+        <!-- Centered Desktop Left Column Titles (Aligned to max-width: 100rem) -->
+        <div class="ss-sticky-inner">
+          <div class="ss-left-col">
+            <div class="ss-left-eyebrow-box">
+              <span class="ss-left-dot"></span>
+              <span class="ss-left-eyebrow">Bajo el Método Dilo, ejecutamos</span>
+            </div>
+
+            <div class="ss-left-titles-viewport">
+              ${DILO_SERVICES.map((s, i) => `
+                <div class="ss-left-title ${i === 0 ? 'is-active' : ''}" data-left-title="${i}">
+                  <h2>${s.title}</h2>
+                </div>
+              `).join('')}
+            </div>
+
+            <div class="ss-left-cta">
+              <button type="button" class="ss-cta-btn" 
+                      onclick="window.dispatchEvent(new CustomEvent('open-cotizador-modal'))" 
+                      data-cursor="cotizar">
+                <span>Cotizar con este Método</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
