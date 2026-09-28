@@ -1,14 +1,15 @@
 /* ================================================================
-   DILO DIGITAL — DINAMETRA-INSPIRED CLEAN & AIRY SERVICES DESIGN
-   Spacious, Visual-First, High-Impact Lotties, Minimal Text
+   DILO DIGITAL — DINAMETRA-INSPIRED SCROLL STACKING SERVICES SHOWCASE
+   Combines 3D Sticky Stacking Scroll Effect with Clean Airy Dinametra Style
    ================================================================ */
 
 .dm-services-section {
   position: relative;
   width: 100%;
   background: #FFFFFF;
-  padding: clamp(5rem, 9vw, 8rem) 0;
+  padding: clamp(4rem, 7vw, 6.5rem) 0 0;
   box-sizing: border-box;
+  overflow: visible; /* Required for sticky stacking */
 }
 
 .dm-container {
@@ -22,8 +23,8 @@
 /* --- Section Header --- */
 .dm-section-header {
   text-align: center;
-  max-width: 720px;
-  margin: 0 auto clamp(3.5rem, 6vw, 5.5rem);
+  max-width: 760px;
+  margin: 0 auto clamp(2rem, 4vw, 3.5rem);
 }
 
 .dm-eyebrow-pill {
@@ -31,34 +32,34 @@
   align-items: center;
   gap: 0.5rem;
   background: rgba(255, 90, 31, 0.08);
-  border: 1px solid rgba(255, 90, 31, 0.18);
-  color: var(--color-primary, #FF5A1F);
+  border: 1px solid rgba(255, 90, 31, 0.2);
+  color: #FF5A1F;
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   font-weight: 700;
   letter-spacing: 0.5px;
   text-transform: uppercase;
-  padding: 0.35rem 0.9rem;
+  padding: 0.35rem 0.95rem;
   border-radius: 9999px;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1rem;
 }
 
 .dm-eyebrow-dot {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
-  background: var(--color-primary, #FF5A1F);
+  background: #FF5A1F;
   box-shadow: 0 0 8px rgba(255, 90, 31, 0.6);
 }
 
 .dm-section-title {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  font-size: clamp(2.2rem, 3.8vw, 3.4rem);
   font-weight: 800;
   line-height: 1.15;
   letter-spacing: -0.03em;
   color: #111827;
-  margin: 0 0 1.2rem;
+  margin: 0 0 1rem;
 }
 
 .dm-section-subtitle {
@@ -69,33 +70,206 @@
   margin: 0 auto;
 }
 
-/* --- Service Rows (Alternating Layout) --- */
-.dm-services-list {
+/* --- Sticky Header Bar with Pillar Pills & Live Counter --- */
+.dm-deck-header-bar {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 76px;
   display: flex;
-  flex-direction: column;
-  gap: clamp(4rem, 8vw, 7rem);
-}
-
-.dm-service-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
   align-items: center;
-  gap: clamp(2.5rem, 6vw, 5.5rem);
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto clamp(0.75rem, 1.5vh, 1.5rem);
+  padding: 0.4rem 0;
+  z-index: 100;
+  pointer-events: none;
+  gap: 0.8rem;
 }
 
-.dm-service-row.is-reversed {
-  direction: rtl;
+.dm-deck-header-bar > * {
+  pointer-events: auto;
 }
 
-.dm-service-row.is-reversed > * {
-  direction: ltr;
+.dm-deck-tag-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+  flex-shrink: 0;
+}
+
+.dm-deck-tag-text {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #111827;
+}
+
+/* Interactive 6 Pillars Navigation */
+.dm-deck-nav-pills {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  padding: 0.3rem 0.45rem;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+  overflow-x: auto;
+}
+
+.dm-deck-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: transparent;
+  border: none;
+  border-radius: 999px;
+  padding: 0.3rem 0.75rem;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  color: #6B7280;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.dm-deck-nav-btn:hover {
+  color: #111827;
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.dm-deck-nav-btn.is-active {
+  background: #111827;
+  color: #FFFFFF;
+  box-shadow: 0 2px 10px rgba(17, 24, 39, 0.18);
+}
+
+.dm-deck-nav-btn.is-active .dm-deck-nav-num {
+  color: #FF5A1F;
+}
+
+.dm-deck-nav-num {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 800;
+  font-size: 0.8rem;
+  color: #9CA3AF;
+  transition: color 0.2s ease;
+}
+
+.dm-deck-counter {
+  display: flex;
+  align-items: baseline;
+  gap: 0.2rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: #111827;
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 0.22rem 0.8rem;
+  border-radius: 999px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+  flex-shrink: 0;
+}
+
+.dm-deck-num-current {
+  color: #FF5A1F;
+  min-width: 2ch;
+  text-align: right;
+}
+
+.dm-deck-num-sep {
+  opacity: 0.35;
+  margin: 0 0.15rem;
+}
+
+.dm-deck-num-total {
+  opacity: 0.45;
+}
+
+/* --- Native Sticky Track --- */
+.dm-deck-track {
+  display: flow-root;
+  position: relative;
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+.dm-deck-sticky-item {
+  position: -webkit-sticky;
+  position: sticky;
+  top: clamp(140px, 17vh, 160px);
+  height: clamp(480px, 65vh, 580px);
+  margin-bottom: clamp(45vh, 58vh, 70vh);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1200px;
+  box-sizing: border-box;
+}
+
+.dm-deck-sticky-item:last-of-type {
+  margin-bottom: 0;
+}
+
+.dm-deck-spacer {
+  height: clamp(22vh, 28vh, 35vh);
+  width: 100%;
+  pointer-events: none;
+}
+
+/* --- The Clean Dinametra Card --- */
+.dm-deck-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 28px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05), 0 4px 12px rgba(0, 0, 0, 0.02);
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  align-items: center;
+  gap: clamp(2rem, 4vw, 4rem);
+  padding: clamp(2rem, 3.5vw, 3.5rem);
+  box-sizing: border-box;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+}
+
+.dm-deck-card-glow {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  pointer-events: none;
+  border-radius: 28px;
+  z-index: 1;
 }
 
 /* Content Column */
-.dm-content-col {
+.dm-deck-content {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  position: relative;
+  z-index: 2;
 }
 
 .dm-item-badge {
@@ -113,45 +287,45 @@
 
 .dm-item-title {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: clamp(1.8rem, 2.8vw, 2.5rem);
+  font-size: clamp(1.8rem, 2.7vw, 2.5rem);
   font-weight: 800;
-  line-height: 1.2;
+  line-height: 1.18;
   letter-spacing: -0.02em;
   color: #111827;
-  margin: 0 0 1rem;
+  margin: 0 0 0.85rem;
 }
 
 .dm-item-desc {
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: clamp(0.95rem, 1.1vw, 1.05rem);
-  line-height: 1.65;
+  line-height: 1.6;
   color: #6B7280;
-  margin: 0 0 1.75rem;
-  max-width: 480px;
+  margin: 0 0 1.5rem;
+  max-width: 520px;
 }
 
-/* Bullet Points */
+/* Bullets */
 .dm-bullets-list {
   display: flex;
   flex-direction: column;
-  gap: 0.85rem;
-  margin-bottom: 2.25rem;
+  gap: 0.75rem;
+  margin-bottom: 1.85rem;
   width: 100%;
 }
 
 .dm-bullet-item {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.7rem;
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   font-weight: 600;
   color: #1F2937;
 }
 
 .dm-bullet-icon {
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   background: rgba(255, 90, 31, 0.1);
   color: #FF5A1F;
@@ -159,19 +333,13 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  transition: transform 0.2s ease, background 0.2s ease;
-}
-
-.dm-bullet-item:hover .dm-bullet-icon {
-  transform: translateX(2px);
-  background: rgba(255, 90, 31, 0.2);
 }
 
 /* Button Row */
 .dm-btn-group {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.85rem;
   flex-wrap: wrap;
 }
 
@@ -181,15 +349,14 @@
   gap: 0.6rem;
   background: #111827;
   color: #FFFFFF;
-  padding: 0.75rem 1.6rem;
+  padding: 0.7rem 1.5rem;
   border-radius: 9999px;
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   font-weight: 700;
   text-decoration: none;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 4px 14px rgba(17, 24, 39, 0.12);
-  border: 1px solid transparent;
 }
 
 .dm-btn-primary:hover {
@@ -205,10 +372,10 @@
   gap: 0.4rem;
   background: transparent;
   color: #4B5563;
-  padding: 0.75rem 1.25rem;
+  padding: 0.7rem 1.2rem;
   border-radius: 9999px;
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   font-weight: 600;
   text-decoration: none;
   transition: all 0.2s ease;
@@ -221,53 +388,38 @@
   background: #F9FAFB;
 }
 
-/* --- Visual Lottie Column --- */
-.dm-visual-col {
+/* Visual Column */
+.dm-deck-visual {
+  position: relative;
   width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
 }
 
 .dm-lottie-card {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 11;
-  min-height: 340px;
-  max-height: 440px;
+  height: 100%;
+  max-height: 420px;
   background: #F9FAFB;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  border-radius: 28px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 22px;
   padding: 1.5rem;
   box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  box-shadow: 0 12px 36px -8px rgba(0, 0, 0, 0.04);
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
-}
-
-.dm-lottie-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 48px -10px rgba(0, 0, 0, 0.08);
-  border-color: rgba(255, 90, 31, 0.2);
-}
-
-.dm-lottie-ambient-glow {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 80%;
-  height: 80%;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 90, 31, 0.08) 0%, transparent 70%);
-  pointer-events: none;
 }
 
 .dm-lottie-container {
   width: 100%;
   height: 100%;
-  max-width: 440px;
-  max-height: 380px;
+  max-width: 380px;
+  max-height: 340px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -286,7 +438,7 @@
   position: relative;
   width: 100%;
   background: #F9FAFB;
-  padding: clamp(4.5rem, 8vw, 7rem) 0;
+  padding: clamp(5rem, 8vw, 7.5rem) 0;
   border-top: 1px solid #F3F4F6;
   border-bottom: 1px solid #F3F4F6;
 }
@@ -320,7 +472,6 @@
 .dm-comparison-table th.is-dilo {
   color: #FF5A1F;
   background: rgba(255, 90, 31, 0.04);
-  position: relative;
 }
 
 .dm-comparison-table td {
@@ -350,18 +501,6 @@
   font-size: 0.88rem;
 }
 
-.dm-status-icon-check {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: rgba(16, 185, 129, 0.15);
-  color: #10B981;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
 .dm-status-icon-dilo {
   width: 22px;
   height: 22px;
@@ -389,26 +528,24 @@
 
 /* Responsive adjustments */
 @media (max-width: 960px) {
-  .dm-service-row {
+  .dm-deck-card {
     grid-template-columns: 1fr;
-    gap: 2.5rem;
-  }
-  
-  .dm-service-row.is-reversed {
-    direction: ltr;
+    height: auto;
+    padding: 2rem 1.5rem;
   }
 
-  .dm-lottie-card {
-    min-height: 280px;
-    aspect-ratio: auto;
-    height: 320px;
+  .dm-deck-sticky-item {
+    height: auto;
+    top: 100px;
+    margin-bottom: 4rem;
+    position: relative;
   }
 
-  .dm-section-header {
-    text-align: left;
+  .dm-deck-header-bar {
+    display: none;
   }
 
-  .dm-eyebrow-pill {
-    margin-left: 0;
+  .dm-deck-visual {
+    height: 280px;
   }
 }

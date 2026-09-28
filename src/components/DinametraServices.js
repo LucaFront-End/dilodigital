@@ -1,14 +1,19 @@
 // ================================================================
-// DILO DIGITAL — CLEAN & AIRY SERVICES SHOWCASE (DINAMETRA STYLE)
-// Minimal Text, High Visual Impact, Real Lottie Animations
+// DILO DIGITAL — SCROLL STACKING SERVICES SHOWCASE (DINAMETRA STYLE)
+// 3D Sticky Stacking Scroll Effect, Minimal Text, Real Lottie Animations
 // ================================================================
 
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import lottie from 'lottie-web/build/player/lottie_light.js';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const SERVICES_DATA = [
   {
     id: 'registro-marca',
     number: '01',
+    shortName: 'Registro IMPI',
     eyebrow: 'PROTECCIÓN & BLINDAJE LEGAL',
     title: 'Registro de Marca IMPI & Búsqueda Fonética',
     description: 'Protegemos tu nombre, logotipo y patrimonio comercial en México con dictamen legal en 24 horas y seguimiento online.',
@@ -27,11 +32,12 @@ const SERVICES_DATA = [
       href: '#/portal-tramites'
     },
     lottiePath: '/lotties/shield.json',
-    isReversed: false
+    accentGlow: 'rgba(255, 90, 31, 0.08)'
   },
   {
     id: 'marketing',
     number: '02',
+    shortName: 'Performance Ads',
     eyebrow: 'CONVERSIÓN & ESCALABILIDAD',
     title: 'Publicidad en Meta, Google & TikTok Ads',
     description: 'Estrategias orientadas a ventas reales y prospectos calificados, optimizando cada peso con atribución multicanal y ROAS positivo.',
@@ -50,11 +56,12 @@ const SERVICES_DATA = [
       href: '#/portafolio'
     },
     lottiePath: '/lotties/marketing.json',
-    isReversed: true
+    accentGlow: 'rgba(255, 90, 31, 0.08)'
   },
   {
     id: 'web-ecommerce',
     number: '03',
+    shortName: 'Web Headless',
     eyebrow: 'HEADLESS & EXPERIENCIA DIGITAL',
     title: 'Desarrollo Web & Tiendas Online de Alta Velocidad',
     description: 'Sitios web ultrarrápidos con tiempos de carga inferiores a 1 segundo, diseñados en Figma y desarrollados con arquitectura Headless.',
@@ -73,11 +80,12 @@ const SERVICES_DATA = [
       href: '#/servicio/desarrollo-web-headless'
     },
     lottiePath: '/lotties/web.json',
-    isReversed: false
+    accentGlow: 'rgba(56, 189, 248, 0.08)'
   },
   {
     id: 'branding',
     number: '04',
+    shortName: 'Branding',
     eyebrow: 'AUTORIDAD & PERCEPCIÓN DE VALOR',
     title: 'Branding que Vende y Construye Prestigio',
     description: 'Creamos identidades memorables que destacan de inmediato en tu industria y te permiten justificar precios más altos.',
@@ -95,11 +103,12 @@ const SERVICES_DATA = [
       href: '#/portafolio'
     },
     lottiePath: '/lotties/branding.json',
-    isReversed: true
+    accentGlow: 'rgba(168, 85, 247, 0.08)'
   },
   {
     id: 'automatizacion',
     number: '05',
+    shortName: 'Automatización IA',
     eyebrow: 'IA & EFICIENCIA OPERATIVA',
     title: 'Automatizaciones & Agentes de IA 24/7',
     description: 'Responde a cada prospecto en menos de 30 segundos por WhatsApp, califica automáticamente y sincroniza todo con tu CRM.',
@@ -118,11 +127,12 @@ const SERVICES_DATA = [
       href: '#/contacto'
     },
     lottiePath: '/lotties/automatizacion.json',
-    isReversed: false
+    accentGlow: 'rgba(16, 185, 129, 0.08)'
   },
   {
     id: 'reportes',
     number: '06',
+    shortName: 'Analítica & BI',
     eyebrow: 'DATOS REALES & TRANSPARENCIA',
     title: 'Reportes en Tiempo Real & Analítica de Crecimiento',
     description: 'Dashboards claros sin tecnicismos confusos: visualiza en tiempo real tu costo por lead, ROAS y facturación generada.',
@@ -140,14 +150,14 @@ const SERVICES_DATA = [
       href: '#/contacto'
     },
     lottiePath: '/lotties/reportes.json',
-    isReversed: true
+    accentGlow: 'rgba(2, 132, 199, 0.08)'
   }
 ];
 
 export function renderDinametraServices() {
   return `
     <!-- ================================================================
-         DINAMETRA-INSPIRED CLEAN & AIRY SERVICES SHOWCASE
+         DINAMETRA-INSPIRED SCROLL STACKING SERVICES SHOWCASE
          ================================================================ -->
     <section class="dm-services-section" id="servicios-showcase">
       <div class="dm-container">
@@ -166,13 +176,41 @@ export function renderDinametraServices() {
           </p>
         </header>
 
-        <!-- Alternating Services List -->
-        <div class="dm-services-list">
-          ${SERVICES_DATA.map((srv) => `
-            <article class="dm-service-row ${srv.isReversed ? 'is-reversed' : ''}" id="service-row-${srv.id}">
+      </div>
+
+      <!-- Top Sticky Header Bar & Pillar Navigation -->
+      <div class="dm-deck-header-bar">
+        <div class="dm-deck-tag-wrap">
+          <span class="dm-eyebrow-dot"></span>
+          <span class="dm-deck-tag-text">DISCIPLINAS MAESTRAS</span>
+        </div>
+
+        <nav class="dm-deck-nav-pills" id="dm-deck-nav-pills" aria-label="Navegación de Soluciones">
+          ${SERVICES_DATA.map((srv, idx) => `
+            <button type="button" class="dm-deck-nav-btn ${idx === 0 ? 'is-active' : ''}" data-target-index="${idx}">
+              <span class="dm-deck-nav-num">${srv.number}</span>
+              <span>${srv.shortName}</span>
+            </button>
+          `).join('')}
+        </nav>
+
+        <div class="dm-deck-counter">
+          <span class="dm-deck-num-current" id="dm-current-num">01</span>
+          <span class="dm-deck-num-sep">/</span>
+          <span class="dm-deck-num-total">06</span>
+        </div>
+      </div>
+
+      <!-- Native Sticky Stacking Track (Scroll Depth Engine) -->
+      <div class="dm-deck-track" id="dm-deck-track">
+        ${SERVICES_DATA.map((srv, idx) => `
+          <div class="dm-deck-sticky-item" id="dm-deck-item-${idx}" style="z-index: ${idx + 1};">
+            <article class="dm-deck-card" id="dm-deck-card-${idx}">
               
-              <!-- Content Column -->
-              <div class="dm-content-col">
+              <div class="dm-deck-card-glow" style="background: radial-gradient(circle at 80% 20%, ${srv.accentGlow}, transparent 70%);"></div>
+
+              <!-- Content Column (Left) -->
+              <div class="dm-deck-content">
                 <div class="dm-item-badge">
                   <span>${srv.number}</span>
                   <span>&bull;</span>
@@ -218,10 +256,9 @@ export function renderDinametraServices() {
                 </div>
               </div>
 
-              <!-- Visual Lottie Column -->
-              <div class="dm-visual-col">
+              <!-- Visual Lottie Column (Right) -->
+              <div class="dm-deck-visual">
                 <div class="dm-lottie-card">
-                  <div class="dm-lottie-ambient-glow"></div>
                   <div class="dm-lottie-container" 
                        id="lottie-container-${srv.id}" 
                        data-lottie-path="${srv.lottiePath}"
@@ -231,10 +268,13 @@ export function renderDinametraServices() {
               </div>
 
             </article>
-          `).join('')}
-        </div>
+          </div>
+        `).join('')}
 
+        <!-- Trailing spacer for docking time -->
+        <div class="dm-deck-spacer" aria-hidden="true"></div>
       </div>
+
     </section>
 
     <!-- ================================================================
@@ -350,10 +390,13 @@ export function renderDinametraServices() {
 }
 
 export function initDinametraServicesEvents() {
+  const items = Array.from(document.querySelectorAll('.dm-deck-sticky-item'));
+  const currentNumEl = document.getElementById('dm-current-num');
+  const navBtns = Array.from(document.querySelectorAll('.dm-deck-nav-btn'));
   const containers = document.querySelectorAll('.dm-lottie-container');
   const animInstances = new Map();
 
-  // Lazy-load Lotties when visible in viewport
+  // 1. Initialize Lottie animations
   if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -378,7 +421,6 @@ export function initDinametraServicesEvents() {
             animInstances.get(el).play();
           }
         } else {
-          // Pause when off-screen to preserve CPU & battery
           if (animInstances.has(el)) {
             animInstances.get(el).pause();
           }
@@ -391,7 +433,6 @@ export function initDinametraServicesEvents() {
 
     containers.forEach((c) => observer.observe(c));
   } else {
-    // Fallback: immediate load
     containers.forEach((el) => {
       const lottiePath = el.getAttribute('data-lottie-path');
       if (lottiePath) {
@@ -406,13 +447,67 @@ export function initDinametraServicesEvents() {
     });
   }
 
-  // Button clicks: Cotizador Modal or Radar Modal
-  document.querySelectorAll('.btn-open-radar').forEach((btn) => {
+  // 2. Pillar navigation & active state
+  const setActivePill = (activeIdx) => {
+    navBtns.forEach((btn, i) => {
+      btn.classList.toggle('is-active', i === activeIdx);
+    });
+    if (currentNumEl) {
+      currentNumEl.textContent = String(activeIdx + 1).padStart(2, '0');
+    }
+  };
+
+  // Click-to-Jump navigation across the 6 master pillars
+  navBtns.forEach((btn, idx) => {
     btn.addEventListener('click', (e) => {
-      // If user is already on home, navigate smoothly to #/registro-marca?open=coincidencias
+      e.preventDefault();
+      const targetItem = document.getElementById(`dm-deck-item-${idx}`);
+      if (targetItem) {
+        const targetRect = targetItem.getBoundingClientRect();
+        const absoluteTop = window.scrollY + targetRect.top - 140;
+        window.scrollTo({
+          top: absoluteTop,
+          behavior: 'smooth'
+        });
+      }
     });
   });
 
+  // 3. GPU-Accelerated 3D Stacking Cards ScrollTrigger
+  if (items.length > 0) {
+    items.forEach((item, idx) => {
+      const card = item.querySelector('.dm-deck-card');
+      const nextItem = items[idx + 1];
+
+      // Subtle scale and depth stacking when next card slides up
+      if (card && nextItem) {
+        gsap.to(card, {
+          scale: 0.96,
+          y: -14,
+          ease: 'power1.out',
+          scrollTrigger: {
+            trigger: nextItem,
+            start: 'top 65%',
+            end: 'top 18%',
+            scrub: 0.5
+          }
+        });
+      }
+
+      // Synchronize counter & active pill with card entering sticky dock
+      ScrollTrigger.create({
+        trigger: item,
+        start: idx === 0 ? 'top 80%' : 'top 30%',
+        end: 'bottom 30%',
+        onEnter: () => setActivePill(idx),
+        onEnterBack: () => setActivePill(idx)
+      });
+    });
+
+    ScrollTrigger.refresh();
+  }
+
+  // 4. Cotizador modal trigger
   document.querySelectorAll('[data-category]').forEach((btn) => {
     btn.addEventListener('click', (e) => {
       const category = btn.getAttribute('data-category');
