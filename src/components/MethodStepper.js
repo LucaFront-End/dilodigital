@@ -1,237 +1,194 @@
 // ================================================================
-// EL MÉTODO DILO — STEPPER DE PROCESO EN 4 PASOS
-// Clean, Editorial & Scroll-Driven Methodology Section
+// EL MÉTODO DILO — 4 PASOS MINIMALISTAS CON LOTTIES
+// Clean, Editorial, Minimalist & Visual Process Pipeline
 // ================================================================
 
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { sounds } from '../utils/SoundEngine.js';
+import lottie from 'lottie-web/build/player/lottie_light.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const METHOD_STEPS = [
   {
     num: '01',
-    phase: 'FASE 01 · DIAGNÓSTICO & BLINDAJE',
-    title: 'Auditoría Profunda & Viabilidad Legal',
-    tagline: 'Antes de construir, protegemos el terreno comercial.',
-    desc: 'Analizamos a tu competencia directa y validamos la viabilidad legal de tu marca ante el IMPI antes de iniciar la inversión.',
+    phase: 'FASE 01',
+    title: 'Diagnóstico & Blindaje',
+    desc: 'Búsqueda fonética ante el IMPI y análisis de mercado para proteger tu marca antes de invertir.',
     duration: 'Semana 1',
-    deliverables: [
-      'Búsqueda fonética y dictamen IMPI',
-      'Benchmarking competitivo y buyer persona',
-      'Definición de KPIs de negocio'
-    ]
+    lottiePath: '/lotties/shield.json'
   },
   {
     num: '02',
-    phase: 'FASE 02 · ARQUITECTURA & IDENTIDAD',
-    title: 'Diseño de Marca & Prototipado UX/UI',
-    tagline: 'Donde la estética premium se une con la alta conversión.',
-    desc: 'Diseñamos tu identidad visual completa y prototipamos en Figma la experiencia de usuario con interacciones fluidas a 60fps.',
-    duration: 'Semanas 2 a 3',
-    deliverables: [
-      'Identidad visual completa y manual',
-      'Prototipo interactivo en Figma',
-      'Estructura de copy orientado a ventas'
-    ]
+    phase: 'FASE 02',
+    title: 'Diseño & Identidad',
+    desc: 'Diseño de identidad visual integral, manual de marca y prototipo interactivo en Figma.',
+    duration: 'Semanas 2-3',
+    lottiePath: '/lotties/branding.json'
   },
   {
     num: '03',
-    phase: 'FASE 03 · INGENIERÍA & PRODUCCIÓN',
-    title: 'Desarrollo Headless & Activos Cinemáticos',
-    tagline: 'Código ultrarrápido y contenido de alto impacto visual.',
-    desc: 'Desarrollamos con arquitectura headless para tiempos de carga inferiores a 1s y producimos piezas audiovisuales UGC para pauta.',
-    duration: 'Semanas 3 a 4',
-    deliverables: [
-      'Sitio web responsive con carga sub-segundo',
-      'Integración de pagos (Stripe/Mercado Pago)',
-      'Piezas audiovisuales y banco de anuncios UGC'
-    ]
+    phase: 'FASE 03',
+    title: 'Desarrollo Headless',
+    desc: 'Sitios web ultrarrápidos con carga sub-segundo, pasarelas de pago y arquitectura moderna.',
+    duration: 'Semanas 3-4',
+    lottiePath: '/lotties/web.json'
   },
   {
     num: '04',
-    phase: 'FASE 04 · DESPLIEGUE & ESCALA',
-    title: 'Lanzamiento Oficial & Performance Continuo',
-    tagline: 'El lanzamiento es solo el inicio del crecimiento.',
-    desc: 'Activamos tus campañas de Meta y Google Ads optimizadas por ROAS con dashboards de analítica en tiempo real.',
-    duration: 'Continuo / Mensual',
-    deliverables: [
-      'Lanzamiento oficial con monitoreo continuo',
-      'Estructura de pauta Full-Funnel activada',
-      'Dashboard analítico en vivo en Looker Studio'
-    ]
+    phase: 'FASE 04',
+    title: 'Lanzamiento & Escala',
+    desc: 'Campañas de Meta y Google Ads optimizadas por ROAS y analítica transparente en tiempo real.',
+    duration: 'Continuo',
+    lottiePath: '/lotties/rocket.json'
   }
 ];
 
 export function renderMethodStepper() {
   return `
   <!-- ================================================================
-       EL MÉTODO DILO — 4-STEP SCROLL-DRIVEN METHODOLOGY
+       EL MÉTODO DILO — 4-STEP MINIMALIST & VISUAL PROCESS
        ================================================================ -->
   <section class="ms-section" id="metodo-dilo">
     <div class="ms-container">
-      <div class="ms-layout">
-        
-        <!-- Left Column: Sticky Title & Vertical Progress Stepper -->
-        <aside class="ms-sticky-col">
-          <div class="ms-tag-wrap">
-            <span class="ms-diamond-dot"></span>
-            <span class="ms-tag-text">METODOLOGÍA PROBADA</span>
-          </div>
+      
+      <!-- Section Header -->
+      <header class="ms-header">
+        <div class="ms-eyebrow-pill">
+          <span class="ms-eyebrow-dot"></span>
+          <span>Metodología Dilo · 4 Etapas</span>
+        </div>
+        <h2 class="ms-title">
+          Del concepto a la escala en <span style="color: #FF5A1F;">4 pasos simples</span>
+        </h2>
+        <p class="ms-subtitle">
+          Un proceso ágil, transparente y orientado a resultados, sin burocracia ni reuniones interminables.
+        </p>
+      </header>
 
-          <h2 class="ms-title">
-            EL MÉTODO<br>
-            <span class="ms-title-accent">DILO.</span>
-          </h2>
+      <!-- 4 Minimalist Visual Cards Grid with Connector Line -->
+      <div class="ms-grid-wrapper">
+        <div class="ms-steps-connector" aria-hidden="true"></div>
 
-          <p class="ms-subtitle">
-            De la idea inicial a la escala comercial en 4 fases claras, sin rodeos ni reuniones interminables.
-          </p>
-
-          <!-- Interactive Vertical Scrubber / Step Tracker -->
-          <nav class="ms-tracker" id="ms-tracker" aria-label="Fases del Método Dilo">
-            <div class="ms-tracker-line-bg"></div>
-            <div class="ms-tracker-line-fill" id="ms-tracker-line-fill"></div>
-
-            ${METHOD_STEPS.map((step, idx) => `
-              <button type="button" class="ms-tracker-step ${idx === 0 ? 'is-active' : ''}" data-target-step="${idx}">
-                <span class="ms-step-dot"></span>
-                <span class="ms-step-num">${step.num}</span>
-                <span class="ms-step-name">${step.title.split('&')[0].trim()}</span>
-              </button>
-            `).join('')}
-          </nav>
-
-          <!-- Quick CTA Button -->
-          <div class="ms-sticky-cta">
-            <button type="button" class="btn btn-primary btn-sm btn-glow" 
-                    onclick="window.dispatchEvent(new CustomEvent('open-cotizador-modal'))" 
-                    data-cursor="cotizar">
-              <span>Cotizar Mi Proyecto</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
-              </svg>
-            </button>
-          </div>
-        </aside>
-
-        <!-- Right Column: The 4 Method Step Cards -->
-        <div class="ms-cards-col" id="ms-cards-col">
+        <div class="ms-steps-grid">
           ${METHOD_STEPS.map((step, idx) => `
-            <article class="ms-card ${idx === 0 ? 'is-active' : ''}" id="ms-card-${idx}" data-step-index="${idx}">
-              <div class="ms-card-top">
-                <div class="ms-card-badge-wrap">
-                  <span class="ms-card-badge">${step.phase}</span>
-                  <span class="ms-card-duration">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <circle cx="12" cy="12" r="10"></circle>
-                      <polyline points="12 6 12 12 16 14"></polyline>
-                    </svg>
-                    ${step.duration}
-                  </span>
+            <article class="ms-step-card" id="ms-step-card-${idx}">
+              <div class="ms-step-top">
+                <span class="ms-step-phase">${step.phase}</span>
+                <span class="ms-step-duration">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                  ${step.duration}
+                </span>
+              </div>
+
+              <!-- Visual Lottie Stage -->
+              <div class="ms-lottie-stage">
+                <div class="ms-lottie-container" 
+                     id="ms-lottie-container-${idx}" 
+                     data-lottie-path="${step.lottiePath}"
+                     aria-label="Animación del paso ${step.num}">
                 </div>
-                <span class="ms-card-num-watermark">${step.num}</span>
               </div>
 
-              <h3 class="ms-card-title">${step.title}</h3>
-              <p class="ms-card-tagline">"${step.tagline}"</p>
-              <p class="ms-card-desc">${step.desc}</p>
-
-              <!-- Deliverables Checklist -->
-              <div class="ms-deliverables-box">
-                <div class="ms-deliverables-label">Entregables Clave de esta Fase:</div>
-                <ul class="ms-deliverables-grid">
-                  ${step.deliverables.map(item => `
-                    <li class="ms-deliverable-item">
-                      <span class="ms-deliverable-check">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                          <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                      </span>
-                      <span>${item}</span>
-                    </li>
-                  `).join('')}
-                </ul>
-              </div>
+              <h3 class="ms-step-title">${step.title}</h3>
+              <p class="ms-step-desc">${step.desc}</p>
             </article>
           `).join('')}
         </div>
-
       </div>
+
+      <!-- Clean Micro-CTA -->
+      <div class="ms-bottom-cta">
+        <button type="button" class="ms-cta-btn" 
+                onclick="window.dispatchEvent(new CustomEvent('open-cotizador-modal'))" 
+                data-cursor="hover">
+          <span>Cotizar Mi Proyecto con el Método Dilo</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </button>
+      </div>
+
     </div>
   </section>
   `;
 }
 
 export function initMethodStepperEvents() {
-  const cards = document.querySelectorAll('.ms-card');
-  const trackerSteps = document.querySelectorAll('.ms-tracker-step');
-  const lineFill = document.getElementById('ms-tracker-line-fill');
-  const cardsCol = document.getElementById('ms-cards-col');
+  const containers = document.querySelectorAll('.ms-lottie-container');
+  const animInstances = new Map();
 
-  if (!cards.length || !trackerSteps.length) return;
+  // Initialize Lottie animations with IntersectionObserver
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const el = entry.target;
+        const lottiePath = el.getAttribute('data-lottie-path');
 
-  function setActiveStep(activeIndex) {
-    cards.forEach((card, i) => {
-      card.classList.toggle('is-active', i === activeIndex);
-    });
-    trackerSteps.forEach((step, i) => {
-      step.classList.toggle('is-active', i === activeIndex);
-    });
+        if (entry.isIntersecting) {
+          if (!animInstances.has(el) && lottiePath) {
+            try {
+              const anim = lottie.loadAnimation({
+                container: el,
+                renderer: 'svg',
+                loop: true,
+                autoplay: true,
+                path: lottiePath
+              });
+              animInstances.set(el, anim);
+            } catch (err) {
+              console.warn('[MethodStepper] Lottie error for', lottiePath, err);
+            }
+          } else if (animInstances.has(el)) {
+            animInstances.get(el).play();
+          }
+        } else {
+          if (animInstances.has(el)) {
+            animInstances.get(el).pause();
+          }
+        }
+      });
+    }, { threshold: 0.15 });
 
-    if (lineFill && trackerSteps.length > 1) {
-      const progressPercent = (activeIndex / (trackerSteps.length - 1)) * 100;
-      lineFill.style.height = `${progressPercent}%`;
-    }
-  }
-
-  // ScrollTrigger for each card to detect when it crosses viewport focal area
-  cards.forEach((card, idx) => {
-    ScrollTrigger.create({
-      trigger: card,
-      start: 'top 55%',
-      end: 'bottom 45%',
-      onEnter: () => setActiveStep(idx),
-      onEnterBack: () => setActiveStep(idx)
-    });
-  });
-
-  // Track overall scroll progress for continuous smooth scrubber line
-  if (cardsCol && lineFill) {
-    ScrollTrigger.create({
-      trigger: cardsCol,
-      start: 'top 60%',
-      end: 'bottom 60%',
-      onUpdate: (self) => {
-        const pct = Math.min(100, Math.max(0, self.progress * 100));
-        lineFill.style.height = `${pct}%`;
+    containers.forEach((c) => observer.observe(c));
+  } else {
+    // Fallback
+    containers.forEach((el) => {
+      const lottiePath = el.getAttribute('data-lottie-path');
+      if (lottiePath) {
+        try {
+          const anim = lottie.loadAnimation({
+            container: el,
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: lottiePath
+          });
+          animInstances.set(el, anim);
+        } catch (err) {
+          console.warn('[MethodStepper] Fallback error', err);
+        }
       }
     });
   }
 
-  // Click on stepper dots to scroll smoothly to that card
-  trackerSteps.forEach((stepBtn, idx) => {
-    stepBtn.addEventListener('click', () => {
-      sounds.playClick();
-      const targetCard = document.getElementById(`ms-card-${idx}`);
-      if (targetCard) {
-        const offset = 140;
-        const bodyRect = document.body.getBoundingClientRect().top;
-        const elemRect = targetCard.getBoundingClientRect().top;
-        const elemPosition = elemRect - bodyRect;
-        const offsetPosition = elemPosition - offset;
-
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: 'smooth'
-        });
+  // Subtle GSAP entrance animation for the 4 step cards
+  const cards = document.querySelectorAll('.ms-step-card');
+  if (cards.length > 0) {
+    gsap.from(cards, {
+      y: 28,
+      opacity: 0,
+      duration: 0.7,
+      stagger: 0.12,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: '#metodo-dilo',
+        start: 'top 75%'
       }
     });
-  });
-
-  setTimeout(() => {
-    ScrollTrigger.refresh();
-  }, 100);
+  }
 }
