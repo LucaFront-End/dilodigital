@@ -22,7 +22,7 @@ export const lerp = (a, b, p) => a + (b - a) * p;
 export const mix = (a, b, p) => [lerp(a[0], b[0], p), lerp(a[1], b[1], p)];
 export const quad = (a, c, b, p) => mix(mix(a, c, p), mix(c, b, p), p);
 export const pt = (p) => `${p[0].toFixed(1)} ${p[1].toFixed(1)}`;
-export const fade = (t, loop) => prog(t, 0, 0.3) * (1 - prog(t, loop - 0.6, loop));
+export const fade = (t, loop) => (1 - prog(t, loop - 0.5, loop));
 
 export const draw = (p) =>
   `pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="${(1 - p).toFixed(4)}" ${p > 0 ? '' : 'visibility="hidden"'}`;
@@ -35,11 +35,11 @@ export const mono = `font-family: ${MONO_FONT}; letter-spacing: 0.8px;`;
 // 1. REGISTRO DE MARCA IMPI SCENE (LOOP: 10s)
 // ────────────────────────────────────────────────────────────────
 export function drawImpi(t) {
-  const pDoc = inOut(prog(t, 0.2, 1.2));
+  const pDoc = inOut(prog(t, 0.1, 1.0));
   const pShield = inOut(prog(t, 1.0, 2.2));
-  const stamp = prog(t, 3.2, 3.8);
-  const pCheck = inOut(prog(t, 3.8, 4.4));
-  const ipP = inOut(prog(t, 5.0, 5.8));
+  const stamp = prog(t, 3.0, 3.6);
+  const pCheck = inOut(prog(t, 3.6, 4.2));
+  const ipP = inOut(prog(t, 4.8, 5.6));
   const ip = quad([300, 340], [390, 280], [440, 160], ipP);
 
   let outSvg = `<g opacity="${fade(t, 10).toFixed(3)}">`;
@@ -50,12 +50,12 @@ export function drawImpi(t) {
   outSvg += `<circle cx="300" cy="210" r="${40 + radarP * 50}" ${hair} stroke="${MINT}" stroke-opacity="${(1 - radarP) * 0.5}" stroke-width="1.5" />`;
 
   // Official Certificate Parchment
-  outSvg += `<path d="M180 80 H420 V340 H180 Z" fill="#FFFFFF" stroke="${INK}" stroke-width="2.2" stroke-opacity="0.2" rx="12" />`;
-  outSvg += `<path d="M200 100 H400 V320 H200 Z" fill="none" stroke="${INK}" stroke-width="1.2" stroke-dasharray="4 4" stroke-opacity="0.3" rx="8" />`;
+  outSvg += `<path d="M180 80 H420 V340 H180 Z" fill="#FFFFFF" stroke="${INK}" stroke-width="2.2" stroke-opacity="0.2" rx="12" ${draw(pDoc)} />`;
+  outSvg += `<path d="M200 100 H400 V320 H200 Z" fill="none" stroke="${INK}" stroke-width="1.2" stroke-dasharray="4 4" stroke-opacity="0.3" rx="8" ${draw(pDoc)} />`;
 
   // Document lines drawing in
   for (let i = 0; i < 5; i++) {
-    const lp = prog(t, 0.8 + i * 0.2, 1.3 + i * 0.2);
+    const lp = prog(t, 0.6 + i * 0.15, 1.1 + i * 0.15);
     outSvg += `<line x1="220" y1="${130 + i * 22}" x2="${320 + (i % 2) * 50}" y2="${130 + i * 22}" ${line} stroke-width="2" stroke-opacity="0.35" ${draw(lp)} />`;
   }
 

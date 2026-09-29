@@ -351,36 +351,86 @@ export function initDinametraServicesEvents() {
   const items = Array.from(document.querySelectorAll('.dm-deck-sticky-item'));
   const currentNumEl = document.getElementById('dm-current-num');
   const navBtns = Array.from(document.querySelectorAll('.dm-deck-nav-btn'));
+  const showcaseSection = document.getElementById('servicios-showcase');
 
-  // 1. Procedural Kinetic SVG Drawing Engine (60fps requestAnimationFrame)
-  const clocks = {
-    'registro-marca': 0,
-    'marketing': 0,
-    'web-ecommerce': 0,
-    'branding': 0,
-    'automatizacion': 0,
-    'reportes': 0
-  };
+  // 1. Procedural Kinetic SVG State Management per Service
+  // Each card's animation starts strictly at t=0 when the card enters the view!
+  const cardStates = SERVICES_DATA.map((srv) => ({
+    id: srv.id,
+    clock: 0,
+    isPlaying: false,
+    hasStarted: false,
+  }));
 
+  let currentActiveIndex = -1;
   let isSectionVisible = false;
   let rafAnim = 0;
   let lastTime = 0;
 
+  // Initialize initial frame (t = 0) for all cards
+  SERVICES_DATA.forEach((service) => {
+    const scene = SCENES[service.id];
+    const drawContainer = document.getElementById(`dm-draw-${service.id}`);
+    if (scene && drawContainer) {
+      drawContainer.innerHTML = scene.draw(0);
+    }
+  });
+
+  // Activate Card Function: Resets clock to 0 and begins fluid kinetic drawing
+  function activateCard(index, forceRestart = false) {
+    if (index < 0 || index >= SERVICES_DATA.length) return;
+    if (index === currentActiveIndex && !forceRestart) return;
+
+    currentActiveIndex = index;
+
+    // Update Counter (01, 02, ... / 06)
+    if (currentNumEl) {
+      currentNumEl.textContent = String(index + 1).padStart(2, '0');
+    }
+
+    // Update Top Navigation Pills
+    navBtns.forEach((btn, idx) => {
+      btn.classList.toggle('is-active', idx === index);
+    });
+
+    // Start newly active card strictly from the beginning (t = 0)
+    SERVICES_DATA.forEach((service, idx) => {
+      const state = cardStates[idx];
+      const scene = SCENES[service.id];
+      const drawContainer = document.getElementById(`dm-draw-${service.id}`);
+
+      if (idx === index) {
+        state.clock = 0; // CRITICAL: Reset to 0 so animation NEVER enters halfway or finished!
+        state.isPlaying = true;
+        state.hasStarted = true;
+        if (drawContainer && scene) {
+          drawContainer.innerHTML = scene.draw(0);
+        }
+      } else {
+        // Pause cards that are not active so they don't consume CPU or advance
+        state.isPlaying = false;
+      }
+    });
+  }
+
+  // 2. 60fps Kinetic Tick Engine
   function tick(now) {
     if (!lastTime) lastTime = now;
-    const delta = Math.min(0.1, (now - lastTime) / 1000);
+    const delta = Math.min(0.08, (now - lastTime) / 1000);
     lastTime = now;
 
-    SERVICES_DATA.forEach((service) => {
+    // Only tick the currently active card and transition neighbor
+    SERVICES_DATA.forEach((service, idx) => {
+      const state = cardStates[idx];
       const scene = SCENES[service.id];
-      if (!scene) return;
+      if (!state || !scene) return;
 
-      clocks[service.id] = (clocks[service.id] + delta) % scene.loop;
-      const t = clocks[service.id];
-
-      const drawContainer = document.getElementById(`dm-draw-${service.id}`);
-      if (drawContainer) {
-        drawContainer.innerHTML = scene.draw(t);
+      if (state.isPlaying && state.hasStarted) {
+        state.clock = (state.clock + delta) % scene.loop;
+        const drawContainer = document.getElementById(`dm-draw-${service.id}`);
+        if (drawContainer) {
+          drawContainer.innerHTML = scene.draw(state.clock);
+        }
       }
     });
 
@@ -389,7 +439,40 @@ export function initDinametraServicesEvents() {
     }
   }
 
-  const showcaseSection = document.getElementById('servicios-showcase');
+  // 3. Scroll Position Active Card Detector (Desktop sticky + Mobile flow)
+  function checkActiveCard() {
+    if (!items.length) return;
+    const vh = window.innerHeight || 800;
+    // Threshold: when card enters within 68% of the viewport height from top
+    const threshold = vh * 0.68;
+
+    let activeIdx = 0;
+    for (let i = 0; i < items.length; i++) {
+      const rect = items[i].getBoundingClientRect();
+      if (rect.top <= threshold) {
+        activeIdx = i;
+      }
+    }
+
+    if (activeIdx !== currentActiveIndex) {
+      activateCard(activeIdx);
+    }
+  }
+
+  let scrollRaf = 0;
+  function onScroll() {
+    if (!scrollRaf) {
+      scrollRaf = requestAnimationFrame(() => {
+        scrollRaf = 0;
+        checkActiveCard();
+      });
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+
+  // 4. Section Intersection Observer
   if ('IntersectionObserver' in window && showcaseSection) {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -397,6 +480,10 @@ export function initDinametraServicesEvents() {
         cancelAnimationFrame(rafAnim);
         lastTime = 0;
         if (isSectionVisible) {
+          if (currentActiveIndex === -1) {
+            checkActiveCard();
+            if (currentActiveIndex === -1) activateCard(0, true);
+          }
           rafAnim = requestAnimationFrame(tick);
         }
       });
@@ -404,15 +491,17 @@ export function initDinametraServicesEvents() {
     observer.observe(showcaseSection);
   } else {
     isSectionVisible = true;
+    activateCard(0, true);
     rafAnim = requestAnimationFrame(tick);
   }
 
-  // 2. Navigation pills click: Smooth scroll to item
+  // 5. Navigation pills click: Smooth scroll to item & restart animation immediately
   navBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
       const targetIdx = parseInt(btn.getAttribute('data-target-index'), 10);
       const targetItem = document.getElementById(`dm-deck-item-${targetIdx}`);
       if (targetItem) {
+        activateCard(targetIdx, true); // Instantly starts card at t = 0
         const headerOffset = 160;
         const itemTop = targetItem.getBoundingClientRect().top + window.scrollY - headerOffset;
         window.scrollTo({ top: itemTop, behavior: 'smooth' });
@@ -420,17 +509,17 @@ export function initDinametraServicesEvents() {
     });
   });
 
-  // 3. ScrollTrigger for 3D stacking depth & active indicator
-  if (items.length > 0) {
+  // 6. GSAP ScrollTrigger for 3D stacking depth cards scale & active sync
+  if (items.length > 0 && typeof ScrollTrigger !== 'undefined' && typeof gsap !== 'undefined') {
     items.forEach((item, index) => {
       const card = item.querySelector('.dm-deck-card');
 
       ScrollTrigger.create({
         trigger: item,
-        start: 'top 85px',
-        end: 'bottom top',
-        onEnter: () => updateActiveIndex(index),
-        onEnterBack: () => updateActiveIndex(index)
+        start: 'top 68%',
+        end: 'bottom 20%',
+        onEnter: () => activateCard(index),
+        onEnterBack: () => activateCard(index)
       });
 
       if (index < items.length - 1 && card) {
@@ -451,13 +540,5 @@ export function initDinametraServicesEvents() {
       }
     });
   }
-
-  function updateActiveIndex(index) {
-    if (currentNumEl) {
-      currentNumEl.textContent = String(index + 1).padStart(2, '0');
-    }
-    navBtns.forEach((btn, idx) => {
-      btn.classList.toggle('is-active', idx === index);
-    });
-  }
 }
+
