@@ -35,7 +35,7 @@ export const DILO_SERVICES = [
   },
   {
     id: "technology",
-    title: "03. Ingeniería Web Headless",
+    title: "03. Ingeniería Web & Arquitectura Headless",
     text: "Desarrollamos plataformas digitales ultrarrápidas con carga sub-segundo (< 0.8s), arquitectura headless, integración de pagos y analítica de alta conversión.",
     capabilities: [
       "Sitio Web Headless",
@@ -79,8 +79,14 @@ export function renderMethodStepper() {
             </div>
 
             <!-- The Stacking White Canvas Card -->
-            <article class="ss-card" data-service-id="${s.id}">
+            <article class="ss-card ss-card-${s.id}" data-service-id="${s.id}">
               
+              <!-- Card Topbar with Phase Identification -->
+              <div class="ss-card-topbar">
+                <span class="ss-card-step-tag">FASE 0${i + 1}</span>
+                <span class="ss-card-theme-tag">${s.id === 'legal' ? 'PROTECCIÓN JURÍDICA IMPI' : s.id === 'growth' ? 'IDENTIDAD & BRANDING' : s.id === 'technology' ? 'HEADLESS WEB 0.8s' : 'CONVERSIÓN & ESCALA'}</span>
+              </div>
+
               <!-- Algorithmic Animated Vector Line Drawing -->
               <div class="ss-animation-box">
                 <svg class="ss-svg" id="ss-svg-${s.id}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${s.title}">
@@ -148,11 +154,23 @@ export function renderMethodStepper() {
         <!-- Centered Desktop Left Column Titles (Aligned to max-width: 100rem) -->
         <div class="ss-sticky-inner">
           <div class="ss-left-col">
+            <!-- Eyebrow Badge -->
             <div class="ss-left-eyebrow-box">
               <span class="ss-left-dot"></span>
               <span class="ss-left-eyebrow">Bajo el Método Dilo, ejecutamos</span>
             </div>
 
+            <!-- Sleek Phase Selector Pills -->
+            <div class="ss-step-nav" role="tablist" aria-label="Fases del Método Dilo">
+              ${DILO_SERVICES.map((s, i) => `
+                <button type="button" class="ss-step-pill ${i === 0 ? 'is-active' : ''}" data-step-pill="${i}">
+                  <span class="ss-step-pill-num">0${i + 1}</span>
+                  <span class="ss-step-pill-name">${s.id === 'legal' ? 'Legal IMPI' : s.id === 'growth' ? 'Branding' : s.id === 'technology' ? 'Headless' : 'Ads & Escala'}</span>
+                </button>
+              `).join('')}
+            </div>
+
+            <!-- Clean Titles Viewport (No collision with button) -->
             <div class="ss-left-titles-viewport">
               ${DILO_SERVICES.map((s, i) => `
                 <div class="ss-left-title ${i === 0 ? 'is-active' : ''}" data-left-title="${i}">
@@ -161,6 +179,7 @@ export function renderMethodStepper() {
               `).join('')}
             </div>
 
+            <!-- Call to action button with dedicated spacing -->
             <div class="ss-left-cta">
               <button type="button" class="ss-cta-btn" 
                       onclick="window.dispatchEvent(new CustomEvent('open-cotizador-modal'))" 
@@ -188,6 +207,7 @@ export function initMethodStepperEvents() {
   const cards = Array.from(root.querySelectorAll('[data-card]'));
   const leftTitles = Array.from(root.querySelectorAll('[data-left-title]'));
   const bgLayers = Array.from(root.querySelectorAll('[data-bg-index]'));
+  const stepPills = Array.from(root.querySelectorAll('[data-step-pill]'));
 
   // -------------------------------------------------------------
   // 1. STACKING CARDS SCROLL ENGINE & BACKGROUND CROSS-FADE
@@ -231,11 +251,27 @@ export function initMethodStepperEvents() {
     bgLayers.forEach((bg, i) => {
       bg.classList.toggle('is-active', i === activeIdx);
     });
+
+    // Update Step Pills
+    stepPills.forEach((pill, i) => {
+      pill.classList.toggle('is-active', i === activeIdx);
+    });
   };
 
   const scheduleScroll = () => {
     if (!rafScroll) rafScroll = requestAnimationFrame(updateScroll);
   };
+
+  // Click on step pill to smoothly scroll into that step
+  stepPills.forEach((pill, i) => {
+    pill.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetPanel = panels[i];
+      if (targetPanel) {
+        targetPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
 
   fitPanels();
   updateScroll();

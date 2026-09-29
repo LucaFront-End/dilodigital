@@ -1,16 +1,17 @@
 /* ================================================================
    EL MÉTODO DILO — SERVICES STACK (KNNEKT STUDIO / 21ST.DEV)
    Stacking Cards Scroll Physics + Algorithmic Line Drawings
-   Compact, Minimalist, Perfectly Fitted to All Viewports
+   LIGHT CANVAS EDITION: Distinct Chroma Auroras, Precision Dot Matrix,
+   Clean Non-Colliding Layout, Step Pills Nav & Deep Physical Shadows
    ================================================================ */
 
 .ss-root {
   position: relative;
   isolation: isolate;
   width: 100%;
-  color: #16253F;
+  color: #141718;
   box-sizing: border-box;
-  background-color: #06080E;
+  background-color: #FAFAFC;
   overflow-x: clip;
 }
 
@@ -47,7 +48,7 @@
   }
 }
 
-/* Mobile Title */
+/* ── Mobile Title (shown only on small screens) ── */
 .ss-mobile-title {
   margin-bottom: 0.85rem;
 }
@@ -61,9 +62,11 @@
 .ss-mobile-eyebrow {
   display: block;
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #FF5A1F;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
   margin-bottom: 0.25rem;
 }
 
@@ -71,12 +74,12 @@
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 1.35rem;
   font-weight: 800;
-  color: #FFFFFF;
+  color: #141718;
   margin: 0;
   line-height: 1.2;
 }
 
-/* Card Container (Compact & Fitted) */
+/* ── Card Container (Compact & Fitted) ── */
 .ss-card-container {
   width: 100%;
   max-width: 39rem;
@@ -93,18 +96,22 @@
   }
 }
 
-/* The Stacking Card */
+/* ── The Stacking Card (Light Canvas with Physical Elevation) ── */
 .ss-card {
   position: relative;
-  background: linear-gradient(180deg, #E6EDF8 0%, #F8FAFC 100%);
-  border: 1px solid rgba(22, 37, 63, 0.08);
+  background: #FFFFFF;
+  border: 1px solid rgba(22, 37, 63, 0.09);
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 20px 45px rgba(8, 14, 25, 0.35), 0 2px 8px rgba(0, 0, 0, 0.04);
+  box-shadow: 
+    0 4px 12px rgba(22, 37, 63, 0.04),
+    0 25px 60px -12px rgba(22, 37, 63, 0.16),
+    0 1px 3px rgba(0, 0, 0, 0.02);
   box-sizing: border-box;
   max-height: min(88vh, 600px);
   display: flex;
   flex-direction: column;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 @media (min-width: 1024px) {
@@ -113,10 +120,41 @@
   }
 }
 
-/* SVG Line Drawing Container (Scales gracefully without overflow) */
+.ss-card:hover {
+  border-color: rgba(255, 90, 31, 0.3);
+  box-shadow: 
+    0 6px 16px rgba(22, 37, 63, 0.05),
+    0 30px 65px -12px rgba(255, 90, 31, 0.18),
+    0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+/* ── Card Topbar with Phase Identification ── */
+.ss-card-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.65rem 1.25rem;
+  border-bottom: 1px solid rgba(22, 37, 63, 0.06);
+  background: #FFFFFF;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.ss-card-step-tag {
+  color: #FF5A1F;
+  font-weight: 800;
+}
+
+.ss-card-theme-tag {
+  color: rgba(22, 37, 63, 0.55);
+}
+
+/* ── SVG Line Drawing Container ── */
 .ss-animation-box {
   width: 100%;
-  height: clamp(155px, 25vh, 220px);
+  height: clamp(150px, 24vh, 215px);
   padding: 0.75rem 1.25rem 0.25rem;
   box-sizing: border-box;
   display: flex;
@@ -124,12 +162,14 @@
   justify-content: center;
   overflow: visible;
   flex-shrink: 0;
+  background: linear-gradient(180deg, #F8FAFD 0%, #FFFFFF 100%);
+  border-bottom: 1px solid rgba(22, 37, 63, 0.05);
 }
 
 @media (min-width: 1024px) {
   .ss-animation-box {
     padding: 1rem 2rem 0.25rem;
-    height: clamp(165px, 27vh, 235px);
+    height: clamp(160px, 26vh, 230px);
   }
 }
 
@@ -149,23 +189,24 @@
   font-weight: 600;
   font-size: 21px;
   fill: #16253F;
-  fill-opacity: 0.55;
+  fill-opacity: 0.65;
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-/* Card Content: Text & Capabilities with Generous Bottom Cushion */
+/* ── Card Content: Text & Capabilities ── */
 .ss-card-content {
   padding: clamp(0.85rem, 1.6vh, 1.25rem) clamp(1.2rem, 2.2vw, 2rem) clamp(1.5rem, 3vh, 2.35rem);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  background: #FFFFFF;
 }
 
 .ss-card-desc {
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: clamp(0.88rem, 0.98vw, 1.02rem);
-  line-height: 1.48;
-  color: #16253F;
+  line-height: 1.5;
+  color: #4A5568;
   font-weight: 500;
   margin: 0 0 0.85rem;
   max-width: 36rem;
@@ -173,7 +214,7 @@
 
 .ss-caps-header {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-  font-size: 0.66rem;
+  font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -202,8 +243,8 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background: #D3E3F6;
-  border: 1px solid rgba(22, 37, 63, 0.05);
+  background: #F4F6FB;
+  border: 1px solid rgba(22, 37, 63, 0.06);
   border-radius: 8px;
   padding: 0.42rem 0.68rem;
   box-sizing: border-box;
@@ -211,16 +252,22 @@
   font-size: 0.82rem;
   font-weight: 600;
   color: #16253F;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   user-select: none;
+}
+
+.ss-cap-chip:hover {
+  background: #FFFFFF;
+  border-color: rgba(255, 90, 31, 0.3);
+  transform: translateY(-1px);
 }
 
 .ss-cap-dot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #16253F;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  background: #8A9BB3;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   flex-shrink: 0;
 }
 
@@ -229,7 +276,7 @@
   background: #FF5A1F;
   color: #FFFFFF;
   border-color: #FF5A1F;
-  box-shadow: 0 4px 12px rgba(255, 90, 31, 0.35);
+  box-shadow: 0 4px 12px rgba(255, 90, 31, 0.32);
   transform: translateY(-1px);
 }
 
@@ -257,7 +304,7 @@
   height: 100vh;
   overflow: hidden;
   pointer-events: none;
-  background-color: #06080E;
+  background-color: #FAFAFC;
 }
 
 .ss-sticky-inner {
@@ -282,16 +329,17 @@
   }
 }
 
-/* Left Column Desktop Titles */
+/* ── Left Column Desktop Titles & Phase Pills ── */
 .ss-left-col {
   display: none;
   grid-column: 1;
   flex-direction: column;
   justify-content: center;
   height: 100%;
-  max-width: 420px;
+  max-width: 500px;
   pointer-events: auto;
   z-index: 10;
+  position: relative;
 }
 
 @media (min-width: 1024px) {
@@ -300,16 +348,18 @@
   }
 }
 
+/* ── Eyebrow Badge ── */
 .ss-left-eyebrow-box {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background: rgba(255, 90, 31, 0.12);
-  border: 1px solid rgba(255, 90, 31, 0.3);
-  padding: 0.3rem 0.75rem;
+  background: rgba(255, 90, 31, 0.08);
+  border: 1px solid rgba(255, 90, 31, 0.22);
+  padding: 0.35rem 0.85rem;
   border-radius: 9999px;
   width: fit-content;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.15rem;
 }
 
 .ss-left-dot {
@@ -322,17 +372,77 @@
 
 .ss-left-eyebrow {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   font-weight: 700;
-  color: #FF7E47;
+  color: #FF5A1F;
   letter-spacing: 0.5px;
   text-transform: uppercase;
 }
 
+/* ── Sleek Phase Selector Pills ── */
+.ss-step-nav {
+  display: flex;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.ss-step-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.32rem 0.72rem;
+  border-radius: 9999px;
+  background: rgba(22, 37, 63, 0.05);
+  border: 1px solid rgba(22, 37, 63, 0.08);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
+}
+
+.ss-step-pill:hover {
+  background: #FFFFFF;
+  border-color: rgba(255, 90, 31, 0.3);
+  transform: translateY(-1px);
+}
+
+.ss-step-pill-num {
+  font-family: ui-monospace, monospace;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #8A9BB3;
+  transition: color 0.25s ease;
+}
+
+.ss-step-pill-name {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #16253F;
+  transition: color 0.25s ease;
+}
+
+.ss-step-pill.is-active {
+  background: #FF5A1F;
+  border-color: #FF5A1F;
+  box-shadow: 0 4px 14px rgba(255, 90, 31, 0.35);
+  transform: translateY(-1px);
+}
+
+.ss-step-pill.is-active .ss-step-pill-num {
+  color: #FFFFFF;
+}
+
+.ss-step-pill.is-active .ss-step-pill-name {
+  color: #FFFFFF;
+}
+
+/* ── Titles Viewport (Clean, Generous Height, No Overlap) ── */
 .ss-left-titles-viewport {
   position: relative;
-  height: 110px;
-  margin-bottom: 2rem;
+  min-height: 125px;
+  height: 125px;
+  margin-bottom: 1.75rem;
 }
 
 .ss-left-title {
@@ -341,7 +451,7 @@
   left: 0;
   width: 100%;
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(16px);
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
 }
@@ -354,15 +464,19 @@
 
 .ss-left-title h2 {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: clamp(2rem, 2.7vw, 2.75rem);
+  font-size: clamp(1.85rem, 2.4vw, 2.45rem);
   font-weight: 800;
-  color: #FFFFFF;
-  line-height: 1.15;
+  color: #141718;
+  line-height: 1.2;
   margin: 0;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+  max-width: 430px;
 }
 
+/* ── Call To Action Button (Sits Naturally Below Titles) ── */
 .ss-left-cta {
+  position: relative;
   display: flex;
 }
 
@@ -379,17 +493,17 @@
   font-size: 0.88rem;
   font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 6px 20px rgba(255, 90, 31, 0.35);
+  box-shadow: 0 6px 20px rgba(255, 90, 31, 0.32);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .ss-cta-btn:hover {
   background: #FF7842;
   transform: translateY(-2px);
-  box-shadow: 0 10px 28px rgba(255, 90, 31, 0.5);
+  box-shadow: 0 10px 28px rgba(255, 90, 31, 0.45);
 }
 
-/* Animated Film Grain Overlay */
+/* ── Subtle Film Grain Overlay ── */
 .ss-grain {
   position: absolute;
   inset: 0;
@@ -407,7 +521,8 @@
   left: 0;
   width: 140%;
   height: 140%;
-  opacity: 0.045;
+  opacity: 0.025;
+  mix-blend-mode: multiply;
   background-image: url('https://cdn.21st.dev/assets/mirror/07/0779a346a8a608cb9830a8892152beae5fd79088a7a4f4a50a9d9ebf435e5404.png');
   animation: ss-grain 8s steps(10) infinite;
 }
@@ -424,7 +539,7 @@
   }
 }
 
-/* ── Dynamic Cross-Fading Background Layers per Step ── */
+/* ── Dynamic Cross-Fading Background Layers per Step (Distinct & Rich) ── */
 .ss-bg-layer {
   position: absolute;
   inset: 0;
@@ -433,7 +548,7 @@
   z-index: 1;
   opacity: 0;
   overflow: hidden;
-  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
 }
 
@@ -441,20 +556,20 @@
   opacity: 1;
 }
 
-/* Subtle Architectural Matrix Grid with Radial Vignette */
+/* ── Subtle Architectural Matrix Grid with Radial Vignette ── */
 .ss-grid-matrix {
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.085) 1.2px, transparent 0);
+  background-image: radial-gradient(circle at 1px 1px, rgba(22, 37, 63, 0.055) 1.2px, transparent 0);
   background-size: 34px 34px;
-  mask-image: radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 0.85) 25%, transparent 75%);
-  -webkit-mask-image: radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 0.85) 25%, transparent 75%);
+  mask-image: radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 0.75) 25%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 0.75) 25%, transparent 75%);
   pointer-events: none;
   z-index: 1;
-  opacity: 0.65;
+  opacity: 0.8;
 }
 
-/* Floating Liquid Aurora Light Orbs */
+/* ── Floating Liquid Aurora Light Orbs ── */
 .ss-aurora-orb {
   position: absolute;
   border-radius: 50%;
@@ -491,32 +606,32 @@
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Step 0: Legal IMPI — Blindaje & Título Oficial
-   Deep Obsidian, Amber Gold Seal, Sapphire Jurídico & Dilo Orange
+   Step 0: Legal IMPI — Warm Golden Amber & Official Sapphire
    ───────────────────────────────────────────────────────────── */
 .ss-bg-layer[data-bg-index="0"] {
   background: 
-    radial-gradient(ellipse at 20% 50%, rgba(255, 90, 31, 0.08) 0%, transparent 60%),
-    linear-gradient(180deg, #05070D 0%, #0A111E 45%, #10192A 100%);
+    radial-gradient(ellipse at 25% 45%, rgba(245, 158, 11, 0.16) 0%, transparent 65%),
+    radial-gradient(ellipse at 75% 70%, rgba(255, 90, 31, 0.12) 0%, transparent 60%),
+    linear-gradient(135deg, #FBF6EC 0%, #FFFDF8 45%, #F7EFE0 100%);
 }
 
 .ss-bg-layer[data-bg-index="0"] .orb-amber {
-  top: 10%;
-  left: 12%;
+  top: 8%;
+  left: 10%;
   width: 640px;
   height: 640px;
-  background: radial-gradient(circle, rgba(245, 158, 11, 0.32) 0%, rgba(217, 119, 6, 0.12) 50%, transparent 70%);
-  filter: blur(105px);
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.35) 0%, rgba(217, 119, 6, 0.12) 50%, transparent 70%);
+  filter: blur(85px);
   animation: ssAuroraFloat1 20s ease-in-out infinite alternate;
 }
 
 .ss-bg-layer[data-bg-index="0"] .orb-sapphire {
   top: 25%;
   right: 12%;
-  width: 560px;
-  height: 560px;
-  background: radial-gradient(circle, rgba(59, 130, 246, 0.28) 0%, rgba(30, 58, 138, 0.14) 50%, transparent 70%);
-  filter: blur(120px);
+  width: 520px;
+  height: 520px;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.22) 0%, rgba(30, 58, 138, 0.08) 50%, transparent 70%);
+  filter: blur(100px);
   animation: ssAuroraFloat2 24s ease-in-out infinite alternate;
 }
 
@@ -525,78 +640,78 @@
   left: 36%;
   width: 520px;
   height: 520px;
-  background: radial-gradient(circle, rgba(255, 90, 31, 0.24) 0%, rgba(255, 126, 71, 0.08) 55%, transparent 75%);
-  filter: blur(95px);
+  background: radial-gradient(circle, rgba(255, 90, 31, 0.26) 0%, rgba(255, 126, 71, 0.09) 55%, transparent 75%);
+  filter: blur(90px);
   animation: ssAuroraFloat3 18s ease-in-out infinite alternate;
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Step 1: Branding & Identidad — Diseño de Marca & Estrategia
-   Midnight Violet, Magenta Creativo, Dilo Orange & Rose Studio
+   Step 1: Branding & Identidad — Digital Lavender & Creative Rose
    ───────────────────────────────────────────────────────────── */
 .ss-bg-layer[data-bg-index="1"] {
   background: 
-    radial-gradient(ellipse at 25% 45%, rgba(168, 85, 247, 0.08) 0%, transparent 60%),
-    linear-gradient(180deg, #070810 0%, #130E24 45%, #1C1534 100%);
+    radial-gradient(ellipse at 25% 45%, rgba(168, 85, 247, 0.16) 0%, transparent 65%),
+    radial-gradient(ellipse at 80% 65%, rgba(236, 72, 153, 0.14) 0%, transparent 60%),
+    linear-gradient(135deg, #F6EEFB 0%, #FDFAFF 45%, #EFE3F9 100%);
 }
 
 .ss-bg-layer[data-bg-index="1"] .orb-magenta {
-  top: 12%;
-  left: 14%;
-  width: 620px;
-  height: 620px;
-  background: radial-gradient(circle, rgba(168, 85, 247, 0.32) 0%, rgba(126, 34, 206, 0.14) 50%, transparent 70%);
-  filter: blur(110px);
+  top: 10%;
+  left: 12%;
+  width: 640px;
+  height: 640px;
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.35) 0%, rgba(126, 34, 206, 0.12) 50%, transparent 70%);
+  filter: blur(85px);
   animation: ssAuroraFloat1 22s ease-in-out infinite alternate;
 }
 
 .ss-bg-layer[data-bg-index="1"] .orb-dilo {
-  top: 30%;
+  top: 28%;
   right: 10%;
-  width: 550px;
-  height: 550px;
-  background: radial-gradient(circle, rgba(255, 90, 31, 0.28) 0%, rgba(234, 88, 12, 0.12) 55%, transparent 75%);
-  filter: blur(100px);
+  width: 540px;
+  height: 540px;
+  background: radial-gradient(circle, rgba(255, 90, 31, 0.25) 0%, rgba(234, 88, 12, 0.09) 55%, transparent 75%);
+  filter: blur(95px);
   animation: ssAuroraFloat2 19s ease-in-out infinite alternate;
 }
 
 .ss-bg-layer[data-bg-index="1"] .orb-rose {
-  bottom: 10%;
-  left: 38%;
-  width: 490px;
-  height: 490px;
-  background: radial-gradient(circle, rgba(236, 72, 153, 0.24) 0%, rgba(190, 24, 93, 0.1) 50%, transparent 70%);
-  filter: blur(95px);
+  bottom: 8%;
+  left: 36%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(236, 72, 153, 0.25) 0%, rgba(190, 24, 93, 0.08) 50%, transparent 70%);
+  filter: blur(85px);
   animation: ssAuroraFloat3 21s ease-in-out infinite alternate;
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Step 2: Web Headless — Arquitectura Sub-Segundo & PageSpeed 100
-   Cybernetic Obsidian, Electric Cyan, Cobalt Engine & Emerald Speed
+   Step 2: Web Headless — Ice Cyan Breeze & Azure Speed
    ───────────────────────────────────────────────────────────── */
 .ss-bg-layer[data-bg-index="2"] {
   background: 
-    radial-gradient(ellipse at 25% 45%, rgba(6, 182, 212, 0.08) 0%, transparent 60%),
-    linear-gradient(180deg, #040710 0%, #081526 45%, #0B1E38 100%);
+    radial-gradient(ellipse at 25% 45%, rgba(6, 182, 212, 0.18) 0%, transparent 65%),
+    radial-gradient(ellipse at 80% 65%, rgba(59, 130, 246, 0.14) 0%, transparent 60%),
+    linear-gradient(135deg, #EBF5FB 0%, #F6FAFE 45%, #E1EFFB 100%);
 }
 
 .ss-bg-layer[data-bg-index="2"] .orb-cyan {
-  top: 14%;
-  left: 16%;
-  width: 630px;
-  height: 630px;
-  background: radial-gradient(circle, rgba(6, 182, 212, 0.32) 0%, rgba(14, 116, 144, 0.14) 50%, transparent 70%);
-  filter: blur(105px);
+  top: 10%;
+  left: 12%;
+  width: 640px;
+  height: 640px;
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.38) 0%, rgba(14, 116, 144, 0.13) 50%, transparent 70%);
+  filter: blur(85px);
   animation: ssAuroraFloat1 21s ease-in-out infinite alternate;
 }
 
 .ss-bg-layer[data-bg-index="2"] .orb-cobalt {
-  top: 28%;
+  top: 26%;
   right: 12%;
-  width: 580px;
-  height: 580px;
-  background: radial-gradient(circle, rgba(59, 130, 246, 0.3) 0%, rgba(29, 78, 216, 0.12) 55%, transparent 70%);
-  filter: blur(115px);
+  width: 560px;
+  height: 560px;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.28) 0%, rgba(29, 78, 216, 0.1) 55%, transparent 70%);
+  filter: blur(95px);
   animation: ssAuroraFloat2 25s ease-in-out infinite alternate;
 }
 
@@ -605,47 +720,47 @@
   left: 35%;
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, rgba(16, 185, 129, 0.24) 0%, rgba(5, 150, 105, 0.09) 50%, transparent 70%);
-  filter: blur(95px);
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.24) 0%, rgba(5, 150, 105, 0.08) 50%, transparent 70%);
+  filter: blur(85px);
   animation: ssAuroraFloat3 17s ease-in-out infinite alternate;
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Step 3: Lanzamiento & ROAS — Tráfico Calificado & Conversión
-   Cosmic Dark Crimson, Solar Orange Plasma, Ember Gold & Crimson Peak
+   Step 3: Lanzamiento & ROAS — Solar Orange & High-ROAS Sunset
    ───────────────────────────────────────────────────────────── */
 .ss-bg-layer[data-bg-index="3"] {
   background: 
-    radial-gradient(ellipse at 25% 45%, rgba(255, 90, 31, 0.1) 0%, transparent 60%),
-    linear-gradient(180deg, #07060B 0%, #170C14 45%, #25101A 100%);
+    radial-gradient(ellipse at 25% 45%, rgba(255, 90, 31, 0.2) 0%, transparent 65%),
+    radial-gradient(ellipse at 80% 65%, rgba(245, 158, 11, 0.16) 0%, transparent 60%),
+    linear-gradient(135deg, #FDF0E7 0%, #FFF9F5 45%, #FCE4D6 100%);
 }
 
 .ss-bg-layer[data-bg-index="3"] .orb-solar {
-  top: 12%;
-  left: 15%;
+  top: 10%;
+  left: 12%;
   width: 650px;
   height: 650px;
-  background: radial-gradient(circle, rgba(255, 90, 31, 0.34) 0%, rgba(249, 115, 22, 0.16) 50%, transparent 70%);
-  filter: blur(110px);
+  background: radial-gradient(circle, rgba(255, 90, 31, 0.38) 0%, rgba(249, 115, 22, 0.14) 50%, transparent 70%);
+  filter: blur(85px);
   animation: ssAuroraFloat1 18s ease-in-out infinite alternate;
 }
 
 .ss-bg-layer[data-bg-index="3"] .orb-amber-gold {
   top: 25%;
-  right: 14%;
-  width: 570px;
-  height: 570px;
-  background: radial-gradient(circle, rgba(245, 158, 11, 0.28) 0%, rgba(217, 119, 6, 0.13) 55%, transparent 70%);
-  filter: blur(120px);
+  right: 12%;
+  width: 560px;
+  height: 560px;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.3) 0%, rgba(217, 119, 6, 0.1) 55%, transparent 70%);
+  filter: blur(95px);
   animation: ssAuroraFloat2 23s ease-in-out infinite alternate;
 }
 
 .ss-bg-layer[data-bg-index="3"] .orb-crimson {
   bottom: 8%;
   left: 36%;
-  width: 530px;
-  height: 530px;
-  background: radial-gradient(circle, rgba(244, 63, 94, 0.26) 0%, rgba(225, 29, 72, 0.1) 50%, transparent 70%);
-  filter: blur(100px);
+  width: 520px;
+  height: 520px;
+  background: radial-gradient(circle, rgba(244, 63, 94, 0.24) 0%, rgba(225, 29, 72, 0.08) 50%, transparent 70%);
+  filter: blur(85px);
   animation: ssAuroraFloat3 20s ease-in-out infinite alternate;
 }

@@ -399,39 +399,810 @@
   z-index: 2;
 }
 
-/* Pure Clean Lottie Card */
-.dm-lottie-card {
-  position: relative;
+/* ── Bespoke Tailored Service Visual Mockups ── */
+.dm-mockup-wrap {
   width: 100%;
-  height: 100%;
-  max-height: 440px;
-  background: #F9FAFB;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  border-radius: 24px;
-  padding: 2rem;
-  box-sizing: border-box;
+  max-width: 440px;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.dm-mockup-card {
+  width: 100%;
+  background: #FFFFFF;
+  border: 1px solid rgba(22, 37, 63, 0.08);
+  border-radius: 24px;
+  padding: clamp(1.4rem, 2.5vw, 1.85rem);
+  box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.06), 0 2px 6px rgba(0, 0, 0, 0.02);
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dm-mockup-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 22px 50px -12px rgba(0, 0, 0, 0.09), 0 4px 10px rgba(0, 0, 0, 0.03);
+}
+
+.dm-mockup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dm-mockup-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  font-family: ui-monospace, monospace;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.dm-badge-pulse {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 6px currentColor;
+  animation: dmPulse 2s infinite ease-in-out;
+}
+
+@keyframes dmPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.6; }
+}
+
+.dm-badge-green {
+  background: rgba(16, 185, 129, 0.1);
+  color: #059669;
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+.dm-badge-orange {
+  background: rgba(255, 90, 31, 0.1);
+  color: #FF5A1F;
+  border: 1px solid rgba(255, 90, 31, 0.25);
+}
+
+.dm-badge-purple {
+  background: rgba(168, 85, 247, 0.1);
+  color: #7C3AED;
+  border: 1px solid rgba(168, 85, 247, 0.25);
+}
+
+.dm-badge-blue {
+  background: rgba(59, 130, 246, 0.1);
+  color: #2563EB;
+  border: 1px solid rgba(59, 130, 246, 0.25);
+}
+
+.dm-mockup-id {
+  font-family: ui-monospace, monospace;
+  font-size: 0.66rem;
+  font-weight: 700;
+  color: #94A3B8;
+  letter-spacing: 0.06em;
+}
+
+/* ── 1. IMPI Specific Visual Styles ── */
+.dm-impi-brand-box {
+  background: #F8FAFC;
+  border: 1px solid rgba(22, 37, 63, 0.06);
+  border-radius: 14px;
+  padding: 0.9rem 1.1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dm-impi-trademark {
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+}
+
+.dm-impi-name {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #141718;
+  letter-spacing: -0.01em;
+}
+
+.dm-impi-reg {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #FF5A1F;
+}
+
+.dm-impi-seal {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: ui-monospace, monospace;
+  font-size: 0.64rem;
+  font-weight: 700;
+  color: #FF5A1F;
+  background: rgba(255, 90, 31, 0.08);
+  padding: 0.25rem 0.55rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 90, 31, 0.2);
+}
+
+.dm-impi-scanner {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.dm-scanner-track {
+  width: 100%;
+  height: 4px;
+  background: #E2E8F0;
+  border-radius: 9999px;
+  overflow: hidden;
+  position: relative;
+}
+
+.dm-scanner-beam {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 35%;
+  background: linear-gradient(90deg, transparent, #10B981, transparent);
+  animation: dmScanBeam 2.5s ease-in-out infinite;
+}
+
+@keyframes dmScanBeam {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(350%); }
+}
+
+.dm-scanner-info {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.72rem;
+}
+
+.dm-scanner-label {
+  color: #64748B;
+  font-weight: 600;
+}
+
+.dm-scanner-res {
+  color: #10B981;
+  font-weight: 700;
+}
+
+.dm-niza-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+}
+
+.dm-niza-tag {
+  background: #F8FAFC;
+  border: 1px solid rgba(22, 37, 63, 0.06);
+  border-radius: 10px;
+  padding: 0.55rem 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.dm-niza-code {
+  font-family: ui-monospace, monospace;
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #FF5A1F;
+}
+
+.dm-niza-title {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #141718;
+}
+
+.dm-impi-timeline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #F8FAFC;
+  padding: 0.6rem 0.85rem;
+  border-radius: 10px;
+  border: 1px solid rgba(22, 37, 63, 0.05);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #64748B;
+}
+
+.dm-tl-step {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.dm-tl-step.is-done {
+  color: #10B981;
+}
+
+.dm-tl-step.is-active {
+  color: #FF5A1F;
+}
+
+.dm-tl-line {
+  flex: 1;
+  height: 2px;
+  background: #E2E8F0;
+  margin: 0 0.4rem;
+}
+
+.dm-tl-line.is-done {
+  background: #10B981;
+}
+
+.dm-tl-line.is-active {
+  background: #FF5A1F;
+}
+
+/* ── 2. Performance Marketing Visual Styles ── */
+.dm-channels-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+}
+
+.dm-channel-chip {
+  background: #F8FAFC;
+  border: 1px solid rgba(22, 37, 63, 0.06);
+  border-radius: 12px;
+  padding: 0.65rem 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.dm-channel-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+.dm-icon-google {
+  background: rgba(66, 133, 244, 0.12);
+  color: #4285F4;
+}
+
+.dm-icon-meta {
+  background: rgba(24, 119, 242, 0.12);
+  color: #1877F2;
+}
+
+.dm-channel-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.dm-channel-name {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #141718;
+}
+
+.dm-channel-stat {
+  font-family: ui-monospace, monospace;
+  font-size: 0.64rem;
+  font-weight: 700;
+  color: #10B981;
+}
+
+.dm-ads-chart-box {
+  background: #F8FAFC;
+  border: 1px solid rgba(22, 37, 63, 0.06);
+  border-radius: 14px;
+  padding: 0.85rem 1rem 0.5rem;
+}
+
+.dm-chart-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #64748B;
+  margin-bottom: 0.4rem;
+}
+
+.dm-chart-growth {
+  color: #FF5A1F;
+  font-family: ui-monospace, monospace;
+}
+
+.dm-ads-svg-chart {
+  width: 100%;
+  height: 60px;
+  display: block;
+  overflow: visible;
+}
+
+.dm-live-ticker {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  padding: 0.45rem 0.75rem;
+  border-radius: 8px;
+}
+
+.dm-ticker-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 6px #10B981;
+  flex-shrink: 0;
+}
+
+.dm-ticker-text {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #065F46;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── 3. Web Headless Visual Styles ── */
+.dm-browser-chrome {
+  background: #F1F5F9;
+  border-radius: 12px;
+  padding: 0.5rem 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.dm-browser-dots {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.dm-browser-dots span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #CBD5E1;
+}
+
+.dm-browser-address {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: #FFFFFF;
+  padding: 0.2rem 0.65rem;
+  border-radius: 6px;
+  font-family: ui-monospace, monospace;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: #475569;
+  flex: 1;
+  max-width: 180px;
+}
+
+.dm-pagespeed-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: ui-monospace, monospace;
+  font-size: 0.66rem;
+  font-weight: 800;
+  color: #059669;
+}
+
+.dm-pagespeed-score {
+  background: #10B981;
+  color: #FFFFFF;
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+}
+
+.dm-web-speed-box {
+  background: #F8FAFC;
+  border: 1px solid rgba(22, 37, 63, 0.06);
+  border-radius: 14px;
+  padding: 0.95rem 1.1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dm-speed-hero {
+  display: flex;
+  flex-direction: column;
+}
+
+.dm-speed-number {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #059669;
+  line-height: 1;
+}
+
+.dm-speed-label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: #64748B;
+  margin-top: 0.2rem;
+}
+
+.dm-stack-tags {
+  display: flex;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.dm-stack-tags span {
+  font-family: ui-monospace, monospace;
+  font-size: 0.64rem;
+  font-weight: 700;
+  background: #FFFFFF;
+  border: 1px solid rgba(22, 37, 63, 0.08);
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  color: #141718;
+}
+
+.dm-checkout-preview {
+  background: #F8FAFC;
+  border: 1px solid rgba(22, 37, 63, 0.06);
+  border-radius: 12px;
+  padding: 0.75rem 0.9rem;
+}
+
+.dm-checkout-title {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #64748B;
+  margin-bottom: 0.45rem;
+}
+
+.dm-gateways-list {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.dm-gw-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: #FFFFFF;
+  border: 1px solid rgba(22, 37, 63, 0.08);
+  padding: 0.25rem 0.55rem;
+  border-radius: 6px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #141718;
+}
+
+.dm-gw-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+}
+
+/* ── 4. Branding Visual Styles ── */
+.dm-brand-symbol-box {
+  background: #FAF7FD;
+  border: 1px solid rgba(168, 85, 247, 0.15);
+  border-radius: 14px;
+  padding: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.dm-brand-guidelines-tag {
+  font-family: ui-monospace, monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #7C3AED;
+  margin-top: 0.5rem;
+}
+
+.dm-swatches-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+
+.dm-swatch {
+  background: #F8FAFC;
+  border: 1px solid rgba(22, 37, 63, 0.06);
+  border-radius: 10px;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.dm-swatch-color {
+  width: 100%;
+  height: 24px;
+  border-radius: 6px;
+}
+
+.dm-swatch-code {
+  font-family: ui-monospace, monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #64748B;
+  text-align: center;
+}
+
+.dm-type-specimen {
+  background: #F8FAFC;
+  border: 1px solid rgba(22, 37, 63, 0.06);
+  border-radius: 10px;
+  padding: 0.65rem 0.9rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dm-type-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.76rem;
+  font-weight: 800;
+  color: #141718;
+}
+
+.dm-type-chars {
+  font-family: ui-monospace, monospace;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: #94A3B8;
+}
+
+/* ── 5. AI / WhatsApp Chat Visual Styles ── */
+.dm-chat-header {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  background: #F8FAFC;
+  border: 1px solid rgba(22, 37, 63, 0.06);
+  border-radius: 12px;
+  padding: 0.65rem 0.85rem;
+}
+
+.dm-chat-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #FF5A1F;
+  color: #FFFFFF;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-size: 0.85rem;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.dm-chat-online {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10B981;
+  border: 2px solid #FFFFFF;
+}
+
+.dm-chat-meta {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.dm-chat-name {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #141718;
+}
+
+.dm-chat-sub {
+  font-size: 0.64rem;
+  color: #10B981;
+  font-weight: 600;
+}
+
+.dm-chat-badge {
+  font-family: ui-monospace, monospace;
+  font-size: 0.62rem;
+  font-weight: 800;
+  background: #E2E8F0;
+  color: #475569;
+  padding: 0.2rem 0.45rem;
+  border-radius: 4px;
+}
+
+.dm-chat-messages {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.dm-msg {
+  padding: 0.6rem 0.85rem;
+  border-radius: 12px;
+  font-size: 0.72rem;
+  line-height: 1.4;
+  position: relative;
+}
+
+.dm-msg p {
+  margin: 0 0 0.2rem;
+}
+
+.dm-msg-time {
+  font-size: 0.6rem;
+  color: #94A3B8;
+  display: block;
+  text-align: right;
+}
+
+.dm-msg-user {
+  background: #F1F5F9;
+  color: #334155;
+  align-self: flex-end;
+  max-width: 85%;
+  border-bottom-right-radius: 2px;
+}
+
+.dm-msg-bot {
+  background: #EFF6FF;
+  border: 1px solid rgba(59, 130, 246, 0.15);
+  color: #1E3A8A;
+  align-self: flex-start;
+  max-width: 90%;
+  border-bottom-left-radius: 2px;
+}
+
+.dm-bot-badge {
+  font-family: ui-monospace, monospace;
+  font-size: 0.62rem;
+  font-weight: 800;
+  color: #2563EB;
+  margin-bottom: 0.25rem;
+}
+
+.dm-chat-footer {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.66rem;
+  font-weight: 600;
+  color: #059669;
+  background: rgba(16, 185, 129, 0.08);
+  padding: 0.45rem 0.75rem;
+  border-radius: 8px;
+}
+
+/* ── 6. BI / Reportes Visual Styles ── */
+.dm-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.45rem;
+}
+
+.dm-kpi-card {
+  background: #F8FAFC;
+  border: 1px solid rgba(22, 37, 63, 0.06);
+  border-radius: 10px;
+  padding: 0.6rem 0.7rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.dm-kpi-lbl {
+  font-size: 0.64rem;
+  color: #64748B;
+  font-weight: 600;
+}
+
+.dm-kpi-val {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #141718;
+  margin: 0.1rem 0;
+}
+
+.dm-kpi-trend {
+  font-family: ui-monospace, monospace;
+  font-size: 0.6rem;
+  font-weight: 700;
+}
+
+.dm-attribution-box {
+  background: #F8FAFC;
+  border: 1px solid rgba(22, 37, 63, 0.06);
+  border-radius: 12px;
+  padding: 0.75rem 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.dm-attr-row {
+  display: grid;
+  grid-template-columns: 110px 1fr 45px;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #334155;
+}
+
+.dm-attr-label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dm-attr-bar-bg {
+  width: 100%;
+  height: 6px;
+  background: #E2E8F0;
+  border-radius: 9999px;
   overflow: hidden;
 }
 
-.dm-lottie-container {
-  width: 100%;
+.dm-attr-bar-fill {
   height: 100%;
-  max-width: 360px;
-  max-height: 340px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  z-index: 2;
+  border-radius: 9999px;
+  transition: width 1s ease;
 }
 
-.dm-lottie-container svg {
-  width: 100% !important;
-  height: 100% !important;
-  transform: scale(1.05);
+.dm-attr-val {
+  font-family: ui-monospace, monospace;
+  text-align: right;
+  color: #64748B;
+}
+
+.dm-bi-footer {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: #64748B;
+  text-align: center;
 }
 
 /* ================================================================
