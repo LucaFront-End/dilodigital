@@ -1,105 +1,101 @@
 // ================================================================
 // DILO DIGITAL — ANIMATED FLOATING MORPHING NAVBAR
-// Floating Island, Auto-Collapses to Circular Orb on Scroll, Springs Open on Up-Scroll/Click
+// Floating Framer-Motion Style Pill, Smooth Width Folding & Spring Expansion
 // ================================================================
 
+import gsap from 'gsap';
 import { CATEGORIES } from '../data/categories.js';
 import { sounds } from '../utils/SoundEngine.js';
 
 export function renderNavbar(activeRoute = 'home') {
   return `
     <header class="site-header" id="site-header">
-      <div class="nav-center-wrapper">
-        <nav class="animated-nav-pill is-expanded" id="animated-nav-pill" role="navigation" aria-label="Navegación principal">
+      <nav class="animated-nav-pill is-expanded" id="animated-nav-pill" role="navigation" aria-label="Navegación principal">
+        
+        <!-- Logo Slot -->
+        <div class="nav-logo-slot" id="nav-logo-slot">
+          <a href="#/" class="brand-logo" data-cursor="hover" title="Dilo Digital MX">
+            <img src="/brand/dilo-logo-dark.png" alt="Dilo Digital MX" onerror="this.src='/brand/dilo-logo.png';">
+          </a>
+        </div>
+
+        <!-- Links Slot -->
+        <div class="nav-links-slot" id="nav-links-slot">
+          <a href="#/" class="nav-link-item ${activeRoute === 'home' ? 'active' : ''}" data-cursor="hover">Inicio</a>
           
-          <!-- Collapsed Icon Overlay (Revealed when collapsed into floating circle) -->
-          <div class="nav-collapsed-indicator" id="nav-collapsed-indicator" aria-hidden="true" title="Abrir Menú">
-            <svg class="nav-collapsed-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+          <!-- Categories Dropdown -->
+          <div class="nav-dropdown-wrapper">
+            <a href="#/categorias" class="nav-link-item ${activeRoute.startsWith('categoria') ? 'active' : ''}" data-cursor="hover">
+              <span>Categorías</span>
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-left: 2px;">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </a>
+
+            <!-- Mega Dropdown Panel -->
+            <div class="nav-dropdown-panel">
+              ${CATEGORIES.map(cat => `
+                <a href="#/categoria/${cat.slug}" class="nav-dropdown-item" data-cursor="hover">
+                  <span class="nav-dropdown-number">${cat.number}</span>
+                  <div>
+                    <div class="nav-dropdown-title">${cat.title}</div>
+                    <div class="nav-dropdown-desc">${cat.concept}</div>
+                  </div>
+                </a>
+              `).join('')}
+            </div>
+          </div>
+
+          <!-- Registro IMPI -->
+          <a href="#/registro-marca" class="nav-link-item ${activeRoute === 'registro-marca' ? 'active' : ''}" data-cursor="hover">
+            <span>Registro IMPI</span>
+            <span class="nav-item-badge">Online</span>
+          </a>
+
+          <!-- Portafolio -->
+          <a href="#/portafolio" class="nav-link-item ${activeRoute === 'portafolio' ? 'active' : ''}" data-cursor="hover">Portafolio</a>
+
+          <!-- Nosotros -->
+          <a href="#/nosotros" class="nav-link-item ${activeRoute === 'nosotros' ? 'active' : ''}" data-cursor="hover">Nosotros</a>
+
+          <!-- Contacto -->
+          <a href="#/contacto" class="nav-link-item ${activeRoute === 'contacto' ? 'active' : ''}" data-cursor="hover">Contacto</a>
+
+          <!-- Portal Trámites IMPI -->
+          <a href="#/portal-tramites" class="nav-link-item nav-link-portal ${activeRoute === 'portal-tramites' ? 'active' : ''}" data-cursor="hover">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            <span>Portal Trámites</span>
+          </a>
+
+          <!-- Actions: Cotizar CTA -->
+          <button class="nav-cta-btn" id="btn-open-cotizador" data-cursor="cotizar">
+            <span>Cotizar Proyecto</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </button>
+
+          <!-- Mobile Nav Toggle -->
+          <button class="mobile-nav-toggle" id="btn-mobile-nav" aria-label="Abrir Menú" data-cursor="hover">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="3" y1="12" x2="21" y2="12"></line>
               <line x1="3" y1="6" x2="21" y2="6"></line>
               <line x1="3" y1="18" x2="21" y2="18"></line>
             </svg>
-          </div>
+          </button>
+        </div>
 
-          <!-- Expanded Full Content (Logo + Links + Actions) -->
-          <div class="nav-expanded-content" id="nav-expanded-content">
-            
-            <!-- Logo -->
-            <a href="#/" class="brand-logo" data-cursor="hover" title="Dilo Digital MX">
-              <img src="/brand/dilo-logo-dark.png" alt="Dilo Digital MX" onerror="this.src='/brand/dilo-logo.png'; this.style.filter='invert(1)';">
-            </a>
+        <!-- Collapsed Icon Indicator -->
+        <div class="nav-collapsed-icon-wrap" id="nav-collapsed-indicator" aria-hidden="true" title="Abrir Menú">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="4" y1="12" x2="20" y2="12"></line>
+            <line x1="4" y1="6" x2="20" y2="6"></line>
+            <line x1="4" y1="18" x2="20" y2="18"></line>
+          </svg>
+        </div>
 
-            <!-- Desktop Navigation Links -->
-            <div class="nav-menu">
-              <a href="#/" class="nav-item ${activeRoute === 'home' ? 'active' : ''}" data-cursor="hover">Inicio</a>
-              
-              <!-- Categories Dropdown -->
-              <div class="nav-dropdown-wrapper">
-                <a href="#/categorias" class="nav-item ${activeRoute.startsWith('categoria') ? 'active' : ''}" data-cursor="hover">
-                  <span>Categorías</span>
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-left: 3px; display: inline-block; vertical-align: middle;">
-                    <polyline points="6 9 12 15 18 9"></polyline>
-                  </svg>
-                </a>
-
-                <!-- Mega Dropdown Panel -->
-                <div class="nav-dropdown-panel">
-                  ${CATEGORIES.map(cat => `
-                    <a href="#/categoria/${cat.slug}" class="nav-dropdown-item" data-cursor="hover">
-                      <span class="nav-dropdown-number">${cat.number}</span>
-                      <div>
-                        <div class="nav-dropdown-title">${cat.title}</div>
-                        <div class="nav-dropdown-desc">${cat.concept}</div>
-                      </div>
-                    </a>
-                  `).join('')}
-                </div>
-              </div>
-
-              <!-- Registro IMPI -->
-              <a href="#/registro-marca" class="nav-item ${activeRoute === 'registro-marca' ? 'active' : ''}" data-cursor="hover">
-                <span>Registro IMPI</span>
-                <span class="nav-item-badge">Online</span>
-              </a>
-
-              <!-- Portafolio -->
-              <a href="#/portafolio" class="nav-item ${activeRoute === 'portafolio' ? 'active' : ''}" data-cursor="hover">Portafolio</a>
-
-              <!-- Nosotros -->
-              <a href="#/nosotros" class="nav-item ${activeRoute === 'nosotros' ? 'active' : ''}" data-cursor="hover">Nosotros</a>
-
-              <!-- Contacto -->
-              <a href="#/contacto" class="nav-item ${activeRoute === 'contacto' ? 'active' : ''}" data-cursor="hover">Contacto</a>
-
-              <!-- Portal Trámites IMPI -->
-              <a href="#/portal-tramites" class="nav-item nav-item-portal ${activeRoute === 'portal-tramites' ? 'active' : ''}" data-cursor="hover">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                <span>Portal Trámites</span>
-              </a>
-            </div>
-
-            <!-- Actions -->
-            <div class="nav-actions">
-              <button class="btn btn-primary btn-sm btn-glow nav-btn-cta" id="btn-open-cotizador" data-cursor="cotizar">
-                <span>Cotizar Proyecto</span>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                  <polyline points="12 5 19 12 12 19"></polyline>
-                </svg>
-              </button>
-
-              <button class="mobile-nav-toggle" id="btn-mobile-nav" aria-label="Abrir Menú" data-cursor="hover">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <line x1="3" y1="12" x2="21" y2="12"></line>
-                  <line x1="3" y1="6" x2="21" y2="6"></line>
-                  <line x1="3" y1="18" x2="21" y2="18"></line>
-                </svg>
-              </button>
-            </div>
-
-          </div>
-        </nav>
-      </div>
+      </nav>
 
       <!-- Mobile Navigation Drawer Overlay -->
       <div class="mobile-nav-drawer" id="mobile-nav-drawer">
@@ -140,31 +136,169 @@ export function renderNavbar(activeRoute = 'home') {
 
 export function initNavbarEvents() {
   const navPill = document.getElementById('animated-nav-pill');
+  const logoSlot = document.getElementById('nav-logo-slot');
+  const linksSlot = document.getElementById('nav-links-slot');
+  const collapsedIndicator = document.getElementById('nav-collapsed-indicator');
   const cotizarBtn = document.getElementById('btn-open-cotizador');
+  const dropdownWrapper = document.querySelector('.nav-dropdown-wrapper');
+
   const EXPAND_SCROLL_THRESHOLD = 80;
 
   let isExpanded = true;
   let lastScrollY = window.scrollY || 0;
   let scrollPositionOnCollapse = 0;
+  let naturalExpandedWidth = 0;
+  let morphTl = null;
+
+  function measureWidth() {
+    if (!navPill || !isExpanded) return;
+    const prevW = navPill.style.width;
+    navPill.style.width = 'auto';
+    naturalExpandedWidth = navPill.offsetWidth;
+    navPill.style.width = prevW;
+  }
+
+  requestAnimationFrame(() => {
+    measureWidth();
+  });
+  window.addEventListener('resize', () => {
+    if (isExpanded) measureWidth();
+  }, { passive: true });
 
   function collapseNav() {
     if (!isExpanded || !navPill) return;
     isExpanded = false;
+    scrollPositionOnCollapse = window.scrollY;
+
+    if (dropdownWrapper) dropdownWrapper.classList.remove('is-open');
+    if (morphTl) morphTl.kill();
+
+    measureWidth();
+    const startW = navPill.offsetWidth;
+
     navPill.classList.remove('is-expanded');
     navPill.classList.add('is-collapsed');
-    scrollPositionOnCollapse = window.scrollY;
+    navPill.style.overflow = 'hidden';
+
+    morphTl = gsap.timeline({
+      onComplete: () => {
+        if (linksSlot) linksSlot.style.pointerEvents = 'none';
+      }
+    });
+
+    // 1. Logo animates (logoVariants.collapsed: opacity 0, x -25, rotate -180)
+    morphTl.to(logoSlot, {
+      opacity: 0,
+      x: -25,
+      rotation: -180,
+      duration: 0.24,
+      ease: "power2.in"
+    }, 0);
+
+    // 2. Links animate (itemVariants.collapsed: opacity 0, x -20, scale 0.95)
+    morphTl.to(linksSlot, {
+      opacity: 0,
+      x: -20,
+      scale: 0.95,
+      duration: 0.22,
+      ease: "power2.in"
+    }, 0);
+
+    // 3. Container width smoothly collapses to 48px (Framer Motion: width 3rem)
+    morphTl.fromTo(navPill,
+      { width: startW },
+      {
+        width: 48,
+        duration: 0.38,
+        ease: "power3.inOut"
+      },
+      0.06
+    );
+
+    // 4. Menu Icon emerges in center (Framer Motion: opacity 1, scale 1, delay 0.15)
+    morphTl.fromTo(collapsedIndicator,
+      { opacity: 0, scale: 0.8 },
+      {
+        opacity: 1,
+        scale: 1,
+        duration: 0.28,
+        ease: "back.out(1.8)"
+      },
+      0.16
+    );
   }
 
   function expandNav() {
     if (isExpanded || !navPill) return;
     isExpanded = true;
+
+    if (morphTl) morphTl.kill();
+
+    const targetW = naturalExpandedWidth || 870;
+    const startW = navPill.offsetWidth;
+
     navPill.classList.remove('is-collapsed');
     navPill.classList.add('is-expanded');
+    if (linksSlot) linksSlot.style.pointerEvents = 'auto';
+
+    morphTl = gsap.timeline({
+      onComplete: () => {
+        // Return to auto width & visible overflow so dropdowns work effortlessly
+        gsap.set(navPill, { width: 'auto', overflow: 'visible' });
+        gsap.set([logoSlot, linksSlot, collapsedIndicator], { clearProps: 'all' });
+        measureWidth();
+      }
+    });
+
+    // 1. Menu Icon disappears (Framer Motion: opacity 0, scale 0.8)
+    morphTl.to(collapsedIndicator, {
+      opacity: 0,
+      scale: 0.8,
+      duration: 0.14,
+      ease: "power2.in"
+    }, 0);
+
+    // 2. Pill width springs open to target width
+    morphTl.fromTo(navPill,
+      { width: startW, overflow: 'hidden' },
+      {
+        width: targetW,
+        duration: 0.42,
+        ease: "back.out(1.08)"
+      },
+      0.02
+    );
+
+    // 3. Logo springs in (Framer Motion: opacity 1, x 0, rotate 0)
+    morphTl.fromTo(logoSlot,
+      { opacity: 0, x: -25, rotation: -180 },
+      {
+        opacity: 1,
+        x: 0,
+        rotation: 0,
+        duration: 0.34,
+        ease: "back.out(1.35)"
+      },
+      0.12
+    );
+
+    // 4. Links spring in (Framer Motion: opacity 1, x 0, scale 1)
+    morphTl.fromTo(linksSlot,
+      { opacity: 0, x: -20, scale: 0.95 },
+      {
+        opacity: 1,
+        x: 0,
+        scale: 1,
+        duration: 0.32,
+        ease: "power2.out"
+      },
+      0.15
+    );
   }
 
-  // Scroll listener with Framer Motion logic:
+  // Scroll listener with intelligent tracking:
   // - Down-scroll past 150px collapses into the sleek circular orb
-  // - Up-scroll by > 80px springs it back open
+  // - Tracks maximum scroll depth while collapsed so scrolling up 80px from anywhere springs open
   // - Near top (< 60px) stays expanded
   window.addEventListener('scroll', () => {
     const latest = window.scrollY;
@@ -174,8 +308,13 @@ export function initNavbarEvents() {
       expandNav();
     } else if (isExpanded && latest > previous && latest > 150) {
       collapseNav();
-    } else if (!isExpanded && latest < previous && (scrollPositionOnCollapse - latest > EXPAND_SCROLL_THRESHOLD)) {
-      expandNav();
+    } else if (!isExpanded) {
+      if (latest > scrollPositionOnCollapse) {
+        scrollPositionOnCollapse = latest;
+      }
+      if (latest < previous && (scrollPositionOnCollapse - latest > EXPAND_SCROLL_THRESHOLD)) {
+        expandNav();
+      }
     }
 
     lastScrollY = latest;
@@ -204,12 +343,12 @@ export function initNavbarEvents() {
   });
 
   // Desktop Categories Mega-Menu Safe Hover Intent
-  const dropdownWrapper = document.querySelector('.nav-dropdown-wrapper');
   const dropdownPanel = document.querySelector('.nav-dropdown-panel');
   let dropdownCloseTimer = null;
 
   if (dropdownWrapper && dropdownPanel) {
     const showDropdown = () => {
+      if (!isExpanded) return;
       if (dropdownCloseTimer) clearTimeout(dropdownCloseTimer);
       dropdownWrapper.classList.add('is-open');
     };
