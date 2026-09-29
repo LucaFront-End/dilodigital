@@ -22,15 +22,66 @@ export function renderFinalCta() {
           <span class="final-cta-avail-text">AGENDA ACTIVA &middot; 3 CUPOS ESTRATÉGICOS DISPONIBLES ESTE MES</span>
         </div>
 
-        <!-- Monumental Manuka Headline -->
+        <!-- Monumental Headline with breathing spacing -->
         <h2 class="final-cta-title">
           ¿LISTO PARA DEJAR DE SER UNA MARCA COMÚN Y COMENZAR A <span class="final-cta-title-accent">DEJAR MARCA?</span>
         </h2>
 
         <!-- Subtitle in Plus Jakarta Sans -->
         <p class="final-cta-desc">
-          Analicemos tus metas de facturación, adquisición digital y protección legal. Sin rodeos, con estrategia pura y visión de retorno de inversión desde el día uno.
+          Analicemos tus metas de facturación, adquisición digital y protección legal. Sin rodeos, con estrategia pura y visión de retorno de inversión desde el primer sprint.
         </p>
+
+        <!-- Minimalist Kinetic Orbit & Growth Spark Visual -->
+        <div class="final-cta-visual" aria-hidden="true">
+          <div class="final-cta-orbit-stage">
+            <svg class="final-cta-orbit-svg" viewBox="0 0 460 200" fill="none">
+              <defs>
+                <linearGradient id="ctaOrbitGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#FF5A1F" stop-opacity="0.0" />
+                  <stop offset="50%" stop-color="#FF5A1F" stop-opacity="0.35" />
+                  <stop offset="100%" stop-color="#FF5A1F" stop-opacity="0.0" />
+                </linearGradient>
+                <radialGradient id="ctaCenterGlow" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#FF5A1F" stop-opacity="0.25" />
+                  <stop offset="100%" stop-color="#FF5A1F" stop-opacity="0.0" />
+                </radialGradient>
+              </defs>
+
+              <!-- Central Ambient Glow & Halo -->
+              <circle cx="230" cy="100" r="50" fill="url(#ctaCenterGlow)" />
+
+              <!-- Outer Elliptical Orbital Ring -->
+              <ellipse class="cta-orbit-outer" cx="230" cy="100" rx="190" ry="70" stroke="rgba(20, 23, 24, 0.07)" stroke-width="1.2" stroke-dasharray="4 6" />
+
+              <!-- Inner Elliptical Orbital Ring -->
+              <ellipse class="cta-orbit-inner" cx="230" cy="100" rx="120" ry="45" stroke="rgba(255, 90, 31, 0.18)" stroke-width="1.2" />
+
+              <!-- Sweeping Accent Arc -->
+              <ellipse cx="230" cy="100" rx="190" ry="70" stroke="url(#ctaOrbitGrad)" stroke-width="2.5" stroke-dasharray="80 300" stroke-linecap="round" />
+
+              <!-- Central Node Pulse -->
+              <circle cx="230" cy="100" r="14" fill="#FFFFFF" stroke="#FF5A1F" stroke-width="2" />
+              <circle class="cta-center-pulse" cx="230" cy="100" r="6" fill="#FF5A1F" />
+            </svg>
+
+            <!-- Floating Satellite Micro-Metrics -->
+            <div class="cta-orbit-node node-left">
+              <span class="cta-node-icon">⚡</span>
+              <span>Sprints de 15 días</span>
+            </div>
+
+            <div class="cta-orbit-node node-center-top">
+              <span class="cta-node-dot"></span>
+              <span>ROAS 5.4x &middot; Ads & Funnel</span>
+            </div>
+
+            <div class="cta-orbit-node node-right">
+              <span class="cta-node-icon">🛡️</span>
+              <span>100% Blindado IMPI</span>
+            </div>
+          </div>
+        </div>
 
         <!-- Action Buttons Cluster -->
         <div class="final-cta-actions">

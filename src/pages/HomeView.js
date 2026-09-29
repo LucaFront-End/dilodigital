@@ -32,77 +32,116 @@ export function renderHomeView() {
       ${renderTrustedBy()}
 
       <!-- 5. IMPI EXPRESS VIABILITY SCANNER BANNER -->
-      <section class="container" style="margin-top: clamp(3rem, 6vh, 5rem); margin-bottom: clamp(3rem, 6vw, 6rem);">
+      <section class="container impi-banner-section" style="margin-top: clamp(4rem, 7vh, 6rem); margin-bottom: clamp(4rem, 7vw, 7rem);">
         <div class="impi-express-banner">
           <div class="impi-banner-grid">
+            
             <div class="impi-banner-content">
-              <span class="badge" style="background: rgba(255, 90, 31, 0.15); color: #FF7E47; margin-bottom: 0.8rem;">
-                Protección Legal en México
-              </span>
-              <h3>¿Tu marca está disponible para registro ante el IMPI?</h3>
-              <p>
-                Evita demandas y pérdida de inversión. Realiza una búsqueda fonética express con nuestro equipo jurídico y protege tu nombre en las 45 clases NIZA.
+              <div class="impi-eyebrow-pill">
+                <span class="impi-eyebrow-pulse"></span>
+                <span>Protección Legal ante el IMPI &middot; México</span>
+              </div>
+              <h3 class="impi-banner-title">
+                ¿TU MARCA ESTÁ DISPONIBLE PARA <span style="color: #FF5A1F;">REGISTRO ANTE EL IMPI?</span>
+              </h3>
+              <p class="impi-banner-subtitle">
+                Evita demandas y pérdida de inversión. Realizamos un dictamen fonético express en 24h antes de que inviertas en diseño o producción.
               </p>
 
               <form class="impi-search-box" id="home-impi-search-form">
-                <input 
-                  type="text" 
-                  class="impi-search-input" 
-                  id="home-impi-input" 
-                  placeholder="Escribe el nombre de tu marca (Ej. Nova Coffee)" 
-                  required
-                >
-                <button type="submit" class="btn btn-primary" data-cursor="hover">
-                  <span>Analizar Coincidencias de Marca</span>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <div class="impi-search-input-wrap">
+                  <svg class="impi-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <circle cx="11" cy="11" r="8"></circle>
                     <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                   </svg>
+                  <input 
+                    type="text" 
+                    class="impi-search-input" 
+                    id="home-impi-input" 
+                    placeholder="Escribe el nombre de tu marca (Ej. Nova Coffee)" 
+                    required
+                  >
+                </div>
+                <button type="submit" class="impi-search-btn" data-cursor="hover">
+                  <span>Consultar Disponibilidad</span>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
                 </button>
               </form>
-            </div>
 
-            <div class="impi-banner-features">
-              <div class="impi-feat-card">
-                <div class="impi-feat-title">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                  </svg>
-                  Trámite 100% Online
+              <!-- Micro-Proof Checklist -->
+              <div class="impi-banner-proof">
+                <div class="impi-proof-pill">
+                  <span class="impi-proof-check">✓</span>
+                  <span>Trámite 100% Online</span>
                 </div>
-                <div class="impi-feat-desc">Sin filas ni trámites burocráticos. Nosotros gestionamos ante el portal oficial del IMPI.</div>
-              </div>
-
-              <div class="impi-feat-card">
-                <div class="impi-feat-title">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                  </svg>
-                  Dictamen en 24 Horas
+                <div class="impi-proof-pill">
+                  <span class="impi-proof-check">✓</span>
+                  <span>Dictamen en 24 Horas</span>
                 </div>
-                <div class="impi-feat-desc">Análisis de viabilidad fonética previo al pago de derechos oficiales del IMPI.</div>
-              </div>
-
-              <div class="impi-feat-card">
-                <div class="impi-feat-title">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                  </svg>
-                  Portal de Seguimiento
+                <div class="impi-proof-pill">
+                  <span class="impi-proof-check">✓</span>
+                  <span>Garantía de Viabilidad Dilo</span>
                 </div>
-                <div class="impi-feat-desc">Monitorea cada fase de tu expediente: desde el ingreso hasta el título de concesión.</div>
-              </div>
-
-              <div class="impi-feat-card">
-                <div class="impi-feat-title">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                  </svg>
-                  Garantía Dilo Digital
-                </div>
-                <div class="impi-feat-desc">Si tu marca tiene riesgo alto de rechazo en el dictamen, evaluamos otra alternativa sin costo.</div>
               </div>
             </div>
+
+            <!-- Kinetic Radar Legal Scanner Visual -->
+            <div class="impi-banner-visual" aria-hidden="true">
+              <div class="impi-radar-stage">
+                <svg class="impi-radar-svg" viewBox="0 0 340 340" fill="none">
+                  <defs>
+                    <linearGradient id="impiBeamGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#FF5A1F" stop-opacity="0.35" />
+                      <stop offset="100%" stop-color="#FF5A1F" stop-opacity="0.0" />
+                    </linearGradient>
+                    <radialGradient id="impiCenterGlow" cx="50%" cy="50%" r="50%">
+                      <stop offset="0%" stop-color="#10B981" stop-opacity="0.25" />
+                      <stop offset="100%" stop-color="#10B981" stop-opacity="0.0" />
+                    </radialGradient>
+                  </defs>
+
+                  <!-- Concentric Radar Rings -->
+                  <circle cx="170" cy="170" r="150" stroke="rgba(20, 23, 24, 0.05)" stroke-width="1" />
+                  <circle cx="170" cy="170" r="110" stroke="rgba(20, 23, 24, 0.07)" stroke-width="1" stroke-dasharray="3 3" />
+                  <circle cx="170" cy="170" r="70" stroke="rgba(20, 23, 24, 0.09)" stroke-width="1" />
+                  <circle cx="170" cy="170" r="30" stroke="rgba(255, 90, 31, 0.18)" stroke-width="1.5" />
+
+                  <!-- Crosshairs Axis Guides -->
+                  <line x1="20" y1="170" x2="320" y2="170" stroke="rgba(20, 23, 24, 0.06)" stroke-width="1" />
+                  <line x1="170" y1="20" x2="170" y2="320" stroke="rgba(20, 23, 24, 0.06)" stroke-width="1" />
+
+                  <!-- Rotating Radar Sweep Beam -->
+                  <g class="impi-radar-sweep">
+                    <path d="M 170 170 L 320 170 A 150 150 0 0 0 276 64 Z" fill="url(#impiBeamGrad)" />
+                    <line x1="170" y1="170" x2="276" y2="64" stroke="#FF5A1F" stroke-width="2" stroke-linecap="round" />
+                  </g>
+
+                  <!-- Central Radar Core Pulse -->
+                  <circle cx="170" cy="170" r="24" fill="url(#impiCenterGlow)" />
+                  <circle cx="170" cy="170" r="16" fill="#FFFFFF" stroke="#10B981" stroke-width="2" />
+                  <path d="M 165 170 L 169 174 L 176 166" stroke="#10B981" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+
+                  <!-- Target Echo Blip -->
+                  <circle class="impi-radar-blip" cx="240" cy="100" r="4" fill="#FF5A1F" />
+                  <circle class="impi-radar-blip-ring" cx="240" cy="100" r="10" stroke="#FF5A1F" stroke-width="1" />
+                </svg>
+
+                <!-- Floating Minimal Status Badges -->
+                <div class="impi-float-chip chip-top">
+                  <span class="impi-chip-dot"></span>
+                  <span>MARCA FACTIBLE &middot; 98.4% DISPONIBLE</span>
+                </div>
+
+                <div class="impi-float-chip chip-bottom">
+                  <span class="impi-chip-icon">🛡️</span>
+                  <span>Clases NIZA 35, 42 & 25</span>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>

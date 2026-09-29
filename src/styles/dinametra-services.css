@@ -54,13 +54,13 @@
 
 .dm-section-title {
   font-family: var(--sm-font-heading);
-  font-size: clamp(3.2rem, 5.8vw, 5.8rem);
+  font-size: clamp(2.8rem, 5vw, 5rem);
   font-weight: 900;
-  line-height: 0.88;
-  letter-spacing: -2px;
+  line-height: 1.06;
+  letter-spacing: 0.035em;
   text-transform: uppercase;
   color: #111827;
-  margin: 0 0 1rem;
+  margin: 0 0 1.2rem;
 }
 
 .dm-section-subtitle {
@@ -443,7 +443,8 @@
   position: relative;
   width: 100%;
   background: var(--bg-main, #FAFAFC);
-  padding: clamp(4.5rem, 8vh, 7rem) 0;
+  padding: clamp(5rem, 9vh, 8rem) 0 clamp(7rem, 14vh, 12rem);
+  margin-bottom: clamp(2rem, 4vw, 4.5rem);
   box-sizing: border-box;
 }
 

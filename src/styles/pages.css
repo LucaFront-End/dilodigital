@@ -650,103 +650,283 @@
 }
 
 /* ========================================================
-   3. IMPI EXPRESS VIABILITY SCANNER WIDGET (HOME)
+   3. CALM MINIMALIST IMPI VIABILITY SCANNER (HOME)
    ======================================================== */
 .impi-express-banner {
-  background: linear-gradient(135deg, #101115 0%, #1A1C23 100%);
-  color: #FFFFFF;
-  border-radius: var(--radius-xl);
-  padding: clamp(2.5rem, 5vw, 4.2rem);
+  background: #FFFFFF;
+  color: #111827;
+  border-radius: 28px;
+  border: 1px solid rgba(20, 23, 24, 0.08);
+  padding: clamp(2.5rem, 5vw, 4rem);
   position: relative;
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
-  margin-top: clamp(1.5rem, 3vh, 2.2rem);
-}
-
-.impi-express-banner::after {
-  content: '';
-  position: absolute;
-  bottom: -40px;
-  right: -40px;
-  width: 320px;
-  height: 320px;
-  background: radial-gradient(circle, rgba(226, 28, 33, 0.25) 0%, transparent 70%);
-  pointer-events: none;
+  box-shadow: 0 16px 48px -12px rgba(20, 23, 24, 0.04), 0 2px 8px rgba(20, 23, 24, 0.015);
 }
 
 .impi-banner-grid {
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 3rem;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 3.5rem;
   align-items: center;
   position: relative;
   z-index: 1;
 }
 
-@media (max-width: 920px) {
+@media (max-width: 960px) {
   .impi-banner-grid {
     grid-template-columns: 1fr;
+    gap: 2.5rem;
   }
 }
 
-.impi-banner-content h3 {
-  color: #FFFFFF;
-  font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+.impi-eyebrow-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(255, 90, 31, 0.08);
+  border: 1px solid rgba(255, 90, 31, 0.16);
+  color: #FF5A1F;
+  font-family: var(--sm-font-body);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  margin-bottom: 1.2rem;
+}
+
+.impi-eyebrow-pulse {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 6px #10B981;
+}
+
+.impi-banner-title {
+  font-family: var(--sm-font-heading);
+  font-size: clamp(2.2rem, 3.8vw, 3.4rem);
+  font-weight: 900;
+  line-height: 1.08;
+  letter-spacing: 0.035em;
+  text-transform: uppercase;
+  color: #111827;
   margin-bottom: 1rem;
 }
 
-.impi-banner-content p {
-  color: #A0AEC0;
-  font-size: 1.05rem;
-  margin-bottom: 1.8rem;
+.impi-banner-subtitle {
+  font-family: var(--sm-font-body);
+  font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+  line-height: 1.6;
+  color: rgba(20, 23, 24, 0.65);
+  margin-bottom: 2rem;
+  max-width: 580px;
 }
 
+/* Floating Minimalist Search Box */
 .impi-search-box {
-  background: #FFFFFF;
-  border-radius: var(--radius-lg);
-  padding: 0.5rem;
+  background: #F8FAFD;
+  border: 1px solid rgba(20, 23, 24, 0.09);
+  border-radius: 18px;
+  padding: 0.45rem;
   display: flex;
   align-items: center;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
   gap: 0.5rem;
+  box-shadow: 0 4px 16px rgba(20, 23, 24, 0.02);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.impi-search-box:focus-within {
+  border-color: rgba(255, 90, 31, 0.4);
+  box-shadow: 0 6px 20px rgba(255, 90, 31, 0.1);
+}
+
+.impi-search-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex: 1;
+  padding-left: 0.75rem;
+}
+
+.impi-search-icon {
+  color: rgba(20, 23, 24, 0.4);
+  flex-shrink: 0;
 }
 
 .impi-search-input {
-  flex: 1;
-  padding: 0.8rem 1.2rem;
-  font-size: 1.05rem;
-  color: var(--text-primary);
-  font-weight: 500;
-}
-
-.impi-banner-features {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-}
-
-.impi-feat-card {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 1.2rem;
-  border-radius: var(--radius-md);
-  backdrop-filter: blur(8px);
-}
-
-.impi-feat-title {
-  font-weight: 700;
+  border: none;
+  background: transparent;
+  width: 100%;
+  padding: 0.75rem 0.5rem;
+  font-family: var(--sm-font-body);
   font-size: 0.95rem;
-  color: #FFFFFF;
-  margin-bottom: 0.3rem;
-  display: flex;
+  color: #111827;
+  font-weight: 500;
+  outline: none;
+}
+
+.impi-search-input::placeholder {
+  color: rgba(20, 23, 24, 0.42);
+}
+
+.impi-search-btn {
+  display: inline-flex;
   align-items: center;
   gap: 0.5rem;
+  background: #FF5A1F;
+  color: #FFFFFF;
+  border: none;
+  padding: 0.8rem 1.4rem;
+  border-radius: 12px;
+  font-family: var(--sm-font-body);
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.impi-feat-desc {
+.impi-search-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(255, 90, 31, 0.35);
+}
+
+/* Micro-Proof Checklist */
+.impi-banner-proof {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-top: 1.4rem;
+  flex-wrap: wrap;
+}
+
+.impi-proof-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--sm-font-body);
   font-size: 0.82rem;
-  color: #94A3B8;
-  line-height: 1.4;
+  font-weight: 600;
+  color: rgba(20, 23, 24, 0.68);
+}
+
+.impi-proof-check {
+  color: #10B981;
+  font-weight: 800;
+  font-size: 0.85rem;
+}
+
+/* Visual Radar Stage */
+.impi-banner-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.impi-radar-stage {
+  position: relative;
+  width: 100%;
+  max-width: 340px;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.impi-radar-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+
+/* Radar Beam Rotation */
+.impi-radar-sweep {
+  transform-origin: 170px 170px;
+  animation: impiRadarRotate 6s linear infinite;
+}
+
+@keyframes impiRadarRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.impi-radar-blip-ring {
+  transform-origin: 240px 100px;
+  animation: impiBlipPulse 2.5s ease-out infinite;
+}
+
+@keyframes impiBlipPulse {
+  0% { transform: scale(0.6); opacity: 1; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+/* Floating Chips */
+.impi-float-chip {
+  position: absolute;
+  background: #FFFFFF;
+  border: 1px solid rgba(20, 23, 24, 0.08);
+  border-radius: 999px;
+  padding: 0.35rem 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--sm-font-body);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #111827;
+  box-shadow: 0 4px 14px rgba(20, 23, 24, 0.06);
+  pointer-events: none;
+  white-space: nowrap;
+  animation: impiFloat 4s ease-in-out infinite alternate;
+}
+
+.chip-top {
+  top: 15px;
+  right: -10px;
+}
+
+.chip-bottom {
+  bottom: 20px;
+  left: -10px;
+  animation-delay: -2s;
+}
+
+@keyframes impiFloat {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-6px); }
+}
+
+.impi-chip-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10B981;
+}
+
+@media (max-width: 640px) {
+  .impi-search-box {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0.75rem;
+  }
+
+  .impi-search-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .chip-top {
+    right: 0;
+    top: 0;
+  }
+
+  .chip-bottom {
+    left: 0;
+    bottom: 0;
+  }
 }
 
 /* ========================================================
