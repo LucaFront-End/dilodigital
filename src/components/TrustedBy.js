@@ -12,7 +12,7 @@ const BRANDS_ROW_1 = [
     name: 'Google Ads',
     category: 'Partner Premier 2025',
     svg: `
-      <svg width="34" height="34" viewBox="0 0 24 24">
+      <svg height="34" viewBox="0 0 24 24" fill="none">
         <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
         <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
         <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/>
@@ -25,7 +25,7 @@ const BRANDS_ROW_1 = [
     name: 'Meta Business',
     category: 'Instagram & Facebook Ads',
     svg: `
-      <svg width="34" height="34" viewBox="0 0 24 24" fill="#0081FB">
+      <svg height="34" viewBox="0 0 24 24" fill="#0081FB">
         <path d="M16.5 6A5.5 5.5 0 0 1 22 11.5c0 3.5-3 6.5-6.5 6.5-3 0-4.5-2.5-6.5-5-2-2.5-3.5-5-6.5-5A5.5 5.5 0 0 0 0 11.5C0 15 3 18 6.5 18c3 0 4.5-2.5 6.5-5 2-2.5 3.5-5 6.5-5zM6.5 15.5c-2.2 0-4-1.8-4-4s1.8-4 4-4c1.8 0 3 2 4.5 4-1.5 2-2.7 4-4.5 4zm11 0c-1.8 0-3-2-4.5-4 1.5-2 2.7-4 4.5-4 2.2 0 4 1.8 4 4s-1.8 4-4 4z"/>
       </svg>
     `,
@@ -35,8 +35,8 @@ const BRANDS_ROW_1 = [
     name: 'Shopify Plus',
     category: 'Plataforma Global E-commerce',
     svg: `
-      <svg width="32" height="34" viewBox="0 0 24 24" fill="#95BF47">
-        <path d="M15.33 2.15a1.86 1.86 0 0 0-1.42-.64c-.06 0-.12 0-.17.02l-1.39.42c-.22.07-.37.26-.37.49v.08c0 .24.16.44.39.49l.66.14c.26.06.42.31.36.57l-.31 1.48c-.06.27-.32.44-.59.38l-.66-.14a.5.5 0 0 0-.58.37l-2.02 9.53a.5.5 0 0 0 .39.59l8.66 1.83a.5.5 0 0 0 .59-.39l2.76-13a.5.5 0 0 0-.39-.59l-5.69-1.21zm-1.87 2.1c.14-.65.65-1.12 1.3-1.15.11 0 .22.02.32.06l-1.62 7.64-.08.38c-.07.33-.39.52-.71.45l-.43-.09 1.22-7.29z"/>
+      <svg height="34" viewBox="0 0 32 32" fill="none">
+        <path d="M22.8 7.3c-.2-.5-.7-.8-1.2-.9l-3.2-.6c-.2-.7-.6-1.4-1.3-1.8-.8-.6-1.8-.7-2.7-.4-.9.3-1.6 1-1.9 1.8l-1.8.3c-.5.1-.9.5-1 .9L6.5 24.5c-.1.5.2 1 .7 1.1l14.4 2.8c.5.1 1-.2 1.1-.7l3.2-18.7c0-.6-.4-1.1-.9-1.2l-2.2-.5zm-6.2-2.1c.5-.2 1.1-.1 1.5.2.4.3.7.8.8 1.3l-3.7.7c.3-.8.8-1.7 1.4-2.2zm-.8 16.5c-2.3 0-3.6-1.2-3.6-2.8 0-1.8 1.8-2.4 2.8-2.8 1.1-.4 1.8-.7 1.8-1.4 0-.7-.5-1.1-1.4-1.1-.9 0-1.6.4-1.8 1.1l-2-.8c.4-1.4 1.7-2.3 3.8-2.3 2.1 0 3.4 1.1 3.4 2.7 0 1.7-1.4 2.3-2.6 2.8-1.1.4-1.9.8-1.9 1.5 0 .7.6 1.1 1.6 1.1 1 0 1.8-.5 2.1-1.3l1.9.8c-.5 1.6-1.9 2.5-4.1 2.5z" fill="#95BF47"/>
       </svg>
     `,
     tag: 'EXPERT PARTNER'
@@ -45,8 +45,8 @@ const BRANDS_ROW_1 = [
     name: 'Stripe',
     category: 'Infraestructura de Pagos',
     svg: `
-      <svg width="34" height="34" viewBox="0 0 24 24" fill="#635BFF">
-        <path d="M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.97 15.697.5 12.82.5 6.953.5 3.01 3.568 3.01 8.556c0 5.058 4.354 6.643 8.01 8.006 2.517.936 3.39 1.63 3.39 2.627 0 .977-.852 1.503-2.31 1.503-2.617 0-5.328-1.2-7.241-2.221l-.9 5.617C5.88 25.105 8.943 26 12.183 26c6.115 0 10.32-2.923 10.32-8.156 0-5.233-4.328-6.843-8.527-8.694z"/>
+      <svg height="34" viewBox="0 0 32 32" fill="#635BFF">
+        <path d="M15.4 12.3c-2-.7-3.1-1.3-3.1-2.2 0-.8.7-1.2 1.8-1.2 2 0 4.1.8 5.6 1.5l.8-5C19.2 4.9 16.9 4.5 14.3 4.5 9 4.5 5.5 7.3 5.5 11.8c0 4.6 3.9 6 7.2 7.2 2.3.8 3.1 1.5 3.1 2.4 0 .9-.8 1.4-2.1 1.4-2.4 0-4.9-1.1-6.6-2l-.8 5.1c1.9.9 4.7 1.6 7.6 1.6 5.5 0 9.4-2.6 9.4-7.4 0-4.7-3.9-6.2-7.9-7.8z"/>
       </svg>
     `,
     tag: 'PAGOS GLOBALES'
@@ -55,8 +55,10 @@ const BRANDS_ROW_1 = [
     name: 'Amazon Web Services',
     category: 'Infraestructura Cloud & Data',
     svg: `
-      <svg width="34" height="34" viewBox="0 0 24 24" fill="#FF9900">
-        <path d="M7.74 9.42c0-.5.18-.88.54-1.14.36-.26.86-.39 1.5-.39.8 0 1.57.19 2.31.57V6.74a7.1 7.1 0 0 0-2.4-.41c-1.35 0-2.38.33-3.09 1-.71.66-1.07 1.55-1.07 2.67 0 .99.28 1.8.84 2.42.56.62 1.34 1.05 2.34 1.29l1.29.32c.73.18 1.25.42 1.56.72.31.3.46.7.46 1.2 0 .54-.2 1-.6 1.37-.4.37-.99.55-1.77.55-.99 0-1.99-.26-3-.78v1.78c1.06.41 2.12.61 3.18.61 1.48 0 2.61-.35 3.39-1.05.78-.7 1.17-1.66 1.17-2.88 0-.96-.28-1.76-.84-2.4-.56-.64-1.36-1.1-2.4-1.38l-1.32-.35a3.1 3.1 0 0 1-1.35-.61c-.32-.28-.48-.68-.48-1.2zM21.5 16.5c-4.4 3.3-10.8 4.9-16.3 2.1-.8-.4-1.5-.9-2.2-1.5-.3-.3-.1-.6.3-.5 5.2 2 11.4 1.1 16.1-1.8.6-.4 1.1.2.6.7z"/>
+      <svg height="34" viewBox="0 0 32 32" fill="none">
+        <path d="M11.6 13.5c-.8.5-1.6.8-2.6.8-2.3 0-3.7-1.4-3.7-3.7 0-2.4 1.6-4 4.1-4 1.1 0 2 .3 2.7.7v1.8c-.8-.5-1.6-.7-2.4-.7-1.3 0-2.2.8-2.2 2.2 0 1.3.8 2 2.1 2 .8 0 1.5-.2 2.2-.6v1.5h-.2zm6.2-6.7l-2.1 7.4h-1.8l-1.6-5.6-1.5 5.6H9L6.8 6.8h1.9l1.3 5.3 1.5-5.3h1.6l1.5 5.3 1.3-5.3h1.9zm4.4 7.6c-2.4 0-3.9-1.3-3.9-3.3 0-1.9 1.4-3 3.6-3.4l1.8-.4v-.6c0-.9-.6-1.4-1.7-1.4-.9 0-1.8.3-2.5.7l-.6-1.4c.9-.5 2.1-.8 3.4-.8 2.3 0 3.5 1.1 3.5 3v5.4h-1.7v-1.1c-.6.8-1.6 1.3-2.9 1.3zm.7-1.6c1.1 0 2-.6 2.3-1.4v-1.2l-1.6.3c-1.3.3-2 .8-2 1.8 0 .8.5 1.4 1.3 1.4z" fill="#232F3E"/>
+        <path d="M26 21.5c-4.8 3.5-11.8 5.4-17.8 2.3-.9-.5-1.7-1-2.4-1.7-.3-.3-.1-.7.3-.5 5.7 2.2 12.5 1.2 17.6-2 .7-.4 1.2.2.7.8l-1.3 1.1h2.9z" fill="#FF9900"/>
+        <path d="M27.4 19.6c-.4-.6-2.8-.3-4.2.3-.4.1-.3-.2 0-.5 2-1.2 5.2-1.1 5.6-.6.5.6-.4 3.7-2.3 5.3-.4.3-.6.1-.4-.2.5-1.2 1.7-3.8 1.3-4.3z" fill="#FF9900"/>
       </svg>
     `,
     tag: 'CLOUD TIER 1'
@@ -65,9 +67,10 @@ const BRANDS_ROW_1 = [
     name: 'Mercado Libre',
     category: 'Líder E-commerce & Envíos LatAm',
     svg: `
-      <svg width="34" height="34" viewBox="0 0 24 24" fill="#2D3277">
-        <circle cx="12" cy="12" r="11" fill="#FFE600"/>
-        <path d="M7 13c1-2 3-3 5-2.5l2 .7c1 .3 2 0 2.7-.7l2-2c.7-.7 1.7-.7 2.3 0s.7 1.7 0 2.3l-2.7 2.7c-1 1-2.3 1.3-3.7 1l-2-.7c-1.3-.3-3 .3-3.7 1.7l-2.3 2.7" stroke="#2D3277" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+      <svg height="34" viewBox="0 0 32 32" fill="none">
+        <circle cx="16" cy="16" r="14.5" fill="#FFE600"/>
+        <path d="M9.5 17.5c1.2-2.4 3.8-4 6.5-3.2l2.4.8c1.2.4 2.4 0 3.2-.8l2.4-2.4c.8-.8 2-.8 2.8 0s.8 2 0 2.8l-3.2 3.2c-1.2 1.2-2.8 1.6-4.5 1.2l-2.4-.8c-1.6-.4-3.6.4-4.5 2l-2.7 3.2" stroke="#2D3277" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M23.5 14.5l-3.2-3.2c-1.2-1.2-2.8-1.6-4.5-1.2l-2.4.8c-1.6.4-3.6-.4-4.5-2" stroke="#2D3277" stroke-width="2.1" stroke-linecap="round"/>
       </svg>
     `,
     tag: 'RETAIL MEDIA'
@@ -76,7 +79,7 @@ const BRANDS_ROW_1 = [
     name: 'TikTok for Business',
     category: 'Pauta Publicitaria & UGC',
     svg: `
-      <svg width="32" height="34" viewBox="0 0 24 24" fill="#000000">
+      <svg height="34" viewBox="0 0 24 24" fill="#000000">
         <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.88 2.89 2.89 0 0 1-2.89-2.88 2.89 2.89 0 0 1 2.89-2.89c.35 0 .68.06 1 .16V9.06a6.34 6.34 0 0 0-1-.08 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.75c1.23.88 2.74 1.41 4.36 1.44V6.75a4.82 4.82 0 0 1-.6-.06z"/>
       </svg>
     `,
@@ -86,8 +89,8 @@ const BRANDS_ROW_1 = [
     name: 'HubSpot',
     category: 'Inbound Marketing & CRM',
     svg: `
-      <svg width="34" height="34" viewBox="0 0 24 24" fill="#FF7A59">
-        <path d="M18.8 7.3V4.9c.7-.3 1.2-1 1.2-1.9 0-1.1-.9-2-2-2s-2 .9-2 2c0 .8.5 1.5 1.2 1.9v2.4c-1.2.4-2.2 1.3-2.6 2.5L9.9 8.2c.1-.3.2-.6.2-1 0-1.7-1.3-3-3-3s-3 1.3-3 3 1.3 3 3 3c.4 0 .7-.1 1-.2l4.7 1.6c0 .1 0 .3 0 .4 0 1.2.5 2.3 1.3 3l-2.1 2.1c-.3-.1-.6-.2-.9-.2-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3c0-.4-.1-.7-.2-1l2.1-2.1c1.1.7 2.4.9 3.7.5 1.5-.5 2.6-1.7 3-3.2.4-1.5 0-3.1-1.1-4.2-.6-.6-1.4-1-2.2-1.1zm-1.8 6.9c-1.3 0-2.3-1-2.3-2.3s1-2.3 2.3-2.3 2.3 1 2.3 2.3-1 2.3-2.3 2.3z"/>
+      <svg height="34" viewBox="0 0 32 32" fill="#FF7A59">
+        <path d="M23.5 10.8V7.9c.9-.4 1.5-1.3 1.5-2.4 0-1.4-1.1-2.5-2.5-2.5s-2.5 1.1-2.5 2.5c0 1.1.6 2 1.5 2.4v2.9c-1.5.5-2.7 1.6-3.2 3.1l-5.9-2c.1-.4.2-.8.2-1.3 0-2.1-1.7-3.8-3.8-3.8s-3.8 1.7-3.8 3.8 1.7 3.8 3.8 3.8c.5 0 .9-.1 1.3-.2l5.8 2c0 .2 0 .4 0 .5 0 1.5.7 2.9 1.7 3.8l-2.6 2.6c-.4-.1-.8-.2-1.2-.2-2.1 0-3.8 1.7-3.8 3.8s1.7 3.8 3.8 3.8 3.8-1.7 3.8-3.8c0-.5-.1-.9-.2-1.3l2.6-2.6c1.3.9 3 1.1 4.6.6 1.9-.6 3.3-2.1 3.8-4 .5-1.9 0-3.9-1.4-5.3-.8-.8-1.8-1.3-2.8-1.4zm-2.2 8.6c-1.6 0-2.9-1.3-2.9-2.9s1.3-2.9 2.9-2.9 2.9 1.3 2.9 2.9-1.3 2.9-2.9 2.9z"/>
       </svg>
     `,
     tag: 'AUTOMATIZACIÓN'
@@ -99,9 +102,9 @@ const BRANDS_ROW_2 = [
     name: 'BBVA México',
     category: 'Banca Corporativa & Digital',
     svg: `
-      <svg width="38" height="34" viewBox="0 0 24 24" fill="#004481">
-        <rect width="24" height="24" rx="5" fill="#004481"/>
-        <text x="12" y="16.5" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="900" font-size="9" fill="#FFFFFF" text-anchor="middle" letter-spacing="0.5">BBVA</text>
+      <svg height="28" viewBox="0 0 76 28" fill="none">
+        <rect width="76" height="28" rx="6" fill="#004481"/>
+        <text x="38" y="20.5" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="900" font-size="16" fill="#FFFFFF" text-anchor="middle" letter-spacing="1.5">BBVA</text>
       </svg>
     `,
     tag: 'BANCA TIER 1'
@@ -110,10 +113,10 @@ const BRANDS_ROW_2 = [
     name: 'Kavak',
     category: 'Unicornio Automotriz Tech',
     svg: `
-      <svg width="38" height="34" viewBox="0 0 24 24" fill="#111827">
-        <rect width="24" height="24" rx="5" fill="#111827"/>
-        <text x="10.5" y="16.5" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="900" font-size="10" fill="#FFFFFF" text-anchor="middle" letter-spacing="-0.5">kavak</text>
-        <circle cx="20" cy="9" r="1.8" fill="#2563EB"/>
+      <svg height="28" viewBox="0 0 76 28" fill="none">
+        <rect width="76" height="28" rx="6" fill="#111827"/>
+        <text x="35" y="20" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="900" font-size="17" fill="#FFFFFF" text-anchor="middle" letter-spacing="-0.5">kavak</text>
+        <circle cx="61" cy="9.5" r="2.8" fill="#2563EB"/>
       </svg>
     `,
     tag: 'SCALE-UP LÍDER'
@@ -122,9 +125,9 @@ const BRANDS_ROW_2 = [
     name: 'Nu México',
     category: 'Neobanca & Tarjetas Digitales',
     svg: `
-      <svg width="34" height="34" viewBox="0 0 24 24" fill="#820AD1">
-        <rect width="24" height="24" rx="5" fill="#820AD1"/>
-        <text x="12" y="17" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="900" font-size="13" fill="#FFFFFF" text-anchor="middle">nu</text>
+      <svg height="34" viewBox="0 0 34 34" fill="none">
+        <rect width="34" height="34" rx="8" fill="#820AD1"/>
+        <text x="17" y="24" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="900" font-size="19" fill="#FFFFFF" text-anchor="middle">nu</text>
       </svg>
     `,
     tag: 'FINTECH UNICORN'
@@ -133,9 +136,9 @@ const BRANDS_ROW_2 = [
     name: 'OXXO',
     category: 'FEMSA Comercio & Red OXXO Pay',
     svg: `
-      <svg width="40" height="34" viewBox="0 0 24 24" fill="none">
-        <rect width="24" height="24" rx="5" fill="#E31B23"/>
-        <text x="12" y="16.5" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="900" font-size="8.5" fill="#FFD100" text-anchor="middle" letter-spacing="0.8">OXXO</text>
+      <svg height="28" viewBox="0 0 76 28" fill="none">
+        <rect width="76" height="28" rx="6" fill="#E31B23"/>
+        <text x="38" y="20.5" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="900" font-size="17" fill="#FFD100" text-anchor="middle" letter-spacing="2">OXXO</text>
       </svg>
     `,
     tag: 'RETAIL OMNICANAL'
@@ -144,10 +147,10 @@ const BRANDS_ROW_2 = [
     name: 'Cinépolis',
     category: 'Entretenimiento & Experiencias',
     svg: `
-      <svg width="34" height="34" viewBox="0 0 24 24" fill="#0B2265">
-        <circle cx="12" cy="12" r="11" fill="#0B2265"/>
-        <path d="M7 8.5h10M7 12h10M7 15.5h6" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round"/>
-        <circle cx="17" cy="15.5" r="1.5" fill="#FFC72C"/>
+      <svg height="34" viewBox="0 0 34 34" fill="none">
+        <circle cx="17" cy="17" r="16" fill="#0B2265"/>
+        <path d="M10 12h14M10 17h14M10 22h8" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round"/>
+        <circle cx="23" cy="22" r="2" fill="#FFC72C"/>
       </svg>
     `,
     tag: 'MARCA GLOBAL MX'
@@ -156,9 +159,9 @@ const BRANDS_ROW_2 = [
     name: 'Grupo Bimbo',
     category: 'Consumo Masivo Multinacional',
     svg: `
-      <svg width="38" height="34" viewBox="0 0 24 24" fill="none">
-        <rect width="24" height="24" rx="5" fill="#004481"/>
-        <text x="12" y="16" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="900" font-size="8" fill="#FFFFFF" text-anchor="middle" letter-spacing="0.5">BIMBO</text>
+      <svg height="28" viewBox="0 0 76 28" fill="none">
+        <rect width="76" height="28" rx="6" fill="#004481"/>
+        <text x="38" y="20" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="900" font-size="15" fill="#FFFFFF" text-anchor="middle" letter-spacing="1">BIMBO</text>
       </svg>
     `,
     tag: 'ENTERPRISE B2C'
@@ -167,9 +170,10 @@ const BRANDS_ROW_2 = [
     name: 'Clip',
     category: 'Terminales & Pagos Digitales',
     svg: `
-      <svg width="34" height="34" viewBox="0 0 24 24" fill="#FF5E00">
-        <rect width="24" height="24" rx="5" fill="#FF5E00"/>
-        <path d="M12 6.5a3.5 3.5 0 0 0-3.5 3.5v3.5a1.8 1.8 0 0 0 3.5 0V10a.9.9 0 0 0-1.8 0v2.6h-1.3V10a2.2 2.2 0 0 1 4.4 0v3.5a3.1 3.1 0 0 1-6.2 0V10a4.8 4.8 0 0 1 9.6 0v3.5h-1.3V10a3.5 3.5 0 0 0-3.5-3.5z" fill="#FFFFFF"/>
+      <svg height="34" viewBox="0 0 34 34" fill="none">
+        <rect width="34" height="34" rx="8" fill="#FF5E00"/>
+        <circle cx="17" cy="17" r="7.5" fill="none" stroke="#FFFFFF" stroke-width="2.8"/>
+        <circle cx="17" cy="17" r="2.8" fill="#FFFFFF"/>
       </svg>
     `,
     tag: 'FINTECH CHECKOUT'
@@ -178,9 +182,9 @@ const BRANDS_ROW_2 = [
     name: 'Aeroméxico',
     category: 'Línea Aérea Bandera de México',
     svg: `
-      <svg width="34" height="34" viewBox="0 0 24 24" fill="#0B2341">
-        <circle cx="12" cy="12" r="11" fill="#0B2341"/>
-        <path d="M12 4l3 6.5 5 1.5-5 1.5-3 6.5-3-6.5-5-1.5 5-1.5z" fill="#E31B23"/>
+      <svg height="34" viewBox="0 0 34 34" fill="none">
+        <circle cx="17" cy="17" r="16" fill="#0B2341"/>
+        <path d="M17 6.5l3.5 7.5 6.5 1.5-6.5 1.5-3.5 7.5-3.5-7.5-6.5-1.5 6.5-1.5z" fill="#E31B23"/>
       </svg>
     `,
     tag: 'AEROLÍNEA LÍDER'
