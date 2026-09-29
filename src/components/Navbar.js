@@ -150,19 +150,18 @@ export function initNavbarEvents() {
   let naturalExpandedWidth = 0;
   let morphTl = null;
 
-  function measureWidth() {
-    if (!navPill || !isExpanded) return;
-    const prevW = navPill.style.width;
-    navPill.style.width = 'auto';
-    naturalExpandedWidth = navPill.offsetWidth;
-    navPill.style.width = prevW;
+  function updateExpandedWidth() {
+    if (navPill && isExpanded) {
+      naturalExpandedWidth = navPill.scrollWidth || navPill.offsetWidth;
+    }
   }
 
+  // Measure once after layout is fully rendered
   requestAnimationFrame(() => {
-    measureWidth();
+    updateExpandedWidth();
   });
   window.addEventListener('resize', () => {
-    if (isExpanded) measureWidth();
+    if (isExpanded) updateExpandedWidth();
   }, { passive: true });
 
   function collapseNav() {
@@ -173,8 +172,7 @@ export function initNavbarEvents() {
     if (dropdownWrapper) dropdownWrapper.classList.remove('is-open');
     if (morphTl) morphTl.kill();
 
-    measureWidth();
-    const startW = navPill.offsetWidth;
+    const startW = navPill.offsetWidth || naturalExpandedWidth;
 
     navPill.classList.remove('is-expanded');
     navPill.classList.add('is-collapsed');
@@ -186,43 +184,34 @@ export function initNavbarEvents() {
       }
     });
 
-    // 1. Logo animates (logoVariants.collapsed: opacity 0, x -25, rotate -180)
-    morphTl.to(logoSlot, {
+    // 1. Content gracefully fades and shrinks slightly (0.15s)
+    morphTl.to([logoSlot, linksSlot], {
       opacity: 0,
-      x: -25,
-      rotation: -180,
-      duration: 0.24,
-      ease: "power2.in"
+      scale: 0.96,
+      duration: 0.15,
+      ease: "power2.out"
     }, 0);
 
-    // 2. Links animate (itemVariants.collapsed: opacity 0, x -20, scale 0.95)
-    morphTl.to(linksSlot, {
-      opacity: 0,
-      x: -20,
-      scale: 0.95,
-      duration: 0.22,
-      ease: "power2.in"
-    }, 0);
-
-    // 3. Container width smoothly collapses to 48px (Framer Motion: width 3rem)
+    // 2. Liquid pill shrinks smoothly from current width to 48px circle (0.32s)
     morphTl.fromTo(navPill,
       { width: startW },
       {
         width: 48,
-        duration: 0.38,
-        ease: "power3.inOut"
+        duration: 0.32,
+        ease: "power2.inOut"
       },
-      0.06
+      0.04
     );
 
-    // 4. Menu Icon emerges in center (Framer Motion: opacity 1, scale 1, delay 0.15)
+    // 3. Menu Icon pops in with a bouncy spring (0.24s)
     morphTl.fromTo(collapsedIndicator,
-      { opacity: 0, scale: 0.8 },
+      { opacity: 0, scale: 0.6, rotate: -90 },
       {
         opacity: 1,
         scale: 1,
-        duration: 0.28,
-        ease: "back.out(1.8)"
+        rotate: 0,
+        duration: 0.24,
+        ease: "back.out(2)"
       },
       0.16
     );
@@ -234,8 +223,8 @@ export function initNavbarEvents() {
 
     if (morphTl) morphTl.kill();
 
-    const targetW = naturalExpandedWidth || 870;
-    const startW = navPill.offsetWidth;
+    const targetW = naturalExpandedWidth || 920;
+    const startW = navPill.offsetWidth || 48;
 
     navPill.classList.remove('is-collapsed');
     navPill.classList.add('is-expanded');
@@ -243,56 +232,43 @@ export function initNavbarEvents() {
 
     morphTl = gsap.timeline({
       onComplete: () => {
-        // Return to auto width & visible overflow so dropdowns work effortlessly
-        gsap.set(navPill, { width: 'auto', overflow: 'visible' });
+        // Return to auto width & visible overflow so dropdowns pop out seamlessly
+        navPill.style.width = 'auto';
+        navPill.style.overflow = 'visible';
         gsap.set([logoSlot, linksSlot, collapsedIndicator], { clearProps: 'all' });
-        measureWidth();
+        updateExpandedWidth();
       }
     });
 
-    // 1. Menu Icon disappears (Framer Motion: opacity 0, scale 0.8)
+    // 1. Menu Icon disappears rapidly (0.1s)
     morphTl.to(collapsedIndicator, {
       opacity: 0,
-      scale: 0.8,
-      duration: 0.14,
+      scale: 0.6,
+      duration: 0.1,
       ease: "power2.in"
     }, 0);
 
-    // 2. Pill width springs open to target width
+    // 2. Pill smoothly unfolds to full width with responsive spring bounce (0.36s)
     morphTl.fromTo(navPill,
       { width: startW, overflow: 'hidden' },
       {
         width: targetW,
-        duration: 0.42,
-        ease: "back.out(1.08)"
+        duration: 0.36,
+        ease: "power3.out"
       },
       0.02
     );
 
-    // 3. Logo springs in (Framer Motion: opacity 1, x 0, rotate 0)
-    morphTl.fromTo(logoSlot,
-      { opacity: 0, x: -25, rotation: -180 },
+    // 3. Content unmasks and scales in smoothly (0.22s)
+    morphTl.fromTo([logoSlot, linksSlot],
+      { opacity: 0, scale: 0.96 },
       {
         opacity: 1,
-        x: 0,
-        rotation: 0,
-        duration: 0.34,
-        ease: "back.out(1.35)"
-      },
-      0.12
-    );
-
-    // 4. Links spring in (Framer Motion: opacity 1, x 0, scale 1)
-    morphTl.fromTo(linksSlot,
-      { opacity: 0, x: -20, scale: 0.95 },
-      {
-        opacity: 1,
-        x: 0,
         scale: 1,
-        duration: 0.32,
+        duration: 0.24,
         ease: "power2.out"
       },
-      0.15
+      0.14
     );
   }
 
