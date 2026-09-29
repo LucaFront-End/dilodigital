@@ -31,114 +31,111 @@ export function renderHomeView() {
       <!-- 4. TRUSTED BY THE BEST — DUAL REVERSE INFINITE CAROUSELS (White Canvas Edition) -->
       ${renderTrustedBy()}
 
-      <!-- 5. IMPI EXPRESS VIABILITY SCANNER BANNER -->
-      <section class="container impi-banner-section" style="margin-top: clamp(4rem, 7vh, 6rem); margin-bottom: clamp(4rem, 7vw, 7rem);">
-        <div class="impi-express-banner">
-          <div class="impi-banner-grid">
+      <!-- 5. IMPI BRAND PROTECTION VAULT (MINIMALIST, VISUAL, EDITORIAL) -->
+      <section class="container impi-vault-section" style="margin-top: clamp(4rem, 7vh, 6rem); margin-bottom: clamp(4rem, 7vw, 7rem);">
+        <div class="impi-vault-card">
+          <div class="impi-vault-grid">
             
-            <div class="impi-banner-content">
-              <div class="impi-eyebrow-pill">
-                <span class="impi-eyebrow-pulse"></span>
-                <span>Protección Legal ante el IMPI &middot; México</span>
+            <!-- Left: Punchy Editorial Copy & Spotlight Search -->
+            <div class="impi-vault-content">
+              <div class="impi-vault-eyebrow">
+                <span class="impi-vault-pulse"></span>
+                <span>Blindaje Legal IMPI &middot; CDMX</span>
               </div>
-              <h3 class="impi-banner-title">
-                ¿TU MARCA ESTÁ DISPONIBLE PARA <span style="color: #FF5A1F;">REGISTRO ANTE EL IMPI?</span>
+              
+              <h3 class="impi-vault-title">
+                TU NOMBRE VALE MILLONES. <br>
+                <span class="impi-vault-title-accent">BLÍNDALO HOY.</span>
               </h3>
-              <p class="impi-banner-subtitle">
-                Evita demandas y pérdida de inversión. Realizamos un dictamen fonético express en 24h antes de que inviertas en diseño o producción.
+              
+              <p class="impi-vault-subtitle">
+                Dictamen fonético oficial en 24 horas hábiles. Protección nacional en las 45 clases NIZA antes de que un tercero registre tu nombre.
               </p>
 
-              <form class="impi-search-box" id="home-impi-search-form">
-                <div class="impi-search-input-wrap">
-                  <svg class="impi-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <!-- Spotlight-style Search Pill -->
+              <form class="impi-vault-search-form" id="home-impi-search-form">
+                <div class="impi-vault-search-inner">
+                  <svg class="impi-vault-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
                     <circle cx="11" cy="11" r="8"></circle>
                     <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                   </svg>
                   <input 
                     type="text" 
-                    class="impi-search-input" 
+                    class="impi-vault-input" 
                     id="home-impi-input" 
-                    placeholder="Escribe el nombre de tu marca (Ej. Nova Coffee)" 
+                    placeholder="Escribe el nombre de tu marca..." 
+                    autocomplete="off"
                     required
                   >
+                  <button type="submit" class="impi-vault-submit-btn" data-cursor="hover">
+                    <span>Escanear</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                      <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                  </button>
                 </div>
-                <button type="submit" class="impi-search-btn" data-cursor="hover">
-                  <span>Consultar Disponibilidad</span>
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                  </svg>
-                </button>
               </form>
 
-              <!-- Micro-Proof Checklist -->
-              <div class="impi-banner-proof">
-                <div class="impi-proof-pill">
-                  <span class="impi-proof-check">✓</span>
-                  <span>Trámite 100% Online</span>
-                </div>
-                <div class="impi-proof-pill">
-                  <span class="impi-proof-check">✓</span>
-                  <span>Dictamen en 24 Horas</span>
-                </div>
-                <div class="impi-proof-pill">
-                  <span class="impi-proof-check">✓</span>
-                  <span>Garantía de Viabilidad Dilo</span>
-                </div>
+              <!-- Subtle Micro-Guarantees -->
+              <div class="impi-vault-guarantees">
+                <span>✓ 100% Trámite Online</span>
+                <span class="impi-vault-sep">&middot;</span>
+                <span>✓ Dictamen en 24h</span>
+                <span class="impi-vault-sep">&middot;</span>
+                <span>✓ Reemplazo Sin Costo</span>
               </div>
             </div>
 
-            <!-- Kinetic Radar Legal Scanner Visual -->
-            <div class="impi-banner-visual" aria-hidden="true">
-              <div class="impi-radar-stage">
-                <svg class="impi-radar-svg" viewBox="0 0 340 340" fill="none">
-                  <defs>
-                    <linearGradient id="impiBeamGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stop-color="#FF5A1F" stop-opacity="0.35" />
-                      <stop offset="100%" stop-color="#FF5A1F" stop-opacity="0.0" />
-                    </linearGradient>
-                    <radialGradient id="impiCenterGlow" cx="50%" cy="50%" r="50%">
-                      <stop offset="0%" stop-color="#10B981" stop-opacity="0.25" />
-                      <stop offset="100%" stop-color="#10B981" stop-opacity="0.0" />
-                    </radialGradient>
-                  </defs>
+            <!-- Right: Beautiful Tangible Trademark Certificate Card -->
+            <div class="impi-vault-visual" aria-hidden="true">
+              <div class="impi-cert-card">
+                
+                <!-- Ambient Subtle Glow -->
+                <div class="impi-cert-glow"></div>
 
-                  <!-- Concentric Radar Rings -->
-                  <circle cx="170" cy="170" r="150" stroke="rgba(20, 23, 24, 0.05)" stroke-width="1" />
-                  <circle cx="170" cy="170" r="110" stroke="rgba(20, 23, 24, 0.07)" stroke-width="1" stroke-dasharray="3 3" />
-                  <circle cx="170" cy="170" r="70" stroke="rgba(20, 23, 24, 0.09)" stroke-width="1" />
-                  <circle cx="170" cy="170" r="30" stroke="rgba(255, 90, 31, 0.18)" stroke-width="1.5" />
-
-                  <!-- Crosshairs Axis Guides -->
-                  <line x1="20" y1="170" x2="320" y2="170" stroke="rgba(20, 23, 24, 0.06)" stroke-width="1" />
-                  <line x1="170" y1="20" x2="170" y2="320" stroke="rgba(20, 23, 24, 0.06)" stroke-width="1" />
-
-                  <!-- Rotating Radar Sweep Beam -->
-                  <g class="impi-radar-sweep">
-                    <path d="M 170 170 L 320 170 A 150 150 0 0 0 276 64 Z" fill="url(#impiBeamGrad)" />
-                    <line x1="170" y1="170" x2="276" y2="64" stroke="#FF5A1F" stroke-width="2" stroke-linecap="round" />
-                  </g>
-
-                  <!-- Central Radar Core Pulse -->
-                  <circle cx="170" cy="170" r="24" fill="url(#impiCenterGlow)" />
-                  <circle cx="170" cy="170" r="16" fill="#FFFFFF" stroke="#10B981" stroke-width="2" />
-                  <path d="M 165 170 L 169 174 L 176 166" stroke="#10B981" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
-
-                  <!-- Target Echo Blip -->
-                  <circle class="impi-radar-blip" cx="240" cy="100" r="4" fill="#FF5A1F" />
-                  <circle class="impi-radar-blip-ring" cx="240" cy="100" r="10" stroke="#FF5A1F" stroke-width="1" />
-                </svg>
-
-                <!-- Floating Minimal Status Badges -->
-                <div class="impi-float-chip chip-top">
-                  <span class="impi-chip-dot"></span>
-                  <span>MARCA FACTIBLE &middot; 98.4% DISPONIBLE</span>
+                <!-- Card Header -->
+                <div class="impi-cert-header">
+                  <div class="impi-cert-stamp">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF5A1F" stroke-width="2">
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    </svg>
+                    <span>EXPEDIENTE IMPI</span>
+                  </div>
+                  <span class="impi-cert-badge">DICTAMEN: 98% VIABLE</span>
                 </div>
 
-                <div class="impi-float-chip chip-bottom">
-                  <span class="impi-chip-icon">🛡️</span>
-                  <span>Clases NIZA 35, 42 & 25</span>
+                <!-- Visual Brand Display -->
+                <div class="impi-cert-body">
+                  <div class="impi-cert-brand-tag">MARCA REGISTRADA</div>
+                  <div class="impi-cert-brand-name">TU MARCA ®</div>
+                  <div class="impi-cert-brand-sub">Exclusividad Territorial &amp; Comercial en México</div>
                 </div>
+
+                <!-- Micro-Metrics Footer -->
+                <div class="impi-cert-footer">
+                  <div class="impi-cert-stat">
+                    <span class="impi-cert-stat-label">Clase NIZA</span>
+                    <span class="impi-cert-stat-val">35 / 42 / 25</span>
+                  </div>
+                  <div class="impi-cert-div"></div>
+                  <div class="impi-cert-stat">
+                    <span class="impi-cert-stat-label">Vigencia</span>
+                    <span class="impi-cert-stat-val">10 Años</span>
+                  </div>
+                  <div class="impi-cert-div"></div>
+                  <div class="impi-cert-stat">
+                    <span class="impi-cert-stat-label">Gestión</span>
+                    <span class="impi-cert-stat-val">Oficial IMPI</span>
+                  </div>
+                </div>
+
+                <!-- Floating Holographic Badge -->
+                <div class="impi-cert-floating-tag">
+                  <span class="impi-floating-check">✓</span>
+                  <span>Sin Riesgo de Demanda</span>
+                </div>
+
               </div>
             </div>
 
