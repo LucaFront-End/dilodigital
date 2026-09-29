@@ -233,12 +233,13 @@
 }
 
 .ww-ring-text {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(1.4rem, 2.3vw, 2.1rem);
-  font-weight: 800;
-  letter-spacing: -0.025em;
+  font-family: var(--sm-font-heading);
+  font-size: clamp(1.8rem, 2.8vw, 2.5rem);
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  text-transform: uppercase;
   color: #141718;
-  line-height: 1.1;
+  line-height: 0.95;
   transition: color 0.2s ease;
 }
 
@@ -293,11 +294,12 @@
 }
 
 .ww-front-title {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(1.35rem, 2vw, 1.85rem);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  line-height: 1.18;
+  font-family: var(--sm-font-heading);
+  font-size: clamp(1.8rem, 2.6vw, 2.4rem);
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  text-transform: uppercase;
+  line-height: 0.95;
   color: #141718;
   margin: 0.15rem 0 0.5rem;
 }

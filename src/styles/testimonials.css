@@ -39,7 +39,7 @@
 }
 
 .tst-tag-text {
-  font-family: var(--sm-font-body, system-ui, -apple-system, sans-serif);
+  font-family: var(--sm-font-body);
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.6px;
@@ -48,17 +48,25 @@
 }
 
 .tst-title {
-  font-family: var(--sm-font-heading, "Cabinet Grotesk", system-ui, sans-serif);
-  font-size: clamp(2rem, 3.8vw, 3.2rem);
-  font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: -0.8px;
+  font-family: var(--sm-font-heading);
+  font-size: clamp(3.2rem, 5.8vw, 5.8rem);
+  font-weight: 900;
+  line-height: 0.88;
+  letter-spacing: -2px;
+  text-transform: uppercase;
   color: #141718;
   margin-bottom: 0.85rem;
 }
 
+.tst-title-accent {
+  background: linear-gradient(135deg, #FF5A1F 0%, #FF7E47 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
 .tst-subtitle {
-  font-family: var(--sm-font-body, system-ui, sans-serif);
+  font-family: var(--sm-font-body);
   font-size: clamp(0.95rem, 1.1vw, 1.05rem);
   color: rgba(20, 23, 24, 0.65);
   line-height: 1.55;
@@ -76,7 +84,7 @@
   border-radius: 999px;
   border: 1px solid rgba(20, 23, 24, 0.08);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
-  font-family: var(--sm-font-body, system-ui, sans-serif);
+  font-family: var(--sm-font-body);
   font-size: 0.82rem;
   font-weight: 600;
   color: #141718;
@@ -91,9 +99,9 @@
 }
 
 .tst-trust-score {
-  font-family: var(--sm-font-heading, system-ui, sans-serif);
-  font-size: 1rem;
-  font-weight: 800;
+  font-family: var(--sm-font-heading);
+  font-size: 1.15rem;
+  font-weight: 900;
   color: #141718;
 }
 
@@ -236,7 +244,7 @@
 }
 
 .tst-card-badge {
-  font-family: var(--sm-font-body, system-ui, sans-serif);
+  font-family: var(--sm-font-body);
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.3px;
@@ -251,7 +259,7 @@
 
 /* Card Quote */
 .tst-card-quote {
-  font-family: var(--sm-font-body, system-ui, sans-serif);
+  font-family: var(--sm-font-body);
   font-size: 0.91rem;
   line-height: 1.55;
   color: #1F2428;
@@ -292,7 +300,7 @@
 }
 
 .tst-author-name {
-  font-family: var(--sm-font-body, system-ui, sans-serif);
+  font-family: var(--sm-font-body);
   font-size: 0.85rem;
   font-weight: 700;
   color: #141718;
@@ -307,7 +315,7 @@
 }
 
 .tst-author-role {
-  font-family: var(--sm-font-body, system-ui, sans-serif);
+  font-family: var(--sm-font-body);
   font-size: 0.76rem;
   color: rgba(20, 23, 24, 0.6);
   line-height: 1.3;

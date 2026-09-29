@@ -71,12 +71,14 @@
 }
 
 .ss-mobile-heading {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 1.35rem;
-  font-weight: 800;
+  font-family: var(--sm-font-heading);
+  font-size: 1.8rem;
+  font-weight: 900;
+  text-transform: uppercase;
   color: #141718;
   margin: 0;
-  line-height: 1.2;
+  line-height: 0.95;
+  letter-spacing: -0.5px;
 }
 
 /* ── Card Container (Compact & Fitted) ── */
@@ -463,13 +465,14 @@
 }
 
 .ss-left-title h2 {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: clamp(1.85rem, 2.4vw, 2.45rem);
-  font-weight: 800;
+  font-family: var(--sm-font-heading);
+  font-size: clamp(2.4rem, 3.4vw, 3.6rem);
+  font-weight: 900;
   color: #141718;
-  line-height: 1.2;
+  line-height: 0.92;
+  letter-spacing: -1px;
+  text-transform: uppercase;
   margin: 0;
-  letter-spacing: -0.03em;
   text-wrap: balance;
   max-width: 430px;
 }

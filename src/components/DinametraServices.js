@@ -161,7 +161,7 @@ export function renderDinametraServices() {
             <span>¿Qué podemos hacer por ti?</span>
           </div>
           <h2 class="dm-section-title">
-            Soluciones de alto rendimiento. <span style="color: #FF5A1F;">Resultados medibles.</span>
+            SOLUCIONES DE ALTO RENDIMIENTO.<br><span style="color: #FF5A1F;">RESULTADOS MEDIBLES.</span>
           </h2>
           <p class="dm-section-subtitle">
             Acompañamos a marcas y empresas en cada etapa: desde el registro legal ante el IMPI hasta campañas de adquisición y plataformas digitales.

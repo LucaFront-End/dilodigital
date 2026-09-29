@@ -17,7 +17,7 @@
   border: 1.5px solid rgba(255, 255, 255, 0.15);
   border-radius: 999px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28), 0 0 20px rgba(255, 90, 31, 0.18);
-  font-family: var(--sm-font-body, system-ui, sans-serif);
+  font-family: var(--sm-font-body);
   font-size: 0.88rem;
   font-weight: 700;
   cursor: pointer;
@@ -192,7 +192,7 @@
   padding: 0.55rem 0.75rem;
   border: none;
   background: transparent;
-  font-family: var(--sm-font-body, system-ui, sans-serif);
+  font-family: var(--sm-font-body);
   font-size: 0.8rem;
   font-weight: 700;
   color: #64748B;
@@ -390,7 +390,7 @@
   padding: 0.65rem 0.9rem;
   border-radius: 10px;
   border: 1px solid #CBD5E1;
-  font-family: var(--sm-font-body, system-ui, sans-serif);
+  font-family: var(--sm-font-body);
   font-size: 0.85rem;
   outline: none;
 }

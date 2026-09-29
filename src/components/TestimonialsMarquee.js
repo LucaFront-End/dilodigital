@@ -169,11 +169,12 @@ export function renderTestimonialsMarquee() {
     <header class="tst-header">
       <div class="tst-tag-wrap">
         <span class="tst-diamond-dot"></span>
-        <span class="tst-tag-text">Opiniones Verificadas</span>
+        <span class="tst-tag-text">OPINIONES VERIFICADAS</span>
       </div>
 
       <h2 class="tst-title">
-        Lo que dicen quienes confían en nosotros
+        LO QUE DICEN QUIENES YA<br>
+        <span class="tst-title-accent">DEJARON MARCA.</span>
       </h2>
 
       <p class="tst-subtitle">
