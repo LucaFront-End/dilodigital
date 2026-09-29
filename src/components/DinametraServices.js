@@ -262,8 +262,7 @@ export function renderDinametraServices() {
     </section>
 
     <!-- ================================================================
-         DILO DIGITAL — ARCHITECTURAL MINIMALIST COMPARISON BOARD
-         Clear, high-contrast, visual comparison with affirmative verdicts
+         DILO DIGITAL — MINIMALIST CALM COMPARISON (LESS TEXT, HIGH VALUE)
          ================================================================ -->
     <section class="dm-comparison-section" id="comparativo-dilo">
       <div class="dm-container">
@@ -271,345 +270,141 @@ export function renderDinametraServices() {
         <header class="dm-section-header">
           <div class="dm-eyebrow-pill">
             <span class="dm-eyebrow-dot"></span>
-            <span>DILO DIGITAL VS. MODELOS TRADICIONALES</span>
+            <span>Dilo vs. Modelo Tradicional</span>
           </div>
           <h2 class="dm-section-title">
-            LA VENTAJA DE UN MODELO<br>
-            <span style="color: #FF5A1F;">ÁGIL, SIN FRICCIÓN & CON RESULTADOS.</span>
+            EL CONTRASTE ES <span style="color: #FF5A1F;">CLARO.</span>
           </h2>
           <p class="dm-section-subtitle">
-            Compara con total transparencia por qué fundadores y directores en México eligen nuestro ecosistema frente a agencias lentas o contrataciones internas.
+            Menos intermediarios, entregas ágiles y control total de tu marca.
           </p>
         </header>
 
-        <!-- Mobile Segment Toggle (only visible on small screens) -->
-        <div class="dm-comp-mobile-toggle" role="tablist" aria-label="Comparar contra">
-          <button type="button" class="dm-comp-tab-btn is-active" data-comp-target="agencia">
-            <span>vs. Agencia Tradicional</span>
-          </button>
-          <button type="button" class="dm-comp-tab-btn" data-comp-target="inhouse">
-            <span>vs. Equipo In-House</span>
-          </button>
-        </div>
+        <!-- Minimalist Card Container -->
+        <div class="dm-min-card">
+          
+          <!-- Micro-Metrics Visual Row -->
+          <div class="dm-min-metrics-strip">
+            <div class="dm-min-metric-box">
+              <span class="dm-min-metric-num">3x</span>
+              <span class="dm-min-metric-txt">Más ágil en entregas</span>
+            </div>
+            <div class="dm-min-metric-div" aria-hidden="true"></div>
+            <div class="dm-min-metric-box">
+              <span class="dm-min-metric-num">&lt; 0.8s</span>
+              <span class="dm-min-metric-txt">Velocidad web en Vite</span>
+            </div>
+            <div class="dm-min-metric-div" aria-hidden="true"></div>
+            <div class="dm-min-metric-box">
+              <span class="dm-min-metric-num">100%</span>
+              <span class="dm-min-metric-txt">Propiedad de tus activos</span>
+            </div>
+          </div>
 
-        <!-- Architectural Minimalist Comparison Board -->
-        <div class="dm-comp-board">
-          <div class="dm-comp-table-scroll">
-            <div class="dm-comp-table" id="dm-comp-table" data-active-mobile="agencia">
+          <!-- Clean Minimal Comparison Table (3 Columns, No Walls of Text) -->
+          <div class="dm-min-table-wrap">
+            <div class="dm-min-table">
               
-              <!-- Table Header -->
-              <div class="dm-comp-row dm-comp-header-row">
-                <div class="dm-comp-cell dm-cell-feature">
-                  <span class="dm-comp-col-label">Criterios &amp; Capacidades</span>
-                </div>
-                
-                <div class="dm-comp-cell dm-cell-dilo">
-                  <div class="dm-comp-dilo-badge-wrap">
-                    <span class="dm-comp-dilo-pill">RECOMENDADO</span>
-                  </div>
-                  <div class="dm-comp-dilo-header">
+              <!-- Header -->
+              <div class="dm-min-row dm-min-row-head">
+                <div class="dm-min-col dm-col-feature">Criterio</div>
+                <div class="dm-min-col dm-col-dilo">
+                  <div class="dm-min-dilo-label">
                     <span class="dm-dilo-dot"></span>
-                    <span class="dm-dilo-title">Dilo Digital</span>
+                    <span>Dilo Digital</span>
                   </div>
-                  <span class="dm-comp-col-sub">Sprints continuos y retorno</span>
+                  <span class="dm-min-badge">Recomendado</span>
                 </div>
-                
-                <div class="dm-comp-cell dm-cell-agencia">
-                  <div class="dm-comp-col-title">Agencia Tradicional</div>
-                  <span class="dm-comp-col-sub">Burocracia y cobro por hora</span>
-                </div>
-                
-                <div class="dm-comp-cell dm-cell-inhouse">
-                  <div class="dm-comp-col-title">Equipo In-House</div>
-                  <span class="dm-comp-col-sub">Nómina fija y rotación</span>
-                </div>
+                <div class="dm-min-col dm-col-trad">Agencia Tradicional</div>
               </div>
 
               <!-- Row 1: Velocidad -->
-              <div class="dm-comp-row">
-                <div class="dm-comp-cell dm-cell-feature">
-                  <div class="dm-comp-feat-head">
-                    <span class="dm-comp-feat-icon">
-                      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                    </span>
-                    <span class="dm-comp-feat-name">Velocidad de Entrega</span>
-                  </div>
-                  <p class="dm-comp-feat-desc">Tiempos desde el kickoff hasta el despliegue funcional en producción.</p>
+              <div class="dm-min-row">
+                <div class="dm-min-col dm-col-feature">Tiempo de entrega</div>
+                <div class="dm-min-col dm-col-dilo">
+                  <span class="dm-min-check">✓</span>
+                  <span class="dm-min-text-dilo">Sprints de 15 días</span>
+                  <span class="dm-min-chip">&lt; 24h</span>
                 </div>
-                <div class="dm-comp-cell dm-cell-dilo">
-                  <div class="dm-verdict dm-verdict-positive">
-                    <span class="dm-check-circle">
-                      <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                      </svg>
-                    </span>
-                    <div class="dm-verdict-content">
-                      <div class="dm-verdict-title">Sprints de 15 días · Dictamen &lt; 24h</div>
-                      <span class="dm-verdict-badge">Sin esperas</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="dm-comp-cell dm-cell-agencia">
-                  <div class="dm-verdict dm-verdict-muted">
-                    <span class="dm-cross-circle">✕</span>
-                    <span class="dm-muted-text">3 a 6 semanas de burocracia</span>
-                  </div>
-                </div>
-                <div class="dm-comp-cell dm-cell-inhouse">
-                  <div class="dm-verdict dm-verdict-muted">
-                    <span class="dm-cross-circle">✕</span>
-                    <span class="dm-muted-text">Curva de 2 a 3 meses de hiring</span>
-                  </div>
+                <div class="dm-min-col dm-col-trad">
+                  <span class="dm-min-cross">—</span>
+                  <span class="dm-min-text-trad">4 a 8 semanas</span>
                 </div>
               </div>
 
-              <!-- Row 2: Blindaje IMPI -->
-              <div class="dm-comp-row">
-                <div class="dm-comp-cell dm-cell-feature">
-                  <div class="dm-comp-feat-head">
-                    <span class="dm-comp-feat-icon">
-                      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                    </span>
-                    <span class="dm-comp-feat-name">Blindaje Legal ante el IMPI</span>
-                  </div>
-                  <p class="dm-comp-feat-desc">Dictamen fonético en 45 clases NIZA antes de gastar en registro.</p>
+              <!-- Row 2: IMPI -->
+              <div class="dm-min-row">
+                <div class="dm-min-col dm-col-feature">Protección legal IMPI</div>
+                <div class="dm-min-col dm-col-dilo">
+                  <span class="dm-min-check">✓</span>
+                  <span class="dm-min-text-dilo">Dictamen oficial en 24h</span>
+                  <span class="dm-min-chip">Garantía</span>
                 </div>
-                <div class="dm-comp-cell dm-cell-dilo">
-                  <div class="dm-verdict dm-verdict-positive">
-                    <span class="dm-check-circle">
-                      <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                      </svg>
-                    </span>
-                    <div class="dm-verdict-content">
-                      <div class="dm-verdict-title">Área jurídica interna + Dictamen 24h</div>
-                      <span class="dm-verdict-badge">Garantía oficial</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="dm-comp-cell dm-cell-agencia">
-                  <div class="dm-verdict dm-verdict-muted">
-                    <span class="dm-cross-circle">✕</span>
-                    <span class="dm-muted-text">No ofrecen protección legal (subcontratan)</span>
-                  </div>
-                </div>
-                <div class="dm-comp-cell dm-cell-inhouse">
-                  <div class="dm-verdict dm-verdict-muted">
-                    <span class="dm-cross-circle">✕</span>
-                    <span class="dm-muted-text">Alto riesgo de objeción o rechazo</span>
-                  </div>
+                <div class="dm-min-col dm-col-trad">
+                  <span class="dm-min-cross">—</span>
+                  <span class="dm-min-text-trad">No incluye área legal</span>
                 </div>
               </div>
 
-              <!-- Row 3: Ingenieria Web -->
-              <div class="dm-comp-row">
-                <div class="dm-comp-cell dm-cell-feature">
-                  <div class="dm-comp-feat-head">
-                    <span class="dm-comp-feat-icon">
-                      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-                    </span>
-                    <span class="dm-comp-feat-name">Ingeniería Web &amp; Carga</span>
-                  </div>
-                  <p class="dm-comp-feat-desc">Arquitectura headless sin dependencias lentas ni plugins obsoletos.</p>
+              <!-- Row 3: Web -->
+              <div class="dm-min-row">
+                <div class="dm-min-col dm-col-feature">Ingeniería web</div>
+                <div class="dm-min-col dm-col-dilo">
+                  <span class="dm-min-check">✓</span>
+                  <span class="dm-min-text-dilo">Headless ultra-rápido</span>
+                  <span class="dm-min-chip">&lt; 0.8s</span>
                 </div>
-                <div class="dm-comp-cell dm-cell-dilo">
-                  <div class="dm-verdict dm-verdict-positive">
-                    <span class="dm-check-circle">
-                      <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                      </svg>
-                    </span>
-                    <div class="dm-verdict-content">
-                      <div class="dm-verdict-title">Headless sub-segundo (&lt; 0.8s) en React/Vite</div>
-                      <span class="dm-verdict-badge">100 PageSpeed</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="dm-comp-cell dm-cell-agencia">
-                  <div class="dm-verdict dm-verdict-muted">
-                    <span class="dm-cross-circle">✕</span>
-                    <span class="dm-muted-text">WordPress genérico y plugins vulnerables</span>
-                  </div>
-                </div>
-                <div class="dm-comp-cell dm-cell-inhouse">
-                  <div class="dm-verdict dm-verdict-muted">
-                    <span class="dm-cross-circle">✕</span>
-                    <span class="dm-muted-text">Meses de desarrollo y deuda técnica</span>
-                  </div>
+                <div class="dm-min-col dm-col-trad">
+                  <span class="dm-min-cross">—</span>
+                  <span class="dm-min-text-trad">WordPress lento (4s+)</span>
                 </div>
               </div>
 
-              <!-- Row 4: Performance & ROAS -->
-              <div class="dm-comp-row">
-                <div class="dm-comp-cell dm-cell-feature">
-                  <div class="dm-comp-feat-head">
-                    <span class="dm-comp-feat-icon">
-                      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>
-                    </span>
-                    <span class="dm-comp-feat-name">Performance &amp; ROAS</span>
-                  </div>
-                  <p class="dm-comp-feat-desc">Atribución de pauta orientada a retorno comercial real en Meta y Google.</p>
+              <!-- Row 4: Performance -->
+              <div class="dm-min-row">
+                <div class="dm-min-col dm-col-feature">Enfoque comercial</div>
+                <div class="dm-min-col dm-col-dilo">
+                  <span class="dm-min-check">✓</span>
+                  <span class="dm-min-text-dilo">Funnels WhatsApp &amp; Ads</span>
+                  <span class="dm-min-chip">ROAS 5.4x</span>
                 </div>
-                <div class="dm-comp-cell dm-cell-dilo">
-                  <div class="dm-verdict dm-verdict-positive">
-                    <span class="dm-check-circle">
-                      <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                      </svg>
-                    </span>
-                    <div class="dm-verdict-content">
-                      <div class="dm-verdict-title">Funnels WhatsApp + ROAS auditado (5.4x)</div>
-                      <span class="dm-verdict-badge">Rentabilidad</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="dm-comp-cell dm-cell-agencia">
-                  <div class="dm-verdict dm-verdict-muted">
-                    <span class="dm-cross-circle">✕</span>
-                    <span class="dm-muted-text">Métricas vanidosas (clics sin compras)</span>
-                  </div>
-                </div>
-                <div class="dm-comp-cell dm-cell-inhouse">
-                  <div class="dm-verdict dm-verdict-muted">
-                    <span class="dm-cross-circle">✕</span>
-                    <span class="dm-muted-text">Costo fijo sin garantía de retorno</span>
-                  </div>
+                <div class="dm-min-col dm-col-trad">
+                  <span class="dm-min-cross">—</span>
+                  <span class="dm-min-text-trad">Métricas de vanidad</span>
                 </div>
               </div>
 
-              <!-- Row 5: Claridad Financiera -->
-              <div class="dm-comp-row">
-                <div class="dm-comp-cell dm-cell-feature">
-                  <div class="dm-comp-feat-head">
-                    <span class="dm-comp-feat-icon">
-                      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                    </span>
-                    <span class="dm-comp-feat-name">Claridad Financiera</span>
-                  </div>
-                  <p class="dm-comp-feat-desc">Contratos transparentes, cotizaciones firmes y cero sorpresas.</p>
+              <!-- Row 5: Precios -->
+              <div class="dm-min-row">
+                <div class="dm-min-col dm-col-feature">Estructura de precios</div>
+                <div class="dm-min-col dm-col-dilo">
+                  <span class="dm-min-check">✓</span>
+                  <span class="dm-min-text-dilo">Precio fijo por alcance</span>
+                  <span class="dm-min-chip">Sin sorpresas</span>
                 </div>
-                <div class="dm-comp-cell dm-cell-dilo">
-                  <div class="dm-verdict dm-verdict-positive">
-                    <span class="dm-check-circle">
-                      <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                      </svg>
-                    </span>
-                    <div class="dm-verdict-content">
-                      <div class="dm-verdict-title">Precio fijo por alcance sin letras chiquitas</div>
-                      <span class="dm-verdict-badge">100% Transparente</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="dm-comp-cell dm-cell-agencia">
-                  <div class="dm-verdict dm-verdict-muted">
-                    <span class="dm-cross-circle">✕</span>
-                    <span class="dm-muted-text">Cobro por hora inflado y sobrecostos</span>
-                  </div>
-                </div>
-                <div class="dm-comp-cell dm-cell-inhouse">
-                  <div class="dm-verdict dm-verdict-muted">
-                    <span class="dm-cross-circle">✕</span>
-                    <span class="dm-muted-text">Nómina alta, IMSS, finiquitos y rotación</span>
-                  </div>
+                <div class="dm-min-col dm-col-trad">
+                  <span class="dm-min-cross">—</span>
+                  <span class="dm-min-text-trad">Cobros por hora inflados</span>
                 </div>
               </div>
 
-              <!-- Row 6: Trazabilidad -->
-              <div class="dm-comp-row">
-                <div class="dm-comp-cell dm-cell-feature">
-                  <div class="dm-comp-feat-head">
-                    <span class="dm-comp-feat-icon">
-                      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-                    </span>
-                    <span class="dm-comp-feat-name">Trazabilidad &amp; Portal en Vivo</span>
-                  </div>
-                  <p class="dm-comp-feat-desc">Seguimiento en tiempo real de tu trámite, código y campañas.</p>
+              <!-- Row 6: Propiedad -->
+              <div class="dm-min-row">
+                <div class="dm-min-col dm-col-feature">Propiedad de activos</div>
+                <div class="dm-min-col dm-col-dilo">
+                  <span class="dm-min-check">✓</span>
+                  <span class="dm-min-text-dilo">100% tuyo desde el día 1</span>
+                  <span class="dm-min-chip">Total</span>
                 </div>
-                <div class="dm-comp-cell dm-cell-dilo">
-                  <div class="dm-verdict dm-verdict-positive">
-                    <span class="dm-check-circle">
-                      <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                      </svg>
-                    </span>
-                    <div class="dm-verdict-content">
-                      <div class="dm-verdict-title">Portal de cliente 24/7 con notificaciones</div>
-                      <span class="dm-verdict-badge">En vivo</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="dm-comp-cell dm-cell-agencia">
-                  <div class="dm-verdict dm-verdict-muted">
-                    <span class="dm-cross-circle">✕</span>
-                    <span class="dm-muted-text">Reportes en PDF obsoletos por correo</span>
-                  </div>
-                </div>
-                <div class="dm-comp-cell dm-cell-inhouse">
-                  <div class="dm-verdict dm-verdict-muted">
-                    <span class="dm-cross-circle">✕</span>
-                    <span class="dm-muted-text">Múltiples juntas diarias improductivas</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Row 7: Propiedad de Activos -->
-              <div class="dm-comp-row">
-                <div class="dm-comp-cell dm-cell-feature">
-                  <div class="dm-comp-feat-head">
-                    <span class="dm-comp-feat-icon">
-                      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                    </span>
-                    <span class="dm-comp-feat-name">Propiedad de Activos &amp; Código</span>
-                  </div>
-                  <p class="dm-comp-feat-desc">Control absoluto de tus dominios, repositorios y marcas registradas.</p>
-                </div>
-                <div class="dm-comp-cell dm-cell-dilo">
-                  <div class="dm-verdict dm-verdict-positive">
-                    <span class="dm-check-circle">
-                      <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                      </svg>
-                    </span>
-                    <div class="dm-verdict-content">
-                      <div class="dm-verdict-title">100% tuyo desde la entrega, sin candados</div>
-                      <span class="dm-verdict-badge">Propiedad total</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="dm-comp-cell dm-cell-agencia">
-                  <div class="dm-verdict dm-verdict-muted">
-                    <span class="dm-cross-circle">✕</span>
-                    <span class="dm-muted-text">Secuestro de accesos o dominios al cancelar</span>
-                  </div>
-                </div>
-                <div class="dm-comp-cell dm-cell-inhouse">
-                  <div class="dm-verdict dm-verdict-muted">
-                    <span class="dm-cross-circle">✕</span>
-                    <span class="dm-muted-text">Pérdida de conocimiento si el talento rota</span>
-                  </div>
+                <div class="dm-min-col dm-col-trad">
+                  <span class="dm-min-cross">—</span>
+                  <span class="dm-min-text-trad">Retención de accesos</span>
                 </div>
               </div>
 
             </div>
           </div>
 
-          <!-- Bottom Conversion Strip inside Board -->
-          <div class="dm-comp-footer-bar">
-            <div class="dm-comp-footer-info">
-              <span class="dm-comp-footer-title">¿Listo para experimentar la diferencia de un modelo moderno?</span>
-              <span class="dm-comp-footer-sub">Sin contratos forzosos. Cotiza en 2 minutos y recibe tu propuesta técnica en menos de 24 horas.</span>
-            </div>
-            <div class="dm-comp-footer-actions">
-              <button type="button" class="btn btn-primary dm-comp-cta-btn" onclick="window.dispatchEvent(new CustomEvent('open-cotizador-modal'))" data-cursor="hover">
-                <span>Cotizar Proyecto con Dilo</span>
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                  <polyline points="12 5 19 12 12 19"></polyline>
-                </svg>
-              </button>
-            </div>
-          </div>
         </div>
 
       </div>
@@ -808,20 +603,6 @@ export function initDinametraServicesEvents() {
           });
         }
       }
-    });
-  }
-
-  // 7. Mobile Comparison Table Segmented Controller
-  const compToggleBtns = document.querySelectorAll('.dm-comp-tab-btn');
-  const compTable = document.getElementById('dm-comp-table');
-  if (compToggleBtns.length && compTable) {
-    compToggleBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const target = btn.getAttribute('data-comp-target');
-        compToggleBtns.forEach(b => b.classList.remove('is-active'));
-        btn.classList.add('is-active');
-        compTable.setAttribute('data-active-mobile', target);
-      });
     });
   }
 }
