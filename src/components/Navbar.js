@@ -2,9 +2,10 @@
 import { CATEGORIES } from '../data/categories.js';
 
 export function renderNavbar(activeRoute = 'home') {
+  const isHome = activeRoute === 'home';
 
   return `
-    <header class="site-header" id="site-header">
+    <header class="site-header ${isHome ? 'is-intro-hidden' : ''}" id="site-header">
       <div class="nav-container">
         <!-- Logo -->
         <a href="#/" class="brand-logo" data-cursor="hover" title="Dilo Digital MX">
@@ -123,6 +124,11 @@ export function renderNavbar(activeRoute = 'home') {
 export function initNavbarEvents() {
   const header = document.getElementById('site-header');
   const cotizarBtn = document.getElementById('btn-open-cotizador');
+
+  // If loader host does not exist on this page, ensure header is shown immediately
+  if (!document.getElementById('sm-loader-host')) {
+    header?.classList.remove('is-intro-hidden');
+  }
 
   // Scroll effect
   window.addEventListener('scroll', () => {

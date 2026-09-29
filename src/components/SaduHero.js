@@ -413,7 +413,13 @@ export function initSaduHeroEvents() {
         x: 0,
         y: 0,
         duration: 1.5,
-        ease: 'expo.inOut'
+        ease: 'expo.inOut',
+        onStart: () => {
+          const header = document.getElementById('site-header');
+          if (header) {
+            header.classList.remove('is-intro-hidden');
+          }
+        }
       }, '+=0.05');
 
       // Zoom video inside to natural scale 1
@@ -449,6 +455,10 @@ export function initSaduHeroEvents() {
         duration: 0.45,
         ease: 'power2.inOut',
         onComplete: () => {
+          const header = document.getElementById('site-header');
+          if (header) {
+            header.classList.remove('is-intro-hidden');
+          }
           unlockScroll();
           loaderHost.remove();
           if (typeof window.__smRevealLine0 === 'function') {
@@ -460,6 +470,10 @@ export function initSaduHeroEvents() {
       });
 
     } else {
+      const header = document.getElementById('site-header');
+      if (header) {
+        header.classList.remove('is-intro-hidden');
+      }
       if (typeof window.__smRevealLine0 === 'function') {
         window.__smRevealLine0();
       }
