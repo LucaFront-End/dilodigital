@@ -21,9 +21,10 @@ import './styles/legal-chat.css';
 import './styles/category-animations.css';
 import './styles/user-portal.css';
 import './styles/dinametra-services.css';
+import './styles/motion-footer.css';
 
 import { renderNavbar, initNavbarEvents } from './components/Navbar.js';
-import { renderFooter } from './components/Footer.js';
+import { renderFooter, initFooterEvents } from './components/Footer.js';
 import { renderEstimatorModal, initEstimatorEvents } from './components/EstimatorModal.js';
 import { renderLegalChatWidget, initLegalChatEvents } from './components/LegalChatWidget.js';
 import { CustomCursor } from './utils/Cursor.js';
@@ -131,6 +132,7 @@ class App {
     initNavbarEvents();
     initEstimatorEvents();
     initLegalChatEvents();
+    initFooterEvents();
     if (initCallback) {
       initCallback();
     }
