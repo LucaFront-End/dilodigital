@@ -1,11 +1,11 @@
 // ================================================================
 // DILO DIGITAL — SCROLL STACKING SERVICES SHOWCASE (DINAMETRA STYLE)
-// 3D Sticky Stacking Scroll Effect, Minimal Text, Real Lottie Animations
+// 3D Sticky Stacking Scroll Effect, Minimal Text, Procedural Kinetic Animations
 // ================================================================
 
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import lottie from 'lottie-web/build/player/lottie_light.js';
+import { SCENES, W, H } from './DinametraScenes.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -49,7 +49,6 @@ const SERVICES_DATA = [
       href: '#/registro-marca',
       openModal: 'coincidencias'
     },
-    lottiePath: '/lotties/shield.json',
     accentGlow: 'rgba(255, 90, 31, 0.08)'
   },
   {
@@ -69,7 +68,6 @@ const SERVICES_DATA = [
       href: '#/cotizar',
       category: 'marketing'
     },
-    lottiePath: '/lotties/marketing.json',
     accentGlow: 'rgba(255, 90, 31, 0.08)'
   },
   {
@@ -89,7 +87,6 @@ const SERVICES_DATA = [
       href: '#/cotizar',
       category: 'web-ecommerce'
     },
-    lottiePath: '/lotties/web.json',
     accentGlow: 'rgba(56, 189, 248, 0.08)'
   },
   {
@@ -108,7 +105,6 @@ const SERVICES_DATA = [
       label: 'Ver Paquetes de Branding',
       href: '#/categoria/branding-diseno'
     },
-    lottiePath: '/lotties/branding.json',
     accentGlow: 'rgba(168, 85, 247, 0.08)'
   },
   {
@@ -128,7 +124,6 @@ const SERVICES_DATA = [
       href: '#/cotizar',
       category: 'tecnologia'
     },
-    lottiePath: '/lotties/automatizacion.json',
     accentGlow: 'rgba(16, 185, 129, 0.08)'
   },
   {
@@ -147,327 +142,9 @@ const SERVICES_DATA = [
       label: 'Solicitar Diagnóstico',
       href: '#/contacto'
     },
-    lottiePath: '/lotties/reportes.json',
     accentGlow: 'rgba(2, 132, 199, 0.08)'
   }
 ];
-
-function renderServiceVisual(srv) {
-  if (srv.id === 'registro-marca') {
-    return `
-      <div class="dm-mockup-wrap dm-mockup-impi">
-        <div class="dm-mockup-card">
-          <div class="dm-mockup-header">
-            <div class="dm-mockup-badge dm-badge-green">
-              <span class="dm-badge-pulse"></span>
-              <span>DICTAMEN: 98% VIABLE</span>
-            </div>
-            <span class="dm-mockup-id">EXPEDIENTE IMPI #2026-MX</span>
-          </div>
-          
-          <div class="dm-impi-brand-box">
-            <div class="dm-impi-trademark">
-              <span class="dm-impi-name">DILO DIGITAL</span>
-              <span class="dm-impi-reg">®</span>
-            </div>
-            <div class="dm-impi-seal">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF5A1F" stroke-width="2.5">
-                <circle cx="12" cy="12" r="10"></circle>
-                <path d="M12 6v6l4 2"></path>
-              </svg>
-              <span>CONCESIÓN OFICIAL</span>
-            </div>
-          </div>
-
-          <div class="dm-impi-scanner">
-            <div class="dm-scanner-track">
-              <div class="dm-scanner-beam"></div>
-            </div>
-            <div class="dm-scanner-info">
-              <span class="dm-scanner-label">Búsqueda Fonética en 45 Clases</span>
-              <span class="dm-scanner-res">0 Coincidencias Críticas</span>
-            </div>
-          </div>
-
-          <div class="dm-niza-grid">
-            <div class="dm-niza-tag is-approved">
-              <span class="dm-niza-code">CLASE 35</span>
-              <span class="dm-niza-title">Publicidad & Negocios</span>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            </div>
-            <div class="dm-niza-tag is-approved">
-              <span class="dm-niza-code">CLASE 42</span>
-              <span class="dm-niza-title">Software & Headless</span>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            </div>
-          </div>
-
-          <div class="dm-impi-timeline">
-            <div class="dm-tl-step is-done">
-              <span class="dm-tl-dot">✓</span>
-              <span>1. Fonética</span>
-            </div>
-            <div class="dm-tl-line is-done"></div>
-            <div class="dm-tl-step is-done">
-              <span class="dm-tl-dot">✓</span>
-              <span>2. Dictamen 24h</span>
-            </div>
-            <div class="dm-tl-line is-active"></div>
-            <div class="dm-tl-step is-active">
-              <span class="dm-tl-dot">●</span>
-              <span>3. Título ®</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    `;
-  }
-
-  if (srv.id === 'marketing') {
-    return `
-      <div class="dm-mockup-wrap dm-mockup-marketing">
-        <div class="dm-mockup-card">
-          <div class="dm-mockup-header">
-            <div class="dm-mockup-badge dm-badge-orange">
-              <span class="dm-badge-pulse"></span>
-              <span>ROAS GLOBAL: 4.8X</span>
-            </div>
-            <span class="dm-mockup-id">LIVE ATTRIBUTION</span>
-          </div>
-
-          <div class="dm-channels-row">
-            <div class="dm-channel-chip">
-              <div class="dm-channel-icon dm-icon-google">G</div>
-              <div class="dm-channel-meta">
-                <span class="dm-channel-name">Google Search Ads</span>
-                <span class="dm-channel-stat">CTR 9.4% · CPL $34 MXN</span>
-              </div>
-            </div>
-            <div class="dm-channel-chip">
-              <div class="dm-channel-icon dm-icon-meta">M</div>
-              <div class="dm-channel-meta">
-                <span class="dm-channel-name">Meta Conversions</span>
-                <span class="dm-channel-stat">+142 Leads / sem</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="dm-ads-chart-box">
-            <div class="dm-chart-header">
-              <span>Curva de Adquisición & Conversión</span>
-              <span class="dm-chart-growth">+185% Retorno</span>
-            </div>
-            <svg class="dm-ads-svg-chart" viewBox="0 0 300 70" preserveAspectRatio="none">
-              <defs>
-                <linearGradient id="chartGrad-${srv.id}" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stop-color="#FF5A1F" stop-opacity="0.32"/>
-                  <stop offset="100%" stop-color="#FF5A1F" stop-opacity="0.0"/>
-                </linearGradient>
-              </defs>
-              <path d="M0,60 Q50,55 90,44 T170,30 T240,16 T300,6 L300,70 L0,70 Z" fill="url(#chartGrad-${srv.id})" />
-              <path d="M0,60 Q50,55 90,44 T170,30 T240,16 T300,6" fill="none" stroke="#FF5A1F" stroke-width="3" stroke-linecap="round" />
-              <circle cx="300" cy="6" r="4" fill="#FF5A1F" />
-            </svg>
-          </div>
-
-          <div class="dm-live-ticker">
-            <span class="dm-ticker-dot"></span>
-            <span class="dm-ticker-text">Lead Calificado: "Director General · Cotización $120k MXN"</span>
-          </div>
-        </div>
-      </div>
-    `;
-  }
-
-  if (srv.id === 'web-ecommerce') {
-    return `
-      <div class="dm-mockup-wrap dm-mockup-web">
-        <div class="dm-mockup-card">
-          <div class="dm-browser-chrome">
-            <div class="dm-browser-dots">
-              <span></span><span></span><span></span>
-            </div>
-            <div class="dm-browser-address">
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-              <span>dilodigital.mx/store</span>
-            </div>
-            <div class="dm-pagespeed-badge">
-              <span class="dm-pagespeed-score">100</span>
-              <span>PageSpeed</span>
-            </div>
-          </div>
-
-          <div class="dm-web-speed-box">
-            <div class="dm-speed-hero">
-              <span class="dm-speed-number">&lt; 0.8s</span>
-              <span class="dm-speed-label">Carga Sub-Segundo Global</span>
-            </div>
-            <div class="dm-stack-tags">
-              <span class="dm-tag-react">React Headless</span>
-              <span class="dm-tag-vite">Vite Engine</span>
-              <span class="dm-tag-figma">Figma UI</span>
-            </div>
-          </div>
-
-          <div class="dm-checkout-preview">
-            <div class="dm-checkout-title">Pasarelas de Pago Oficiales en México</div>
-            <div class="dm-gateways-list">
-              <span class="dm-gw-pill"><span class="dm-gw-dot" style="background:#635BFF;"></span>Stripe</span>
-              <span class="dm-gw-pill"><span class="dm-gw-dot" style="background:#009EE3;"></span>Mercado Pago</span>
-              <span class="dm-gw-pill"><span class="dm-gw-dot" style="background:#10B981;"></span>SPEI 24/7</span>
-              <span class="dm-gw-pill"><span class="dm-gw-dot" style="background:#111827;"></span>Apple Pay</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    `;
-  }
-
-  if (srv.id === 'branding') {
-    return `
-      <div class="dm-mockup-wrap dm-mockup-branding">
-        <div class="dm-mockup-card">
-          <div class="dm-mockup-header">
-            <div class="dm-mockup-badge dm-badge-purple">
-              <span class="dm-badge-pulse"></span>
-              <span>BRAND SYSTEM 2026</span>
-            </div>
-            <span class="dm-mockup-id">MANUAL DE IDENTIDAD</span>
-          </div>
-
-          <div class="dm-brand-symbol-box">
-            <div class="dm-brand-grid-lines"></div>
-            <div class="dm-brand-symbol">
-              <svg width="56" height="56" viewBox="0 0 100 100" fill="none">
-                <circle cx="50" cy="50" r="42" stroke="#FF5A1F" stroke-width="2" stroke-dasharray="3 3" opacity="0.6"/>
-                <circle cx="50" cy="50" r="30" stroke="#16253F" stroke-width="2" opacity="0.4"/>
-                <path d="M35 25 H55 C70 25 75 40 75 50 C75 60 70 75 55 75 H35 Z" fill="none" stroke="#FF5A1F" stroke-width="5" stroke-linejoin="round"/>
-                <line x1="35" y1="20" x2="35" y2="80" stroke="#16253F" stroke-width="2"/>
-              </svg>
-            </div>
-            <div class="dm-brand-guidelines-tag">Proporción Áurea & Grid Vectorial</div>
-          </div>
-
-          <div class="dm-swatches-row">
-            <div class="dm-swatch">
-              <div class="dm-swatch-color" style="background: #FF5A1F;"></div>
-              <span class="dm-swatch-code">#FF5A1F</span>
-            </div>
-            <div class="dm-swatch">
-              <div class="dm-swatch-color" style="background: #16253F;"></div>
-              <span class="dm-swatch-code">#16253F</span>
-            </div>
-            <div class="dm-swatch">
-              <div class="dm-swatch-color" style="background: #F8FAFC; border: 1px solid #E2E8F0;"></div>
-              <span class="dm-swatch-code">#F8FAFC</span>
-            </div>
-          </div>
-
-          <div class="dm-type-specimen">
-            <span class="dm-type-name">Syne Bold · Plus Jakarta Sans</span>
-            <span class="dm-type-chars">Aa Bb Cc Gg 0123 ®</span>
-          </div>
-        </div>
-      </div>
-    `;
-  }
-
-  if (srv.id === 'automatizacion') {
-    return `
-      <div class="dm-mockup-wrap dm-mockup-ai">
-        <div class="dm-mockup-card">
-          <div class="dm-chat-header">
-            <div class="dm-chat-avatar">
-              <span>D</span>
-              <span class="dm-chat-online"></span>
-            </div>
-            <div class="dm-chat-meta">
-              <div class="dm-chat-name">
-                <span>Dilo AI Assistant</span>
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="#10B981"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-              </div>
-              <span class="dm-chat-sub">Responde en &lt; 15 segundos</span>
-            </div>
-            <span class="dm-chat-badge">API OFICIAL</span>
-          </div>
-
-          <div class="dm-chat-messages">
-            <div class="dm-msg dm-msg-user">
-              <p>Hola, vi sus tiendas web. Necesito cotizar una plataforma headless y registro de marca IMPI.</p>
-              <span class="dm-msg-time">10:14 AM</span>
-            </div>
-
-            <div class="dm-msg dm-msg-bot">
-              <div class="dm-bot-badge">⚡ Agente IA Dilo</div>
-              <p>¡Hola! Claro que sí. Tu proyecto incluye tienda con carga &lt; 0.8s y dictamen IMPI en 24h. ¿Te agendo llamada técnica hoy a las 4:00 PM?</p>
-              <span class="dm-msg-time">10:14 AM · <span style="color: #38BDF8;">✓✓</span></span>
-            </div>
-          </div>
-
-          <div class="dm-chat-footer">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            <span>Lead calificado y sincronizado a CRM vía Make.com</span>
-          </div>
-        </div>
-      </div>
-    `;
-  }
-
-  // srv.id === 'reportes'
-  return `
-    <div class="dm-mockup-wrap dm-mockup-bi">
-      <div class="dm-mockup-card">
-        <div class="dm-mockup-header">
-          <div class="dm-mockup-badge dm-badge-blue">
-            <span class="dm-badge-pulse"></span>
-            <span>LOOKER STUDIO & GA4</span>
-          </div>
-          <span class="dm-mockup-id">MÉTRICAS EN VIVO</span>
-        </div>
-
-        <div class="dm-kpi-grid">
-          <div class="dm-kpi-card">
-            <span class="dm-kpi-lbl">Costo x Lead</span>
-            <span class="dm-kpi-val">$38 MXN</span>
-            <span class="dm-kpi-trend" style="color: #10B981;">↓ 24% vs meta</span>
-          </div>
-          <div class="dm-kpi-card">
-            <span class="dm-kpi-lbl">Tasa Cierre</span>
-            <span class="dm-kpi-val">34.2%</span>
-            <span class="dm-kpi-trend" style="color: #10B981;">↑ +14%</span>
-          </div>
-          <div class="dm-kpi-card">
-            <span class="dm-kpi-lbl">Retorno Ads</span>
-            <span class="dm-kpi-val">4.8X</span>
-            <span class="dm-kpi-trend" style="color: #FF5A1F;">ROAS Activo</span>
-          </div>
-        </div>
-
-        <div class="dm-attribution-box">
-          <div class="dm-attr-row">
-            <span class="dm-attr-label">Google Search</span>
-            <div class="dm-attr-bar-bg"><div class="dm-attr-bar-fill" style="width: 84%; background: #4285F4;"></div></div>
-            <span class="dm-attr-val">$185k</span>
-          </div>
-          <div class="dm-attr-row">
-            <span class="dm-attr-label">Meta Performance</span>
-            <div class="dm-attr-bar-bg"><div class="dm-attr-bar-fill" style="width: 68%; background: #FF5A1F;"></div></div>
-            <span class="dm-attr-val">$142k</span>
-          </div>
-          <div class="dm-attr-row">
-            <span class="dm-attr-label">Tráfico Orgánico</span>
-            <div class="dm-attr-bar-bg"><div class="dm-attr-bar-fill" style="width: 52%; background: #10B981;"></div></div>
-            <span class="dm-attr-val">$98k</span>
-          </div>
-        </div>
-
-        <div class="dm-bi-footer">
-          <span>Acompañamiento mensual con tu estratega asignado</span>
-        </div>
-      </div>
-    </div>
-  `;
-}
 
 export function renderDinametraServices() {
   return `
@@ -565,9 +242,13 @@ export function renderDinametraServices() {
                 </div>
               </div>
 
-              <!-- Tailored Interactive Visual Column (Right) -->
+              <!-- Procedural Kinetic Vector Animation (proceso-dilo style) -->
               <div class="dm-deck-visual">
-                ${renderServiceVisual(srv)}
+                <div class="dm-kinetic-card">
+                  <svg class="dm-kinetic-svg" id="dm-svg-${srv.id}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${srv.title}">
+                    <g id="dm-draw-${srv.id}"></g>
+                  </svg>
+                </div>
               </div>
 
             </article>
@@ -629,9 +310,12 @@ export function renderDinametraServices() {
               <div class="comp-icon">${CHECK_MUTED_ICON}</div>
             </div>
 
-            <!-- Column 3: Dilo Digital (Elevated Shadow Card) -->
-            <div class="comparativo-row shadow is-dilo-col">
-              <div class="comp-col-header is-dilo">Dilo Digital ⚡</div>
+            <!-- Column 3: Dilo Digital (Featured) -->
+            <div class="comparativo-row popular">
+              <div class="comp-col-header">
+                <span class="comp-header-title">Dilo Digital</span>
+                <span class="comp-tag-winner">RECOMENDADO</span>
+              </div>
               <div class="comp-icon">${CHECK_ORANGE_ICON}</div>
               <div class="comp-icon">${CHECK_ORANGE_ICON}</div>
               <div class="comp-icon">${CHECK_ORANGE_ICON}</div>
@@ -642,22 +326,9 @@ export function renderDinametraServices() {
               <div class="comp-icon">${CHECK_ORANGE_ICON}</div>
             </div>
 
-            <!-- Column 4: Agencias -->
-            <div class="comparativo-row">
-              <div class="comp-col-header">Otras Agencias</div>
-              <div class="comp-icon">${CROSS_ICON}</div>
-              <div class="comp-icon">${CROSS_ICON}</div>
-              <div class="comp-icon">${CROSS_ICON}</div>
-              <div class="comp-icon">${CROSS_ICON}</div>
-              <div class="comp-icon">${CROSS_ICON}</div>
-              <div class="comp-icon">${CROSS_ICON}</div>
-              <div class="comp-icon">${CROSS_ICON}</div>
-              <div class="comp-icon">${CROSS_ICON}</div>
-            </div>
-
-            <!-- Column 5: Freelancers -->
-            <div class="comparativo-row">
-              <div class="comp-col-header">Freelancers</div>
+            <!-- Column 4: Agencias Tradicionales -->
+            <div class="comparativo-row right">
+              <div class="comp-col-header">Agencias Tradicionales</div>
               <div class="comp-icon">${CROSS_ICON}</div>
               <div class="comp-icon">${CROSS_ICON}</div>
               <div class="comp-icon">${CROSS_ICON}</div>
@@ -680,61 +351,60 @@ export function initDinametraServicesEvents() {
   const items = Array.from(document.querySelectorAll('.dm-deck-sticky-item'));
   const currentNumEl = document.getElementById('dm-current-num');
   const navBtns = Array.from(document.querySelectorAll('.dm-deck-nav-btn'));
-  const containers = document.querySelectorAll('.dm-lottie-container');
-  const animInstances = new Map();
 
-  // 1. Initialize Lottie animations
-  if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        const el = entry.target;
-        const lottiePath = el.getAttribute('data-lottie-path');
+  // 1. Procedural Kinetic SVG Drawing Engine (60fps requestAnimationFrame)
+  const clocks = {
+    'registro-marca': 0,
+    'marketing': 0,
+    'web-ecommerce': 0,
+    'branding': 0,
+    'automatizacion': 0,
+    'reportes': 0
+  };
 
-        if (entry.isIntersecting) {
-          if (!animInstances.has(el) && lottiePath) {
-            try {
-              const anim = lottie.loadAnimation({
-                container: el,
-                renderer: 'svg',
-                loop: true,
-                autoplay: true,
-                path: lottiePath
-              });
-              animInstances.set(el, anim);
-            } catch (err) {
-              console.warn('[DinametraServices] Lottie load error for', lottiePath, err);
-            }
-          } else if (animInstances.has(el)) {
-            animInstances.get(el).play();
-          }
-        } else {
-          if (animInstances.has(el)) {
-            animInstances.get(el).pause();
-          }
-        }
-      });
-    }, { threshold: 0.1 });
+  let isSectionVisible = false;
+  let rafAnim = 0;
+  let lastTime = 0;
 
-    containers.forEach((c) => observer.observe(c));
-  } else {
-    // Fallback for browsers without IntersectionObserver
-    containers.forEach((el) => {
-      const lottiePath = el.getAttribute('data-lottie-path');
-      if (lottiePath) {
-        try {
-          const anim = lottie.loadAnimation({
-            container: el,
-            renderer: 'svg',
-            loop: true,
-            autoplay: true,
-            path: lottiePath
-          });
-          animInstances.set(el, anim);
-        } catch (err) {
-          console.warn('[DinametraServices] Fallback Lottie error', err);
-        }
+  function tick(now) {
+    if (!lastTime) lastTime = now;
+    const delta = Math.min(0.1, (now - lastTime) / 1000);
+    lastTime = now;
+
+    SERVICES_DATA.forEach((service) => {
+      const scene = SCENES[service.id];
+      if (!scene) return;
+
+      clocks[service.id] = (clocks[service.id] + delta) % scene.loop;
+      const t = clocks[service.id];
+
+      const drawContainer = document.getElementById(`dm-draw-${service.id}`);
+      if (drawContainer) {
+        drawContainer.innerHTML = scene.draw(t);
       }
     });
+
+    if (isSectionVisible) {
+      rafAnim = requestAnimationFrame(tick);
+    }
+  }
+
+  const showcaseSection = document.getElementById('servicios-showcase');
+  if ('IntersectionObserver' in window && showcaseSection) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        isSectionVisible = entry.isIntersecting;
+        cancelAnimationFrame(rafAnim);
+        lastTime = 0;
+        if (isSectionVisible) {
+          rafAnim = requestAnimationFrame(tick);
+        }
+      });
+    }, { threshold: 0.05 });
+    observer.observe(showcaseSection);
+  } else {
+    isSectionVisible = true;
+    rafAnim = requestAnimationFrame(tick);
   }
 
   // 2. Navigation pills click: Smooth scroll to item
