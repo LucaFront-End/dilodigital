@@ -1,86 +1,104 @@
-// Navbar Component with Mega-menu
+// ================================================================
+// DILO DIGITAL — ANIMATED FLOATING MORPHING NAVBAR
+// Floating Island, Auto-Collapses to Circular Orb on Scroll, Springs Open on Up-Scroll/Click
+// ================================================================
+
 import { CATEGORIES } from '../data/categories.js';
+import { sounds } from '../utils/SoundEngine.js';
 
 export function renderNavbar(activeRoute = 'home') {
-
   return `
     <header class="site-header" id="site-header">
-      <div class="nav-container">
-        <!-- Logo -->
-        <a href="#/" class="brand-logo" data-cursor="hover" title="Dilo Digital MX">
-          <img src="/brand/dilo-logo-dark.png" alt="Dilo Digital MX" onerror="this.src='/brand/dilo-logo.png'; this.style.filter='invert(1)';">
-        </a>
-
-        <!-- Desktop Navigation -->
-        <nav class="nav-menu" role="navigation">
-          <a href="#/" class="nav-item ${activeRoute === 'home' ? 'active' : ''}" data-cursor="hover">Inicio</a>
+      <div class="nav-center-wrapper">
+        <nav class="animated-nav-pill is-expanded" id="animated-nav-pill" role="navigation" aria-label="Navegación principal">
           
-          <!-- Categories with Mega-Dropdown -->
-          <div class="nav-dropdown-wrapper">
-            <a href="#/categorias" class="nav-item ${activeRoute.startsWith('categoria') ? 'active' : ''}" data-cursor="hover">
-              Categorías
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-left: 4px; display: inline-block; vertical-align: middle;">
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
-            </a>
-
-            <!-- Mega Dropdown Panel -->
-            <div class="nav-dropdown-panel">
-              ${CATEGORIES.map(cat => `
-                <a href="#/categoria/${cat.slug}" class="nav-dropdown-item" data-cursor="hover">
-                  <span class="nav-dropdown-number">${cat.number}</span>
-                  <div>
-                    <div class="nav-dropdown-title">${cat.title}</div>
-                    <div class="nav-dropdown-desc">${cat.concept}</div>
-                  </div>
-                </a>
-              `).join('')}
-            </div>
-          </div>
-
-          <!-- IMPI Direct Purchase Landing -->
-          <a href="#/registro-marca" class="nav-item ${activeRoute === 'registro-marca' ? 'active' : ''}" data-cursor="hover">
-            Registro IMPI
-            <span class="badge badge-primary" style="font-size: 0.68rem; padding: 0.15rem 0.45rem; margin-left: 0.35rem;">Online</span>
-          </a>
-
-          <!-- Portfolio -->
-          <a href="#/portafolio" class="nav-item ${activeRoute === 'portafolio' ? 'active' : ''}" data-cursor="hover">Portafolio</a>
-
-          <!-- About -->
-          <a href="#/nosotros" class="nav-item ${activeRoute === 'nosotros' ? 'active' : ''}" data-cursor="hover">Nosotros</a>
-
-          <!-- Contact -->
-          <a href="#/contacto" class="nav-item ${activeRoute === 'contacto' ? 'active' : ''}" data-cursor="hover">Contacto</a>
-
-          <!-- Portal Trámites IMPI -->
-          <a href="#/portal-tramites" class="nav-item ${activeRoute === 'portal-tramites' ? 'active' : ''}" data-cursor="hover" style="display: flex; align-items: center; gap: 0.35rem; color: #38BDF8;">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-            <span>Portal Trámites</span>
-          </a>
-        </nav>
-
-        <!-- Actions -->
-        <div class="nav-actions">
-
-          <!-- Cotizar Modal CTA -->
-          <button class="btn btn-primary btn-sm btn-glow" id="btn-open-cotizador" data-cursor="cotizar">
-            <span>Cotizar Proyecto</span>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-              <polyline points="12 5 19 12 12 19"></polyline>
-            </svg>
-          </button>
-
-          <!-- Mobile Nav Toggle -->
-          <button class="mobile-nav-toggle" id="btn-mobile-nav" aria-label="Abrir Menú" data-cursor="hover">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <!-- Collapsed Icon Overlay (Revealed when collapsed into floating circle) -->
+          <div class="nav-collapsed-indicator" id="nav-collapsed-indicator" aria-hidden="true" title="Abrir Menú">
+            <svg class="nav-collapsed-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
               <line x1="3" y1="12" x2="21" y2="12"></line>
               <line x1="3" y1="6" x2="21" y2="6"></line>
               <line x1="3" y1="18" x2="21" y2="18"></line>
             </svg>
-          </button>
-        </div>
+          </div>
+
+          <!-- Expanded Full Content (Logo + Links + Actions) -->
+          <div class="nav-expanded-content" id="nav-expanded-content">
+            
+            <!-- Logo -->
+            <a href="#/" class="brand-logo" data-cursor="hover" title="Dilo Digital MX">
+              <img src="/brand/dilo-logo-dark.png" alt="Dilo Digital MX" onerror="this.src='/brand/dilo-logo.png'; this.style.filter='invert(1)';">
+            </a>
+
+            <!-- Desktop Navigation Links -->
+            <div class="nav-menu">
+              <a href="#/" class="nav-item ${activeRoute === 'home' ? 'active' : ''}" data-cursor="hover">Inicio</a>
+              
+              <!-- Categories Dropdown -->
+              <div class="nav-dropdown-wrapper">
+                <a href="#/categorias" class="nav-item ${activeRoute.startsWith('categoria') ? 'active' : ''}" data-cursor="hover">
+                  <span>Categorías</span>
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-left: 3px; display: inline-block; vertical-align: middle;">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </a>
+
+                <!-- Mega Dropdown Panel -->
+                <div class="nav-dropdown-panel">
+                  ${CATEGORIES.map(cat => `
+                    <a href="#/categoria/${cat.slug}" class="nav-dropdown-item" data-cursor="hover">
+                      <span class="nav-dropdown-number">${cat.number}</span>
+                      <div>
+                        <div class="nav-dropdown-title">${cat.title}</div>
+                        <div class="nav-dropdown-desc">${cat.concept}</div>
+                      </div>
+                    </a>
+                  `).join('')}
+                </div>
+              </div>
+
+              <!-- Registro IMPI -->
+              <a href="#/registro-marca" class="nav-item ${activeRoute === 'registro-marca' ? 'active' : ''}" data-cursor="hover">
+                <span>Registro IMPI</span>
+                <span class="nav-item-badge">Online</span>
+              </a>
+
+              <!-- Portafolio -->
+              <a href="#/portafolio" class="nav-item ${activeRoute === 'portafolio' ? 'active' : ''}" data-cursor="hover">Portafolio</a>
+
+              <!-- Nosotros -->
+              <a href="#/nosotros" class="nav-item ${activeRoute === 'nosotros' ? 'active' : ''}" data-cursor="hover">Nosotros</a>
+
+              <!-- Contacto -->
+              <a href="#/contacto" class="nav-item ${activeRoute === 'contacto' ? 'active' : ''}" data-cursor="hover">Contacto</a>
+
+              <!-- Portal Trámites IMPI -->
+              <a href="#/portal-tramites" class="nav-item nav-item-portal ${activeRoute === 'portal-tramites' ? 'active' : ''}" data-cursor="hover">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                <span>Portal Trámites</span>
+              </a>
+            </div>
+
+            <!-- Actions -->
+            <div class="nav-actions">
+              <button class="btn btn-primary btn-sm btn-glow nav-btn-cta" id="btn-open-cotizador" data-cursor="cotizar">
+                <span>Cotizar Proyecto</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </button>
+
+              <button class="mobile-nav-toggle" id="btn-mobile-nav" aria-label="Abrir Menú" data-cursor="hover">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="3" y1="12" x2="21" y2="12"></line>
+                  <line x1="3" y1="6" x2="21" y2="6"></line>
+                  <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+              </button>
+            </div>
+
+          </div>
+        </nav>
       </div>
 
       <!-- Mobile Navigation Drawer Overlay -->
@@ -121,17 +139,64 @@ export function renderNavbar(activeRoute = 'home') {
 }
 
 export function initNavbarEvents() {
-  const header = document.getElementById('site-header');
+  const navPill = document.getElementById('animated-nav-pill');
   const cotizarBtn = document.getElementById('btn-open-cotizador');
+  const EXPAND_SCROLL_THRESHOLD = 80;
 
-  // Scroll effect
+  let isExpanded = true;
+  let lastScrollY = window.scrollY || 0;
+  let scrollPositionOnCollapse = 0;
+
+  function collapseNav() {
+    if (!isExpanded || !navPill) return;
+    isExpanded = false;
+    navPill.classList.remove('is-expanded');
+    navPill.classList.add('is-collapsed');
+    scrollPositionOnCollapse = window.scrollY;
+  }
+
+  function expandNav() {
+    if (isExpanded || !navPill) return;
+    isExpanded = true;
+    navPill.classList.remove('is-collapsed');
+    navPill.classList.add('is-expanded');
+  }
+
+  // Scroll listener with Framer Motion logic:
+  // - Down-scroll past 150px collapses into the sleek circular orb
+  // - Up-scroll by > 80px springs it back open
+  // - Near top (< 60px) stays expanded
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 30) {
-      header?.classList.add('is-scrolled');
-    } else {
-      header?.classList.remove('is-scrolled');
+    const latest = window.scrollY;
+    const previous = lastScrollY;
+
+    if (latest < 60) {
+      expandNav();
+    } else if (isExpanded && latest > previous && latest > 150) {
+      collapseNav();
+    } else if (!isExpanded && latest < previous && (scrollPositionOnCollapse - latest > EXPAND_SCROLL_THRESHOLD)) {
+      expandNav();
     }
+
+    lastScrollY = latest;
   }, { passive: true });
+
+  // Clicking the collapsed circle pill immediately springs it back open
+  navPill?.addEventListener('click', (e) => {
+    if (!isExpanded) {
+      e.preventDefault();
+      e.stopPropagation();
+      expandNav();
+      sounds.playPop();
+    }
+  });
+
+  // Clicking outside when expanded while scrolled down re-collapses
+  document.addEventListener('click', (e) => {
+    if (isExpanded && window.scrollY > 150 && navPill && !navPill.contains(e.target)) {
+      collapseNav();
+    }
+  });
 
   // Cotizar modal open
   cotizarBtn?.addEventListener('click', () => {
@@ -153,7 +218,7 @@ export function initNavbarEvents() {
       if (dropdownCloseTimer) clearTimeout(dropdownCloseTimer);
       dropdownCloseTimer = setTimeout(() => {
         dropdownWrapper.classList.remove('is-open');
-      }, 240); // 240ms grace buffer allows effortless diagonal mouse transit
+      }, 240);
     };
 
     dropdownWrapper.addEventListener('mouseenter', showDropdown);
@@ -161,7 +226,6 @@ export function initNavbarEvents() {
     dropdownPanel.addEventListener('mouseenter', showDropdown);
     dropdownPanel.addEventListener('mouseleave', hideDropdown);
 
-    // Close immediately when clicking any item
     dropdownPanel.querySelectorAll('.nav-dropdown-item').forEach(item => {
       item.addEventListener('click', () => {
         dropdownWrapper.classList.remove('is-open');
