@@ -1,6 +1,6 @@
 // ================================================================
 // DILO DIGITAL — CINEMATIC MOTION FOOTER
-// Curtain Reveal, Parallax Giant "DILO", Diagonal Marquee & Magnetic Glass Pills
+// Curtain Reveal, Parallax Giant "DILO", Diagonal Marquee & Categorized Quick Links
 // ================================================================
 
 import gsap from 'gsap';
@@ -28,7 +28,7 @@ export function renderFooter() {
           DILO
         </div>
 
-        <!-- 1. Diagonal Sleek Marquee (Top of footer) -->
+        <!-- 1. Diagonal Sleek Marquee (Positioned below the fixed navbar for 100% visibility) -->
         <div class="footer-diagonal-marquee" aria-hidden="true">
           <div class="footer-marquee-track">
             <div class="footer-marquee-group">
@@ -54,81 +54,93 @@ export function renderFooter() {
 
         <!-- 2. Main Center Content -->
         <div class="footer-center-content">
+          
           <h2 class="footer-text-glow" id="footer-heading">
             ¿Listo para dejar marca?
           </h2>
 
-          <!-- Interactive Magnetic Pills Layout -->
-          <div class="footer-pills-layout" id="footer-links">
-            
-            <!-- Primary Action Magnetic Pills -->
-            <div class="footer-primary-pills-row">
-              <div class="footer-magnetic-btn">
-                <button class="footer-glass-pill pill-primary pill-accent" onclick="window.dispatchEvent(new CustomEvent('open-cotizador-modal'))" data-cursor="cotizar">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
-                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-                  </svg>
-                  <span>Cotizar Proyecto en 60s</span>
-                </button>
-              </div>
-
-              <div class="footer-magnetic-btn">
-                <a href="https://wa.me/525592441070" target="_blank" rel="noopener" class="footer-glass-pill pill-primary" data-cursor="hover">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="color: #10B981;">
-                    <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.592 2.654-.697c.969.529 1.777.784 2.806.784 3.18 0 5.767-2.586 5.768-5.766.001-3.18-2.586-5.766-5.768-5.766zm9.969 5.766c0 5.505-4.479 9.984-9.969 9.984-1.748 0-3.385-.452-4.815-1.246l-5.216 1.369 1.393-5.086c-.885-1.488-1.393-3.228-1.393-5.021 0-5.505 4.479-9.984 9.969-9.984 5.505 0 10.026 4.479 10.026 9.984z"/>
-                  </svg>
-                  <span>WhatsApp Directo &middot; CDMX</span>
-                </a>
-              </div>
-
-              <div class="footer-magnetic-btn">
-                <a href="#/registro-marca" class="footer-glass-pill pill-primary" data-cursor="hover">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" style="color: #38BDF8;">
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                  </svg>
-                  <span>Consulta IMPI Express</span>
-                </a>
-              </div>
+          <!-- Primary Action Magnetic Pills -->
+          <div class="footer-primary-pills-row" id="footer-actions">
+            <div class="footer-magnetic-btn">
+              <button class="footer-glass-pill pill-primary pill-accent" onclick="window.dispatchEvent(new CustomEvent('open-cotizador-modal'))" data-cursor="cotizar">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                </svg>
+                <span>Cotizar Proyecto en 60s</span>
+              </button>
             </div>
 
-            <!-- Secondary Navigation Magnetic Pills -->
-            <div class="footer-secondary-pills-row">
-              <div class="footer-magnetic-btn">
-                <a href="#/categoria/branding-identidad" class="footer-glass-pill pill-secondary" data-cursor="hover">
-                  Branding &amp; Identidad
-                </a>
-              </div>
-              <div class="footer-magnetic-btn">
-                <a href="#/servicio/desarrollo-web-wix-headless" class="footer-glass-pill pill-secondary" data-cursor="hover">
-                  Web Headless &amp; Vite
-                </a>
-              </div>
-              <div class="footer-magnetic-btn">
-                <a href="#/servicio/meta-google-ads-performance" class="footer-glass-pill pill-secondary" data-cursor="hover">
-                  Performance &amp; Ads
-                </a>
-              </div>
-              <div class="footer-magnetic-btn">
-                <a href="#/portafolio" class="footer-glass-pill pill-secondary" data-cursor="hover">
-                  Casos Insignia
-                </a>
-              </div>
-              <div class="footer-magnetic-btn">
-                <a href="#/portal-tramites" class="footer-glass-pill pill-secondary" data-cursor="hover">
-                  Portal IMPI
-                </a>
-              </div>
-              <div class="footer-magnetic-btn">
-                <a href="#/aviso-de-privacidad" class="footer-glass-pill pill-secondary" data-cursor="hover">
-                  Aviso de Privacidad
-                </a>
-              </div>
+            <div class="footer-magnetic-btn">
+              <a href="https://wa.me/525592441070" target="_blank" rel="noopener" class="footer-glass-pill pill-primary" data-cursor="hover">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="color: #10B981;">
+                  <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.592 2.654-.697c.969.529 1.777.784 2.806.784 3.18 0 5.767-2.586 5.768-5.766.001-3.18-2.586-5.766-5.768-5.766zm9.969 5.766c0 5.505-4.479 9.984-9.969 9.984-1.748 0-3.385-.452-4.815-1.246l-5.216 1.369 1.393-5.086c-.885-1.488-1.393-3.228-1.393-5.021 0-5.505 4.479-9.984 9.969-9.984 5.505 0 10.026 4.479 10.026 9.984z"/>
+                </svg>
+                <span>WhatsApp Directo &middot; CDMX</span>
+              </a>
+            </div>
+
+            <div class="footer-magnetic-btn">
+              <a href="#/registro-marca" class="footer-glass-pill pill-primary" data-cursor="hover">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" style="color: #38BDF8;">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+                <span>Consulta IMPI Express</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- 3. Categorized Quick Links Grid (Soluciones, Especialidades, Agencia, Legal) -->
+          <div class="footer-quicklinks-grid" id="footer-links">
+            
+            <!-- Col 1: Soluciones -->
+            <div class="footer-quick-col">
+              <span class="footer-quick-title">Soluciones</span>
+              <ul class="footer-quick-list">
+                <li><a href="#/categoria/branding-identidad" data-cursor="hover">Branding &amp; Identidad</a></li>
+                <li><a href="#/servicio/desarrollo-web-wix-headless" data-cursor="hover">Desarrollo Web Headless</a></li>
+                <li><a href="#/servicio/meta-google-ads-performance" data-cursor="hover">Performance &amp; Ads (ROAS)</a></li>
+                <li><a href="#/servicio/produccion-audiovisual-ugc" data-cursor="hover">Contenido UGC &amp; Drone 4K</a></li>
+              </ul>
+            </div>
+
+            <!-- Col 2: Especialidades Dilo -->
+            <div class="footer-quick-col">
+              <span class="footer-quick-title">Especialidades</span>
+              <ul class="footer-quick-list">
+                <li><a href="#/registro-marca" class="quick-highlight" data-cursor="hover">★ Registro de Marca IMPI</a></li>
+                <li><a href="#/portal-tramites" data-cursor="hover">⚖️ Portal de Trámites</a></li>
+                <li><a href="#/portafolio" data-cursor="hover">Casos de Éxito Insignia</a></li>
+                <li><a href="#/registro-marca?open=coincidencias" data-cursor="hover">Dictamen Viabilidad 24h</a></li>
+              </ul>
+            </div>
+
+            <!-- Col 3: Agencia & Contacto -->
+            <div class="footer-quick-col">
+              <span class="footer-quick-title">Agencia</span>
+              <ul class="footer-quick-list">
+                <li><a href="#/nosotros" data-cursor="hover">Sobre Nosotros (Equipo)</a></li>
+                <li><a href="#metodo-dilo" data-cursor="hover">El Método Dilo en 4 Fases</a></li>
+                <li><a href="#/contacto" data-cursor="hover">Formulario de Intake &amp; Brief</a></li>
+                <li><span class="footer-quick-city">📍 CDMX &middot; Global Operations</span></li>
+              </ul>
+            </div>
+
+            <!-- Col 4: Legal & Confidencial -->
+            <div class="footer-quick-col">
+              <span class="footer-quick-title">Legal &amp; Confidencial</span>
+              <ul class="footer-quick-list">
+                <li><a href="#/aviso-de-privacidad" data-cursor="hover">Aviso de Privacidad</a></li>
+                <li><a href="#/registro-marca" data-cursor="hover">Protección de Activos</a></li>
+                <li><a href="#/contacto" data-cursor="hover">Acuerdo de Confidencialidad (NDA)</a></li>
+                <li><span class="footer-quick-badge">Garantía de Satisfacción 100%</span></li>
+              </ul>
             </div>
 
           </div>
+
         </div>
 
-        <!-- 3. Bottom Bar / Credits -->
+        <!-- 4. Bottom Bar / Credits -->
         <div class="footer-bottom-bar">
           <!-- Copyright -->
           <div class="footer-copyright">
@@ -162,6 +174,7 @@ export function initFooterEvents() {
   const wrapper = document.getElementById('cinematic-footer-wrapper');
   const giantText = document.getElementById('footer-giant-dilo');
   const heading = document.getElementById('footer-heading');
+  const actions = document.getElementById('footer-actions');
   const links = document.getElementById('footer-links');
   const scrollTopBtn = document.getElementById('footer-scroll-top-btn');
 
@@ -177,7 +190,7 @@ export function initFooterEvents() {
     // Parallax Giant DILO Background Text
     gsap.fromTo(
       giantText,
-      { y: '12vh', scale: 0.82, opacity: 0 },
+      { y: '12vh', scale: 0.85, opacity: 0 },
       {
         y: '0vh',
         scale: 1,
@@ -193,14 +206,14 @@ export function initFooterEvents() {
     );
 
     // Staggered Content Reveal
-    if (heading && links) {
+    if (heading && actions && links) {
       gsap.fromTo(
-        [heading, links],
-        { y: 50, opacity: 0 },
+        [heading, actions, links],
+        { y: 40, opacity: 0 },
         {
           y: 0,
           opacity: 1,
-          stagger: 0.15,
+          stagger: 0.12,
           ease: 'power3.out',
           scrollTrigger: {
             trigger: wrapper,
