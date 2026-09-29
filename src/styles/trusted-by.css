@@ -7,7 +7,7 @@
   position: relative;
   width: 100%;
   min-height: clamp(600px, 80vh, 780px);
-  background: #ffffff;
+  background: #FAFAFC;
   color: var(--sm-black);
   display: flex;
   align-items: center;
@@ -29,12 +29,12 @@
   pointer-events: none;
   background: linear-gradient(90deg, 
     transparent 0%, 
-    rgba(255, 255, 255, 0.4) 14%, 
-    rgba(255, 255, 255, 0.96) 26%, 
-    #ffffff 38%, 
-    #ffffff 62%, 
-    rgba(255, 255, 255, 0.96) 74%, 
-    rgba(255, 255, 255, 0.4) 86%, 
+    rgba(250, 250, 252, 0.4) 14%, 
+    rgba(250, 250, 252, 0.96) 26%, 
+    #FAFAFC 38%, 
+    #FAFAFC 62%, 
+    rgba(250, 250, 252, 0.96) 74%, 
+    rgba(250, 250, 252, 0.4) 86%, 
     transparent 100%
   );
   padding: 1.5rem;

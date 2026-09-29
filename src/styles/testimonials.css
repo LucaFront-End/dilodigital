@@ -6,9 +6,9 @@
 .tst-section {
   position: relative;
   padding: clamp(5rem, 9vh, 8rem) 0;
-  background: var(--bg-surface);
-  border-top: 1px solid rgba(20, 23, 24, 0.06);
-  border-bottom: 1px solid rgba(20, 23, 24, 0.06);
+  background: var(--bg-main, #FAFAFC);
+  border-top: none;
+  border-bottom: none;
   overflow: hidden;
 }
 
@@ -281,10 +281,10 @@
   left: 0;
   background: linear-gradient(
     90deg,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(255, 255, 255, 0.95) 25%,
-    rgba(255, 255, 255, 0.65) 60%,
-    rgba(255, 255, 255, 0) 100%
+    rgba(250, 250, 252, 1) 0%,
+    rgba(250, 250, 252, 0.95) 25%,
+    rgba(250, 250, 252, 0.65) 60%,
+    rgba(250, 250, 252, 0) 100%
   );
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
@@ -294,10 +294,10 @@
   right: 0;
   background: linear-gradient(
     270deg,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(255, 255, 255, 0.95) 25%,
-    rgba(255, 255, 255, 0.65) 60%,
-    rgba(255, 255, 255, 0) 100%
+    rgba(250, 250, 252, 1) 0%,
+    rgba(250, 250, 252, 0.95) 25%,
+    rgba(250, 250, 252, 0.65) 60%,
+    rgba(250, 250, 252, 0) 100%
   );
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);

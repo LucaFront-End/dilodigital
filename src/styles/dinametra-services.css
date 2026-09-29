@@ -6,7 +6,7 @@
 .dm-services-section {
   position: relative;
   width: 100%;
-  background: #FFFFFF;
+  background: #FAFAFC;
   padding: clamp(4rem, 7vw, 6.5rem) 0 0;
   box-sizing: border-box;
   overflow: visible; /* Required for sticky stacking */
@@ -439,10 +439,10 @@
 .dm-comparison-section {
   position: relative;
   width: 100%;
-  background: #F9FAFB;
-  padding: clamp(5rem, 8vw, 7.5rem) 0;
-  border-top: 1px solid #F3F4F6;
-  border-bottom: 1px solid #F3F4F6;
+  background: #FAFAFC;
+  padding: clamp(4rem, 7vw, 6.5rem) 0;
+  border-top: none;
+  border-bottom: none;
 }
 
 .dm-comparativo-scroll {
