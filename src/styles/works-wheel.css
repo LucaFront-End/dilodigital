@@ -75,7 +75,7 @@
   cursor: grab;
   touch-action: pan-x;
   outline: none;
-  overflow: hidden;
+  overflow: visible;
   z-index: 5;
 }
 

@@ -6,15 +6,15 @@
 
 import { PROJECTS } from '../data/projects.js';
 
-/* Geometry matching the original works-wheel tight perspective */
-const CARD_H = 0.36;      // Front card height relative to stage
+/* Geometry tuned for clean breathing room, zero card collision and stable 3D depth */
+const CARD_H = 0.32;      // Sleek, balanced height
 const CARD_MAX_W = 0.33;  // Max card width relative to stage
-const CARD_RATIO = 1.45;  // Width / Height aspect ratio
-const STEP = 40;          // 40 degrees between cards on drum (tight elegant gap)
-const DRUM = 2.22;        // Drum radius in card heights
-const LENS = 2.7;         // Perspective distance
-const RING_R = 1.12;      // Ring radius
-const BOW = 1.82;         // Lateral arc curve radius
+const CARD_RATIO = 1.48;  // Width / Height aspect ratio
+const STEP = 46;          // 46 degrees between cards on drum (prevents cards from overlapping)
+const DRUM = 2.45;        // Generous drum radius with luxurious card spacing
+const LENS = 2.8;         // Natural perspective distance
+const RING_R = 1.14;      // Ring radius
+const BOW = 2.10;         // Sweeps cards gracefully along the arc
 const TITLE = 0.095;      // Sleek, refined title size
 const INDEX = 0.038;      // Clean index size
 const CULL = 1.6;         // Distance culling
@@ -262,8 +262,8 @@ export function initWorksWheelEvents() {
     // Progress through the sticky track from 0 to 1
     const progress = clamp(-rect.top / maxScroll, 0, 1);
     
-    // Target ranges from 0 (ring) to count (all projects rotated through)
-    target = progress * (count + 0.1);
+    // Target ranges from 0 (ring) to last + 1 (lands dead-center on the last card)
+    target = progress * (last + 1);
   }
 
   window.addEventListener('scroll', updateScrollTarget, { passive: true });
@@ -314,8 +314,28 @@ export function initWorksWheelEvents() {
           bow,
           m
         );
-        card.style.opacity = m > 0.5 && Math.abs(d) > CULL ? '0' : '1';
-        card.style.zIndex = String(Math.round(100 - Math.abs(d) * 2));
+
+        // Smooth culling & exit fade:
+        // As a card exits downward past the front (d < -0.65), it smoothly fades out to 0.
+        // This stops the anteúltima card from colliding and flickering under the last card!
+        let opacity = 1;
+        if (m > 0.5) {
+          if (d < -0.65) {
+            opacity = clamp(1 - ((-d - 0.65) / 0.35), 0, 1);
+          } else if (d > CULL) {
+            opacity = 0;
+          }
+        }
+        card.style.opacity = String(opacity);
+
+        // Only use zIndex during the 2D ring state (m < 0.25).
+        // In 3D drum mode, natural perspective handles depth sorting, eliminating GPU z-fighting!
+        if (m < 0.25) {
+          card.style.zIndex = String(Math.round(100 - Math.abs(d) * 2));
+        } else {
+          card.style.zIndex = '';
+        }
+
         card.setAttribute('aria-selected', String(i === active));
       }
 
