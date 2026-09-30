@@ -14,11 +14,9 @@ export function renderNavbar(activeRoute = 'home') {
 
         <!-- Desktop Navigation -->
         <nav class="nav-menu" role="navigation">
-          <a href="#/" class="nav-item ${activeRoute === 'home' ? 'active' : ''}" data-cursor="hover">Inicio</a>
-          
           <!-- Categories with Mega-Dropdown -->
           <div class="nav-dropdown-wrapper">
-            <a href="#/categorias" class="nav-item ${activeRoute.startsWith('categoria') ? 'active' : ''}" data-cursor="hover">
+            <a href="#/categorias" class="nav-item ${activeRoute.startsWith('categoria') || activeRoute === 'registro-marca' ? 'active' : ''}" data-cursor="hover">
               Categorías
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-left: 4px; display: inline-block; vertical-align: middle;">
                 <polyline points="6 9 12 15 18 9"></polyline>
@@ -36,14 +34,19 @@ export function renderNavbar(activeRoute = 'home') {
                   </div>
                 </a>
               `).join('')}
+              <div style="border-top: 1px solid var(--border-light, rgba(0,0,0,0.08)); margin: 0.4rem 0;"></div>
+              <a href="#/registro-marca" class="nav-dropdown-item nav-dropdown-featured" data-cursor="hover" style="background: rgba(255, 90, 31, 0.05); border-radius: 8px;">
+                <span class="nav-dropdown-number" style="background: #FF5A1F; color: #FFFFFF;">★</span>
+                <div>
+                  <div class="nav-dropdown-title" style="display: flex; align-items: center; gap: 0.4rem; color: #FF5A1F;">
+                    Registro de Marca IMPI
+                    <span class="badge badge-primary" style="font-size: 0.65rem; padding: 0.1rem 0.4rem;">Online</span>
+                  </div>
+                  <div class="nav-dropdown-desc">Blindaje legal, búsqueda fonética y registro en 10 años</div>
+                </div>
+              </a>
             </div>
           </div>
-
-          <!-- IMPI Direct Purchase Landing -->
-          <a href="#/registro-marca" class="nav-item ${activeRoute === 'registro-marca' ? 'active' : ''}" data-cursor="hover">
-            Registro IMPI
-            <span class="badge badge-primary" style="font-size: 0.68rem; padding: 0.15rem 0.45rem; margin-left: 0.35rem;">Online</span>
-          </a>
 
           <!-- Portfolio -->
           <a href="#/portafolio" class="nav-item ${activeRoute === 'portafolio' ? 'active' : ''}" data-cursor="hover">Portafolio</a>
@@ -53,12 +56,6 @@ export function renderNavbar(activeRoute = 'home') {
 
           <!-- Contact -->
           <a href="#/contacto" class="nav-item ${activeRoute === 'contacto' ? 'active' : ''}" data-cursor="hover">Contacto</a>
-
-          <!-- Portal Trámites IMPI -->
-          <a href="#/portal-tramites" class="nav-item ${activeRoute === 'portal-tramites' ? 'active' : ''}" data-cursor="hover" style="display: flex; align-items: center; gap: 0.35rem; color: #38BDF8;">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-            <span>Portal Trámites</span>
-          </a>
         </nav>
 
         <!-- Actions -->
@@ -92,7 +89,6 @@ export function renderNavbar(activeRoute = 'home') {
             <button class="modal-close-btn" id="btn-close-mobile-nav" aria-label="Cerrar">✕</button>
           </div>
           <div style="display: flex; flex-direction: column; gap: 1rem; font-size: 1.15rem; font-weight: 700;">
-            <a href="#/" class="mobile-nav-link">Inicio</a>
             <div style="color: var(--text-tertiary); font-size: 0.8rem; text-transform: uppercase; margin-top: 0.5rem;">Categorías</div>
             ${CATEGORIES.map(c => `
               <a href="#/categoria/${c.slug}" class="mobile-nav-link" style="display: flex; align-items: center; justify-content: space-between; font-size: 1rem; font-weight: 600; padding: 0.4rem 0;">
@@ -100,15 +96,14 @@ export function renderNavbar(activeRoute = 'home') {
                 <span style="color: var(--color-primary);">→</span>
               </a>
             `).join('')}
+            <a href="#/registro-marca" class="mobile-nav-link" style="color: var(--color-primary); font-size: 1rem; display: flex; align-items: center; justify-content: space-between;">
+              <span>★ Registro de Marca IMPI</span>
+              <span class="badge badge-primary" style="font-size: 0.65rem;">Online</span>
+            </a>
             <div style="border-top: 1px solid var(--border-light); margin: 0.8rem 0;"></div>
-            <a href="#/registro-marca" class="mobile-nav-link" style="color: var(--color-primary);">★ Registro de Marca IMPI</a>
             <a href="#/portafolio" class="mobile-nav-link">Portafolio</a>
             <a href="#/nosotros" class="mobile-nav-link">Nosotros</a>
             <a href="#/contacto" class="mobile-nav-link" style="color: var(--color-primary);">Contacto Directo</a>
-            <a href="#/portal-tramites" class="mobile-nav-link" style="color: #38BDF8; display: flex; align-items: center; justify-content: space-between;">
-              <span>⚖️ Portal Trámites IMPI</span>
-              <span style="font-size: 0.72rem; background: rgba(56, 189, 248, 0.15); padding: 0.15rem 0.5rem; border-radius: 999px;">Clientes &amp; Staff</span>
-            </a>
           </div>
           <div style="margin-top: 2rem;">
             <button class="btn btn-primary btn-lg btn-glow" style="width: 100%; justify-content: center;" onclick="window.dispatchEvent(new CustomEvent('open-cotizador-modal'))">

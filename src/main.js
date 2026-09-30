@@ -17,7 +17,7 @@ import './styles/impi-purchase.css';
 import './styles/branding-purchase.css';
 import './styles/about-view.css';
 import './styles/contact-view.css';
-import './styles/legal-chat.css';
+import './styles/wix-chat.css';
 import './styles/category-animations.css';
 import './styles/user-portal.css';
 import './styles/dinametra-services.css';
@@ -26,7 +26,7 @@ import './styles/motion-footer.css';
 import { renderNavbar, initNavbarEvents } from './components/Navbar.js';
 import { renderFooter, initFooterEvents } from './components/Footer.js';
 import { renderEstimatorModal, initEstimatorEvents } from './components/EstimatorModal.js';
-import { renderLegalChatWidget, initLegalChatEvents } from './components/LegalChatWidget.js';
+import { renderWixChatWidget, initWixChatEvents } from './components/WixChatWidget.js';
 import { CustomCursor } from './utils/Cursor.js';
 
 import { renderHomeView, initHomeEvents } from './pages/HomeView.js';
@@ -125,13 +125,13 @@ class App {
       </div>
       ${renderFooter()}
       ${renderEstimatorModal()}
-      ${renderLegalChatWidget()}
+      ${renderWixChatWidget()}
     `;
 
     // Initialize Global and Page Events
     initNavbarEvents();
     initEstimatorEvents();
-    initLegalChatEvents();
+    initWixChatEvents();
     initFooterEvents();
     if (initCallback) {
       initCallback();

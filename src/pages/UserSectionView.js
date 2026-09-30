@@ -93,47 +93,47 @@ export function renderUserSectionView() {
             
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
               <div>
-                <label style="font-size: 0.8rem; font-weight: 700; color: #94A3B8; display: block; margin-bottom: 0.35rem;">Tipo de Trámite</label>
+                <label style="font-size: 0.8rem; font-weight: 700; color: #475569; display: block; margin-bottom: 0.35rem;">Tipo de Trámite</label>
                 <select class="registrar-select-filter" id="new-tramite-type" style="width: 100%;" required>
                   <option value="viabilidad">Dictamen &amp; Viabilidad</option>
                   <option value="registro">Registro Completo IMPI (10 Años)</option>
                 </select>
               </div>
               <div>
-                <label style="font-size: 0.8rem; font-weight: 700; color: #94A3B8; display: block; margin-bottom: 0.35rem;">Clase NIZA</label>
+                <label style="font-size: 0.8rem; font-weight: 700; color: #475569; display: block; margin-bottom: 0.35rem;">Clase NIZA</label>
                 <input type="text" class="registrar-search-input" id="new-tramite-class" placeholder="Ej. Clase 35 (Comercio)" required style="padding-left: 1rem;">
               </div>
             </div>
 
             <div>
-              <label style="font-size: 0.8rem; font-weight: 700; color: #94A3B8; display: block; margin-bottom: 0.35rem;">Nombre de la Marca</label>
+              <label style="font-size: 0.8rem; font-weight: 700; color: #475569; display: block; margin-bottom: 0.35rem;">Nombre de la Marca</label>
               <input type="text" class="registrar-search-input" id="new-tramite-brand" placeholder="Ej. Solaria Coffee MX" required style="padding-left: 1rem;">
             </div>
 
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
               <div>
-                <label style="font-size: 0.8rem; font-weight: 700; color: #94A3B8; display: block; margin-bottom: 0.35rem;">Nombre del Cliente / Titular</label>
+                <label style="font-size: 0.8rem; font-weight: 700; color: #475569; display: block; margin-bottom: 0.35rem;">Nombre del Cliente / Titular</label>
                 <input type="text" class="registrar-search-input" id="new-tramite-client" placeholder="Ej. Ana Lucía Morales" required style="padding-left: 1rem;">
               </div>
               <div>
-                <label style="font-size: 0.8rem; font-weight: 700; color: #94A3B8; display: block; margin-bottom: 0.35rem;">Correo Electrónico</label>
+                <label style="font-size: 0.8rem; font-weight: 700; color: #475569; display: block; margin-bottom: 0.35rem;">Correo Electrónico</label>
                 <input type="email" class="registrar-search-input" id="new-tramite-email" placeholder="cliente@solaria.mx" required style="padding-left: 1rem;">
               </div>
             </div>
 
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
               <div>
-                <label style="font-size: 0.8rem; font-weight: 700; color: #94A3B8; display: block; margin-bottom: 0.35rem;">Teléfono / WhatsApp</label>
+                <label style="font-size: 0.8rem; font-weight: 700; color: #475569; display: block; margin-bottom: 0.35rem;">Teléfono / WhatsApp</label>
                 <input type="tel" class="registrar-search-input" id="new-tramite-phone" placeholder="55 1234 5678" style="padding-left: 1rem;">
               </div>
               <div>
-                <label style="font-size: 0.8rem; font-weight: 700; color: #94A3B8; display: block; margin-bottom: 0.35rem;">Fecha Límite Legal</label>
+                <label style="font-size: 0.8rem; font-weight: 700; color: #475569; display: block; margin-bottom: 0.35rem;">Fecha Límite Legal</label>
                 <input type="date" class="registrar-search-input" id="new-tramite-deadline" style="padding-left: 1rem;" value="${calculateNextMonthlyUpdate(60)}">
               </div>
             </div>
 
             <div>
-              <label style="font-size: 0.8rem; font-weight: 700; color: #94A3B8; display: block; margin-bottom: 0.35rem;">Comentario Inicial para el Cliente</label>
+              <label style="font-size: 0.8rem; font-weight: 700; color: #475569; display: block; margin-bottom: 0.35rem;">Comentario Inicial para el Cliente</label>
               <textarea class="comments-textarea" id="new-tramite-comments" rows="3" placeholder="Expediente recibido y asignado a abogado especialista..."></textarea>
             </div>
 
@@ -240,10 +240,10 @@ function renderRegistrarViewHtml(activeTab = 'viabilidad', searchQuery = '', sta
       <!-- Tramites List -->
       <div class="tramites-list-grid" id="tramites-admin-list">
         ${filteredList.length === 0 ? `
-          <div style="background: #141718; border: 1px dashed rgba(255,255,255,0.1); border-radius: 18px; padding: 3rem; text-align: center; color: #94A3B8;">
+          <div style="background: #FFFFFF; border: 1.5px dashed #CBD5E1; border-radius: 18px; padding: 3rem; text-align: center; color: #64748B;">
             <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="1.8" style="margin-bottom: 0.8rem;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-            <div style="font-size: 1.1rem; font-weight: 700; color: #FFFFFF; margin-bottom: 0.3rem;">No se encontraron trámites</div>
-            <div style="font-size: 0.88rem;">Intenta con otro término de búsqueda o cambia el filtro de etapa.</div>
+            <div style="font-size: 1.1rem; font-weight: 700; color: #0F172A; margin-bottom: 0.3rem;">No se encontraron trámites</div>
+            <div style="font-size: 0.88rem; color: #64748B;">Intenta con otro término de búsqueda o cambia el filtro de etapa.</div>
           </div>
         ` : filteredList.map(t => {
           const currentStageObj = availableStages.find(s => s.id === t.currentStage) || availableStages[0];
@@ -366,9 +366,9 @@ function renderClientViewHtml() {
       <!-- Brands List -->
       <div style="display: flex; flex-direction: column; gap: 1.8rem;">
         ${tramites.length === 0 ? `
-          <div style="background: #141718; border-radius: 20px; padding: 3rem; text-align: center;">
-            <div style="font-size: 1.2rem; font-weight: 800; color: #FFFFFF; margin-bottom: 0.5rem;">No tienes marcas registradas aún</div>
-            <p style="color: #94A3B8; margin-bottom: 1.2rem;">Inicia hoy tu solicitud de viabilidad o registro oficial ante el IMPI en línea.</p>
+          <div style="background: #FFFFFF; border: 1.5px dashed #CBD5E1; border-radius: 20px; padding: 3rem; text-align: center;">
+            <div style="font-size: 1.2rem; font-weight: 800; color: #0F172A; margin-bottom: 0.5rem;">No tienes marcas registradas aún</div>
+            <p style="color: #64748B; margin-bottom: 1.2rem;">Inicia hoy tu solicitud de viabilidad o registro oficial ante el IMPI en línea.</p>
             <a href="#/registro-marca" class="btn btn-primary btn-md">Registrar Marca Ahora</a>
           </div>
         ` : tramites.map(t => {
@@ -394,7 +394,7 @@ function renderClientViewHtml() {
                       </span>
                     </div>
                     <h3 class="client-brand-name">${t.brandName}</h3>
-                    <div style="font-size: 0.82rem; color: #94A3B8;">${t.nizaClass || 'Clase NIZA'}</div>
+                    <div style="font-size: 0.82rem; color: #64748B;">${t.nizaClass || 'Clase NIZA'}</div>
                   </div>
                 </div>
 
@@ -408,7 +408,7 @@ function renderClientViewHtml() {
               <!-- 6-Step Visual Progress Stepper -->
               <div class="stepper-container">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
-                  <span style="font-size: 0.78rem; font-weight: 800; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.4px;">
+                  <span style="font-size: 0.78rem; font-weight: 800; color: #64748B; text-transform: uppercase; letter-spacing: 0.4px;">
                     Progreso del Trámite (${currentStepIndex} de 6 etapas completadas)
                   </span>
                   <span style="font-size: 0.78rem; font-weight: 700; color: #10B981;">
@@ -453,7 +453,7 @@ function renderClientViewHtml() {
                 <div class="client-footer-dates">
                   <div>
                     <strong style="color: #64748B;">Fecha de Ingreso:</strong>
-                    <span style="color: #ECEEEE; font-weight: 700; margin-left: 0.3rem;">${formatDisplayDate(t.entryDate)}</span>
+                    <span style="color: #0F172A; font-weight: 700; margin-left: 0.3rem;">${formatDisplayDate(t.entryDate)}</span>
                   </div>
                   <div>
                     <strong style="color: #64748B;">Próximo Reporte Mensual:</strong>

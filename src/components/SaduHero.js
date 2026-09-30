@@ -1,15 +1,16 @@
 // ================================================================
-// PIXEL-PERFECT SADU MEDIA HERO REPLICA FOR DILO DIGITAL
-// Replicates exact Sadu Media intro loader, 3D character flips,
-// cinematic video expand animation, and native sticky scroll lines.
+// DILO DIGITAL — SPLINE 3D HERO (SADU-STYLE INTRO + SPLINE HERO)
+// Intro: "Somos Dilo Digital" text 3D flip + image shutter + cinematic expand
+// Hero: Minimalist split layout with Spline 3D robot + sticky scroll lines
 // ================================================================
 
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Application } from '@splinetool/runtime';
 
 gsap.registerPlugin(ScrollTrigger);
 
-/* ── Asset URLs from Sadu Media CDN ── */
+/* ── Asset URLs for Loader Shutter Images ── */
 const IMGS = {
   i1: 'https://www.sadumedia.com/wp-content/uploads/2025/06/0e3479a7dafb42bac87188f122f446f91a671346-480x267.jpeg',
   i2: 'https://www.sadumedia.com/wp-content/uploads/2025/06/5a59c5d0639ac1e8adea57d31e6fd1bcc7f38196-480x263.jpeg',
@@ -27,7 +28,8 @@ const LOADER_IMGS = [
   'https://www.sadumedia.com/wp-content/uploads/2025/06/formula-e-jedda-e-prix-480x270.jpg',
 ];
 
-const VIDEO_LOOP = '/video/hero-reel.mp4';
+const SPLINE_SCENE_URL = 'https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode';
+
 const VIDEO_FULL = 'https://player.vimeo.com/progressive_redirect/playback/1005912608/rendition/1080p/file.mp4?loc=external&oauth2_token_id=1792346465&signature=02390617c05215e31e50654a97063c01bd4191c8bfd1aad4c29a726eea75ace8';
 
 function createThumb(src) {
@@ -41,7 +43,7 @@ function createThumb(src) {
 export function renderSaduHero() {
   return `
   <!-- ================================================================
-       1. SADU MEDIA INTRO LOADER (Video expands between letters)
+       1. SADU MEDIA INTRO LOADER (Expands into Spline Hero)
        ================================================================ -->
   <div class="sm-loader-host" id="sm-loader-host">
     <div class="sm-loader-content" id="sm-loader-content">
@@ -64,37 +66,86 @@ export function renderSaduHero() {
           <img src="${src}" alt="Showcase Preview">
         </div>
       `).join('')}
-      <!-- Final slide: Promo video (local, instant playback without lag) -->
-      <div class="sm-loader-media sm-loader-media-video" data-slide-index="${LOADER_IMGS.length}">
-        <video id="sm-loader-video-el" src="${VIDEO_LOOP}" autoplay loop muted playsinline preload="auto"></video>
+      <!-- Final slide: Capture of the hero that expands to fullscreen -->
+      <div class="sm-loader-media sm-loader-media-hero" data-slide-index="${LOADER_IMGS.length}">
+        <img src="/images/hero-capture.png" alt="Dilo Digital Hero" class="sm-hero-capture-img">
       </div>
       <div class="sm-loader-media-overlay"></div>
     </div>
   </div>
 
   <!-- ================================================================
-       2. MAIN HERO SECTION
+       2. MAIN HERO SECTION (Spline 3D Split Layout)
        ================================================================ -->
   <section class="sm-home-cover" id="sm-home-cover">
 
-    <!-- ① FULLSCREEN HERO VIDEO BANNER -->
-    <div class="sm-hero-video-wrap" id="sm-hero-video-wrap">
-      <div class="sm-hero-video-media" id="sm-hero-video-media">
-        <video id="sm-hero-bg-video" src="${VIDEO_LOOP}" autoplay loop muted playsinline preload="auto"></video>
-        <div class="sm-hero-video-overlay"></div>
+    <!-- ① SPLINE 3D HERO BANNER -->
+    <div class="sm-hero-spline-wrap" id="sm-hero-spline-wrap">
+      <!-- Spotlight mouse-follow glow -->
+      <div class="sm-hero-spotlight" id="sm-hero-spotlight"></div>
 
-        <!-- Follow-Mouse Cursor ("Ver Reel") -->
-        <div class="sm-follow-mouse" id="sm-follow-mouse">
-          <span class="sm-cursor-text-left" id="sm-cursor-left">Ver</span>
-          <div class="sm-cursor-diamond-box" id="sm-cursor-diamond">
-            <div class="sm-cursor-corner c-t"></div>
-            <div class="sm-cursor-corner c-r"></div>
-            <div class="sm-cursor-center" id="sm-cursor-center"></div>
-            <div class="sm-cursor-corner c-b"></div>
-            <div class="sm-cursor-corner c-l"></div>
-          </div>
-          <span class="sm-cursor-text-right" id="sm-cursor-right">Reel</span>
+      <!-- Spline 3D Canvas (covers right portion, extends full height) -->
+      <div class="sm-hero-spline-container" id="sm-hero-spline-container">
+        <canvas id="spline-canvas" class="sm-spline-canvas"></canvas>
+        <!-- Fallback loader while Spline loads -->
+        <div class="sm-spline-loader" id="sm-spline-loader">
+          <div class="sm-spline-spinner"></div>
         </div>
+      </div>
+
+      <!-- Bottom gradient fade to hide robot legs -->
+      <div class="sm-hero-bottom-fade"></div>
+
+      <div class="sm-hero-split">
+        <!-- Left: Editorial Copy -->
+        <div class="sm-hero-left" id="sm-hero-left">
+          <div class="sm-hero-eyebrow" id="sm-hero-eyebrow">
+            <span class="sm-hero-pulse-dot"></span>
+            <span>AGENCIA CREATIVA · CDMX & GLOBAL</span>
+          </div>
+
+          <h1 class="sm-hero-headline" id="sm-hero-headline">
+            <span class="sm-hero-line">CONSTRUIMOS</span>
+            <span class="sm-hero-line">MARCAS QUE</span>
+            <span class="sm-hero-line sm-hero-headline-accent sm-rotator-line">
+              <span class="sm-rotator-viewport" id="sm-rotator-viewport" title="Clic para cambiar">
+                <span class="sm-rotator-active" id="sm-rotator-active">DOMINAN</span>
+              </span>
+              <span class="sm-rotator-underline" id="sm-rotator-underline"></span>
+            </span>
+          </h1>
+
+          <p class="sm-hero-desc" id="sm-hero-desc">
+            Branding, ingeniería web headless, performance ads y blindaje legal IMPI. 
+            Resultados medibles en sprints de 15 días.
+          </p>
+
+          <div class="sm-hero-actions" id="sm-hero-actions">
+            <button class="sm-hero-btn-primary" onclick="window.dispatchEvent(new CustomEvent('open-cotizador-modal'))">
+              <span>Cotizar Proyecto</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
+            <a href="https://wa.me/525592441070" target="_blank" rel="noopener" class="sm-hero-btn-secondary">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.592 2.654-.697c.969.529 1.777.784 2.806.784 3.18 0 5.767-2.586 5.768-5.766.001-3.18-2.586-5.766-5.768-5.766zm9.969 5.766c0 5.505-4.479 9.984-9.969 9.984-1.748 0-3.385-.452-4.815-1.246l-5.216 1.369 1.393-5.086c-.885-1.488-1.393-3.228-1.393-5.021 0-5.505 4.479-9.984 9.969-9.984 5.505 0 10.026 4.479 10.026 9.984z"/>
+              </svg>
+              <span>WhatsApp Directo</span>
+            </a>
+          </div>
+
+          <!-- Micro Trust Chips -->
+          <div class="sm-hero-trust-row" id="sm-hero-trust-row">
+            <span class="sm-hero-trust-chip">⚡ Sprint de 15 días</span>
+            <span class="sm-hero-trust-chip">🛡️ Blindaje IMPI</span>
+            <span class="sm-hero-trust-chip">✦ 0% Templates</span>
+          </div>
+        </div>
+
+        <!-- Right: spacer (actual canvas is absolutely positioned behind) -->
+        <div class="sm-hero-right-spacer" aria-hidden="true"></div>
       </div>
     </div>
 
@@ -211,8 +262,17 @@ export function initSaduHeroEvents() {
   function startExperience() {
     const isMobile = window.innerWidth < 1200;
 
+    // ═══════════════════════════════════════════════════
+    // START SPLINE LOADING IMMEDIATELY (non-blocking)
+    // ═══════════════════════════════════════════════════
+    let splineApp = null;
+    initSplineScene();
+
+    // Initialize Hero sticky stages and ScrollTrigger pins
+    initHeroCoverAppear();
+
     /* ═══════════════════════════════════════════════════
-       A. LOADER ANIMATION (Exact Sadu Media replication)
+       A. LOADER ANIMATION
        ═══════════════════════════════════════════════════ */
     const loaderHost = document.getElementById('sm-loader-host');
     const loaderContent = document.getElementById('sm-loader-content');
@@ -223,8 +283,7 @@ export function initSaduHeroEvents() {
     const slotDesktop = document.getElementById('sm-loader-slot-desktop');
     const slotMobile = document.getElementById('sm-loader-slot-mobile');
 
-    // Strict Scroll-Lock during intro animation:
-    // Prevents user from scrolling during loader and ensures page stays pinned at top
+    // Strict Scroll-Lock during intro animation
     const preventScroll = (e) => {
       e.preventDefault();
       e.stopPropagation();
@@ -254,30 +313,10 @@ export function initSaduHeroEvents() {
       window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     };
 
-    // 1. Initialize Hero sticky stages and ScrollTrigger pins immediately upfront
-    initHeroCoverAppear();
-
     if (loaderHost && mediasWrapper && title0 && title1 && title2) {
       lockScroll();
       const slot = isMobile ? slotMobile : slotDesktop;
       const mediaSlides = Array.from(mediasWrapper.querySelectorAll('.sm-loader-media'));
-
-      // Explicit Video Handshake & Preload:
-      const loaderVid = document.getElementById('sm-loader-video-el');
-      const heroVid = document.getElementById('sm-hero-bg-video');
-
-      [loaderVid, heroVid].forEach(v => {
-        if (v) {
-          v.muted = true;
-          v.defaultMuted = true;
-          v.playsInline = true;
-          v.setAttribute('playsinline', '');
-          v.setAttribute('webkit-playsinline', '');
-          v.load();
-          const p = v.play();
-          if (p !== undefined) p.catch(() => {});
-        }
-      });
 
       // Split characters for 3D tumbling effect
       const chars0 = splitChars(title0, 'sm-loader-char');
@@ -289,7 +328,6 @@ export function initSaduHeroEvents() {
       const slotBounds = slot.getBoundingClientRect();
       const wrapBounds = mediasWrapper.getBoundingClientRect();
 
-      // Compute center offsets from placeholder slot to center of screen
       const slotCenterX = slotBounds.left + slotBounds.width / 2;
       const slotCenterY = slotBounds.top + slotBounds.height / 2;
       const wrapCenterX = wrapBounds.left + wrapBounds.width / 2;
@@ -298,11 +336,9 @@ export function initSaduHeroEvents() {
       const initialOffsetX = slotCenterX - wrapCenterX;
       const initialOffsetY = slotCenterY - wrapCenterY;
 
-      // Compute clip-path insets so wrapper matches the slot when opened
       const clipTopBottom = Math.max(0, (wrapBounds.height - slotBounds.height) / 2);
       const clipLeftRight = Math.max(0, (wrapBounds.width - slotBounds.width) / 2);
 
-      // Initial scale so inner video/images fill the slot nicely
       const initialScale = Math.max(
         slotBounds.height / Math.max(1, wrapBounds.height),
         slotBounds.width / Math.max(1, wrapBounds.width)
@@ -322,68 +358,40 @@ export function initSaduHeroEvents() {
         inners.forEach(inner => gsap.set(inner, { scale: initialScale }));
       });
 
-      // Characters start rotated 90deg backwards (lying down flat)
-      gsap.set(allChars, {
-        autoAlpha: 0,
-        rotateX: 90
-      });
+      gsap.set(allChars, { autoAlpha: 0, rotateX: 90 });
 
-      // On desktop, shift "WE" and "ARE" to sit right next to each other in the center
       if (!isMobile) {
         const t0Bounds = title0.getBoundingClientRect();
         const t1Bounds = title1.getBoundingClientRect();
         const screenMid = window.innerWidth / 2;
         const initialGap = 24;
-
         const shift0 = (screenMid - initialGap / 2) - t0Bounds.right;
         const shift1 = (screenMid + initialGap / 2) - t1Bounds.left;
-
         gsap.set(title0, { x: shift0 });
         gsap.set(title1, { x: shift1 });
       }
 
-      // Build Master Sadu Loader Timeline
-      const tl = gsap.timeline({
-        delay: 0.15
-      });
+      // Build Master Loader Timeline
+      const tl = gsap.timeline({ delay: 0.15 });
 
-      // 1. Flip in all characters in 3D (0 -> 0.8s)
-      tl.to(allChars, {
-        autoAlpha: 1,
-        duration: 0.35,
-        ease: 'power2.out',
-        stagger: 0.02
-      }, 0);
-      tl.to(allChars, {
-        rotateX: 0,
-        duration: 0.8,
-        ease: 'expo.out',
-        stagger: 0.02
-      }, 0);
+      // 1. Flip in characters
+      tl.to(allChars, { autoAlpha: 1, duration: 0.35, ease: 'power2.out', stagger: 0.02 }, 0);
+      tl.to(allChars, { rotateX: 0, duration: 0.8, ease: 'expo.out', stagger: 0.02 }, 0);
 
-      // 2. Slide "WE" left and "ARE" right (0.5s -> 1.75s)
+      // 2. Slide titles apart
       if (!isMobile) {
-        tl.to([title0, title1], {
-          x: 0,
-          duration: 1.25,
-          ease: 'expo.inOut'
-        }, 0.5);
+        tl.to([title0, title1], { x: 0, duration: 1.25, ease: 'expo.inOut' }, 0.5);
       }
 
-      // 3. Simultaneously reveal the slot between them (unfolds from 0px width to slot width)
-      tl.to(mediasWrapper, {
-        autoAlpha: 1,
-        duration: 0.3,
-        ease: 'power2.out'
-      }, 0.5);
-
+      // 3. Reveal slot
+      tl.to(mediasWrapper, { autoAlpha: 1, duration: 0.3, ease: 'power2.out' }, 0.5);
       tl.to(mediasWrapper, {
         clipPath: `inset(${clipTopBottom}px ${clipLeftRight}px round 12px)`,
         duration: 1.25,
         ease: 'expo.inOut'
       }, 0.5);
 
-      // 4. Shutter flip of agency projects inside slot (0.65s -> 1.75s)
+      // 4. Shutter flip images (last slide = hero capture)
       const shutterStart = 0.65;
       const shutterDuration = 1.1;
       const step = shutterDuration / mediaSlides.length;
@@ -391,23 +399,12 @@ export function initSaduHeroEvents() {
         const time = shutterStart + idx * step;
         tl.set(mediaSlides, { autoAlpha: 0 }, time);
         tl.set(slide, { autoAlpha: 1 }, time);
-        if (idx === mediaSlides.length - 1) {
-          tl.add(() => {
-            if (loaderVid) {
-              loaderVid.currentTime = 0;
-              loaderVid.play().catch(() => {});
-            }
-            if (heroVid) {
-              heroVid.play().catch(() => {});
-            }
-          }, time);
-        }
       });
 
-      // 5. Brief cinematic hold on the promo video (1.75s -> 2.15s)
-      tl.to({}, { duration: 0.4 });
+      // 5. Hold on hero preview
+      tl.to({}, { duration: 0.5 });
 
-      // 6. CINEMATIC FULLSCREEN EXPANSION! (2.15s -> 3.65s)
+      // 6. CINEMATIC FULLSCREEN EXPANSION
       tl.to(mediasWrapper, {
         clipPath: 'inset(0px 0px round 0px)',
         x: 0,
@@ -416,54 +413,31 @@ export function initSaduHeroEvents() {
         ease: 'expo.inOut',
         onStart: () => {
           const header = document.getElementById('site-header');
-          if (header) {
-            header.classList.remove('is-intro-hidden');
-          }
+          if (header) header.classList.remove('is-intro-hidden');
         }
       }, '+=0.05');
 
-      // Zoom video inside to natural scale 1
+      // Zoom inner content to natural scale
       const allInners = mediasWrapper.querySelectorAll('img, video');
-      tl.to(allInners, {
-        scale: 1,
-        duration: 1.5,
-        ease: 'expo.inOut'
-      }, '<');
+      tl.to(allInners, { scale: 1, duration: 1.5, ease: 'expo.inOut' }, '<');
 
-      // Fade out title text as video engulfs the screen
-      tl.to(loaderContent, {
-        opacity: 0,
-        duration: 0.6,
-        ease: 'power2.out'
-      }, '<+=0.3');
+      // Fade title text
+      tl.to(loaderContent, { opacity: 0, duration: 0.6, ease: 'power2.out' }, '<+=0.3');
 
-      // 7. Video timestamp sync before fading out loader
-      tl.add(() => {
-        if (heroVid && loaderVid) {
-          try {
-            if (!isNaN(loaderVid.currentTime) && loaderVid.currentTime > 0) {
-              heroVid.currentTime = loaderVid.currentTime;
-            }
-          } catch (e) {}
-          heroVid.play().catch(() => {});
-        }
-      });
-
-      // 8. Seamless cross-fade of loader host into hero banner (no black screens!)
+      // 7. Seamless cross-fade into hero (hero is already fully rendered underneath)
       tl.to(loaderHost, {
         opacity: 0,
         duration: 0.45,
         ease: 'power2.inOut',
         onComplete: () => {
           const header = document.getElementById('site-header');
-          if (header) {
-            header.classList.remove('is-intro-hidden');
-          }
+          if (header) header.classList.remove('is-intro-hidden');
           unlockScroll();
           loaderHost.remove();
           if (typeof window.__smRevealLine0 === 'function') {
             window.__smRevealLine0();
           }
+          initHeadlineRotator();
           ScrollTrigger.sort();
           ScrollTrigger.refresh();
         }
@@ -471,12 +445,210 @@ export function initSaduHeroEvents() {
 
     } else {
       const header = document.getElementById('site-header');
-      if (header) {
-        header.classList.remove('is-intro-hidden');
-      }
+      if (header) header.classList.remove('is-intro-hidden');
       if (typeof window.__smRevealLine0 === 'function') {
         window.__smRevealLine0();
       }
+      initHeadlineRotator();
+    }
+
+    /* ═══════════════════════════════════════════════════
+     HEADLINE 3D KINETIC ROTATOR
+     ═══════════════════════════════════════════════════ */
+    function initHeadlineRotator() {
+      const viewport = document.getElementById('sm-rotator-viewport');
+      const activeEl = document.getElementById('sm-rotator-active');
+      const underline = document.getElementById('sm-rotator-underline');
+
+      if (!viewport || !activeEl) return;
+
+      const WORDS = ['DOMINAN', 'CONVIERTEN', 'ESCALAN', 'FACTURAN', 'LIDERAN', 'TRASCIENDEN'];
+      let currentWordIndex = 0;
+      let isWordAnimating = false;
+
+      function createWordElement(word) {
+        const wrap = document.createElement('span');
+        wrap.className = 'sm-rot-word';
+        word.split('').forEach(char => {
+          const span = document.createElement('span');
+          span.className = 'sm-rot-char';
+          span.textContent = char;
+          wrap.appendChild(span);
+        });
+        return wrap;
+      }
+
+      // Initial word setup with char spans
+      activeEl.innerHTML = '';
+      const initialWordEl = createWordElement(WORDS[0]);
+      activeEl.appendChild(initialWordEl);
+
+      // Measure & lock initial width
+      const initialWidth = initialWordEl.offsetWidth;
+      if (initialWidth > 0) {
+        viewport.style.width = `${initialWidth}px`;
+        if (underline) underline.style.width = `${initialWidth}px`;
+      }
+
+      // Allow user to click to rotate immediately
+      viewport.addEventListener('click', () => {
+        if (!isWordAnimating) rotateToNextWord();
+      });
+
+      // Auto rotation interval
+      const timer = setInterval(() => {
+        if (document.hidden || isWordAnimating) return;
+        rotateToNextWord();
+      }, 3000);
+
+      function rotateToNextWord() {
+        if (isWordAnimating) return;
+        isWordAnimating = true;
+
+        const nextIndex = (currentWordIndex + 1) % WORDS.length;
+        const nextWord = WORDS[nextIndex];
+
+        const currentWordEl = activeEl.querySelector('.sm-rot-word');
+        const currentChars = currentWordEl ? Array.from(currentWordEl.querySelectorAll('.sm-rot-char')) : [];
+
+        // Build new word
+        const nextWordEl = createWordElement(nextWord);
+        nextWordEl.style.position = 'absolute';
+        nextWordEl.style.top = '0';
+        nextWordEl.style.left = '0';
+        nextWordEl.style.visibility = 'hidden';
+        activeEl.appendChild(nextWordEl);
+
+        const nextWidth = nextWordEl.offsetWidth;
+        nextWordEl.style.visibility = '';
+
+        const nextChars = Array.from(nextWordEl.querySelectorAll('.sm-rot-char'));
+
+        // Prep incoming characters (rotated down, shifted down, faded)
+        gsap.set(nextChars, {
+          rotateX: -90,
+          y: '100%',
+          opacity: 0,
+          transformOrigin: '50% 100%'
+        });
+
+        const tl = gsap.timeline({
+          onComplete: () => {
+            if (currentWordEl) currentWordEl.remove();
+            nextWordEl.style.position = '';
+            currentWordIndex = nextIndex;
+            isWordAnimating = false;
+          }
+        });
+
+        // 1. Current letters roll up and out in 3D
+        if (currentChars.length > 0) {
+          tl.to(currentChars, {
+            rotateX: 90,
+            y: '-100%',
+            opacity: 0,
+            duration: 0.38,
+            ease: 'power2.in',
+            stagger: 0.016,
+            transformOrigin: '50% 0%'
+          }, 0);
+        }
+
+        // 2. Smoothly animate container and underline width
+        tl.to(viewport, {
+          width: nextWidth,
+          duration: 0.45,
+          ease: 'expo.out'
+        }, 0.12);
+
+        if (underline) {
+          tl.to(underline, {
+            width: nextWidth,
+            duration: 0.45,
+            ease: 'expo.out'
+          }, 0.12);
+
+          tl.fromTo(underline,
+            { filter: 'drop-shadow(0 0 4px #FF5A1F)' },
+            { filter: 'drop-shadow(0 0 16px #FF5A1F)', duration: 0.25, yoyo: true, repeat: 1 },
+            0.18
+          );
+        }
+
+        // 3. Next letters roll in from below with mechanical bounce snap
+        tl.to(nextChars, {
+          rotateX: 0,
+          y: '0%',
+          opacity: 1,
+          duration: 0.52,
+          ease: 'back.out(1.6)',
+          stagger: 0.02
+        }, 0.16);
+      }
+    }
+
+    /* ═══════════════════════════════════════════════════
+     SPLINE 3D SCENE INITIALIZATION + MOUSE FORWARDING
+     ═══════════════════════════════════════════════════ */
+    function initSplineScene() {
+      const canvas = document.getElementById('spline-canvas');
+      const loader = document.getElementById('sm-spline-loader');
+      const heroWrap = document.getElementById('sm-hero-spline-wrap');
+
+      if (!canvas) return;
+
+      // Load Spline scene
+      splineApp = new Application(canvas);
+      splineApp.load(SPLINE_SCENE_URL)
+        .then(() => {
+          // Fade out spinner
+          if (loader) {
+            gsap.to(loader, {
+              autoAlpha: 0,
+              duration: 0.5,
+              ease: 'power2.out',
+              onComplete: () => loader.remove()
+            });
+          }
+
+          // Setup mouse forwarding: forward pointer events from entire hero
+          // section to the Spline canvas so the robot follows cursor everywhere
+          if (heroWrap && canvas) {
+            setupMouseForwarding(heroWrap, canvas);
+          }
+        })
+        .catch((err) => {
+          console.warn('Spline scene failed to load:', err);
+          if (loader) loader.remove();
+        });
+    }
+
+    function setupMouseForwarding(heroWrap, canvas) {
+      if (!heroWrap || !canvas) return;
+
+      const handlePointer = (e) => {
+        // Prevent recursive loop with synthetic events
+        if (!e.isTrusted) return;
+
+        const syntheticEvent = new PointerEvent('pointermove', {
+          clientX: e.clientX,
+          clientY: e.clientY,
+          screenX: e.screenX,
+          screenY: e.screenY,
+          pageX: e.pageX,
+          pageY: e.pageY,
+          bubbles: false,
+          cancelable: true,
+          pointerId: 1,
+          pointerType: 'mouse',
+          isPrimary: true,
+          width: 1,
+          height: 1,
+        });
+        canvas.dispatchEvent(syntheticEvent);
+      };
+
+      heroWrap.addEventListener('pointermove', handlePointer, { passive: true });
     }
 
     /* ═══════════════════════════════════════════════════
@@ -485,12 +657,6 @@ export function initSaduHeroEvents() {
     function initHeroCoverAppear() {
       const linesWrapper = document.getElementById('sm-lines-wrapper');
       const lines = Array.from(document.querySelectorAll('.sm-line-item'));
-      const heroCover = document.getElementById('sm-home-cover');
-      const bgVideo = document.getElementById('sm-hero-bg-video');
-
-      if (bgVideo) {
-        bgVideo.play().catch(() => {});
-      }
 
       if (!linesWrapper || lines.length === 0) return;
 
@@ -512,7 +678,7 @@ export function initSaduHeroEvents() {
         }
       });
 
-      // Line 0 reveal function
+      // Line 0 reveal
       window.__smRevealLine0 = () => {
         const line0Chars = Array.from(lines[0].querySelectorAll('.sm-line-char'));
         gsap.fromTo(line0Chars, 
@@ -521,15 +687,14 @@ export function initSaduHeroEvents() {
         );
       };
 
-      // Desktop Sticky Stacking Mechanics
       if (window.innerWidth >= 1200) {
-        setupDesktopStickyLines(linesWrapper, lines, heroCover);
+        setupDesktopStickyLines(linesWrapper, lines);
       } else {
         setupMobileLines(lines);
       }
 
-      // Follow mouse cursor
-      initFollowMouse();
+      // Spotlight mouse-follow on hero
+      initSpotlight();
 
       // Video popup player
       initVideoPopup();
@@ -538,12 +703,7 @@ export function initSaduHeroEvents() {
       ScrollTrigger.refresh();
     }
 
-    function setupDesktopStickyLines(linesWrapper, lines, heroCover) {
-      // Line elements:
-      // lines[0]: Hook (Creamos tu marca. Construimos su identidad.)
-      // lines[1]: Branding & Diseño (with 6 thumbnails)
-      // lines[2]: Marketing Digital (with 6 thumbnails)
-      // lines[3]: Resultados Reales.
+    function setupDesktopStickyLines(linesWrapper, lines) {
       const line1Chars = Array.from(lines[1].querySelectorAll('.sm-line-char'));
       const line1Thumbs = Array.from(lines[1].querySelectorAll('.sm-thumb'));
       const line2Chars = Array.from(lines[2].querySelectorAll('.sm-line-char'));
@@ -551,126 +711,49 @@ export function initSaduHeroEvents() {
       const line3Chars = Array.from(lines[3].querySelectorAll('.sm-line-char'));
       const stageFooter = document.getElementById('sm-stage-footer');
 
-      // Ensure starting states:
       gsap.set(line1Chars, { autoAlpha: 0, rotateX: 90 });
       gsap.set(line1Thumbs, { autoAlpha: 0, scale: 0.75, rotateX: 45 });
       gsap.set(line2Chars, { autoAlpha: 0, rotateX: 90 });
       gsap.set(line2Thumbs, { autoAlpha: 0, scale: 0.75, rotateX: 45 });
       gsap.set(line3Chars, { autoAlpha: 0, rotateX: 90 });
-      if (stageFooter) {
-        gsap.set(stageFooter, { autoAlpha: 0, y: 24 });
-      }
+      if (stageFooter) gsap.set(stageFooter, { autoAlpha: 0, y: 24 });
 
-      // Master Pinned Scrubbed Timeline
-      // end: '+=3400' provides the weighty, luxurious scroll requested:
-      // "el scroll un poco mas pesado osea que dure mas con cada palabra, sino pasa todo ultra rapido."
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: linesWrapper,
           start: 'top top',
-          end: '+=3400',
+          end: '+=3200',
           pin: true,
-          scrub: 0.8,
-          anticipatePin: 0,
-          fastScrollEnd: true,
-          preventOverlaps: true,
+          pinSpacing: true,
+          scrub: 1,
+          anticipatePin: 1,
           invalidateOnRefresh: true
         }
       });
 
-      // 0.00 -> 0.08: Initial hold on Line 0 (user begins scrolling, reads Line 0)
       tl.to({}, { duration: 0.08 });
 
-      // 0.08 -> 0.32: Reveal Line 1 (Branding & Diseño + 6 thumbs)
-      tl.to(line1Chars, {
-        autoAlpha: 1,
-        rotateX: 0,
-        duration: 0.20,
-        ease: 'power2.out',
-        stagger: 0.008
-      }, 0.08);
-      tl.to(line1Thumbs, {
-        autoAlpha: 1,
-        scale: 1,
-        rotateX: 0,
-        duration: 0.20,
-        ease: 'back.out(1.4)',
-        stagger: 0.015
-      }, 0.10);
+      tl.to(line1Chars, { autoAlpha: 1, rotateX: 0, duration: 0.20, ease: 'power2.out', stagger: 0.008 }, 0.08);
+      tl.to(line1Thumbs, { autoAlpha: 1, scale: 1, rotateX: 0, duration: 0.20, ease: 'back.out(1.4)', stagger: 0.015 }, 0.10);
 
-      // 0.32 -> 0.40: Weighty hold on Line 1 (user comfortably reads every word)
       tl.to({}, { duration: 0.08 });
 
-      // At 0.40: Line 1 thumbs gently dim to 0.25 to shift focus cleanly to Line 2
-      tl.to(line1Thumbs, {
-        autoAlpha: 0.25,
-        duration: 0.06,
-        ease: 'power2.out'
-      }, 0.40);
+      tl.to(line1Thumbs, { autoAlpha: 0.25, duration: 0.06, ease: 'power2.out' }, 0.40);
 
-      // 0.42 -> 0.66: Reveal Line 2 (Marketing Digital + 6 thumbs)
-      tl.to(line2Chars, {
-        autoAlpha: 1,
-        rotateX: 0,
-        duration: 0.20,
-        ease: 'power2.out',
-        stagger: 0.008
-      }, 0.42);
-      tl.to(line2Thumbs, {
-        autoAlpha: 1,
-        scale: 1,
-        rotateX: 0,
-        duration: 0.20,
-        ease: 'back.out(1.4)',
-        stagger: 0.015
-      }, 0.44);
+      tl.to(line2Chars, { autoAlpha: 1, rotateX: 0, duration: 0.20, ease: 'power2.out', stagger: 0.008 }, 0.42);
+      tl.to(line2Thumbs, { autoAlpha: 1, scale: 1, rotateX: 0, duration: 0.20, ease: 'back.out(1.4)', stagger: 0.015 }, 0.44);
 
-      // 0.66 -> 0.74: Weighty hold on Line 2
       tl.to({}, { duration: 0.08 });
 
-      // At 0.74: Line 2 thumbs gently dim to 0.25 to focus on final punchline
-      tl.to(line2Thumbs, {
-        autoAlpha: 0.25,
-        duration: 0.06,
-        ease: 'power2.out'
-      }, 0.72);
+      tl.to(line2Thumbs, { autoAlpha: 0.25, duration: 0.06, ease: 'power2.out' }, 0.72);
 
-      // 0.74 -> 0.88: Reveal Line 3 ("Resultados Reales.")
-      tl.to(line3Chars, {
-        autoAlpha: 1,
-        rotateX: 0,
-        duration: 0.14,
-        ease: 'power2.out',
-        stagger: 0.012
-      }, 0.74);
+      tl.to(line3Chars, { autoAlpha: 1, rotateX: 0, duration: 0.14, ease: 'power2.out', stagger: 0.012 }, 0.74);
 
-      // 0.88 -> 0.95: Reveal Subtitle & 3D Button directly below Line 3 (zero empty void!)
       if (stageFooter) {
-        tl.to(stageFooter, {
-          autoAlpha: 1,
-          y: 0,
-          duration: 0.08,
-          ease: 'power2.out'
-        }, 0.88);
+        tl.to(stageFooter, { autoAlpha: 1, y: 0, duration: 0.08, ease: 'power2.out' }, 0.88);
       }
 
-      // 0.95 -> 1.00: Final hold showing all lines + Subtitle + Button in complete harmony
       tl.to({}, { duration: 0.05 });
-
-      // Parallax on top video banner
-      const videoMedia = document.getElementById('sm-hero-video-media');
-      if (videoMedia) {
-        gsap.to(videoMedia, {
-          y: '22%',
-          ease: 'none',
-          scrollTrigger: {
-            trigger: '#sm-hero-video-wrap',
-            start: 'top top',
-            end: 'bottom top',
-            scrub: true
-          }
-        });
-      }
     }
 
     function setupMobileLines(lines) {
@@ -679,15 +762,8 @@ export function initSaduHeroEvents() {
         gsap.fromTo(chars,
           { autoAlpha: 0, y: 30 },
           {
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.6,
-            stagger: 0.015,
-            scrollTrigger: {
-              trigger: line,
-              start: 'top 85%',
-              toggleActions: 'play none none none'
-            }
+            autoAlpha: 1, y: 0, duration: 0.6, stagger: 0.015,
+            scrollTrigger: { trigger: line, start: 'top 85%', toggleActions: 'play none none none' }
           }
         );
       });
@@ -696,60 +772,47 @@ export function initSaduHeroEvents() {
         gsap.fromTo(stageFooter,
           { autoAlpha: 0, y: 30 },
           {
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.6,
-            scrollTrigger: {
-              trigger: stageFooter,
-              start: 'top 85%',
-              toggleActions: 'play none none none'
-            }
+            autoAlpha: 1, y: 0, duration: 0.6,
+            scrollTrigger: { trigger: stageFooter, start: 'top 85%', toggleActions: 'play none none none' }
           }
         );
       }
     }
 
     /* ═══════════════════════════════════════════════════
-     C. FOLLOW MOUSE CURSOR
+     C. SPOTLIGHT MOUSE-FOLLOW ON HERO
      ═══════════════════════════════════════════════════ */
-    function initFollowMouse() {
-      const banner = document.getElementById('sm-hero-video-wrap');
-      const cursor = document.getElementById('sm-follow-mouse');
-      const center = document.getElementById('sm-cursor-center');
-      const leftText = document.getElementById('sm-cursor-left');
-      const rightText = document.getElementById('sm-cursor-right');
+    function initSpotlight() {
+      const heroWrap = document.getElementById('sm-hero-spline-wrap');
+      const spotlight = document.getElementById('sm-hero-spotlight');
 
-      if (!banner || !cursor) return;
+      if (!heroWrap || !spotlight) return;
 
-      let mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-      let pos = { x: mouse.x, y: mouse.y };
+      let mouse = { x: 0, y: 0 };
+      let pos = { x: 0, y: 0 };
       let isHovering = false;
 
-      banner.addEventListener('mouseenter', () => {
+      heroWrap.addEventListener('mouseenter', () => {
         isHovering = true;
-        cursor.classList.add('is-active');
-
-        gsap.fromTo(center, { scale: 0 }, { scale: 1, duration: 0.5, ease: 'back.out(1.7)' });
-        if (leftText) gsap.fromTo(leftText, { x: 15, opacity: 0 }, { x: 0, opacity: 1, duration: 0.4 });
-        if (rightText) gsap.fromTo(rightText, { x: -15, opacity: 0 }, { x: 0, opacity: 1, duration: 0.4 });
+        gsap.to(spotlight, { autoAlpha: 1, duration: 0.3 });
       });
 
-      banner.addEventListener('mouseleave', () => {
+      heroWrap.addEventListener('mouseleave', () => {
         isHovering = false;
-        cursor.classList.remove('is-active');
+        gsap.to(spotlight, { autoAlpha: 0, duration: 0.3 });
       });
 
-      banner.addEventListener('mousemove', (e) => {
-        const rect = banner.getBoundingClientRect();
+      heroWrap.addEventListener('mousemove', (e) => {
+        const rect = heroWrap.getBoundingClientRect();
         mouse.x = e.clientX - rect.left;
         mouse.y = e.clientY - rect.top;
       });
 
       const loop = () => {
         if (isHovering) {
-          pos.x += (mouse.x - pos.x) * 0.14;
-          pos.y += (mouse.y - pos.y) * 0.14;
-          cursor.style.transform = `translate3d(${pos.x}px, ${pos.y}px, 0) translate(-50%, -50%)`;
+          pos.x += (mouse.x - pos.x) * 0.08;
+          pos.y += (mouse.y - pos.y) * 0.08;
+          spotlight.style.transform = `translate(${pos.x - 200}px, ${pos.y - 200}px)`;
         }
         requestAnimationFrame(loop);
       };
@@ -760,17 +823,11 @@ export function initSaduHeroEvents() {
      D. VIDEO POPUP MODAL
      ═══════════════════════════════════════════════════ */
     function initVideoPopup() {
-      const banner = document.getElementById('sm-hero-video-wrap');
       const popup = document.getElementById('sm-video-popup');
       const player = document.getElementById('sm-popup-video-player');
       const closeBtn = document.getElementById('sm-popup-close');
 
-      if (!banner || !popup || !player) return;
-
-      banner.addEventListener('click', () => {
-        popup.classList.add('is-open');
-        player.play().catch(() => {});
-      });
+      if (!popup || !player) return;
 
       const close = () => {
         popup.classList.remove('is-open');
