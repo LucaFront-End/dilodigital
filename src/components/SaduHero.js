@@ -43,10 +43,8 @@ function createThumb(src) {
 export function renderSaduHero() {
   return `
   <!-- ================================================================
-       1. SADU MEDIA INTRO LOADER
+       1. SADU MEDIA INTRO LOADER (Expands into Spline Hero)
        ================================================================ -->
-  <div class="sm-loader-bg" id="sm-loader-bg"></div>
-
   <div class="sm-loader-host" id="sm-loader-host">
     <div class="sm-loader-content" id="sm-loader-content">
       <!-- Top Row: SOMOS + slot + DILO -->
@@ -61,26 +59,30 @@ export function renderSaduHero() {
       <span class="sm-loader-title sm-loader-title-bottom" id="sm-loader-title-2">Digital</span>
     </div>
 
-    <!-- Media container: Shutter preview images that flip over the slot -->
+    <!-- Media container: Starts clipped into the slot, then expands to 100vw x 100vh -->
     <div class="sm-loader-medias" id="sm-loader-medias">
       ${LOADER_IMGS.map((src, i) => `
         <div class="sm-loader-media" data-slide-index="${i}">
           <img src="${src}" alt="Showcase Preview">
         </div>
       `).join('')}
+      <!-- Final slide: Capture of the hero that expands to fullscreen -->
+      <div class="sm-loader-media sm-loader-media-hero" data-slide-index="${LOADER_IMGS.length}">
+        <img src="/images/hero-capture.png" alt="Dilo Digital Hero" class="sm-hero-capture-img">
+      </div>
+      <div class="sm-loader-media-overlay"></div>
     </div>
   </div>
 
   <!-- ================================================================
-       2. MAIN HERO SECTION (Live Miniature -> Fullscreen Spline 3D Hero)
+       2. MAIN HERO SECTION (Spline 3D Split Layout)
        ================================================================ -->
   <section class="sm-home-cover" id="sm-home-cover">
 
-    <div class="sm-hero-loader-frame is-intro-active" id="sm-hero-loader-frame">
-      <!-- ① SPLINE 3D HERO BANNER -->
-      <div class="sm-hero-spline-wrap" id="sm-hero-spline-wrap">
-        <!-- Spotlight mouse-follow glow -->
-        <div class="sm-hero-spotlight" id="sm-hero-spotlight"></div>
+    <!-- ① SPLINE 3D HERO BANNER -->
+    <div class="sm-hero-spline-wrap" id="sm-hero-spline-wrap">
+      <!-- Spotlight mouse-follow glow -->
+      <div class="sm-hero-spotlight" id="sm-hero-spotlight"></div>
 
       <!-- Spline 3D Canvas (covers right portion, extends full height) -->
       <div class="sm-hero-spline-container" id="sm-hero-spline-container">
@@ -219,7 +221,6 @@ export function renderSaduHero() {
 
       </div>
     </div>
-  </div>
 
     <!-- ⑤ 1080P REEL POPUP MODAL -->
     <div class="sm-popup" id="sm-video-popup">
@@ -271,10 +272,9 @@ export function initSaduHeroEvents() {
     initHeroCoverAppear();
 
     /* ═══════════════════════════════════════════════════
-       A. LOADER ANIMATION (Live Miniature Hero -> Fullscreen)
+       A. LOADER ANIMATION
        ═══════════════════════════════════════════════════ */
     const loaderHost = document.getElementById('sm-loader-host');
-    const loaderBg = document.getElementById('sm-loader-bg');
     const loaderContent = document.getElementById('sm-loader-content');
     const mediasWrapper = document.getElementById('sm-loader-medias');
     const title0 = document.getElementById('sm-loader-title-0');
@@ -282,8 +282,6 @@ export function initSaduHeroEvents() {
     const title2 = document.getElementById('sm-loader-title-2');
     const slotDesktop = document.getElementById('sm-loader-slot-desktop');
     const slotMobile = document.getElementById('sm-loader-slot-mobile');
-    const heroFrame = document.getElementById('sm-hero-loader-frame');
-    const heroWrap = document.getElementById('sm-hero-spline-wrap');
 
     // Strict Scroll-Lock during intro animation
     const preventScroll = (e) => {
@@ -315,7 +313,7 @@ export function initSaduHeroEvents() {
       window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     };
 
-    if (loaderHost && mediasWrapper && title0 && title1 && title2 && heroFrame && heroWrap) {
+    if (loaderHost && mediasWrapper && title0 && title1 && title2) {
       lockScroll();
       const slot = isMobile ? slotMobile : slotDesktop;
       const mediaSlides = Array.from(mediasWrapper.querySelectorAll('.sm-loader-media'));
@@ -327,52 +325,37 @@ export function initSaduHeroEvents() {
       const allChars = [...chars0, ...chars1, ...chars2];
 
       // Measure bounding boxes
-      const wrapWidth = window.innerWidth;
-      const wrapHeight = window.innerHeight;
       const slotBounds = slot.getBoundingClientRect();
+      const wrapBounds = mediasWrapper.getBoundingClientRect();
 
       const slotCenterX = slotBounds.left + slotBounds.width / 2;
       const slotCenterY = slotBounds.top + slotBounds.height / 2;
-      const wrapCenterX = wrapWidth / 2;
-      const wrapCenterY = wrapHeight / 2;
+      const wrapCenterX = wrapBounds.left + wrapBounds.width / 2;
+      const wrapCenterY = wrapBounds.top + wrapBounds.height / 2;
 
       const initialOffsetX = slotCenterX - wrapCenterX;
       const initialOffsetY = slotCenterY - wrapCenterY;
 
-      // Scale so the live hero fits and covers the slot without letterboxing
-      const initialScale = Math.max(
-        slotBounds.width / wrapWidth,
-        slotBounds.height / wrapHeight
-      );
+      const clipTopBottom = Math.max(0, (wrapBounds.height - slotBounds.height) / 2);
+      const clipLeftRight = Math.max(0, (wrapBounds.width - slotBounds.width) / 2);
 
-      const clipTop = Math.max(0, slotBounds.top);
-      const clipLeft = Math.max(0, slotBounds.left);
-      const clipBottom = Math.max(0, wrapHeight - slotBounds.bottom);
-      const clipRight = Math.max(0, wrapWidth - slotBounds.right);
+      const initialScale = Math.max(
+        slotBounds.height / Math.max(1, wrapBounds.height),
+        slotBounds.width / Math.max(1, wrapBounds.width)
+      ) + 0.25;
 
       // STARTING STATE:
-      // 1. Hero frame is clipped to the slot with 12px rounded corners
-      gsap.set(heroFrame, {
-        clipPath: `inset(${clipTop}px ${clipRight}px ${clipBottom}px ${clipLeft}px round 12px)`,
-        autoAlpha: 1
-      });
-
-      // 2. Live hero is scaled down into the slot in miniature resolution
-      gsap.set(heroWrap, {
-        x: initialOffsetX,
-        y: initialOffsetY,
-        scale: initialScale,
-        transformOrigin: 'center center'
-      });
-
-      // 3. Shutter images wrapper is also clipped to the slot
       gsap.set(mediasWrapper, {
         autoAlpha: 0,
-        clipPath: `inset(${clipTop}px ${clipRight}px ${clipBottom}px ${clipLeft}px round 12px)`
+        x: initialOffsetX,
+        y: initialOffsetY,
+        clipPath: `inset(${clipTopBottom}px ${wrapBounds.width / 2}px round 12px)`
       });
 
       mediaSlides.forEach(slide => {
         gsap.set(slide, { autoAlpha: 0 });
+        const inners = slide.querySelectorAll('img, video');
+        inners.forEach(inner => gsap.set(inner, { scale: initialScale }));
       });
 
       gsap.set(allChars, { autoAlpha: 0, rotateX: 90 });
@@ -400,12 +383,17 @@ export function initSaduHeroEvents() {
         tl.to([title0, title1], { x: 0, duration: 1.25, ease: 'expo.inOut' }, 0.5);
       }
 
-      // 3. Reveal slot with showcase images
-      tl.to(mediasWrapper, { autoAlpha: 1, duration: 0.25, ease: 'power2.out' }, 0.5);
+      // 3. Reveal slot
+      tl.to(mediasWrapper, { autoAlpha: 1, duration: 0.3, ease: 'power2.out' }, 0.5);
+      tl.to(mediasWrapper, {
+        clipPath: `inset(${clipTopBottom}px ${clipLeftRight}px round 12px)`,
+        duration: 1.25,
+        ease: 'expo.inOut'
+      }, 0.5);
 
-      // 4. Shutter flip showcase images
+      // 4. Shutter flip images (last slide = hero capture)
       const shutterStart = 0.65;
-      const shutterDuration = 1.0;
+      const shutterDuration = 1.1;
       const step = shutterDuration / mediaSlides.length;
       mediaSlides.forEach((slide, idx) => {
         const time = shutterStart + idx * step;
@@ -413,17 +401,15 @@ export function initSaduHeroEvents() {
         tl.set(slide, { autoAlpha: 1 }, time);
       });
 
-      // 5. Fade out shutter images to reveal the LIVE MINIATURE HERO in the slot!
-      const heroRevealTime = shutterStart + shutterDuration;
-      tl.to(mediasWrapper, { autoAlpha: 0, duration: 0.25, ease: 'power2.out' }, heroRevealTime);
+      // 5. Hold on hero preview
+      tl.to({}, { duration: 0.5 });
 
-      // 6. Hold on the live miniature hero in the slot (showing live 3D Spline model & headline in miniature)
-      tl.to({}, { duration: 0.45 });
-
-      // 7. CINEMATIC FULLSCREEN EXPANSION (The live hero itself expands to full screen, no refresh!)
-      tl.to(heroFrame, {
-        clipPath: 'inset(0px 0px 0px 0px round 0px)',
-        duration: 1.45,
+      // 6. CINEMATIC FULLSCREEN EXPANSION
+      tl.to(mediasWrapper, {
+        clipPath: 'inset(0px 0px round 0px)',
+        x: 0,
+        y: 0,
+        duration: 1.5,
         ease: 'expo.inOut',
         onStart: () => {
           const header = document.getElementById('site-header');
@@ -431,36 +417,23 @@ export function initSaduHeroEvents() {
         }
       }, '+=0.05');
 
-      tl.to(heroWrap, {
-        x: 0,
-        y: 0,
-        scale: 1,
-        duration: 1.45,
-        ease: 'expo.inOut'
-      }, '<');
+      // Zoom inner content to natural scale
+      const allInners = mediasWrapper.querySelectorAll('img, video');
+      tl.to(allInners, { scale: 1, duration: 1.5, ease: 'expo.inOut' }, '<');
 
-      // Fade title text and dark background
-      tl.to([loaderContent, loaderBg], {
+      // Fade title text
+      tl.to(loaderContent, { opacity: 0, duration: 0.6, ease: 'power2.out' }, '<+=0.3');
+
+      // 7. Seamless cross-fade into hero (hero is already fully rendered underneath)
+      tl.to(loaderHost, {
         opacity: 0,
-        duration: 0.65,
-        ease: 'power2.out'
-      }, '<+=0.3');
-
-      // 8. Seamless completion: clean up fixed positioning, no refresh!
-      tl.to({}, {
-        duration: 0.05,
+        duration: 0.45,
+        ease: 'power2.inOut',
         onComplete: () => {
-          gsap.set(heroFrame, { clearProps: 'all' });
-          gsap.set(heroWrap, { clearProps: 'all' });
-          heroFrame.classList.remove('is-intro-active');
-
           const header = document.getElementById('site-header');
           if (header) header.classList.remove('is-intro-hidden');
           unlockScroll();
-
-          loaderHost?.remove();
-          loaderBg?.remove();
-
+          loaderHost.remove();
           if (typeof window.__smRevealLine0 === 'function') {
             window.__smRevealLine0();
           }
@@ -471,7 +444,6 @@ export function initSaduHeroEvents() {
       });
 
     } else {
-      if (heroFrame) heroFrame.classList.remove('is-intro-active');
       const header = document.getElementById('site-header');
       if (header) header.classList.remove('is-intro-hidden');
       if (typeof window.__smRevealLine0 === 'function') {
