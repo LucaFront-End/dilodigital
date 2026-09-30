@@ -37,14 +37,53 @@
 /* ================================================================
    1. LOADER SECTION (Exact Sadu Media intro experience)
    ================================================================ */
-.sm-loader-host {
+.sm-loader-bg {
   position: fixed;
   inset: 0;
   width: 100vw;
   height: 100vh;
   height: 100dvh;
   background: var(--sm-black);
-  z-index: 999999;
+  z-index: 999990;
+  pointer-events: none;
+}
+
+/* Hero Loader Frame: clips and scales the real hero during intro */
+.sm-hero-loader-frame {
+  position: relative;
+  width: 100%;
+  height: auto;
+}
+
+.sm-hero-loader-frame.is-intro-active {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  z-index: 999995;
+  pointer-events: none;
+  overflow: hidden;
+  will-change: clip-path;
+}
+
+.sm-hero-loader-frame.is-intro-active .sm-hero-spline-wrap {
+  position: absolute;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  will-change: transform;
+}
+
+.sm-loader-host {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  background: transparent;
+  z-index: 999996;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -52,6 +91,7 @@
   overflow: hidden;
   user-select: none;
   font-family: var(--sm-font-heading);
+  pointer-events: none;
 }
 
 /* Centered title wrapper */
@@ -161,7 +201,7 @@
   z-index: 5;
   overflow: hidden;
   pointer-events: none;
-  background: var(--sm-black);
+  background: transparent;
   will-change: clip-path, transform, opacity;
 }
 
