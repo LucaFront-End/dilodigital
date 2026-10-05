@@ -52,23 +52,30 @@ export const PRODUCTS = {
   'impi-addon-monitoreo': {
     name: 'Monitoreo Permanente 10 Años',
     description: 'Vigilancia de marcas similares en Gaceta IMPI.',
+    pitch: 'Te avisamos si alguien intenta registrar una marca parecida a la tuya.',
     price: 1850,
     category: 'impi',
-    kind: 'addon'
+    kind: 'addon',
+    suggestFor: ['impi-completo', 'impi-declaracion']
   },
   'impi-addon-clase': {
     name: 'Clase NIZA Adicional',
     description: 'Protección en una clase adicional de productos o servicios.',
+    pitch: 'Protege tu marca también en otro giro (ej. productos + servicios).',
     price: 3950,
     category: 'impi',
-    kind: 'addon'
+    kind: 'addon',
+    suggestFor: ['impi-completo']
   },
   'impi-addon-cesion': {
     name: 'Contrato de Cesión de Derechos',
     description: 'Cesión de autoría del diseño a favor del titular.',
+    pitch: 'Asegura que el diseño de tu logo sea 100% tuyo legalmente.',
     price: 1200,
     category: 'impi',
-    kind: 'addon'
+    kind: 'addon',
+    suggestFor: ['impi-completo', 'impi-dictamen'],
+    notWith: ['impi-contrato']
   },
 
   // ── Branding & Identidad ──────────────────────────────────────
@@ -96,23 +103,30 @@ export const PRODUCTS = {
   'branding-addon-guardianship': {
     name: 'Brand Guardianship (1er mes)',
     description: 'Supervisión mensual de piezas gráficas.',
+    pitch: 'Un director de arte revisa cada pieza que produzca tu equipo.',
     price: 4500,
     category: 'branding',
-    kind: 'addon'
+    kind: 'addon',
+    suggestFor: ['branding-ecosistema', 'branding-flagship']
   },
   'branding-addon-impi': {
     name: 'Registro de Marca IMPI en Combo',
     description: 'Blindaje legal ante el IMPI con descuento de paquete.',
+    pitch: 'Registra tu nueva marca con $1,476 de descuento por combo.',
     price: 5500,
     category: 'branding',
-    kind: 'addon'
+    kind: 'addon',
+    suggestFor: ['branding-starter', 'branding-ecosistema'],
+    notWith: ['branding-flagship']
   },
   'branding-addon-social': {
     name: 'Pack 15 Plantillas Extra Redes',
     description: 'Plantillas Figma/Canva para carruseles, stories y portadas.',
+    pitch: 'Publica con tu nueva identidad desde el primer día.',
     price: 2800,
     category: 'branding',
-    kind: 'addon'
+    kind: 'addon',
+    suggestFor: ['branding-starter', 'branding-ecosistema', 'branding-flagship']
   }
 };
 
@@ -160,14 +174,62 @@ export const MAX_ITEMS = 10;
 
 const toCents = (pesos) => Math.round(pesos * 100);
 
+/** Complementos sugeridos para un paquete principal (upsell en el checkout). */
+export function getSuggestedAddons(baseSku) {
+  const base = PRODUCTS[baseSku];
+  if (!base) return [];
+  return Object.entries(PRODUCTS)
+    .filter(([, p]) => p.kind === 'addon' && p.category === base.category)
+    .filter(([, p]) => !p.suggestFor || p.suggestFor.includes(baseSku))
+    .filter(([, p]) => !(p.notWith || []).includes(baseSku))
+    .map(([sku]) => sku);
+}
+
+// ── Cupones ─────────────────────────────────────────────────────
+// Se definen SOLO en el servidor (variable CHECKOUT_COUPONS, JSON):
+//   {"LANZAMIENTO10": {"percent": 10, "categories": ["impi"], "expires": "2026-12-31"},
+//    "BRAND1000":     {"amount": 1000, "minSubtotal": 8000, "label": "$1,000 de regalo"}}
+// El navegador nunca conoce la lista: valida vía /api/checkout/quote.
+
+export function normalizeCouponCode(code) {
+  return String(code || '')
+    .trim()
+    .toUpperCase()
+    .replace(/[^A-Z0-9_-]/g, '')
+    .slice(0, 30);
+}
+
+export function evaluateCoupon(code, coupons, { category, subtotalCents, now = Date.now() }) {
+  const key = normalizeCouponCode(code);
+  if (!key) return null;
+  const c = coupons && Object.prototype.hasOwnProperty.call(coupons, key) ? coupons[key] : null;
+  if (!c || typeof c !== 'object') return { ok: false, error: 'Ese código no es válido.' };
+  if (c.expires && now > Date.parse(`${c.expires}T23:59:59-06:00`)) return { ok: false, error: 'Ese código ya expiró.' };
+  if (Array.isArray(c.categories) && c.categories.length && !c.categories.includes(category)) {
+    return { ok: false, error: 'Ese código no aplica para este servicio.' };
+  }
+  if (c.minSubtotal && subtotalCents < toCents(c.minSubtotal)) {
+    return { ok: false, error: `Ese código aplica en compras desde ${formatMXN(toCents(c.minSubtotal))}.` };
+  }
+  let discountCents = c.percent ? Math.round((subtotalCents * Math.min(Number(c.percent) || 0, 90)) / 100) : toCents(Number(c.amount) || 0);
+  discountCents = Math.min(discountCents, subtotalCents - 100); // nunca deja la orden en $0
+  if (!(discountCents > 0)) return { ok: false, error: 'Ese código no es válido.' };
+  return {
+    ok: true,
+    code: key,
+    discountCents,
+    label: c.label || (c.percent ? `${Number(c.percent)}% de descuento` : `${formatMXN(discountCents)} de descuento`)
+  };
+}
+
 /**
  * Calcula el carrito de forma determinista.
- * @param {{ items: string[], plan?: string }} input
+ * @param {{ items: string[], plan?: string, coupon?: string, coupons?: object }} input
  * @returns {{ ok: true, ... } | { ok: false, error: string }}
  */
 export function priceCart(input = {}) {
   const rawItems = Array.isArray(input.items) ? input.items : [];
-  const skus = [...new Set(rawItems.map((s) => String(s || '').trim()).filter(Boolean))];
+  let skus = [...new Set(rawItems.map((s) => String(s || '').trim()).filter(Boolean))];
 
   if (skus.length === 0) return { ok: false, error: 'El carrito está vacío.' };
   if (skus.length > MAX_ITEMS) return { ok: false, error: 'Demasiados productos en el carrito.' };
@@ -187,6 +249,17 @@ export function priceCart(input = {}) {
     return { ok: false, error: 'La orden debe incluir exactamente un paquete principal.' };
   }
 
+  // Complementos incompatibles con el paquete (ya incluidos): se quitan para no cobrar doble
+  const notices = [];
+  skus = skus.filter((sku) => {
+    const p = PRODUCTS[sku];
+    if (p.kind === 'addon' && (p.notWith || []).includes(bases[0])) {
+      notices.push(`${p.name} ya está incluido en ${PRODUCTS[bases[0]].name}; no se cobra.`);
+      return false;
+    }
+    return true;
+  });
+
   const plan = input.plan && rules.plans.includes(input.plan) ? input.plan : rules.defaultPlan;
   const planDef = PAYMENT_PLANS[plan];
 
@@ -201,9 +274,16 @@ export function priceCart(input = {}) {
   }));
 
   const subtotalCents = lines.reduce((sum, l) => sum + l.amountCents, 0);
-  const dueTodayCents = Math.round(subtotalCents * planDef.factor);
-  const discountCents = planDef.balanceDue ? 0 : subtotalCents - dueTodayCents;
-  const balanceCents = planDef.balanceDue ? subtotalCents - dueTodayCents : 0;
+
+  // Cupón (antes del esquema de pago)
+  const couponResult = input.coupon ? evaluateCoupon(input.coupon, input.coupons, { category, subtotalCents }) : null;
+  const coupon = couponResult?.ok ? couponResult : null;
+  const couponDiscountCents = coupon ? coupon.discountCents : 0;
+  const netCents = subtotalCents - couponDiscountCents;
+
+  const dueTodayCents = Math.round(netCents * planDef.factor);
+  const discountCents = planDef.balanceDue ? 0 : netCents - dueTodayCents;
+  const balanceCents = planDef.balanceDue ? netCents - dueTodayCents : 0;
   const ivaCents = Math.round(dueTodayCents - dueTodayCents / (1 + IVA_RATE));
 
   return {
@@ -215,12 +295,18 @@ export function priceCart(input = {}) {
     planLabel: planDef.label,
     availablePlans: rules.plans.map((p) => ({ id: p, label: PAYMENT_PLANS[p].label })),
     items: ordered,
+    baseSku: bases[0],
     lines,
     subtotalCents,
+    couponCode: coupon?.code || '',
+    couponLabel: coupon?.label || '',
+    couponDiscountCents,
+    couponError: couponResult && !couponResult.ok ? couponResult.error : '',
     discountCents,
     balanceCents,
     totalCents: dueTodayCents,
     ivaCents,
+    notices,
     primaryName: PRODUCTS[bases[0]].name,
     folioPrefix: rules.folioPrefix,
     returnPath: rules.returnPath

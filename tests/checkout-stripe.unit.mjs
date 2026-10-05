@@ -120,5 +120,61 @@ console.log('3. Normalización de PaymentIntent');
   check('client_secret inválido → null', lib.parseStripeClientSecret('pi_3Abc') === null);
 }
 
+console.log('4. Cuerpo crudo del webhook (Vercel)');
+{
+  const { Readable } = await import('node:stream');
+  const event = { id: 'evt_2', object: 'event', type: 'payment_intent.succeeded', livemode: false, data: { object: basePi } };
+  const payload = JSON.stringify(event);
+  const sig = Stripe.webhooks.generateTestHeaderString({ payload, secret: process.env.STRIPE_WEBHOOK_SECRET });
+  // Stream real + getter perezoso de req.body (como en Vercel): no debe consumirse antes de verificar la firma
+  const stream = Readable.from([Buffer.from(payload.slice(0, 40)), Buffer.from(payload.slice(40))]);
+  stream.method = 'POST';
+  stream.headers = { 'stripe-signature': sig };
+  let bodyTouched = false;
+  Object.defineProperty(stream, 'body', { get() { bodyTouched = true; return JSON.parse(payload); } });
+  const res = mockRes();
+  await webhook(stream, res);
+  check('firma válida leyendo el stream en partes → 200', res.statusCode === 200, res.body);
+  check('no se tocó req.body (evita re-serializar el JSON)', bodyTouched === false);
+  const raw = await lib.readRawBody({ body: '{"a":1}' });
+  check('readRawBody acepta body string', raw.toString() === '{"a":1}');
+}
+
+console.log('5. Cupones y factura en metadata');
+{
+  const pi = {
+    ...basePi,
+    amount: 742500,
+    metadata: {
+      ...basePi.metadata, items: 'branding-ecosistema', plan: 'deposit-50', category: 'branding',
+      subtotal_cents: '1650000', coupon_code: 'LANZA10', coupon_discount_cents: '165000', balance_cents: '742500',
+      cfdi_rfc: 'GOGR850101AB1', cfdi_razon_social: 'ROBERTO GONZALEZ', cfdi_uso: 'G03'
+    }
+  };
+  const o = lib.orderFromPaymentIntent(pi, 'stripe-test');
+  check('cupón y descuento desde metadata', o.couponCode === 'LANZA10' && o.couponDiscountCents === 165000, o);
+  check('saldo pendiente desde metadata', o.balanceCents === 742500 && o.subtotalCents === 1650000, o);
+  check('datos de factura desde metadata', o.invoice?.rfc === 'GOGR850101AB1' && o.invoice?.usoCfdi === 'G03', o.invoice);
+  const plain = lib.orderFromPaymentIntent(basePi, 'stripe-test');
+  check('sin cupón ni factura → valores vacíos', plain.couponCode === '' && plain.couponDiscountCents === 0 && plain.invoice === null, plain);
+
+  check('stripe-test: cupón de prueba disponible', 'PRUEBA10' in lib.getCoupons());
+  process.env.STRIPE_SECRET_KEY = 'sk_live_dummy';
+  check('stripe-live: cupón de prueba deshabilitado', !('PRUEBA10' in lib.getCoupons()));
+  process.env.CHECKOUT_COUPONS = '{"lanza10": {"percent": 10}, "BAD": 5}';
+  const live = lib.getCoupons();
+  check('CHECKOUT_COUPONS se normaliza y descarta entradas inválidas', live.LANZA10?.percent === 10 && !('BAD' in live) && !('PRUEBA10' in live), live);
+  process.env.CHECKOUT_COUPONS = '{json roto';
+  const origWarn = console.warn;
+  console.warn = () => {};
+  check('JSON inválido no rompe el checkout', Object.keys(lib.getCoupons()).length === 0);
+  console.warn = origWarn;
+  delete process.env.CHECKOUT_COUPONS;
+  process.env.STRIPE_SECRET_KEY = 'sk_test_offline_dummy';
+  process.env.VERCEL_ENV = 'production';
+  check('producción: cupón de prueba deshabilitado', !('PRUEBA10' in lib.getCoupons()));
+  delete process.env.VERCEL_ENV;
+}
+
 console.log(`\nResultado: ${passed} OK · ${failed} fallidas\n`);
 process.exit(failed ? 1 : 0);

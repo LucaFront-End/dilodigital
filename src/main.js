@@ -23,6 +23,7 @@ import './styles/user-portal.css';
 import './styles/dinametra-services.css';
 import './styles/motion-footer.css';
 import './styles/checkout.css';
+import './styles/legal.css';
 
 import { renderNavbar, initNavbarEvents } from './components/Navbar.js';
 import { renderFooter, initFooterEvents } from './components/Footer.js';
@@ -39,9 +40,24 @@ import { renderPortfolioView, initPortfolioEvents } from './pages/PortfolioView.
 import { renderAboutView, initAboutEvents } from './pages/AboutView.js';
 import { renderContactView, initContactEvents } from './pages/ContactView.js';
 import { renderUserSectionView, initUserSectionEvents } from './pages/UserSectionView.js';
-import { renderCheckoutView, initCheckoutEvents } from './pages/CheckoutView.js';
+import { renderCheckoutView, initCheckoutEvents, cleanupCheckout } from './pages/CheckoutView.js';
 import { renderCheckoutSuccessView, initCheckoutSuccessEvents, cleanupCheckoutSuccess } from './pages/CheckoutSuccessView.js';
 import { initPixel, trackPageView } from './checkout/pixel.js';
+import { renderLegalView, initLegalEvents, getLegalDocKey } from './pages/LegalView.js';
+
+/** Evita que buscadores indexen el checkout (URLs con datos de la orden). */
+function setNoIndex(enabled) {
+  let tag = document.getElementById('dco-robots');
+  if (enabled && !tag) {
+    tag = document.createElement('meta');
+    tag.id = 'dco-robots';
+    tag.name = 'robots';
+    tag.content = 'noindex, nofollow';
+    document.head.appendChild(tag);
+  } else if (!enabled && tag) {
+    tag.remove();
+  }
+}
 
 class App {
   constructor() {
@@ -71,12 +87,15 @@ class App {
     const { path, params } = this.parseHash();
     window.scrollTo({ top: 0, behavior: 'instant' });
     cleanupCheckoutSuccess();
+    cleanupCheckout();
     trackPageView();
 
     // Checkout: shell mínimo sin navbar, footer ni widgets (máxima conversión)
     if (path === '#/checkout/exito' || path === '#/checkout') {
       const isSuccess = path === '#/checkout/exito';
       document.body.classList.add('dco-mode');
+      document.body.classList.remove('dlg-mode');
+      setNoIndex(true);
       document.body.classList.remove('dilo-modal-open');
       document.body.style.overflow = '';
       this.appEl.innerHTML = `<div id="router-view">${isSuccess ? renderCheckoutSuccessView(params) : renderCheckoutView(params)}</div>`;
@@ -85,6 +104,19 @@ class App {
       return;
     }
     document.body.classList.remove('dco-mode');
+    setNoIndex(false);
+
+    // Páginas legales: shell propio, limpio y legible
+    const legalKey = getLegalDocKey(path);
+    if (legalKey) {
+      document.body.classList.add('dlg-mode');
+      document.body.classList.remove('dilo-modal-open');
+      document.body.style.overflow = '';
+      this.appEl.innerHTML = `<div id="router-view">${renderLegalView(legalKey)}</div>`;
+      initLegalEvents(legalKey);
+      return;
+    }
+    document.body.classList.remove('dlg-mode');
     document.title = this.defaultTitle;
 
     let activeRoute = 'home';

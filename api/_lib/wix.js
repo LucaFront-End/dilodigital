@@ -38,7 +38,11 @@ export async function recordOrderInWix(order, label = 'Pago confirmado') {
       marca: order.meta?.brandName || '',
       tipo: label,
       escenario: order.status,
-      mensaje: `Orden ${order.orderId} · ${(order.amountCents / 100).toFixed(2)} ${String(order.currency).toUpperCase()} · ${order.items.join(', ')} · Método: ${order.method}`,
+      mensaje:
+        `Orden ${order.orderId} · ${(order.amountCents / 100).toFixed(2)} ${String(order.currency).toUpperCase()} · ${order.items.join(', ')} · Método: ${order.method}` +
+        (order.couponCode ? ` · Cupón ${order.couponCode} (−${(order.couponDiscountCents / 100).toFixed(2)})` : '') +
+        (order.balanceCents ? ` · Saldo pendiente ${(order.balanceCents / 100).toFixed(2)}` : '') +
+        (order.invoice ? ` · FACTURA RFC ${order.invoice.rfc} (${order.invoice.razonSocial})` : ''),
       origen: 'Dilo Checkout',
       fecha: new Date().toISOString()
     });

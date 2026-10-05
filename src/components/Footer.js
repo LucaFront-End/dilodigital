@@ -130,6 +130,7 @@ export function renderFooter() {
               <span class="footer-quick-title">Legal &amp; Confidencial</span>
               <ul class="footer-quick-list">
                 <li><a href="#/aviso-de-privacidad" data-cursor="hover">Aviso de Privacidad</a></li>
+                <li><a href="#/terminos" data-cursor="hover">Términos y Condiciones</a></li>
                 <li><a href="#/registro-marca" data-cursor="hover">Protección de Activos</a></li>
                 <li><a href="#/contacto" data-cursor="hover">Acuerdo de Confidencialidad (NDA)</a></li>
                 <li><span class="footer-quick-badge">Garantía de Satisfacción 100%</span></li>

@@ -10,7 +10,8 @@ import {
   getGatewayMode,
   isSimulatedAllowed,
   getPublishableKey,
-  isCapiConfigured
+  isCapiConfigured,
+  couponsEnabled
 } from '../_lib/checkout.js';
 
 export default function handler(req, res) {
@@ -24,6 +25,7 @@ export default function handler(req, res) {
     available,
     publishableKey: mode === 'simulated' ? null : getPublishableKey(),
     serverTracking: isCapiConfigured(),
+    couponsEnabled: available && couponsEnabled(),
     supportWhatsApp: (process.env.CHECKOUT_SUPPORT_WHATSAPP || '525592441070').replace(/\D/g, '')
   });
 }

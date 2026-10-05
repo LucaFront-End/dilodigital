@@ -15,15 +15,18 @@
 
 import { priceCart, formatMXN, PRODUCTS } from '../checkout/catalog.js';
 import { checkoutApi } from '../checkout/api.js';
-import { buildCheckoutHash, readDraft, rememberOrder } from '../checkout/session.js';
+import { buildCheckoutHash, readDraft, rememberOrder, forgetIntent } from '../checkout/session.js';
 import { trackPixel } from '../checkout/pixel.js';
 import { esc, icons, copyToClipboard } from '../checkout/ui.js';
+import { paymentLogo } from '../checkout/logos.js';
 import { renderCheckoutHeader, renderCheckoutFooter } from './CheckoutView.js';
 import { saveLeadToCms } from '../utils/LeadCms.js';
 import { createNewTramite } from '../data/tramitesStore.js';
 
 const POLL_MS = 6000;
+const SUPPORT_WA = '525592441070';
 let pollTimer = null;
+let countdownTimer = null;
 
 const BRAND_LABELS = {
   visa: 'Visa',
@@ -52,6 +55,8 @@ const NEXT_STEPS = {
 function stopPolling() {
   if (pollTimer) clearTimeout(pollTimer);
   pollTimer = null;
+  if (countdownTimer) clearInterval(countdownTimer);
+  countdownTimer = null;
 }
 
 function isOnSuccessRoute() {
@@ -83,6 +88,13 @@ function methodLabel(order) {
   return order.method || '—';
 }
 
+function methodLogo(order) {
+  if (order.cardBrand && ['visa', 'mastercard', 'amex'].includes(order.cardBrand)) return paymentLogo(order.cardBrand, { width: 30 });
+  if (order.method === 'customer_balance' || order.pending?.method === 'spei') return paymentLogo('spei', { width: 30 });
+  if (order.method === 'oxxo' || order.pending?.method === 'oxxo') return paymentLogo('oxxo', { width: 30 });
+  return '';
+}
+
 function orderPricing(order) {
   const p = priceCart({ items: order.items, plan: order.plan });
   return p.ok ? p : null;
@@ -97,11 +109,24 @@ function formatDate(iso) {
   }
 }
 
+function timeLeft(iso) {
+  const ms = Date.parse(iso) - Date.now();
+  if (!(ms > 0)) return 'Vencida';
+  const d = Math.floor(ms / 86400000);
+  const h = Math.floor((ms % 86400000) / 3600000);
+  const m = Math.floor((ms % 3600000) / 60000);
+  return d > 0 ? `${d} d ${h} h ${m} min` : h > 0 ? `${h} h ${m} min` : `${Math.max(m, 1)} min`;
+}
+
 function shell(inner, returnPath = '#/') {
   return `
     <main class="dco-page dco-result-page" id="dco-result-page">
       ${renderCheckoutHeader(returnPath)}
       <div class="dco-test-banner" id="dco-test-banner" hidden></div>
+      <div class="dco-print-head" aria-hidden="true">
+        <img src="/brand/dilo-logo-dark.png" alt="" width="70" height="38">
+        <div><strong>Comprobante de pago</strong><span>Dilo Digital MX · hola@dilodigitalmx.com · WhatsApp +52 55 9244 1070</span></div>
+      </div>
       <div class="dco-container dco-result-container" id="dco-result-root">${inner}</div>
       ${renderCheckoutFooter()}
     </main>`;
@@ -134,15 +159,28 @@ function renderOrderLines(order, pricing) {
         </li>`
         )
         .join('')}
+      ${
+        order.couponDiscountCents
+          ? `<li class="dco-line is-discount"><div class="dco-line-text"><strong>Cupón ${esc(order.couponCode)}</strong></div><span class="dco-line-price">−${formatMXN(order.couponDiscountCents)}</span></li>`
+          : ''
+      }
     </ul>`;
 }
 
+function balanceOf(order, pricing) {
+  if (typeof order.balanceCents === 'number' && order.balanceCents > 0) return order.balanceCents;
+  return order.couponDiscountCents ? 0 : pricing?.balanceCents || 0;
+}
+
 function renderDetails(order, pricing) {
+  const balance = balanceOf(order, pricing);
   const rows = [
     ['Folio', `<span class="dco-mono">${esc(order.orderId)}</span> <button type="button" class="dco-copy-btn" data-copy="${esc(order.orderId)}" id="dco-copy-folio">${icons.copy(13)} Copiar</button>`],
     ['Monto pagado', `<strong>${formatMXN(order.amountCents)} MXN</strong>`],
-    ['Método', esc(methodLabel(order))],
+    ['Método', `<span class="dco-method-cell">${methodLogo(order)}${esc(methodLabel(order))}</span>`],
     order.meta?.brandName ? ['Marca / proyecto', esc(order.meta.brandName)] : null,
+    order.couponCode ? ['Cupón aplicado', `${esc(order.couponCode)} · −${formatMXN(order.couponDiscountCents)}`] : null,
+    order.invoice ? ['Factura (CFDI 4.0)', `${esc(order.invoice.rfc)} · ${esc(order.invoice.razonSocial)}`] : null,
     order.customer?.email ? ['Comprobante enviado a', esc(order.customer.email)] : null,
     ['Fecha', esc(formatDate(order.paidAt || order.createdAt))]
   ].filter(Boolean);
@@ -150,9 +188,10 @@ function renderDetails(order, pricing) {
     <dl class="dco-details">
       ${rows.map(([k, v]) => `<div class="dco-detail-row"><dt>${k}</dt><dd>${v}</dd></div>`).join('')}
     </dl>
+    ${order.invoice ? `<p class="dco-invoice-note">${icons.receipt(14)} Recibirás tu factura en ${esc(order.customer?.email || 'tu correo')} con los datos fiscales registrados.</p>` : ''}
     ${
-      pricing?.balanceCents
-        ? `<div class="dco-balance-note is-block">${icons.clock(16)} Pagaste el 50% de anticipo. El saldo de <strong>${formatMXN(pricing.balanceCents)}</strong> se liquida contra entrega del proyecto.</div>`
+      balance
+        ? `<div class="dco-balance-note is-block">${icons.clock(16)}<span>Pagaste el 50% de anticipo. El saldo de <strong>${formatMXN(balance)}</strong> se liquida contra entrega del proyecto.</span></div>`
         : ''
     }`;
 }
@@ -196,6 +235,7 @@ function renderSucceeded(order, ctx) {
       <div class="dco-result-actions">
         ${category === 'impi' ? `<a href="#/portal-tramites" class="dco-btn dco-btn-primary" id="dco-portal-link">Ir a mi portal de trámites ${icons.arrowRight(16)}</a>` : ''}
         <a href="${wa}" target="_blank" rel="noopener" class="dco-btn dco-btn-whatsapp" id="dco-wa-success">${icons.whatsapp(18)} Hablar con mi asesor</a>
+        <button type="button" class="dco-btn dco-btn-ghost" id="dco-print-receipt">${icons.receipt(16)} Descargar comprobante</button>
         <a href="#/" class="dco-btn dco-btn-ghost" id="dco-home-link">Volver al inicio</a>
       </div>
     </div>`;
@@ -224,7 +264,11 @@ function renderPending(order, ctx) {
            <p>En producción, el banco nos notifica automáticamente y esta pantalla se actualiza sola.</p>
            <button type="button" class="dco-btn dco-btn-ghost" id="dco-simulate-funds">${isSpei ? 'Simular transferencia recibida' : 'Simular pago en OXXO'}</button>
          </div>`
-      : `<p class="dco-polling-note"><span class="dco-spinner is-small"></span> Esperando la confirmación del banco. Esta página se actualiza automáticamente.</p>`;
+      : `<div class="dco-recheck-box">
+           <p class="dco-polling-note"><span class="dco-spinner is-small"></span> Esperando la confirmación del banco. Esta página se actualiza automáticamente.</p>
+           <button type="button" class="dco-btn dco-btn-ghost" id="dco-recheck">${icons.check(16)} Ya realicé el pago</button>
+           <p class="dco-recheck-note" id="dco-recheck-note" hidden></p>
+         </div>`;
 
   const body = isSpei
     ? `
@@ -241,7 +285,11 @@ function renderPending(order, ctx) {
     : `
       ${copyRow('Referencia OXXO', p.reference, 'dco-copy-oxxo', String(p.reference || '').replace(/(\d{4})(?=\d)/g, '$1 '))}
       <div class="dco-instr-row"><span class="dco-instr-label">Monto a pagar</span><div class="dco-instr-value"><strong>${amount}</strong></div></div>
-      ${p.expiresAt ? `<div class="dco-instr-row"><span class="dco-instr-label">Vence</span><div class="dco-instr-value"><span>${esc(formatDate(p.expiresAt))}</span></div></div>` : ''}
+      ${
+        p.expiresAt
+          ? `<div class="dco-instr-row"><span class="dco-instr-label">Vence</span><div class="dco-instr-value"><span>${esc(formatDate(p.expiresAt))}</span><span class="dco-countdown" id="dco-oxxo-countdown" data-expires="${esc(p.expiresAt)}">${icons.clock(13)} <b>${esc(timeLeft(p.expiresAt))}</b></span></div></div>`
+          : ''
+      }
       <ul class="dco-instr-tips">
         <li>Acude a cualquier OXXO y di que quieres hacer un <strong>pago de servicio</strong>.</li>
         <li>Muestra la referencia al cajero. OXXO cobra una comisión adicional.</li>
@@ -258,6 +306,7 @@ function renderPending(order, ctx) {
       ${simulateBtn}
       ${pricing ? `<details class="dco-mini-summary"><summary>Ver resumen del pedido (${formatMXN(order.amountCents)})</summary>${renderOrderLines(order, pricing)}</details>` : ''}
       <div class="dco-result-actions">
+        <button type="button" class="dco-btn dco-btn-ghost" id="dco-print-receipt">${icons.receipt(16)} Guardar instrucciones</button>
         <a href="${whatsappUrl(ctx.supportWhatsApp, `Hola, tengo una duda con mi pago pendiente. Folio ${order.orderId}.`)}" target="_blank" rel="noopener" class="dco-btn dco-btn-whatsapp">${icons.whatsapp(18)} ¿Dudas? Escríbenos</a>
       </div>
     </div>`;
@@ -273,8 +322,8 @@ function renderProcessing(order) {
     </div>`;
 }
 
-function renderFailed(order) {
-  const retry = buildCheckoutHash({ items: order.items, plan: order.plan });
+function renderFailed(order, ctx) {
+  const retry = buildCheckoutHash({ items: order.items, plan: order.plan, coupon: order.couponCode });
   const msg = order.error?.message || 'El pago no se completó. No se realizó ningún cargo a tu cuenta.';
   return `
     <div class="dco-result-card is-error" id="dco-result-failed">
@@ -284,12 +333,12 @@ function renderFailed(order) {
       <p class="dco-result-text">${esc(msg)}</p>
       <div class="dco-result-actions">
         <a href="${retry}" class="dco-btn dco-btn-primary" id="dco-retry-link">Intentar de nuevo ${icons.arrowRight(16)}</a>
-        <a href="https://wa.me/525592441070" target="_blank" rel="noopener" class="dco-btn dco-btn-whatsapp">${icons.whatsapp(18)} Pagar con ayuda de un asesor</a>
+        <a href="${whatsappUrl(ctx.supportWhatsApp, `Hola, no pude completar mi pago. Folio ${order.orderId}.`)}" target="_blank" rel="noopener" class="dco-btn dco-btn-whatsapp">${icons.whatsapp(18)} Pagar con ayuda de un asesor</a>
       </div>
     </div>`;
 }
 
-function renderNotFound(message) {
+function renderNotFound(message, ctx = { supportWhatsApp: SUPPORT_WA }) {
   return `
     <div class="dco-result-card is-error" id="dco-result-notfound">
       <div class="dco-result-icon is-error">${icons.alert(30)}</div>
@@ -297,7 +346,7 @@ function renderNotFound(message) {
       <p class="dco-result-text">${esc(message || 'El enlace no es válido o expiró. Si ya realizaste un pago, escríbenos con tu comprobante y lo verificamos al instante.')}</p>
       <div class="dco-result-actions">
         <a href="#/" class="dco-btn dco-btn-primary">Ir al inicio</a>
-        <a href="https://wa.me/525592441070" target="_blank" rel="noopener" class="dco-btn dco-btn-whatsapp">${icons.whatsapp(18)} Contactar soporte</a>
+        <a href="https://wa.me/${ctx.supportWhatsApp}" target="_blank" rel="noopener" class="dco-btn dco-btn-whatsapp">${icons.whatsapp(18)} Contactar soporte</a>
       </div>
     </div>`;
 }
@@ -351,7 +400,11 @@ function fulfill(order) {
         brandName: meta.brandName || pricing?.primaryName || '',
         type: 'checkout',
         statusScenario: 'verde',
-        notes: `PAGADO ${order.orderId} · ${order.items.join(', ')} · ${formatMXN(order.amountCents)} · ${methodLabel(order)}${order.mode !== 'stripe-live' ? ' · MODO PRUEBA' : ''}`,
+        notes:
+          `PAGADO ${order.orderId} · ${order.items.join(', ')} · ${formatMXN(order.amountCents)} · ${methodLabel(order)}` +
+          (order.couponCode ? ` · cupón ${order.couponCode}` : '') +
+          (order.invoice ? ` · FACTURA ${order.invoice.rfc}` : '') +
+          (order.mode !== 'stripe-live' ? ' · MODO PRUEBA' : ''),
         source: '#/checkout/exito'
       });
     } catch (err) {
@@ -387,7 +440,7 @@ export function initCheckoutSuccessEvents(params) {
   if (!root) return;
 
   let clientSecret = resolveClientSecret(params);
-  const ctx = { mode: 'simulated', supportWhatsApp: '525592441070' };
+  const ctx = { mode: 'simulated', supportWhatsApp: SUPPORT_WA };
 
   if (!clientSecret) {
     root.innerHTML = renderNotFound('Falta la referencia de pago en el enlace.');
@@ -409,44 +462,90 @@ export function initCheckoutSuccessEvents(params) {
     banner.hidden = false;
   }
 
-  function bindCopy() {
-    root.querySelectorAll('[data-copy]').forEach((btn) =>
-      btn.addEventListener('click', () => copyToClipboard(btn.dataset.copy, btn))
-    );
+  function bindCommon() {
+    root.querySelectorAll('[data-copy]').forEach((btn) => btn.addEventListener('click', () => copyToClipboard(btn.dataset.copy, btn)));
+    document.getElementById('dco-print-receipt')?.addEventListener('click', () => window.print());
+  }
+
+  function startCountdown() {
+    const el = document.getElementById('dco-oxxo-countdown');
+    if (!el) return;
+    const tick = () => {
+      if (!document.body.contains(el)) return stopPolling();
+      const b = el.querySelector('b');
+      if (b) b.textContent = timeLeft(el.dataset.expires);
+      el.classList.toggle('is-expired', Date.parse(el.dataset.expires) <= Date.now());
+    };
+    tick();
+    countdownTimer = setInterval(tick, 30000);
   }
 
   function schedulePoll() {
     if (ctx.mode === 'simulated') return; // en simulado se avanza con el botón
-    stopPolling();
+    if (pollTimer) clearTimeout(pollTimer);
     pollTimer = setTimeout(() => {
       if (isOnSuccessRoute()) load({ silent: true });
     }, POLL_MS);
   }
 
+  let lastStatus = '';
   function show(order) {
     ctx.mode = order.mode || ctx.mode;
     renderBanner(ctx.mode);
     rememberOrder(order.orderId, { clientSecret, status: order.status });
 
     const st = order.status;
+    const signature = `${st}|${order.pending?.method || ''}`;
+    const sameView = signature === lastStatus && st === 'requires_action';
+    lastStatus = signature;
+    if (sameView) {
+      // Polling sin cambios: no re-renderizar (evita parpadeos y perder el foco)
+      schedulePoll();
+      return;
+    }
+    if (countdownTimer) clearInterval(countdownTimer);
+    countdownTimer = null;
+
     if (st === 'succeeded') {
+      forgetIntent(order.orderId);
       root.innerHTML = renderSucceeded(order, ctx);
       firePurchase(order, ctx);
       fulfill(order);
       document.title = `¡Pago confirmado! ${order.orderId} · Dilo Digital`;
     } else if (st === 'requires_action' && ['spei', 'oxxo'].includes(order.pending?.method)) {
+      forgetIntent(order.orderId);
       root.innerHTML = renderPending(order, ctx);
       document.title = `Pago pendiente ${order.orderId} · Dilo Digital`;
+      startCountdown();
       schedulePoll();
     } else if (st === 'processing') {
       root.innerHTML = renderProcessing(order);
       schedulePoll();
       if (ctx.mode === 'simulated') setTimeout(() => isOnSuccessRoute() && load({ silent: true }), 2500);
     } else {
-      root.innerHTML = renderFailed(order);
+      root.innerHTML = renderFailed(order, ctx);
       document.title = 'Pago no completado · Dilo Digital';
     }
-    bindCopy();
+    bindCommon();
+
+    document.getElementById('dco-recheck')?.addEventListener('click', async (e) => {
+      const btn = e.currentTarget;
+      const note = document.getElementById('dco-recheck-note');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="dco-spinner is-small"></span> Verificando tu pago…';
+      const changed = await load({ silent: true });
+      if (!changed && document.body.contains(btn)) {
+        btn.disabled = false;
+        btn.innerHTML = `${icons.check(16)} Ya realicé el pago`;
+        if (note) {
+          note.hidden = false;
+          note.textContent =
+            order.pending?.method === 'oxxo'
+              ? 'Aún no recibimos la confirmación. Los pagos en OXXO pueden tardar hasta 1 día hábil en reflejarse; te avisaremos por correo.'
+              : 'Aún no recibimos la transferencia. Las transferencias SPEI suelen acreditarse en minutos; esta página se actualizará sola.';
+        }
+      }
+    });
 
     document.getElementById('dco-simulate-funds')?.addEventListener('click', async (e) => {
       const btn = e.currentTarget;
@@ -469,17 +568,24 @@ export function initCheckoutSuccessEvents(params) {
     });
   }
 
+  /** Devuelve true si la vista cambió de estado. */
   async function load({ silent = false } = {}) {
     if (!silent) root.innerHTML = loadingCard();
+    const before = lastStatus;
     try {
       await configPromise;
       const { order } = await checkoutApi.orderStatus(clientSecret);
-      if (!isOnSuccessRoute()) return;
+      if (!isOnSuccessRoute()) return false;
       show(order);
+      return lastStatus !== before || order.status === 'succeeded';
     } catch (err) {
-      if (!isOnSuccessRoute()) return;
-      if (silent && err.code !== 'not_found') return schedulePoll(); // error transitorio en polling
-      root.innerHTML = renderNotFound(err.code === 'not_found' || err.code === 'bad_request' ? '' : err.message);
+      if (!isOnSuccessRoute()) return false;
+      if (silent && err.code !== 'not_found') {
+        schedulePoll(); // error transitorio en polling
+        return false;
+      }
+      root.innerHTML = renderNotFound(err.code === 'not_found' || err.code === 'bad_request' ? '' : err.message, ctx);
+      return true;
     }
   }
 

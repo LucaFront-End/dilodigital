@@ -10,6 +10,7 @@
 
 import { checkoutApi } from '../api.js';
 import { esc, icons, formatMXN, availableInstallments } from '../ui.js';
+import { paymentLogo, paymentLogos } from '../logos.js';
 
 const OXXO_MAX_CENTS = 1000000;
 
@@ -35,7 +36,7 @@ function detectBrand(num) {
   return '';
 }
 
-const BRAND_LABEL = { visa: 'VISA', mastercard: 'Mastercard', amex: 'AMEX' };
+const BRAND_LABEL = { visa: 'Visa', mastercard: 'Mastercard', amex: 'American Express' };
 
 function formatCardNumber(digits, brand) {
   if (brand === 'amex') return digits.replace(/^(\d{0,4})(\d{0,6})(\d{0,5}).*/, (_, a, b, c) => [a, b, c].filter(Boolean).join(' '));
@@ -95,6 +96,11 @@ export function createSimulatedProvider({ container, clientSecret, totalCents, c
     </div>
 
     <div class="dco-method-panel" data-panel="card">
+      <div class="dco-accepted">
+        <span>Aceptamos</span>
+        <span class="dco-accepted-logos">${paymentLogos(['visa', 'mastercard', 'amex'], { width: 34 })}</span>
+        <button type="button" class="dco-testfill" id="dco-testfill">${icons.flask(13)} Usar tarjeta de prueba</button>
+      </div>
       <div class="dco-field">
         <label for="dco-card-number">Número de tarjeta</label>
         <div class="dco-input-wrap">
@@ -136,7 +142,7 @@ export function createSimulatedProvider({ container, clientSecret, totalCents, c
 
     <div class="dco-method-panel" data-panel="spei" hidden>
       <div class="dco-method-info">
-        ${icons.bank(22)}
+        ${paymentLogo('spei', { width: 44 })}
         <div>
           <strong>Transferencia desde tu banca en línea</strong>
           <p>Generaremos una <b>CLABE única</b> para esta orden. Transfiere el monto exacto desde cualquier banco (BBVA, Santander, Banorte, Nu, etc.). Tu pago se confirma automáticamente en minutos.</p>
@@ -146,10 +152,10 @@ export function createSimulatedProvider({ container, clientSecret, totalCents, c
 
     <div class="dco-method-panel" data-panel="oxxo" hidden>
       <div class="dco-method-info">
-        ${icons.store(22)}
+        ${paymentLogo('oxxo', { width: 44 })}
         <div>
           <strong>Paga en efectivo en cualquier OXXO</strong>
-          <p>Te daremos una referencia válida por <b>3 días</b>. Paga en caja y tu orden se confirma automáticamente (puede tardar hasta 1 día hábil).</p>
+          <p>Te daremos una referencia válida por <b>3 días</b>. Paga en caja y tu orden se confirma automáticamente (puede tardar hasta 1 día hábil). OXXO cobra una comisión adicional en caja.</p>
         </div>
       </div>
     </div>
@@ -193,11 +199,24 @@ export function createSimulatedProvider({ container, clientSecret, totalCents, c
     const digits = numberInput.value.replace(/\D/g, '').slice(0, 19);
     const brand = detectBrand(digits);
     numberInput.value = formatCardNumber(digits, brand);
-    brandBadge.textContent = BRAND_LABEL[brand] || '';
+    brandBadge.innerHTML = brand ? paymentLogo(brand, { width: 34 }) : '';
     brandBadge.dataset.brand = brand;
+    brandBadge.title = BRAND_LABEL[brand] || '';
     cvcInput.maxLength = brand === 'amex' ? 4 : 3;
+    cvcInput.placeholder = brand === 'amex' ? '1234' : '123';
     if (msiField) msiField.hidden = brand === 'amex';
     setFieldError('number', '');
+  });
+
+  // Relleno rápido (solo existe en la pasarela simulada)
+  $('#dco-testfill')?.addEventListener('click', () => {
+    numberInput.value = '4242424242424242';
+    numberInput.dispatchEvent(new Event('input'));
+    const next = new Date();
+    expInput.value = `12 / ${String((next.getFullYear() + 3) % 100).padStart(2, '0')}`;
+    cvcInput.value = '123';
+    if (nameInput.value.trim().length < 3) nameInput.value = customer.name || 'CLIENTE PRUEBA';
+    ['number', 'exp', 'cvc', 'name'].forEach((k) => setFieldError(k, ''));
   });
   expInput.addEventListener('input', (e) => {
     let digits = expInput.value.replace(/\D/g, '').slice(0, 4);

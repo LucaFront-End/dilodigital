@@ -8,7 +8,8 @@
  *    SPEI por transferencia y OXXO, según lo habilitado en Stripe).
  *  - Modo simulado: devuelve una sesión firmada con HMAC.
  *
- * Body: { items: string[], plan?: string, customer: {name,email,phone},
+ * Body: { items: string[], plan?: string, coupon?: string,
+ *         customer: {name,email,phone},
  *         billing?: {required, rfc, razonSocial, regimen, usoCfdi, cp},
  *         meta?: object, tracking?: {fbp, fbc, sourceUrl} }
  */
@@ -27,7 +28,9 @@ import {
   validateBilling,
   sanitizeMeta,
   signToken,
-  getClientIp
+  getClientIp,
+  getCoupons,
+  publicPricing as toPublicPricing
 } from '../_lib/checkout.js';
 
 const trim = (v, n) => String(v ?? '').slice(0, n);
@@ -44,9 +47,17 @@ export default async function handler(req, res) {
     return sendJson(res, 400, { ok: false, error: 'Solicitud inválida.' });
   }
 
-  // 1. Precio autoritativo
-  const pricing = priceCart({ items: body.items, plan: body.plan });
+  // 1. Precio autoritativo (con cupón validado en el servidor)
+  const pricing = priceCart({ items: body.items, plan: body.plan, coupon: body.coupon, coupons: getCoupons() });
   if (!pricing.ok) return sendJson(res, 400, { ok: false, code: 'invalid_cart', error: pricing.error });
+  if (body.coupon && pricing.couponError) {
+    return sendJson(res, 422, {
+      ok: false,
+      code: 'invalid_coupon',
+      error: pricing.couponError,
+      fields: { coupon: pricing.couponError }
+    });
+  }
 
   // 2. Datos del cliente y facturación
   const { customer, errors: customerErrors, valid: customerValid } = validateCustomer(body.customer);
@@ -71,17 +82,7 @@ export default async function handler(req, res) {
 
   const mode = getGatewayMode();
   const orderId = generateOrderId(pricing.folioPrefix);
-  const publicPricing = {
-    lines: pricing.lines,
-    subtotalCents: pricing.subtotalCents,
-    discountCents: pricing.discountCents,
-    balanceCents: pricing.balanceCents,
-    totalCents: pricing.totalCents,
-    ivaCents: pricing.ivaCents,
-    plan: pricing.plan,
-    planLabel: pricing.planLabel,
-    currency: pricing.currency
-  };
+  const publicPricing = toPublicPricing(pricing);
 
   // 3a. Modo simulado
   if (mode === 'simulated') {
@@ -102,6 +103,10 @@ export default async function handler(req, res) {
       items: pricing.items,
       plan: pricing.plan,
       category: pricing.category,
+      subtotalCents: pricing.subtotalCents,
+      couponCode: pricing.couponCode,
+      couponDiscountCents: pricing.couponDiscountCents,
+      balanceCents: pricing.balanceCents,
       customer,
       billing,
       meta,
@@ -134,6 +139,10 @@ export default async function handler(req, res) {
       customer_email: customer.email,
       customer_phone: customer.phone,
       brand_name: meta.brandName || '',
+      subtotal_cents: String(pricing.subtotalCents),
+      coupon_code: pricing.couponCode || '',
+      coupon_discount_cents: String(pricing.couponDiscountCents || 0),
+      balance_cents: String(pricing.balanceCents || 0),
       fbp: tracking.fbp,
       fbc: tracking.fbc,
       client_ip: tracking.ip,

@@ -17,6 +17,7 @@
 
 import crypto from 'node:crypto';
 import Stripe from 'stripe';
+import { normalizeCouponCode } from '../../src/checkout/catalog.js';
 
 // ── Configuración / modo ────────────────────────────────────────
 
@@ -49,6 +50,71 @@ export function getStripe() {
     });
   }
   return stripeClient;
+}
+
+// ── Cupones ─────────────────────────────────────────────────────
+
+/** Cupón de prueba: SOLO fuera de producción y nunca con Stripe live. */
+const TEST_COUPONS = {
+  PRUEBA10: { percent: 10, label: 'Cupón de prueba · 10% de descuento' }
+};
+
+let couponsCache = { raw: null, value: {} };
+
+/**
+ * Cupones vigentes. Se configuran con la variable CHECKOUT_COUPONS (JSON):
+ *   {"LANZAMIENTO10": {"percent": 10, "categories": ["impi"], "expires": "2026-12-31"}}
+ */
+export function getCoupons() {
+  const raw = env('CHECKOUT_COUPONS');
+  if (raw !== couponsCache.raw) {
+    const parsed = {};
+    if (raw) {
+      try {
+        const json = JSON.parse(raw);
+        if (json && typeof json === 'object' && !Array.isArray(json)) {
+          for (const [code, def] of Object.entries(json)) {
+            const key = normalizeCouponCode(code);
+            if (key && def && typeof def === 'object') parsed[key] = def;
+          }
+        }
+      } catch (err) {
+        console.warn('[Dilo Checkout] CHECKOUT_COUPONS no es un JSON válido:', err?.message || err);
+      }
+    }
+    couponsCache = { raw, value: parsed };
+  }
+  const allowTest = getGatewayMode() !== 'stripe-live' && env('VERCEL_ENV') !== 'production';
+  return allowTest ? { ...TEST_COUPONS, ...couponsCache.value } : { ...couponsCache.value };
+}
+
+export function couponsEnabled() {
+  return Object.keys(getCoupons()).length > 0;
+}
+
+/** Desglose de precios apto para el navegador (todo proviene del catálogo). */
+export function publicPricing(pricing) {
+  return {
+    currency: pricing.currency,
+    category: pricing.category,
+    categoryLabel: pricing.categoryLabel,
+    plan: pricing.plan,
+    planLabel: pricing.planLabel,
+    availablePlans: pricing.availablePlans,
+    items: pricing.items,
+    baseSku: pricing.baseSku,
+    lines: pricing.lines,
+    subtotalCents: pricing.subtotalCents,
+    couponCode: pricing.couponCode,
+    couponLabel: pricing.couponLabel,
+    couponDiscountCents: pricing.couponDiscountCents,
+    discountCents: pricing.discountCents,
+    balanceCents: pricing.balanceCents,
+    totalCents: pricing.totalCents,
+    ivaCents: pricing.ivaCents,
+    notices: pricing.notices,
+    primaryName: pricing.primaryName
+  };
 }
 
 // ── Utilidades HTTP ─────────────────────────────────────────────
@@ -88,17 +154,26 @@ export async function readJsonBody(req) {
   }
 }
 
-/** Lee el cuerpo crudo (necesario para verificar firmas de webhooks). */
+/**
+ * Lee el cuerpo crudo (necesario para verificar firmas de webhooks).
+ * IMPORTANTE: en Vercel `req.body` es un getter perezoso que consume el
+ * stream; por eso se lee el stream ANTES de tocar `req.body`.
+ */
 export async function readRawBody(req) {
   if (req.rawBody !== undefined) {
     return Buffer.isBuffer(req.rawBody) ? req.rawBody : Buffer.from(String(req.rawBody));
   }
-  if (Buffer.isBuffer(req.body)) return req.body;
-  if (typeof req.body === 'string') return Buffer.from(req.body);
-  if (req.readableEnded) return Buffer.alloc(0);
-  const chunks = [];
-  for await (const chunk of req) chunks.push(typeof chunk === 'string' ? Buffer.from(chunk) : chunk);
-  return Buffer.concat(chunks);
+  if (typeof req[Symbol.asyncIterator] === 'function' && !req.readableEnded && req.readable !== false) {
+    const chunks = [];
+    for await (const chunk of req) chunks.push(typeof chunk === 'string' ? Buffer.from(chunk) : chunk);
+    const buf = Buffer.concat(chunks);
+    if (buf.length) return buf;
+  }
+  const body = req.body;
+  if (Buffer.isBuffer(body)) return body;
+  if (typeof body === 'string') return Buffer.from(body);
+  if (body && typeof body === 'object') return Buffer.from(JSON.stringify(body));
+  return Buffer.alloc(0);
 }
 
 export function getClientIp(req) {
@@ -347,6 +422,11 @@ export function orderFromPaymentIntent(pi, mode) {
       phone: md.customer_phone || ''
     },
     meta: { brandName: md.brand_name || '' },
+    subtotalCents: Number(md.subtotal_cents) || pi.amount,
+    couponCode: md.coupon_code || '',
+    couponDiscountCents: Number(md.coupon_discount_cents) || 0,
+    balanceCents: Number(md.balance_cents) || 0,
+    invoice: md.cfdi_rfc ? { rfc: md.cfdi_rfc, razonSocial: md.cfdi_razon_social || '', usoCfdi: md.cfdi_uso || '' } : null,
     method: usedMethod,
     installments: card?.installments?.plan?.count || 1,
     cardLast4: card?.last4 || '',
@@ -371,6 +451,11 @@ export function orderFromSimulated(session) {
     category: session.category,
     customer: session.customer,
     meta: session.meta || {},
+    subtotalCents: session.subtotalCents || session.amountCents,
+    couponCode: session.couponCode || '',
+    couponDiscountCents: session.couponDiscountCents || 0,
+    balanceCents: session.balanceCents || 0,
+    invoice: session.billing ? { rfc: session.billing.rfc, razonSocial: session.billing.razonSocial, usoCfdi: session.billing.usoCfdi } : null,
     method: session.method || '',
     installments: session.installments || 1,
     cardLast4: session.cardLast4 || '',

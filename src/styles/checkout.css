@@ -1991,3 +1991,733 @@ body.dco-mode .aww-cursor {
     white-space: normal;
   }
 }
+
+/* ================================================================
+   OVERHAUL v2 — carrito editable, cupones, upsell, móvil, recibo
+   ================================================================ */
+
+/* ── Formulario ─────────────────────────────────────────────────── */
+.dco-form-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin: 12px 0 0;
+  font-size: 12px;
+  color: var(--dco-ink-3);
+  text-align: center;
+}
+
+.dco-email-suggest {
+  align-self: flex-start;
+  font: inherit;
+  font-size: 12.5px;
+  color: var(--dco-ink-2);
+  background: #FFF8F4;
+  border: 1px dashed rgba(255, 90, 31, 0.45);
+  border-radius: 8px;
+  padding: 5px 9px;
+  cursor: pointer;
+  animation: dco-fade 0.25s ease both;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.dco-email-suggest strong {
+  color: var(--dco-primary);
+}
+
+.dco-email-suggest:hover {
+  background: #FFEFE6;
+  border-style: solid;
+}
+
+.dco-plan {
+  flex-wrap: wrap;
+}
+
+.dco-plan-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.dco-plan-badge {
+  font-size: 11.5px;
+  font-weight: 800;
+  color: var(--dco-success);
+  background: var(--dco-success-soft);
+  border: 1px solid #C9EED7;
+  padding: 4px 9px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.dco-inline-retry {
+  font: inherit;
+  font-weight: 800;
+  color: var(--dco-danger);
+  background: none;
+  border: 0;
+  padding: 0;
+  margin-left: 6px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.dco-legal a {
+  color: var(--dco-ink-2);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.dco-legal a:hover {
+  color: var(--dco-primary);
+}
+
+.dco-footer a {
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.dco-footer a:hover {
+  color: var(--dco-primary);
+}
+
+/* ── Tarjeta (simulada): logos aceptados y relleno de prueba ────── */
+.dco-accepted {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+  margin: -4px 0 16px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--dco-ink-3);
+}
+
+.dco-accepted-logos {
+  display: inline-flex;
+  gap: 5px;
+}
+
+.dco-testfill {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  color: #8A5A0B;
+  background: #FFF6E5;
+  border: 1px dashed #F1C77E;
+  border-radius: 999px;
+  padding: 5px 11px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.dco-testfill:hover {
+  background: #FFEFD0;
+}
+
+.dco-card-brand:not(:empty) {
+  background: transparent;
+  padding: 0;
+}
+
+.dco-card-brand svg {
+  display: block;
+  animation: dco-pop 0.3s var(--dco-ease) both;
+}
+
+.dco-paylogo {
+  display: block;
+  flex-shrink: 0;
+  border-radius: 5px;
+}
+
+.dco-paylogos {
+  gap: 7px;
+}
+
+.dco-paylogos .dco-paylogo {
+  opacity: 0.92;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.dco-paylogos .dco-paylogo:hover {
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+/* ── Resumen: líneas, quitar, avisos ───────────────────────────── */
+.dco-line-remove {
+  align-self: flex-start;
+  margin-top: 4px;
+  font: inherit;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #8D93A1;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s;
+}
+
+.dco-line-remove:hover {
+  color: #FF8A5B;
+}
+
+.dco-line {
+  animation: dco-fade 0.3s ease both;
+}
+
+.dco-notice {
+  display: flex;
+  gap: 10px;
+  margin: 0 0 14px;
+  padding: 11px 12px;
+  border-radius: 12px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: #FFD9A8;
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+}
+
+.dco-notice svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.dco-notice p {
+  margin: 0;
+}
+
+.dco-summary.is-busy .dco-upsell-add,
+.dco-summary.is-busy .dco-line-remove,
+.dco-summary.is-busy .dco-coupon button {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* ── Upsell ─────────────────────────────────────────────────────── */
+.dco-upsell {
+  margin: 4px 0 16px;
+  padding: 14px;
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.dco-upsell-head {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 10px;
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #FFB592;
+}
+
+.dco-upsell-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.dco-upsell-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 10px 10px 12px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.dco-upsell-item:hover {
+  border-color: rgba(255, 90, 31, 0.35);
+  background: rgba(255, 90, 31, 0.06);
+}
+
+.dco-upsell-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.dco-upsell-text strong {
+  font-size: 13.5px;
+  color: #fff;
+}
+
+.dco-upsell-text small {
+  font-size: 12px;
+  line-height: 1.4;
+  color: #9298A6;
+}
+
+.dco-upsell-add {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: #fff;
+  background: rgba(255, 90, 31, 0.16);
+  border: 1px solid rgba(255, 90, 31, 0.45);
+  border-radius: 999px;
+  padding: 7px 12px 7px 8px;
+  cursor: pointer;
+  font-variant-numeric: tabular-nums;
+  transition: background 0.2s, transform 0.2s var(--dco-ease);
+}
+
+.dco-upsell-add:hover {
+  background: var(--dco-primary);
+  transform: translateY(-1px);
+}
+
+.dco-upsell-plus {
+  width: 18px;
+  height: 18px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--dco-primary);
+  font-size: 14px;
+  line-height: 1;
+}
+
+.dco-upsell-add:hover .dco-upsell-plus {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* ── Cupón ──────────────────────────────────────────────────────── */
+.dco-coupon {
+  margin: 0 0 14px;
+}
+
+.dco-coupon-toggle {
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  color: #FFB592;
+  background: none;
+  border: 0;
+  padding: 2px 0;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-style: dashed;
+  text-underline-offset: 4px;
+}
+
+.dco-coupon-toggle:hover {
+  color: #fff;
+}
+
+.dco-coupon-form {
+  display: flex;
+  gap: 8px;
+  animation: dco-fade 0.25s ease both;
+}
+
+.dco-coupon-input {
+  flex: 1;
+  min-width: 0;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1.5px solid rgba(255, 255, 255, 0.14);
+  border-radius: 12px;
+  padding: 11px 13px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.dco-coupon-input::placeholder {
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 500;
+  color: #7F8594;
+}
+
+.dco-coupon-input:focus {
+  border-color: var(--dco-primary);
+  box-shadow: 0 0 0 3px rgba(255, 90, 31, 0.22);
+}
+
+.dco-coupon-apply {
+  min-width: 92px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font: inherit;
+  font-size: 13.5px;
+  font-weight: 800;
+  color: var(--dco-ink);
+  background: #fff;
+  border: 0;
+  border-radius: 12px;
+  padding: 0 16px;
+  cursor: pointer;
+  transition: transform 0.2s var(--dco-ease), background 0.2s;
+}
+
+.dco-coupon-apply:hover:not(:disabled) {
+  background: #FFE7DB;
+  transform: translateY(-1px);
+}
+
+.dco-coupon-apply .dco-spinner.is-small {
+  border-color: rgba(18, 19, 22, 0.15);
+  border-top-color: var(--dco-ink);
+}
+
+.dco-coupon-error {
+  margin: 8px 0 0;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #FCA5A5;
+}
+
+.dco-coupon-error:empty {
+  display: none;
+}
+
+.dco-coupon.is-applied {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(110, 231, 162, 0.08);
+  border: 1px dashed rgba(110, 231, 162, 0.4);
+  animation: dco-fade 0.3s ease both;
+}
+
+.dco-coupon-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: #0B3B1F;
+  background: #6EE7A2;
+  padding: 4px 9px;
+  border-radius: 7px;
+}
+
+.dco-coupon-label {
+  flex: 1;
+  min-width: 0;
+  font-size: 12.5px;
+  color: #B9F5D1;
+}
+
+.dco-coupon-remove {
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  color: #A3A8B5;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.dco-coupon-remove:hover {
+  color: #fff;
+}
+
+/* ── Toast ──────────────────────────────────────────────────────── */
+.dco-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 28px;
+  z-index: 950;
+  max-width: calc(100vw - 32px);
+  padding: 12px 18px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  background: rgba(18, 19, 22, 0.94);
+  box-shadow: 0 18px 40px -16px rgba(0, 0, 0, 0.45);
+  transform: translate(-50%, 16px);
+  opacity: 0;
+  transition: opacity 0.25s ease, transform 0.35s var(--dco-ease);
+  pointer-events: none;
+}
+
+.dco-toast.is-visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.dco-page.has-mobilebar .dco-toast {
+  bottom: 96px;
+}
+
+/* ── Barra fija de pago (móvil) ─────────────────────────────────── */
+.dco-mobilebar {
+  display: none !important;
+}
+
+@media (max-width: 980px) {
+  .dco-mobilebar:not([hidden]) {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 60;
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(14px) saturate(1.4);
+    -webkit-backdrop-filter: blur(14px) saturate(1.4);
+    border-top: 1px solid var(--dco-line);
+    box-shadow: 0 -12px 30px -18px rgba(16, 17, 20, 0.3);
+    animation: dco-bar-in 0.35s var(--dco-ease) both;
+  }
+
+  .dco-page.has-mobilebar {
+    padding-bottom: 84px;
+  }
+}
+
+.dco-mobilebar-total {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.dco-mobilebar-total small {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--dco-ink-2);
+}
+
+.dco-mobilebar-total strong {
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.dco-mobilebar .dco-btn-pay {
+  margin: 0;
+  padding: 13px 18px;
+  font-size: 14.5px;
+  white-space: nowrap;
+}
+
+@keyframes dco-bar-in {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: none;
+  }
+}
+
+/* ── Banner de prueba compacto ──────────────────────────────────── */
+.dco-test-short {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .dco-test-long {
+    display: none;
+  }
+
+  .dco-test-short {
+    display: inline;
+  }
+
+  .dco-accepted span:first-child {
+    display: none;
+  }
+
+  .dco-testfill {
+    margin-left: 0;
+  }
+
+  .dco-upsell-item {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .dco-upsell-add {
+    justify-content: center;
+  }
+}
+
+/* ── Página de resultado ────────────────────────────────────────── */
+.dco-method-cell {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dco-invoice-note {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 12px 0 0;
+  font-size: 12.5px;
+  color: var(--dco-ink-2);
+}
+
+.dco-lines.is-light .dco-line.is-discount .dco-line-text strong,
+.dco-lines.is-light .dco-line.is-discount .dco-line-price {
+  color: var(--dco-success);
+}
+
+.dco-countdown {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--dco-warn);
+  background: var(--dco-warn-soft);
+  border: 1px solid #F5DDAF;
+  padding: 3px 9px;
+  border-radius: 999px;
+}
+
+.dco-countdown.is-expired {
+  color: var(--dco-danger);
+  background: var(--dco-danger-soft);
+  border-color: #F7C9C9;
+}
+
+.dco-recheck-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.dco-recheck-box .dco-polling-note {
+  margin: 0;
+}
+
+.dco-recheck-note {
+  max-width: 460px;
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--dco-ink-2);
+  animation: dco-fade 0.3s ease both;
+}
+
+.dco-print-head {
+  display: none;
+}
+
+@media print {
+  @page {
+    margin: 14mm;
+  }
+
+  body.dco-mode,
+  .dco-page {
+    background: #fff !important;
+  }
+
+  .dco-header,
+  .dco-test-banner,
+  .dco-footer,
+  .dco-result-actions,
+  .dco-confetti,
+  .dco-sim-box,
+  .dco-recheck-box,
+  .dco-copy-btn,
+  .dco-mobilebar,
+  .dco-toast,
+  #wix-chat-widget {
+    display: none !important;
+  }
+
+  .dco-print-head {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 0 0 14px;
+    margin: 0 0 18px;
+    border-bottom: 2px solid #121316;
+  }
+
+  .dco-print-head img {
+    height: 34px;
+    width: auto;
+  }
+
+  .dco-print-head strong {
+    display: block;
+    font-size: 18px;
+  }
+
+  .dco-print-head span {
+    font-size: 11px;
+    color: #525866;
+  }
+
+  .dco-result-container {
+    padding: 0 !important;
+  }
+
+  .dco-result-card {
+    box-shadow: none !important;
+    border: 0 !important;
+    padding: 0 !important;
+    max-width: none !important;
+    animation: none !important;
+  }
+
+  .dco-result-icon {
+    display: none !important;
+  }
+
+  .dco-result-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .dco-result-section,
+  .dco-instructions {
+    break-inside: avoid;
+    background: #fff !important;
+  }
+
+  .dco-mini-summary {
+    display: block;
+  }
+}

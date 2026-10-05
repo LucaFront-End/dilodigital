@@ -53,6 +53,7 @@ async function request(path, { method = 'GET', body, timeoutMs = 25000 } = {}) {
 
 export const checkoutApi = {
   config: () => request('/api/checkout/config'),
+  quote: (body) => request('/api/checkout/quote', { method: 'POST', body, timeoutMs: 15000 }),
   createIntent: (body) => request('/api/checkout/create-intent', { method: 'POST', body }),
   simulate: (body) => request('/api/checkout/simulate-payment', { method: 'POST', body }),
   orderStatus: (clientSecret) =>

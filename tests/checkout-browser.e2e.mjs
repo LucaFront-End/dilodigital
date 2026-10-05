@@ -123,7 +123,7 @@ console.log('A. Landing IMPI → checkout → tarjeta 4242 → éxito');
   check('banner MODO PRUEBA visible', (await text(page, '#dco-test-banner')).includes('MODO PRUEBA'));
   check('nombre precargado', (await page.inputValue('#dco-name')) === 'Ana Morales');
   check('correo precargado', (await page.inputValue('#dco-email')) === 'ana@auracoffee.mx');
-  check('teléfono precargado', (await page.inputValue('#dco-phone')) === '5512345678');
+  check('teléfono precargado y formateado', (await page.inputValue('#dco-phone')) === '55 1234 5678', await page.inputValue('#dco-phone'));
   check('resumen: total', (await text(page, '#dco-total-amount')).includes('7,899.00'));
   check('resumen: marca', (await text(page, '#dco-summary')).includes('Aura Coffee'));
   check('título de pestaña', (await page.title()).includes('Pago seguro'));
@@ -136,7 +136,7 @@ console.log('A. Landing IMPI → checkout → tarjeta 4242 → éxito');
   await fillCard(page, '4242424242424242');
   check('formato de tarjeta', (await page.inputValue('#dco-card-number')) === '4242 4242 4242 4242');
   check('formato de vencimiento', (await page.inputValue('#dco-card-exp')) === '12 / 34');
-  check('detecta VISA', (await text(page, '#dco-card-brand')) === 'VISA');
+  check('detecta VISA', (await page.locator('#dco-card-brand').getAttribute('data-brand')) === 'visa' && (await page.locator('#dco-card-brand svg[data-logo="visa"]').count()) === 1);
   await shot(page, 'A3-checkout-payment');
 
   await page.click('#dco-pay-btn');
@@ -256,7 +256,7 @@ console.log('E. 6 meses sin intereses');
   await fillContact(page);
   await continueToPayment(page);
   await fillCard(page, '5555555555554444', { name: 'ROBERTO GONZALEZ' });
-  check('detecta Mastercard', (await text(page, '#dco-card-brand')) === 'Mastercard');
+  check('detecta Mastercard', (await page.locator('#dco-card-brand').getAttribute('data-brand')) === 'mastercard');
   await page.selectOption('#dco-card-msi', '6');
   await page.click('#dco-pay-btn');
   await waitSuccess(page);
@@ -459,29 +459,172 @@ console.log('M. Móvil (390×844)');
   check('resumen se expande', await page.locator('#dco-summary-body').isVisible());
   await page.click('#dco-summary-toggle');
   await fillContact(page);
+  check('barra fija móvil visible en datos', await page.isVisible('#dco-mobilebar'));
   await continueToPayment(page);
   const overflow2 = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
   check('sin scroll horizontal en pago', overflow2 <= 0, overflow2);
   await shot(page, 'M2-mobile-payment');
   await fillCard(page, '4242424242424242');
-  await page.click('#dco-pay-btn');
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await page.waitForSelector('#dco-mobilebar:not([hidden])');
+  check('barra fija ofrece pagar con el total', (await text(page, '#dco-mobilebar')).includes('Pagar') && (await text(page, '#dco-mobilebar')).includes('11,849.00'), await text(page, '#dco-mobilebar'));
+  await shot(page, 'M2b-mobile-stickybar');
+  await page.click('#dco-mobilebar-btn');
   await waitSuccess(page);
   await page.waitForTimeout(600);
   const overflow3 = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
   check('sin scroll horizontal en éxito', overflow3 <= 0, overflow3);
   await shot(page, 'M3-mobile-success');
+  await page.goto(`${BASE}/#/terminos`);
+  await page.waitForSelector('#dlg-page');
+  const overflow4 = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+  check('legal móvil sin scroll horizontal', overflow4 <= 0, overflow4);
+  await shot(page, 'M4-mobile-legal');
+  await context.close();
+}
+
+// ── N. Carrito editable, cupones y reutilización de la orden ───────
+console.log('N. Upsell, cupones, persistencia y edición en vivo');
+{
+  const { context, page } = await newPage();
+  const intents = () => page.evaluate(() => Object.values(JSON.parse(sessionStorage.getItem('dilo_checkout_intents') || '{}')).map((i) => i.orderId));
+  await openCheckout(page, 'items=impi-completo');
+  await page.waitForSelector('#dco-upsell');
+  check('3 complementos recomendados', (await page.locator('.dco-upsell-item').count()) === 3);
+  await shot(page, 'N1-upsell');
+  await page.click('#dco-add-impi-addon-monitoreo');
+  await page.waitForFunction(() => document.querySelector('#dco-total-amount')?.textContent.includes('9,749.00'));
+  check('agregar complemento actualiza total', true);
+  check('URL refleja el complemento', page.url().includes('impi-addon-monitoreo'));
+  check('Pixel: AddToCart', (await pixelLog(page)).some((e) => e.event === 'AddToCart' && e.value === 1850));
+  check('toast de confirmación', (await text(page, '#dco-toast')).includes('Agregaste'));
+  check('ya no se sugiere el agregado', (await page.locator('#dco-add-impi-addon-monitoreo').count()) === 0);
+  await page.click('#dco-remove-impi-addon-monitoreo');
+  await page.waitForFunction(() => document.querySelector('#dco-total-amount')?.textContent.includes('7,899.00'));
+  check('quitar complemento restaura total', !page.url().includes('impi-addon-monitoreo'));
+
+  await page.waitForSelector('#dco-coupon-toggle');
+  await page.click('#dco-coupon-toggle');
+  await page.fill('#dco-coupon-input', 'nope');
+  check('cupón en mayúsculas al escribir', (await page.inputValue('#dco-coupon-input')) === 'NOPE');
+  await page.click('#dco-coupon-apply');
+  await page.waitForFunction(() => document.querySelector('#dco-coupon-error')?.textContent.trim().length > 0);
+  check('cupón inválido muestra error', (await text(page, '#dco-coupon-error')).includes('no es válido'), await text(page, '#dco-coupon-error'));
+  await page.fill('#dco-coupon-input', 'prueba10');
+  await page.press('#dco-coupon-input', 'Enter');
+  await page.waitForSelector('#dco-coupon-row');
+  check('cupón aplicado: $7,109.10', (await text(page, '#dco-total-amount')).includes('7,109.10'), await text(page, '#dco-total-amount'));
+  check('URL guarda el cupón', page.url().includes('coupon=PRUEBA10'));
+  await shot(page, 'N2-coupon-applied');
+  await page.click('#dco-add-impi-addon-monitoreo');
+  await page.waitForFunction(() => document.querySelector('#dco-total-amount')?.textContent.includes('8,774.10'));
+  check('cupón se recalcula al cambiar el carrito ($8,774.10)', true);
+
+  await fillContact(page, { name: 'Laura Peña', email: 'laura@estudio.mx', phone: '3312345678' });
+  check('teléfono GDL formateado', (await page.inputValue('#dco-phone')) === '33 1234 5678', await page.inputValue('#dco-phone'));
+  await continueToPayment(page);
+  check('botón de pago con total con cupón', (await text(page, '#dco-pay-label')).includes('8,774.10'));
+  const first = await intents();
+  await page.click('#dco-edit-contact');
+  await continueToPayment(page);
+  const second = await intents();
+  check('editar sin cambios reutiliza la misma orden', first.length === 1 && second.length === 1 && first[0] === second[0], { first, second });
+
+  await page.reload();
+  await page.waitForSelector('#dco-page');
+  await page.waitForSelector('#dco-coupon-row');
+  check('recargar conserva datos', (await page.inputValue('#dco-name')) === 'Laura Peña' && (await page.inputValue('#dco-email')) === 'laura@estudio.mx');
+  check('recargar conserva carrito y cupón', (await text(page, '#dco-total-amount')).includes('8,774.10'), await text(page, '#dco-total-amount'));
+  await continueToPayment(page);
+  const third = await intents();
+  check('tras recargar se reutiliza la misma orden', third.includes(first[0]) && third.length === 1, third);
+
+  await page.click('#dco-add-impi-addon-clase');
+  await page.waitForFunction(() => document.querySelector('#dco-pay-label')?.textContent.includes('12,329.10') && !document.querySelector('#dco-pay-btn').hidden);
+  check('cambiar el carrito en el paso de pago re-prepara con el monto nuevo', true);
+  const fourth = await intents();
+  check('el cambio de monto genera una orden nueva', fourth.some((id) => id !== first[0]), fourth);
+  await shot(page, 'N3-live-edit-payment');
+
+  await page.click('#dco-testfill');
+  check('relleno de tarjeta de prueba', (await page.inputValue('#dco-card-number')) === '4242 4242 4242 4242');
+  await page.click('#dco-pay-btn');
+  await waitSuccess(page);
+  const t = await text(page, '#dco-result-success');
+  check('éxito muestra cupón aplicado', t.includes('PRUEBA10') && t.includes('12,329.10'), t);
+  await page.evaluate(() => {
+    window.__printed = 0;
+    window.print = () => window.__printed++;
+  });
+  await page.click('#dco-print-receipt');
+  check('descargar comprobante abre impresión', (await page.evaluate(() => window.__printed)) === 1);
+  await page.emulateMedia({ media: 'print' });
+  check('impresión oculta botones y muestra encabezado', (await page.isHidden('.dco-result-actions')) && (await page.isVisible('.dco-print-head')));
+  await page.screenshot({ path: path.join(SCREEN_DIR, 'N4-print-receipt.png'), fullPage: true });
+  await page.emulateMedia({ media: 'screen' });
+  await context.close();
+}
+
+// ── O. Ayudas de captura, SEO y enlaces profundos ──────────────────
+console.log('O. Correo, teléfono, noindex, legales y enlaces con cupón');
+{
+  const { context, page } = await newPage();
+  await openCheckout(page, 'items=impi-dictamen&coupon=prueba10');
+  await page.waitForSelector('#dco-coupon-row');
+  check('enlace con cupón lo aplica ($1,341.00)', (await text(page, '#dco-total-amount')).includes('1,341.00'), await text(page, '#dco-total-amount'));
+  check('meta robots noindex en checkout', (await page.locator('meta[name="robots"][content*="noindex"]').count()) === 1);
+  await page.fill('#dco-email', 'ana@gmial.com');
+  await page.locator('#dco-email').blur();
+  await page.waitForSelector('#dco-email-suggest:not([hidden])');
+  check('sugiere gmail.com', (await text(page, '#dco-email-suggest')).includes('ana@gmail.com'));
+  await shot(page, 'O1-email-suggest');
+  await page.click('#dco-email-suggest');
+  check('aplica la sugerencia', (await page.inputValue('#dco-email')) === 'ana@gmail.com');
+  await page.fill('#dco-email', 'ana@auracoffee.mx');
+  await page.locator('#dco-email').blur();
+  check('dominio propio no se sugiere', await page.locator('#dco-email-suggest').isHidden());
+  await page.fill('#dco-phone', '');
+  await page.type('#dco-phone', '+52 1 55 9876 5432');
+  check('teléfono con +52 1 se normaliza', (await page.inputValue('#dco-phone')) === '55 9876 5432', await page.inputValue('#dco-phone'));
+  check('legales enlazados en el pie', (await page.locator('#dco-footer-terms[href="#/terminos"]').count()) === 1 && (await page.locator('#dco-footer-privacy[href="#/aviso-de-privacidad"]').count()) === 1);
+
+  await openCheckout(page, 'items=branding-flagship,branding-addon-impi&plan=full-5off');
+  await page.waitForSelector('#dco-notice');
+  check('aviso de complemento ya incluido', (await text(page, '#dco-notice')).includes('ya está incluido'));
+  check('URL se limpia del complemento duplicado', !page.url().includes('branding-addon-impi'), page.url());
+  check('no cobra el complemento duplicado ($27,455.00)', (await text(page, '#dco-total-amount')).includes('27,455.00'), await text(page, '#dco-total-amount'));
+
+  await page.goto(`${BASE}/#/terminos`);
+  await page.waitForSelector('#dlg-page');
+  check('términos: título', (await text(page, '.dlg-title')).includes('Términos'));
+  check('términos: secciones', (await page.locator('.dlg-section').count()) >= 8);
+  check('legales sin noindex', (await page.locator('meta[name="robots"]').count()) === 0);
+  check('título de pestaña legal', (await page.title()).includes('Términos'));
+  await shot(page, 'O2-terminos');
+  await page.click('#dlg-switch');
+  await page.waitForSelector('#dlg-page[data-doc="privacidad"]');
+  check('aviso de privacidad: ARCO', (await text(page, '#dlg-page')).includes('ARCO'));
+  await page.locator('.dlg-toc a').nth(2).click();
+  await page.waitForTimeout(500);
+  check('índice no rompe la ruta', page.url().includes('#/aviso-de-privacidad'));
+  await shot(page, 'O3-privacidad');
+  await page.goto(`${BASE}/#/`);
+  await page.waitForFunction(() => !document.body.classList.contains('dlg-mode'));
+  check('salir de legales restaura el sitio', (await page.locator('#dlg-page').count()) === 0);
+  check('footer del sitio enlaza términos', (await page.locator('footer a[href="#/terminos"]').count()) >= 1);
   await context.close();
 }
 
 await browser.close();
 
 // ── Errores de consola ───────────────────────────────────────────
+const isCheckoutUrl = (u) => /#\/(checkout|terminos|aviso-de-privacidad)/.test(u);
 const checkoutErrors = consoleErrors.filter(
-  (e) => e.url.includes('#/checkout') && !(e.url.includes('sim_basura') && /404/.test(e.text)) // 404 esperado: token falso a propósito
+  (e) => isCheckoutUrl(e.url) && !(e.url.includes('sim_basura') && /404/.test(e.text)) && !/status of 422/.test(e.text) // 404/422 esperados: token falso y cupón inválido a propósito
 );
-const otherErrors = consoleErrors.filter((e) => !e.url.includes('#/checkout'));
+const otherErrors = consoleErrors.filter((e) => !isCheckoutUrl(e.url));
 console.log('\nErrores de consola');
-check('0 errores de consola en páginas de checkout', checkoutErrors.length === 0, checkoutErrors);
+check('0 errores de consola en páginas de checkout', checkoutErrors.length === 0, checkoutErrors.map((e) => `${e.url.split('?')[0]} → ${e.text}`));
 if (otherErrors.length) {
   console.log(`  (info) ${otherErrors.length} errores en otras páginas del sitio:`);
   [...new Set(otherErrors.map((e) => e.text.slice(0, 160)))].slice(0, 8).forEach((t) => console.log(`    · ${t}`));

@@ -202,5 +202,42 @@ console.log('9. Seguridad');
   check('acción desconocida → 400', r.status === 400, r.json);
 }
 
+console.log('10. Cotizador y cupones');
+{
+  let r = await call('/api/checkout/config');
+  check('config: cupones habilitados en desarrollo', r.json?.couponsEnabled === true, r.json);
+  r = await call('/api/checkout/quote', { method: 'GET' });
+  check('quote GET → 405', r.status === 405, r.json);
+  r = await call('/api/checkout/quote', { method: 'POST', body: { items: ['impi-completo', 'impi-addon-monitoreo'] } });
+  check('quote sin cupón = $9,749.00', r.status === 200 && r.json.pricing.totalCents === 974900 && r.json.pricing.lines.length === 2, r.json);
+  r = await call('/api/checkout/quote', { method: 'POST', body: { items: ['producto-falso'] } });
+  check('quote carrito inválido → 400', r.status === 400 && r.json.code === 'invalid_cart', r.json);
+  r = await call('/api/checkout/quote', { method: 'POST', body: { items: ['impi-completo'], coupon: ' prueba10 ' } });
+  check('cupón PRUEBA10 (normalizado) = −$789.90 → $7,109.10', r.status === 200 && r.json.pricing.couponCode === 'PRUEBA10' && r.json.pricing.couponDiscountCents === 78990 && r.json.pricing.totalCents === 710910, r.json?.pricing);
+  check('cupón trae etiqueta', /10%/.test(r.json?.pricing?.couponLabel || ''), r.json?.pricing);
+  r = await call('/api/checkout/quote', { method: 'POST', body: { items: ['impi-completo'], coupon: 'NOEXISTE' } });
+  check('cupón inexistente → 422 invalid_coupon', r.status === 422 && r.json.code === 'invalid_coupon' && !!r.json.fields?.coupon, r.json);
+  r = await call('/api/checkout/quote', { method: 'POST', body: { items: ['branding-ecosistema'], plan: 'full-5off', coupon: 'PRUEBA10' } });
+  check('cupón + contado −5%: $16,500 −10% = $14,850 → −5% = $14,107.50', r.json?.pricing?.totalCents === 1410750 && r.json?.pricing?.discountCents === 74250, r.json?.pricing);
+  r = await call('/api/checkout/quote', { method: 'POST', body: { items: ['branding-ecosistema'], plan: 'deposit-50', coupon: 'PRUEBA10' } });
+  check('cupón + anticipo 50%: hoy $7,425 y saldo $7,425', r.json?.pricing?.totalCents === 742500 && r.json?.pricing?.balanceCents === 742500, r.json?.pricing);
+  r = await call('/api/checkout/quote', { method: 'POST', body: { items: ['branding-flagship', 'branding-addon-impi'], plan: 'full-5off' } });
+  check('complemento ya incluido se descarta con aviso', r.json?.pricing?.items?.length === 1 && r.json?.pricing?.notices?.length === 1, r.json?.pricing);
+  check('no cobra el complemento duplicado', r.json?.pricing?.subtotalCents === 2890000, r.json?.pricing);
+
+  r = await newIntent(['impi-completo'], undefined, { coupon: 'NOEXISTE' });
+  check('create-intent con cupón inválido → 422', r.status === 422 && r.json.code === 'invalid_coupon', r.json);
+  const billing = { required: true, rfc: 'GOGR850101AB1', razonSocial: 'ROBERTO GONZALEZ', regimen: '612', usoCfdi: 'G03', cp: '06600' };
+  r = await newIntent(['branding-ecosistema'], 'deposit-50', { coupon: 'prueba10', billing });
+  check('create-intent con cupón cobra $7,425.00', r.status === 200 && r.json.pricing.totalCents === 742500 && r.json.pricing.couponCode === 'PRUEBA10', r.json?.pricing);
+  const paid = await pay(r.json.clientSecret, 'pay_card', card('4242424242424242'));
+  const o = paid.json?.order || {};
+  check('orden pagada guarda cupón y descuento', o.status === 'succeeded' && o.couponCode === 'PRUEBA10' && o.couponDiscountCents === 165000, o);
+  check('orden guarda saldo pendiente real ($7,425)', o.balanceCents === 742500 && o.amountCents === 742500, o);
+  check('orden expone datos de factura', o.invoice?.rfc === 'GOGR850101AB1' && o.invoice?.razonSocial === 'ROBERTO GONZALEZ', o.invoice);
+  r = await newIntent(['impi-completo']);
+  check('sin cupón: couponCode vacío', r.json?.pricing?.couponCode === '' && r.json?.pricing?.couponDiscountCents === 0, r.json?.pricing);
+}
+
 console.log(`\nResultado: ${passed} OK · ${failed} fallidas\n`);
 process.exit(failed ? 1 : 0);
