@@ -5,6 +5,7 @@
 
 import gsap from 'gsap';
 import { Application } from '@splinetool/runtime';
+import { CATEGORIES } from '../data/categories.js';
 
 const SPLINE_SCENE_URL = 'https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode';
 
@@ -231,6 +232,25 @@ export function renderCategoryHeroAnimation(categoryId = 'branding') {
         <div class="clean-iso-badge">Vector Spatial &middot; 3D</div>
       </div>
     </div>
+  `;
+}
+
+// ================================================================
+// STICKY CATEGORY SWITCHER RIBBON
+// ================================================================
+
+export function renderCategoryNavStrip(activeCategoryId = 'branding') {
+  return `
+    <nav class="cat-nav-strip" aria-label="Navegación de categorías">
+      <div class="cat-nav-container">
+        ${CATEGORIES.map(c => `
+          <a href="#/categoria/${c.slug}" class="cat-nav-pill ${c.id === activeCategoryId ? 'is-active' : ''}" data-cursor="hover">
+            <span class="cat-nav-num">${c.number}.</span>
+            <span>${c.shortTitle}</span>
+          </a>
+        `).join('')}
+      </div>
+    </nav>
   `;
 }
 

@@ -7,13 +7,16 @@ import confetti from 'canvas-confetti';
 import { sounds } from '../utils/SoundEngine.js';
 import { renderFinalCta, initFinalCtaEvents } from '../components/FinalCta.js';
 import { CATEGORIES } from '../data/categories.js';
-import { renderCategoryHeroSection, initCategoryHeroEvents } from '../components/CategoryAnimations.js';
+import { renderCategoryHeroSection, initCategoryHeroEvents, renderCategoryNavStrip } from '../components/CategoryAnimations.js';
 
 export function renderBrandingPurchaseView() {
   const brandingCat = CATEGORIES.find(c => c.id === 'branding') || CATEGORIES[0];
 
   return `
     <main class="bp-page">
+
+      <!-- 0. STICKY CATEGORY SWITCHER RIBBON -->
+      ${renderCategoryNavStrip('branding')}
 
       <!-- 1. MONUMENTAL HERO (HOME-STYLE SPLIT WITH 3D ROBOT & DYNAMIC ROTATOR) -->
       ${renderCategoryHeroSection(brandingCat, {

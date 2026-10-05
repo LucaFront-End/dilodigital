@@ -6,7 +6,7 @@
 import { CATEGORIES } from '../data/categories.js';
 import { PROJECTS } from '../data/projects.js';
 import { renderFinalCta, initFinalCtaEvents } from '../components/FinalCta.js';
-import { renderCategoryHeroSection, initCategoryHeroEvents } from '../components/CategoryAnimations.js';
+import { renderCategoryHeroSection, initCategoryHeroEvents, renderCategoryNavStrip } from '../components/CategoryAnimations.js';
 
 function getWhatsAppUrl(subTitle, categoryTitle) {
   const text = `Hola Dilo Digital, me interesa cotizar el servicio de *${subTitle}* de la categoría *${categoryTitle}*. ¿Podríamos agendar una sesión estratégica?`;
@@ -22,16 +22,8 @@ export function renderCategoryView(slug = 'branding-diseno') {
     <main class="cat-page">
       
       <!-- 1. STICKY CATEGORY SWITCHER RIBBON -->
-      <nav class="cat-nav-strip" aria-label="Navegación de categorías">
-        <div class="cat-nav-container">
-          ${CATEGORIES.map(c => `
-            <a href="#/categoria/${c.slug}" class="cat-nav-pill ${c.id === category.id ? 'is-active' : ''}" data-cursor="hover">
-              <span class="cat-nav-num">${c.number}.</span>
-              <span>${c.shortTitle}</span>
-            </a>
-          `).join('')}
-        </div>
-      </nav>
+      ${renderCategoryNavStrip(category.id)}
+
 
       <!-- 2. MONUMENTAL CATEGORY HERO STAGE (HOME-STYLE SPLIT WITH 3D ROBOT & DYNAMIC ROTATOR) -->
       ${renderCategoryHeroSection(category, {
