@@ -983,17 +983,17 @@ body.dco-mode .aww-cursor {
   line-height: 1.55;
 }
 
-/* ── Summary (dark) ─────────────────────────────────────────────── */
+/* ── Summary (light & elevated) ─────────────────────────────────── */
 .dco-summary {
   position: sticky;
   top: 88px;
-  border-radius: 22px;
-  color: #EDEEF2;
+  border-radius: 20px;
+  color: var(--dco-ink);
   background:
-    radial-gradient(420px 220px at 100% 0%, rgba(255, 90, 31, 0.22), transparent 70%),
-    linear-gradient(180deg, #17181D 0%, #101114 100%);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  box-shadow: 0 30px 60px -30px rgba(16, 17, 20, 0.55);
+    radial-gradient(360px 180px at 100% 0%, rgba(255, 90, 31, 0.05), transparent 70%),
+    #FFFFFF;
+  border: 1px solid var(--dco-line);
+  box-shadow: 0 1px 3px rgba(16, 17, 20, 0.03), 0 14px 34px -10px rgba(16, 17, 20, 0.07);
   overflow: hidden;
   animation: dco-rise 0.6s var(--dco-ease) 0.1s both;
 }
@@ -1003,7 +1003,7 @@ body.dco-mode .aww-cursor {
 }
 
 .dco-summary-body {
-  padding: 26px;
+  padding: 24px 24px 26px;
 }
 
 .dco-summary-head {
@@ -1013,21 +1013,28 @@ body.dco-mode .aww-cursor {
   gap: 10px;
   margin-bottom: 18px;
   font-weight: 800;
-  font-size: 15px;
+  font-size: 15.5px;
+  color: var(--dco-ink);
 }
 
 .dco-summary-head > span:first-child {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  letter-spacing: -0.01em;
+}
+
+.dco-summary-head > span:first-child svg {
+  color: var(--dco-primary);
 }
 
 .dco-summary-badge {
   font-size: 11px;
   font-weight: 700;
-  color: #FFB592;
-  background: rgba(255, 90, 31, 0.14);
-  border: 1px solid rgba(255, 90, 31, 0.28);
+  letter-spacing: 0.02em;
+  color: #C2410C;
+  background: #FFF7ED;
+  border: 1px solid #FFEDD5;
   padding: 4px 10px;
   border-radius: 999px;
   white-space: nowrap;
@@ -1035,7 +1042,7 @@ body.dco-mode .aww-cursor {
 
 .dco-lines {
   list-style: none;
-  margin: 0 0 16px;
+  margin: 0 0 14px;
   padding: 0;
   display: grid;
   gap: 2px;
@@ -1046,7 +1053,7 @@ body.dco-mode .aww-cursor {
   justify-content: space-between;
   gap: 14px;
   padding: 12px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  border-bottom: 1px solid #F1F3F6;
 }
 
 .dco-line-text {
@@ -1057,81 +1064,91 @@ body.dco-mode .aww-cursor {
 }
 
 .dco-line-text strong {
-  font-size: 14.5px;
-  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--dco-ink);
+  line-height: 1.35;
 }
 
 .dco-line.is-addon .dco-line-text strong {
   font-weight: 600;
-  color: #D9DBE2;
+  color: var(--dco-ink-2);
 }
 
 .dco-line-text small {
-  font-size: 12.5px;
-  color: #8D93A1;
+  font-size: 12px;
+  color: var(--dco-ink-2);
   line-height: 1.45;
 }
 
 .dco-line-price {
   font-weight: 700;
   font-size: 14.5px;
+  color: var(--dco-ink);
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
+  padding-top: 1px;
 }
 
 .dco-summary-meta {
-  font-size: 13px;
-  color: #A3A8B5;
-  margin: -4px 0 14px;
+  font-size: 12.5px;
+  color: var(--dco-ink-2);
+  margin: 0 0 14px;
+  padding: 8px 12px;
+  background: #F8F9FA;
+  border-radius: 8px;
+  border: 1px solid #EDEFF2;
 }
 
 .dco-summary-meta strong {
-  color: #fff;
+  color: var(--dco-ink);
 }
 
 .dco-totals {
   display: grid;
-  gap: 8px;
-  padding-top: 4px;
+  gap: 7px;
+  padding-top: 8px;
 }
 
 .dco-total-row {
   display: flex;
   justify-content: space-between;
-  font-size: 14px;
-  color: #C4C7D0;
+  font-size: 13.5px;
+  color: var(--dco-ink-2);
   font-variant-numeric: tabular-nums;
 }
 
 .dco-total-row.is-discount {
-  color: #6EE7A2;
+  color: var(--dco-success);
+  font-weight: 600;
 }
 
 .dco-total-row.is-muted {
-  font-size: 12.5px;
-  color: #7F8594;
+  font-size: 12px;
+  color: var(--dco-ink-3);
 }
 
 .dco-total-main {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  padding: 14px 0;
-  margin: 4px 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 13px 0 11px;
+  margin: 4px 0 2px;
+  border-top: 1.5px solid var(--dco-line);
+  border-bottom: 1.5px solid var(--dco-line);
 }
 
 .dco-total-main span {
   font-weight: 700;
   font-size: 15px;
+  color: var(--dco-ink);
 }
 
 .dco-total-main strong {
   font-size: 28px;
   font-weight: 800;
   letter-spacing: -0.02em;
-  color: #fff;
+  color: var(--dco-ink);
   font-variant-numeric: tabular-nums;
 }
 
@@ -1139,11 +1156,19 @@ body.dco-mode .aww-cursor {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 13px;
-  color: #FFC7AD;
-  background: rgba(255, 90, 31, 0.1);
+  font-size: 12.5px;
+  color: #9A3412;
+  background: #FFF7ED;
+  border: 1px solid #FED7AA;
   padding: 9px 12px;
   border-radius: 10px;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.dco-balance-note svg {
+  flex-shrink: 0;
+  color: #EA580C;
 }
 
 .dco-balance-note.is-block {
@@ -1163,34 +1188,36 @@ body.dco-mode .aww-cursor {
 .dco-guarantee {
   display: flex;
   gap: 12px;
-  margin-top: 20px;
-  padding: 14px;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  margin-top: 18px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #F0FDF4;
+  border: 1px solid #DCFCE7;
 }
 
 .dco-guarantee svg {
   flex-shrink: 0;
-  color: #6EE7A2;
+  color: var(--dco-success);
+  margin-top: 1px;
 }
 
 .dco-guarantee p {
   margin: 0;
-  font-size: 12.5px;
-  line-height: 1.55;
-  color: #B3B8C4;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #166534;
+  font-weight: 500;
 }
 
 .dco-trust {
   list-style: none;
-  margin: 16px 0 0;
+  margin: 15px 0 0;
   padding: 0;
   display: flex;
   flex-wrap: wrap;
   gap: 8px 14px;
   font-size: 12px;
-  color: #9298A6;
+  color: var(--dco-ink-2);
 }
 
 .dco-trust li {
@@ -1199,22 +1226,28 @@ body.dco-mode .aww-cursor {
   gap: 6px;
 }
 
+.dco-trust svg {
+  color: var(--dco-ink-3);
+}
+
 .dco-paylogos {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
   margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid #F1F3F6;
 }
 
 .dco-paylogos span {
   font-size: 10.5px;
   font-weight: 800;
   letter-spacing: 0.05em;
-  color: #D7D9DF;
+  color: var(--dco-ink-2);
   padding: 5px 9px;
   border-radius: 7px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #F4F5F7;
+  border: 1px solid var(--dco-line);
 }
 
 /* ── Footer ─────────────────────────────────────────────────────── */
@@ -1823,6 +1856,9 @@ body.dco-mode .aww-cursor {
     top: 0;
     order: -1;
     border-radius: 18px;
+    background: #FFFFFF;
+    border: 1px solid var(--dco-line);
+    box-shadow: 0 2px 10px rgba(16, 17, 20, 0.04);
   }
 
   .dco-summary-toggle {
@@ -1834,7 +1870,7 @@ body.dco-mode .aww-cursor {
     font: inherit;
     font-size: 14.5px;
     font-weight: 700;
-    color: #fff;
+    color: var(--dco-ink);
     background: transparent;
     border: 0;
     padding: 16px 20px;
@@ -1845,6 +1881,11 @@ body.dco-mode .aww-cursor {
     display: inline-flex;
     align-items: center;
     gap: 8px;
+    color: var(--dco-ink);
+  }
+
+  .dco-summary-toggle span svg {
+    color: var(--dco-primary);
   }
 
   .dco-summary-toggle span::after {
@@ -1852,8 +1893,8 @@ body.dco-mode .aww-cursor {
     width: 7px;
     height: 7px;
     margin-left: 4px;
-    border-right: 2px solid currentColor;
-    border-bottom: 2px solid currentColor;
+    border-right: 2px solid var(--dco-ink-2);
+    border-bottom: 2px solid var(--dco-ink-2);
     transform: rotate(45deg) translateY(-2px);
     transition: transform 0.25s;
   }
@@ -1864,6 +1905,8 @@ body.dco-mode .aww-cursor {
 
   .dco-summary-toggle strong {
     font-size: 17px;
+    color: var(--dco-ink);
+    font-weight: 800;
   }
 
   .dco-summary-body {
@@ -1874,6 +1917,10 @@ body.dco-mode .aww-cursor {
   .dco-summary.is-open .dco-summary-body {
     display: block;
     animation: dco-fade 0.25s ease both;
+  }
+
+  .dco-summary.is-open .dco-summary-toggle {
+    border-bottom: 1px solid #F1F3F6;
   }
 
   .dco-summary-head {
@@ -2158,19 +2205,19 @@ body.dco-mode .aww-cursor {
   margin-top: 4px;
   font: inherit;
   font-size: 11.5px;
-  font-weight: 700;
-  color: #8D93A1;
+  font-weight: 600;
+  color: #EF4444;
   background: none;
   border: 0;
   padding: 0;
   cursor: pointer;
   text-decoration: underline;
   text-underline-offset: 3px;
-  transition: color 0.2s;
+  transition: color 0.15s;
 }
 
 .dco-line-remove:hover {
-  color: #FF8A5B;
+  color: #DC2626;
 }
 
 .dco-line {
@@ -2181,18 +2228,19 @@ body.dco-mode .aww-cursor {
   display: flex;
   gap: 10px;
   margin: 0 0 14px;
-  padding: 11px 12px;
-  border-radius: 12px;
-  font-size: 12.5px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 12px;
   line-height: 1.5;
-  color: #FFD9A8;
-  background: rgba(245, 158, 11, 0.1);
-  border: 1px solid rgba(245, 158, 11, 0.25);
+  color: #92400E;
+  background: #FEF3C7;
+  border: 1px solid #FDE68A;
 }
 
 .dco-notice svg {
   flex-shrink: 0;
   margin-top: 2px;
+  color: #D97706;
 }
 
 .dco-notice p {
@@ -2206,25 +2254,30 @@ body.dco-mode .aww-cursor {
   opacity: 0.5;
 }
 
-/* ── Upsell ─────────────────────────────────────────────────────── */
+/* ── Upsell (Light & Elevated) ─────────────────────────────────── */
 .dco-upsell {
   margin: 4px 0 16px;
-  padding: 14px;
-  border-radius: 16px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 15px;
+  border-radius: 14px;
+  background: #FAF8F6;
+  border: 1px solid #EFEAE5;
 }
 
 .dco-upsell-head {
   display: flex;
   align-items: center;
   gap: 7px;
-  margin-bottom: 10px;
-  font-size: 11.5px;
+  margin-bottom: 11px;
+  font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #FFB592;
+  color: #C2410C;
+}
+
+.dco-upsell-head svg {
+  color: #EA580C;
+  flex-shrink: 0;
 }
 
 .dco-upsell-list {
@@ -2240,16 +2293,19 @@ body.dco-mode .aww-cursor {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 10px 10px 10px 12px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  transition: border-color 0.2s, background 0.2s;
+  padding: 10px 11px 10px 12px;
+  border-radius: 11px;
+  background: #FFFFFF;
+  border: 1px solid #E8E5E0;
+  box-shadow: 0 1px 2px rgba(18, 19, 22, 0.02);
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s, transform 0.2s var(--dco-ease);
 }
 
 .dco-upsell-item:hover {
-  border-color: rgba(255, 90, 31, 0.35);
-  background: rgba(255, 90, 31, 0.06);
+  border-color: #FFB38A;
+  background: #FFFDFB;
+  box-shadow: 0 4px 12px -2px rgba(255, 90, 31, 0.1);
+  transform: translateY(-1px);
 }
 
 .dco-upsell-text {
@@ -2260,64 +2316,76 @@ body.dco-mode .aww-cursor {
 }
 
 .dco-upsell-text strong {
-  font-size: 13.5px;
-  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--dco-ink);
+  line-height: 1.35;
 }
 
 .dco-upsell-text small {
-  font-size: 12px;
+  font-size: 11.5px;
   line-height: 1.4;
-  color: #9298A6;
+  color: var(--dco-ink-2);
 }
 
 .dco-upsell-add {
   flex-shrink: 0;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
   font: inherit;
   font-size: 12.5px;
   font-weight: 800;
-  color: #fff;
-  background: rgba(255, 90, 31, 0.16);
-  border: 1px solid rgba(255, 90, 31, 0.45);
+  color: #C2410C;
+  background: #FFF4ED;
+  border: 1.5px solid #FFD4C2;
   border-radius: 999px;
-  padding: 7px 12px 7px 8px;
+  padding: 5px 11px 5px 6px;
   cursor: pointer;
   font-variant-numeric: tabular-nums;
-  transition: background 0.2s, transform 0.2s var(--dco-ease);
+  transition: background 0.18s, border-color 0.18s, color 0.18s, transform 0.18s var(--dco-ease), box-shadow 0.18s;
 }
 
 .dco-upsell-add:hover {
   background: var(--dco-primary);
+  border-color: var(--dco-primary);
+  color: #FFFFFF;
   transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 90, 31, 0.25);
 }
 
 .dco-upsell-plus {
   width: 18px;
   height: 18px;
-  display: grid;
-  place-items: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 50%;
   background: var(--dco-primary);
-  font-size: 14px;
-  line-height: 1;
+  color: #FFFFFF;
+  flex-shrink: 0;
+  transition: background 0.18s, color 0.18s;
+}
+
+.dco-upsell-plus svg {
+  display: block;
 }
 
 .dco-upsell-add:hover .dco-upsell-plus {
-  background: rgba(255, 255, 255, 0.25);
+  background: #FFFFFF;
+  color: var(--dco-primary);
 }
 
-/* ── Cupón ──────────────────────────────────────────────────────── */
+/* ── Cupón (Light) ──────────────────────────────────────────────── */
 .dco-coupon {
   margin: 0 0 14px;
 }
 
 .dco-coupon-toggle {
   font: inherit;
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 700;
-  color: #FFB592;
+  color: #C2410C;
   background: none;
   border: 0;
   padding: 2px 0;
@@ -2325,31 +2393,33 @@ body.dco-mode .aww-cursor {
   text-decoration: underline;
   text-decoration-style: dashed;
   text-underline-offset: 4px;
+  transition: color 0.15s;
 }
 
 .dco-coupon-toggle:hover {
-  color: #fff;
+  color: #9A3412;
 }
 
 .dco-coupon-form {
   display: flex;
   gap: 8px;
   animation: dco-fade 0.25s ease both;
+  margin-top: 4px;
 }
 
 .dco-coupon-input {
   flex: 1;
   min-width: 0;
   font: inherit;
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: #fff;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1.5px solid rgba(255, 255, 255, 0.14);
-  border-radius: 12px;
-  padding: 11px 13px;
+  color: var(--dco-ink);
+  background: #FFFFFF;
+  border: 1.5px solid var(--dco-line-2);
+  border-radius: 10px;
+  padding: 9px 12px;
   outline: none;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
@@ -2358,46 +2428,47 @@ body.dco-mode .aww-cursor {
   text-transform: none;
   letter-spacing: 0;
   font-weight: 500;
-  color: #7F8594;
+  color: var(--dco-ink-3);
 }
 
 .dco-coupon-input:focus {
   border-color: var(--dco-primary);
-  box-shadow: 0 0 0 3px rgba(255, 90, 31, 0.22);
+  box-shadow: 0 0 0 3px rgba(255, 90, 31, 0.14);
 }
 
 .dco-coupon-apply {
-  min-width: 92px;
+  min-width: 86px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   font: inherit;
-  font-size: 13.5px;
-  font-weight: 800;
-  color: var(--dco-ink);
-  background: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  color: #FFFFFF;
+  background: var(--dco-ink);
   border: 0;
-  border-radius: 12px;
+  border-radius: 10px;
   padding: 0 16px;
   cursor: pointer;
-  transition: transform 0.2s var(--dco-ease), background 0.2s;
+  transition: transform 0.18s var(--dco-ease), background 0.18s;
 }
 
 .dco-coupon-apply:hover:not(:disabled) {
-  background: #FFE7DB;
+  background: var(--dco-primary);
   transform: translateY(-1px);
 }
 
 .dco-coupon-apply .dco-spinner.is-small {
-  border-color: rgba(18, 19, 22, 0.15);
-  border-top-color: var(--dco-ink);
+  border-color: rgba(255, 255, 255, 0.3);
+  border-top-color: #FFFFFF;
 }
 
 .dco-coupon-error {
-  margin: 8px 0 0;
-  font-size: 12.5px;
+  margin: 6px 0 0;
+  font-size: 12px;
   font-weight: 600;
-  color: #FCA5A5;
+  color: var(--dco-danger);
+  min-height: 16px;
 }
 
 .dco-coupon-error:empty {
@@ -2406,50 +2477,45 @@ body.dco-mode .aww-cursor {
 
 .dco-coupon.is-applied {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  gap: 8px 10px;
-  padding: 10px 12px;
-  border-radius: 12px;
-  background: rgba(110, 231, 162, 0.08);
-  border: 1px dashed rgba(110, 231, 162, 0.4);
-  animation: dco-fade 0.3s ease both;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 9px 12px;
+  border-radius: 10px;
+  background: #ECFDF5;
+  border: 1px solid #A7F3D0;
 }
 
 .dco-coupon-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
   font-size: 12px;
   font-weight: 800;
-  letter-spacing: 0.06em;
-  color: #0B3B1F;
-  background: #6EE7A2;
-  padding: 4px 9px;
-  border-radius: 7px;
+  color: #065F46;
+  letter-spacing: 0.04em;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .dco-coupon-label {
-  flex: 1;
-  min-width: 0;
-  font-size: 12.5px;
-  color: #B9F5D1;
+  font-size: 12px;
+  font-weight: 600;
+  color: #047857;
 }
 
 .dco-coupon-remove {
   font: inherit;
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: 700;
-  color: #A3A8B5;
+  color: #DC2626;
   background: none;
   border: 0;
   cursor: pointer;
   text-decoration: underline;
-  text-underline-offset: 3px;
+  padding: 2px 4px;
 }
 
 .dco-coupon-remove:hover {
-  color: #fff;
+  color: #991B1B;
 }
 
 /* ── Toast ──────────────────────────────────────────────────────── */

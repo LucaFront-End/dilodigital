@@ -620,7 +620,7 @@ await browser.close();
 // ── Errores de consola ───────────────────────────────────────────
 const isCheckoutUrl = (u) => /#\/(checkout|terminos|aviso-de-privacidad)/.test(u);
 const checkoutErrors = consoleErrors.filter(
-  (e) => isCheckoutUrl(e.url) && !(e.url.includes('sim_basura') && /404/.test(e.text)) && !/status of 422/.test(e.text) // 404/422 esperados: token falso y cupón inválido a propósito
+  (e) => isCheckoutUrl(e.url) && !(e.url.includes('sim_basura') && /404/.test(e.text)) && !/status of 422/.test(e.text) && !/THREE\.WebGPU|GPUValidationError/.test(e.text) // 404/422 esperados y WebGPU en headless
 );
 const otherErrors = consoleErrors.filter((e) => !isCheckoutUrl(e.url));
 console.log('\nErrores de consola');

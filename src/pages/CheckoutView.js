@@ -628,7 +628,7 @@ export function initCheckoutEvents(params) {
                   <small>${esc(p.pitch || p.description)}</small>
                 </div>
                 <button type="button" class="dco-upsell-add" data-add="${esc(sku)}" id="dco-add-${esc(sku)}" aria-label="Agregar ${esc(p.name)}">
-                  <span class="dco-upsell-plus">+</span>${formatMXN(Math.round(p.price * 100))}
+                  <span class="dco-upsell-plus">${icons.plus(10)}</span>${formatMXN(Math.round(p.price * 100))}
                 </button>
               </li>`;
             })
