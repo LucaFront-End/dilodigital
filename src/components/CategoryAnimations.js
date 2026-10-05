@@ -3,6 +3,8 @@
 // Minimalist, Background-Free, 60fps Vector SVG Motion (Lottie / Lordicon style)
 // ================================================================
 
+import gsap from 'gsap';
+
 export function renderCategoryHeroAnimation(categoryId = 'branding') {
   const cat = (categoryId || '').toLowerCase();
 
@@ -227,5 +229,330 @@ export function renderCategoryHeroAnimation(categoryId = 'branding') {
       </div>
     </div>
   `;
+}
+
+// ================================================================
+// CATEGORY HERO CONFIG & HOME-STYLE SPLIT LAYOUT
+// ================================================================
+
+export const CATEGORY_HERO_CONFIG = {
+  branding: {
+    eyebrow: 'DISEÑO & BRANDING · CDMX & GLOBAL',
+    line1: 'CONSTRUIMOS',
+    line2: 'MARCAS QUE',
+    words: ['DOMINAN', 'CONECTAN', 'PERDURAN', 'IMPACTAN', 'TRASCIENDEN', 'ENAMORAN'],
+    description: 'Identidades visuales memorables, manuales de marca de nivel internacional, packaging y blindaje legal IMPI. Resultados medibles en sprints de 15 días.',
+    chips: ['⚡ Sprint de 15 días', '🛡️ Blindaje IMPI', '✦ 0% Templates']
+  },
+  marketing: {
+    eyebrow: 'PERFORMANCE & ADS · CDMX & GLOBAL',
+    line1: 'ESCALAMOS',
+    line2: 'VENTAS QUE',
+    words: ['FACTURAN', 'CONVIERTEN', 'MULTIPLICAN', 'CRECEN', 'RENTABILIZAN', 'LIDERAN'],
+    description: 'Campañas de alto rendimiento en Meta, Google y TikTok con optimización diaria por IA y métricas directas a facturación.',
+    chips: ['📈 4.8x ROAS Promedio', '🎯 Leads Calificados', '⚡ Optimización Diaria']
+  },
+  'web-ecommerce': {
+    eyebrow: 'INGENIERÍA WEB & ECOMMERCE · CDMX & GLOBAL',
+    line1: 'DESARROLLAMOS',
+    line2: 'PLATAFORMAS QUE',
+    words: ['VENDEN', 'CONVIERTEN', 'ESCALAN', 'IMPACTAN', 'CAUTIVAN', 'ACELERAN'],
+    description: 'Plataformas de comercio electrónico y arquitecturas web headless ultrarrápidas pensadas para convertir visitas en ventas reales.',
+    chips: ['⚡ 0.8s Carga Ultrarrápida', '🔒 Pasarelas Seguras', '✦ Arquitectura Headless']
+  },
+  seo: {
+    eyebrow: 'SEO & BÚSQUEDA IA · CDMX & GLOBAL',
+    line1: 'POSICIONAMOS',
+    line2: 'NEGOCIOS QUE',
+    words: ['LIDERAN #1', 'CONQUISTAN', 'APARECEN', 'INDEXAN', 'MONOPOLIZAN', 'PERDURAN'],
+    description: 'Posicionamiento orgánico de máxima autoridad en Google Search, Google Gemini y los nuevos motores generativos de inteligencia artificial.',
+    chips: ['★ #1 Lugar Orgánico', '🤖 Optimización GEO / IA', '🔍 Tráfico Calificado']
+  },
+  produccion: {
+    eyebrow: 'PRODUCCIÓN AUDIOVISUAL & UGC · CDMX & GLOBAL',
+    line1: 'PRODUCIMOS',
+    line2: 'HISTORIAS QUE',
+    words: ['CONECTAN', 'VENDEN', 'CAUTIVAN', 'ENGANCHAN', 'VIRALIZAN', 'EMOCIONAN'],
+    description: 'Comerciales cinemáticos en 4K, video ads de alto enganche y creadores UGC especializados para multiplicar el CTR de tus campañas.',
+    chips: ['🎬 Calidad 4K 60FPS', '📱 Red Creadores UGC', '⚡ 3.2x Mayor CTR']
+  },
+  tecnologia: {
+    eyebrow: 'TECNOLOGÍA & IA · CDMX & GLOBAL',
+    line1: 'AUTOMATIZAMOS',
+    line2: 'SISTEMAS QUE',
+    words: ['ACELERAN', 'PRODUCEN', 'OPERAN 24/7', 'LIBERAN TIEMPO', 'ESCALAN', 'EVOLUCIONAN'],
+    description: 'Ecosistemas inteligentes, multi-agentes de IA y automatización de funnels comerciales para operar a máxima eficiencia 24/7.',
+    chips: ['🤖 Multi-Agentes 24/7', '⚡ Conexión CRM & APIs', '✦ 100% Automatizado']
+  }
+};
+
+export function getCategoryHeroConfig(catIdOrSlug = 'branding') {
+  const key = (catIdOrSlug || '').toLowerCase();
+  if (key.includes('brand') || key.includes('diseno')) return CATEGORY_HERO_CONFIG.branding;
+  if (key.includes('market') || key.includes('pauta')) return CATEGORY_HERO_CONFIG.marketing;
+  if (key.includes('web') || key.includes('ecommerce') || key.includes('tienda') || key.includes('desarrollo')) return CATEGORY_HERO_CONFIG['web-ecommerce'];
+  if (key.includes('seo') || key.includes('posicion')) return CATEGORY_HERO_CONFIG.seo;
+  if (key.includes('audio') || key.includes('video') || key.includes('produccion')) return CATEGORY_HERO_CONFIG.produccion;
+  if (key.includes('tecno') || key.includes('ia') || key.includes('intel') || key.includes('soluciones')) return CATEGORY_HERO_CONFIG.tecnologia;
+  return CATEGORY_HERO_CONFIG.branding;
+}
+
+export function renderCategoryHeroSection(category, options = {}) {
+  const catId = category?.id || category?.slug || 'branding';
+  const config = getCategoryHeroConfig(catId);
+  const isBrandingDirect = options.isBrandingDirect || false;
+  const viewportId = options.viewportId || 'cat-rotator-viewport';
+  const activeId = options.activeId || 'cat-rotator-active';
+  const underlineId = options.underlineId || 'cat-rotator-underline';
+
+  const primaryBtn = isBrandingDirect
+    ? `
+      <a href="#seccion-paquetes-branding" class="sm-hero-btn-primary" data-cursor="hover">
+        <span>Ver Paquetes & Precios</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </a>
+    `
+    : `
+      <button class="sm-hero-btn-primary" onclick="window.dispatchEvent(new CustomEvent('open-cotizador-modal'))" data-cursor="cotizar">
+        <span>Cotizar Proyecto</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </button>
+    `;
+
+  const waText = encodeURIComponent(`Hola Dilo Digital, me interesa cotizar el servicio de ${category?.title || 'la categoría'}. ¿Podríamos agendar una sesión estratégica?`);
+  const waUrl = `https://wa.me/525592441070?text=${waText}`;
+
+  const stats = (category?.stats && category.stats.length > 0) ? category.stats : [
+    { value: "+140", label: "Marcas Registradas" },
+    { value: "98.4%", label: "Tasa Viabilidad" },
+    { value: "15 Días", label: "Sprint de Entrega" }
+  ];
+
+  return `
+    <section class="cat-hero-section">
+      <div class="cat-hero-container">
+        <!-- Background Numeral Watermark in Manuka -->
+        <div class="cat-watermark-num" aria-hidden="true">${category?.number || '01'}</div>
+
+        <div class="cat-hero-grid">
+          <!-- Left: Editorial Copy (Exact Home Hero Structure) -->
+          <div class="sm-hero-left cat-hero-left">
+            <div class="sm-hero-eyebrow">
+              <span class="sm-hero-pulse-dot"></span>
+              <span>${config.eyebrow}</span>
+            </div>
+
+            <h1 class="sm-hero-headline">
+              <span class="sm-hero-line">${config.line1}</span>
+              <span class="sm-hero-line">${config.line2}</span>
+              <span class="sm-hero-line sm-hero-headline-accent sm-rotator-line">
+                <span class="sm-rotator-viewport" id="${viewportId}" data-words='${JSON.stringify(config.words)}' title="Clic para cambiar">
+                  <span class="sm-rotator-active" id="${activeId}">${config.words[0]}</span>
+                </span>
+                <span class="sm-rotator-underline" id="${underlineId}"></span>
+              </span>
+            </h1>
+
+            <p class="sm-hero-desc">
+              ${config.description}
+            </p>
+
+            <div class="sm-hero-actions">
+              ${primaryBtn}
+              <a href="${waUrl}" target="_blank" rel="noopener" class="sm-hero-btn-secondary" data-cursor="hover">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.592 2.654-.697c.969.529 1.777.784 2.806.784 3.18 0 5.767-2.586 5.768-5.766.001-3.18-2.586-5.766-5.768-5.766zm9.969 5.766c0 5.505-4.479 9.984-9.969 9.984-1.748 0-3.385-.452-4.815-1.246l-5.216 1.369 1.393-5.086c-.885-1.488-1.393-3.228-1.393-5.021 0-5.505 4.479-9.984 9.969-9.984 5.505 0 10.026 4.479 10.026 9.984z"/>
+                </svg>
+                <span>WhatsApp Directo</span>
+              </a>
+            </div>
+
+            <!-- Micro Trust Chips -->
+            <div class="sm-hero-trust-row">
+              ${config.chips.map(chip => `<span class="sm-hero-trust-chip">${chip}</span>`).join('')}
+            </div>
+          </div>
+
+          <!-- Right Column: Lightweight Vector Animation + Compact Metrics (Replaces 3D Robot & Dark Card) -->
+          <div class="cat-hero-right">
+            ${renderCategoryHeroAnimation(catId)}
+
+            <div class="cat-stats-card-compact">
+              <div class="cat-stats-grid">
+                ${stats.map(s => `
+                  <div class="cat-stat-box">
+                    <div class="cat-stat-val">${s.value}</div>
+                    <div class="cat-stat-lbl">${s.label}</div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+export function initCategoryRotator(viewportId = 'cat-rotator-viewport', activeId = 'cat-rotator-active', underlineId = 'cat-rotator-underline', customWords = null) {
+  if (window.__diloCategoryRotatorTimer) {
+    clearInterval(window.__diloCategoryRotatorTimer);
+    window.__diloCategoryRotatorTimer = null;
+  }
+
+  const viewport = typeof viewportId === 'string' ? document.getElementById(viewportId) : viewportId;
+  const activeEl = typeof activeId === 'string' ? document.getElementById(activeId) : activeId;
+  const underline = typeof underlineId === 'string' ? document.getElementById(underlineId) : underlineId;
+
+  if (!viewport || !activeEl) return null;
+
+  let words = customWords;
+  if (!words || words.length === 0) {
+    if (viewport.dataset.words) {
+      try {
+        words = JSON.parse(viewport.dataset.words);
+      } catch (e) {
+        words = ['DOMINAN', 'CONVIERTEN', 'ESCALAN', 'FACTURAN', 'LIDERAN', 'TRASCIENDEN'];
+      }
+    } else {
+      words = ['DOMINAN', 'CONVIERTEN', 'ESCALAN', 'FACTURAN', 'LIDERAN', 'TRASCIENDEN'];
+    }
+  }
+
+  let currentWordIndex = 0;
+  let isWordAnimating = false;
+
+  function createWordElement(word) {
+    const wrap = document.createElement('span');
+    wrap.className = 'sm-rot-word';
+    word.split('').forEach(char => {
+      const span = document.createElement('span');
+      span.className = 'sm-rot-char';
+      span.textContent = char;
+      wrap.appendChild(span);
+    });
+    return wrap;
+  }
+
+  // Initial word setup with char spans
+  activeEl.innerHTML = '';
+  const initialWordEl = createWordElement(words[0]);
+  activeEl.appendChild(initialWordEl);
+
+  // Measure & lock initial width
+  const initialWidth = initialWordEl.offsetWidth;
+  if (initialWidth > 0) {
+    viewport.style.width = `${initialWidth}px`;
+    if (underline) underline.style.width = `${initialWidth}px`;
+  }
+
+  function rotateToNextWord() {
+    if (isWordAnimating) return;
+    isWordAnimating = true;
+
+    const nextIndex = (currentWordIndex + 1) % words.length;
+    const nextWord = words[nextIndex];
+
+    const currentWordEl = activeEl.querySelector('.sm-rot-word');
+    const currentChars = currentWordEl ? Array.from(currentWordEl.querySelectorAll('.sm-rot-char')) : [];
+
+    // Build new word
+    const nextWordEl = createWordElement(nextWord);
+    nextWordEl.style.position = 'absolute';
+    nextWordEl.style.top = '0';
+    nextWordEl.style.left = '0';
+    nextWordEl.style.visibility = 'hidden';
+    activeEl.appendChild(nextWordEl);
+
+    const nextWidth = nextWordEl.offsetWidth;
+    nextWordEl.style.visibility = '';
+
+    const nextChars = Array.from(nextWordEl.querySelectorAll('.sm-rot-char'));
+
+    // Prep incoming characters (rotated down, shifted down, faded)
+    gsap.set(nextChars, {
+      rotateX: -90,
+      y: '100%',
+      opacity: 0,
+      transformOrigin: '50% 100%'
+    });
+
+    const tl = gsap.timeline({
+      onComplete: () => {
+        if (currentWordEl) currentWordEl.remove();
+        nextWordEl.style.position = '';
+        currentWordIndex = nextIndex;
+        isWordAnimating = false;
+      }
+    });
+
+    // 1. Current letters roll up and out in 3D
+    if (currentChars.length > 0) {
+      tl.to(currentChars, {
+        rotateX: 90,
+        y: '-100%',
+        opacity: 0,
+        duration: 0.38,
+        ease: 'power2.in',
+        stagger: 0.016,
+        transformOrigin: '50% 0%'
+      }, 0);
+    }
+
+    // 2. Smoothly animate container and underline width
+    tl.to(viewport, {
+      width: nextWidth,
+      duration: 0.45,
+      ease: 'expo.out'
+    }, 0.12);
+
+    if (underline) {
+      tl.to(underline, {
+        width: nextWidth,
+        duration: 0.45,
+        ease: 'expo.out'
+      }, 0.12);
+
+      tl.fromTo(underline,
+        { filter: 'drop-shadow(0 0 4px #FF5A1F)' },
+        { filter: 'drop-shadow(0 0 16px #FF5A1F)', duration: 0.25, yoyo: true, repeat: 1 },
+        0.18
+      );
+    }
+
+    // 3. Next letters roll in from below with mechanical bounce snap
+    tl.to(nextChars, {
+      rotateX: 0,
+      y: '0%',
+      opacity: 1,
+      duration: 0.52,
+      ease: 'back.out(1.6)',
+      stagger: 0.02
+    }, 0.16);
+  }
+
+  // Click to rotate immediately
+  viewport.addEventListener('click', () => {
+    if (!isWordAnimating) rotateToNextWord();
+  });
+
+  // Auto rotation interval
+  window.__diloCategoryRotatorTimer = setInterval(() => {
+    if (document.hidden || isWordAnimating) return;
+    rotateToNextWord();
+  }, 2800);
+
+  return () => {
+    if (window.__diloCategoryRotatorTimer) {
+      clearInterval(window.__diloCategoryRotatorTimer);
+      window.__diloCategoryRotatorTimer = null;
+    }
+  };
 }
 

@@ -6,79 +6,23 @@
 import confetti from 'canvas-confetti';
 import { sounds } from '../utils/SoundEngine.js';
 import { renderFinalCta, initFinalCtaEvents } from '../components/FinalCta.js';
+import { CATEGORIES } from '../data/categories.js';
+import { renderCategoryHeroSection, initCategoryRotator } from '../components/CategoryAnimations.js';
 
 export function renderBrandingPurchaseView() {
+  const brandingCat = CATEGORIES.find(c => c.id === 'branding') || CATEGORIES[0];
+
   return `
     <main class="bp-page">
 
-      <!-- 1. MONUMENTAL HERO WITH INTERACTIVE BRAND MOODBOARD -->
-      <section class="bp-hero-section">
-        <div class="bp-watermark-bg" aria-hidden="true">BRAND</div>
-        <div class="bp-hero-container">
+      <!-- 1. MONUMENTAL HERO (HOME-STYLE SPLIT WITH DYNAMIC ROTATOR & LIGHTWEIGHT VECTOR ANIMATION) -->
+      ${renderCategoryHeroSection(brandingCat, {
+        isBrandingDirect: true,
+        viewportId: 'bp-rotator-viewport',
+        activeId: 'bp-rotator-active',
+        underlineId: 'bp-rotator-underline'
+      })}
 
-          <div class="bp-hero-grid">
-            <div>
-              <div class="cat-tag-wrap" style="display: inline-flex; margin-bottom: 1.2rem;">
-                <span class="cat-diamond-dot"></span>
-                <span class="cat-tag-text">DISEÑO DE MARCA &middot; COMPRA DIRECTA EN LÍNEA</span>
-              </div>
-              <h1 class="bp-hero-title">
-                CREAMOS MARCAS QUE DOMINAN <span class="cat-hero-title-accent">SU MERCADO</span>
-              </h1>
-              <p class="bp-hero-desc">
-                Identidades visuales memorables, manuales de marca de nivel internacional y sistemas gráficos listos para escalar ventas. 
-                Selecciona tu paquete, personaliza entregables y da seguimiento semana a semana a tu proyecto.
-              </p>
-
-              <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
-                <a href="#seccion-paquetes-branding" class="btn btn-primary btn-lg btn-glow" data-cursor="hover">
-                  <span>Ver Paquetes & Precios</span>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                </a>
-                <a href="#seccion-tracking-branding" class="btn btn-outline" data-cursor="hover">
-                  <span>Cómo Funciona el Seguimiento &rarr;</span>
-                </a>
-              </div>
-            </div>
-
-            <!-- Interactive Brand Moodboard Live Previewer -->
-            <div class="bp-mood-preview-box" id="bp-mood-box">
-              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
-                <span style="font-family: var(--sm-font-body); font-size: 0.76rem; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: rgba(236, 238, 238, 0.6);">
-                  Dirección de Arte Interactiva
-                </span>
-                <span class="badge badge-primary" style="font-size: 0.7rem; padding: 0.15rem 0.5rem;">Figma 60fps</span>
-              </div>
-
-              <!-- Style Switcher Tabs -->
-              <div class="bp-mood-nav">
-                <button class="bp-mood-btn is-active" data-mood="obsidian">Obsidian Modern</button>
-                <button class="bp-mood-btn" data-mood="minimal">Studio Minimal</button>
-                <button class="bp-mood-btn" data-mood="luxury">Editorial Luxury</button>
-              </div>
-
-              <div class="bp-mockup-display" id="bp-mockup-canvas">
-                <div class="bp-mockup-logo-mark" id="bp-mockup-title">DILO.</div>
-                <div class="bp-mockup-subtitle" id="bp-mockup-sub">Visual Systems & Branding</div>
-
-                <div class="bp-mockup-swatches">
-                  <span class="bp-swatch" id="swatch-1" style="background: #FF5A1F;"></span>
-                  <span class="bp-swatch" id="swatch-2" style="background: #141718;"></span>
-                  <span class="bp-swatch" id="swatch-3" style="background: #00A8A0;"></span>
-                  <span class="bp-swatch" id="swatch-4" style="background: #ECEEEE;"></span>
-                </div>
-              </div>
-
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1.2rem; font-family: var(--sm-font-body); font-size: 0.78rem; color: rgba(236, 238, 238, 0.6);">
-                <span>Tipografía: Plus Jakarta Sans</span>
-                <span>Entrega en AI, SVG, PNG & PDF</span>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-      </section>
 
       <!-- 2. SCROLL-BASED BRAND ANATOMY EXPERIENCE -->
       <section class="bp-anatomy-section">
@@ -472,64 +416,8 @@ export function renderBrandingPurchaseView() {
 export function initBrandingEvents() {
   initFinalCtaEvents();
 
-  // 1. Interactive Moodboard Switcher
-  const moodButtons = document.querySelectorAll('.bp-mood-btn');
-  const mockupCanvas = document.getElementById('bp-mockup-canvas');
-  const mockupTitle = document.getElementById('bp-mockup-title');
-  const mockupSub = document.getElementById('bp-mockup-sub');
-  const swatch1 = document.getElementById('swatch-1');
-  const swatch2 = document.getElementById('swatch-2');
-  const swatch3 = document.getElementById('swatch-3');
-  const swatch4 = document.getElementById('swatch-4');
-
-  const moods = {
-    obsidian: {
-      bg: 'rgba(255, 255, 255, 0.04)',
-      title: 'DILO.',
-      color: '#FFFFFF',
-      sub: 'Visual Systems & Branding',
-      subColor: '#FF5A1F',
-      c1: '#FF5A1F', c2: '#141718', c3: '#00A8A0', c4: '#ECEEEE'
-    },
-    minimal: {
-      bg: '#FFFFFF',
-      title: 'AURA',
-      color: '#141718',
-      sub: 'Studio & Architecture',
-      subColor: '#E21C21',
-      c1: '#E21C21', c2: '#111111', c3: '#737373', c4: '#F4F4F6'
-    },
-    luxury: {
-      bg: 'linear-gradient(135deg, #0E1112 0%, #1A1D20 100%)',
-      title: 'SOLARIA',
-      color: '#D4AF37',
-      sub: 'Haute Horlogerie & Design',
-      subColor: '#D4AF37',
-      c1: '#D4AF37', c2: '#0E1112', c3: '#8C7853', c4: '#FFFFFF'
-    }
-  };
-
-  moodButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      moodButtons.forEach(b => b.classList.remove('is-active'));
-      btn.classList.add('is-active');
-
-      const m = moods[btn.dataset.mood];
-      if (m && mockupCanvas && mockupTitle && mockupSub) {
-        sounds.playPop();
-        mockupCanvas.style.background = m.bg;
-        mockupTitle.textContent = m.title;
-        mockupTitle.style.color = m.color;
-        mockupSub.textContent = m.sub;
-        mockupSub.style.color = m.subColor;
-
-        if (swatch1) swatch1.style.background = m.c1;
-        if (swatch2) swatch2.style.background = m.c2;
-        if (swatch3) swatch3.style.background = m.c3;
-        if (swatch4) swatch4.style.background = m.c4;
-      }
-    });
-  });
+  // 1. Kinetic Headline 3D Character Rotator
+  initCategoryRotator('bp-rotator-viewport', 'bp-rotator-active', 'bp-rotator-underline');
 
   // 2. Pricing & Dynamic Calculations
   let basePrice = 16500;

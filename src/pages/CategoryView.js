@@ -6,7 +6,7 @@
 import { CATEGORIES } from '../data/categories.js';
 import { PROJECTS } from '../data/projects.js';
 import { renderFinalCta, initFinalCtaEvents } from '../components/FinalCta.js';
-import { renderCategoryHeroAnimation } from '../components/CategoryAnimations.js';
+import { renderCategoryHeroSection, initCategoryRotator } from '../components/CategoryAnimations.js';
 
 function getWhatsAppUrl(subTitle, categoryTitle) {
   const text = `Hola Dilo Digital, me interesa cotizar el servicio de *${subTitle}* de la categoría *${categoryTitle}*. ¿Podríamos agendar una sesión estratégica?`;
@@ -33,69 +33,14 @@ export function renderCategoryView(slug = 'branding-diseno') {
         </div>
       </nav>
 
-      <!-- 2. MONUMENTAL CATEGORY HERO STAGE -->
-      <section class="cat-hero-section">
-        <div class="cat-hero-container">
-          
-          <!-- Background Numeral Watermark in Manuka -->
-          <div class="cat-watermark-num" aria-hidden="true">${category.number}</div>
+      <!-- 2. MONUMENTAL CATEGORY HERO STAGE (HOME-STYLE SPLIT WITH DYNAMIC ROTATOR & LIGHTWEIGHT VECTOR ANIMATION) -->
+      ${renderCategoryHeroSection(category, {
+        isBrandingDirect: false,
+        viewportId: 'cat-rotator-viewport',
+        activeId: 'cat-rotator-active',
+        underlineId: 'cat-rotator-underline'
+      })}
 
-          <div class="cat-hero-grid">
-            <div class="cat-hero-left">
-              <div class="cat-tag-wrap">
-                <span class="cat-diamond-dot"></span>
-                <span class="cat-tag-text">DISCIPLINA ESTRATÉGICA &middot; ${category.number} DE 06</span>
-              </div>
-
-              <h1 class="cat-hero-title">
-                ${category.title}
-              </h1>
-
-              <div class="cat-hero-concept">
-                "${category.concept}"
-              </div>
-
-              <p class="cat-hero-desc">
-                ${category.tagline}
-              </p>
-
-              <div class="cat-hero-actions">
-                <button class="btn btn-primary btn-lg btn-glow" onclick="window.dispatchEvent(new CustomEvent('open-cotizador-modal'))" data-cursor="cotizar">
-                  <span>Cotizar ${category.shortTitle} en 60s</span>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                  </svg>
-                </button>
-
-                <a href="${getWhatsAppUrl('General', category.title)}" target="_blank" rel="noopener" class="btn btn-outline btn-lg" data-cursor="hover" style="display: flex; align-items: center; gap: 0.6rem;">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="#10B981">
-                    <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.592 2.654-.697c.969.529 1.777.784 2.806.784 3.18 0 5.767-2.586 5.768-5.766.001-3.18-2.586-5.766-5.768-5.766zm9.969 5.766c0 5.505-4.479 9.984-9.969 9.984-1.748 0-3.385-.452-4.815-1.246l-5.216 1.369 1.393-5.086c-.885-1.488-1.393-3.228-1.393-5.021 0-5.505 4.479-9.984 9.969-9.984 5.505 0 10.026 4.479 10.026 9.984z"/>
-                  </svg>
-                  <span>Chatear por WhatsApp</span>
-                </a>
-              </div>
-            </div>
-
-            <!-- Right Column: Live Kinetic Discipline Animation & Performance Metrics -->
-            <div class="cat-hero-right">
-              ${renderCategoryHeroAnimation(category.id)}
-
-              <div class="cat-stats-card-compact">
-                <div class="cat-stats-grid">
-                  ${category.stats.map(s => `
-                    <div class="cat-stat-box">
-                      <div class="cat-stat-val">${s.value}</div>
-                      <div class="cat-stat-lbl">${s.label}</div>
-                    </div>
-                  `).join('')}
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </section>
 
       <!-- 3. SCROLL-BASED SUBCATEGORIES SECTION WITH DIRECT WHATSAPP ACTION -->
       <section class="cat-specs-section">
@@ -350,6 +295,7 @@ export function renderCategoryView(slug = 'branding-diseno') {
 
 export function initCategoryEvents() {
   initFinalCtaEvents();
+  initCategoryRotator('cat-rotator-viewport', 'cat-rotator-active', 'cat-rotator-underline');
 
   // Sticky subcategory navigation scroll spy
   const navItems = document.querySelectorAll('#cat-sub-nav .cat-specs-nav-item');
