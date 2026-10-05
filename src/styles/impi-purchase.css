@@ -1651,25 +1651,41 @@
 }
 
 /* ── 7. Universal Modal System (Lead Intake & Requerimiento) ── */
+
+/* Stacking context override: when modal is active, elevate #router-view above .site-header (z-index: 999) */
+body.dilo-modal-open {
+  overflow: hidden;
+}
+
+body.dilo-modal-open #router-view,
+body:has(.dilo-modal-backdrop.is-active) #router-view {
+  z-index: 10005 !important;
+}
+
+body.dilo-modal-open .site-header,
+body:has(.dilo-modal-backdrop.is-active) .site-header {
+  pointer-events: none !important;
+}
+
 .dilo-modal-backdrop {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(15, 23, 42, 0.75);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  z-index: 10000;
+  background: rgba(10, 14, 23, 0.78);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  z-index: 10010;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem;
+  padding: clamp(1rem, 2.5vh, 2rem) 1rem;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.26s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .dilo-modal-backdrop.is-active {
@@ -1679,15 +1695,17 @@
 
 .dilo-modal-dialog {
   background: #FFFFFF;
-  border-radius: 20px;
+  border-radius: 22px;
   width: 100%;
-  max-width: 480px;
-  max-height: 94vh;
+  max-width: 490px;
+  max-height: 92vh;
   overflow-y: auto;
   margin: auto;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(20, 23, 24, 0.08);
-  transform: translateY(16px) scale(0.97);
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 
+    0 25px 70px -10px rgba(0, 0, 0, 0.45), 
+    0 0 0 1px rgba(20, 23, 24, 0.07);
+  transform: translateY(18px) scale(0.97);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   flex-shrink: 0;
 }
@@ -1697,15 +1715,15 @@
 }
 
 .dilo-modal-header {
-  padding: 1.15rem 1.4rem 0.65rem 1.4rem;
-  border-bottom: 1px solid rgba(20, 23, 24, 0.07);
+  padding: 1.35rem 1.6rem 0.75rem 1.6rem;
+  border-bottom: 1px solid #F1F5F9;
   position: relative;
 }
 
 .dilo-modal-close {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
+  top: 1.15rem;
+  right: 1.25rem;
   background: #F1F5F9;
   border: none;
   width: 32px;
@@ -1730,74 +1748,108 @@
 .dilo-modal-badge {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  background: rgba(255, 90, 31, 0.1);
+  gap: 0.45rem;
+  background: rgba(255, 90, 31, 0.08);
   color: #FF5A1F;
-  padding: 0.22rem 0.65rem;
+  border: 1px solid rgba(255, 90, 31, 0.2);
+  padding: 0.25rem 0.7rem;
   border-radius: 999px;
-  font-size: 0.68rem;
-  font-weight: 800;
-  letter-spacing: 0.05em;
+  font-size: 0.69rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
   text-transform: uppercase;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.45rem;
+}
+
+.dilo-modal-badge.is-warning {
+  background: rgba(245, 158, 11, 0.12);
+  color: #D97706;
+  border-color: rgba(245, 158, 11, 0.25);
+}
+
+.dilo-modal-pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #FF5A1F;
+  box-shadow: 0 0 0 0 rgba(255, 90, 31, 0.7);
+  animation: modal-dot-pulse 2s infinite;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.dilo-modal-pulse-dot.is-warning {
+  background: #D97706;
+  box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7);
+  animation-name: modal-dot-pulse-warning;
+}
+
+@keyframes modal-dot-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(255, 90, 31, 0.7); }
+  70% { box-shadow: 0 0 0 6px rgba(255, 90, 31, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 90, 31, 0); }
+}
+
+@keyframes modal-dot-pulse-warning {
+  0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7); }
+  70% { box-shadow: 0 0 0 6px rgba(245, 158, 11, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
 }
 
 .dilo-modal-title {
-  font-family: var(--sm-font-heading), 'Manuka', sans-serif;
-  font-size: clamp(1.25rem, 2.4vw, 1.45rem);
+  font-family: var(--sm-font-body), 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.35rem;
   font-weight: 800;
-  color: #141718;
-  letter-spacing: 0.05em;
-  word-spacing: 0.12em;
-  text-transform: uppercase;
-  line-height: 1.15;
-  margin: 0 0 0.3rem 0;
+  color: #0F172A;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  margin: 0 0 0.35rem 0;
 }
 
 .dilo-modal-subtitle {
   font-family: var(--sm-font-body);
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   color: #64748B;
   margin: 0;
-  line-height: 1.4;
+  line-height: 1.45;
 }
 
 .dilo-modal-body {
-  padding: 0.85rem 1.4rem 1.25rem 1.4rem;
+  padding: 1.1rem 1.6rem 1.4rem 1.6rem;
 }
 
 .dilo-modal-form-grid {
   display: flex;
   flex-direction: column;
-  gap: 0.65rem;
+  gap: 0.75rem;
 }
 
 .dilo-modal-field {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 0.3rem;
 }
 
 .dilo-modal-label {
   font-family: var(--sm-font-body);
-  font-size: 0.78rem;
+  font-size: 0.79rem;
   font-weight: 700;
-  color: #334155;
-  letter-spacing: 0.01em;
+  color: #1E293B;
+  letter-spacing: -0.01em;
 }
 
 .dilo-modal-input,
 .dilo-modal-select,
 .dilo-modal-textarea {
   width: 100%;
-  height: 38px;
-  min-height: 38px;
-  padding: 0.55rem 0.85rem;
+  height: 42px;
+  min-height: 42px;
+  padding: 0.6rem 0.95rem;
   background: #F8FAFC;
-  border: 1.2px solid #E2E8F0;
-  border-radius: 9px;
+  border: 1.4px solid #E2E8F0;
+  border-radius: 11px;
   font-family: var(--sm-font-body);
-  font-size: 0.86rem;
+  font-size: 0.88rem;
   color: #0F172A;
   outline: none;
   box-sizing: border-box;
@@ -1805,8 +1857,8 @@
 }
 
 .dilo-modal-textarea {
-  height: 60px;
-  min-height: 60px;
+  height: 64px;
+  min-height: 64px;
   resize: vertical;
 }
 
@@ -1815,57 +1867,61 @@
 .dilo-modal-textarea:focus {
   background: #FFFFFF;
   border-color: #FF5A1F;
-  box-shadow: 0 0 0 3px rgba(255, 90, 31, 0.12);
+  box-shadow: 0 0 0 3.5px rgba(255, 90, 31, 0.13);
 }
 
 .dilo-modal-row-2col {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0.65rem;
+  gap: 0.75rem;
 }
 
 @media (max-width: 480px) {
   .dilo-modal-row-2col {
     grid-template-columns: 1fr;
-    gap: 0.65rem;
+    gap: 0.75rem;
   }
 }
 
 .dilo-modal-security-note {
-  font-size: 0.72rem;
-  color: #64748B;
+  font-size: 0.74rem;
+  color: #166534;
+  background: #F0FDF4;
+  border: 1px solid #DCFCE7;
+  padding: 0.5rem 0.8rem;
+  border-radius: 10px;
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.5rem;
   line-height: 1.35;
-  margin-top: 0.1rem;
+  margin-top: 0.15rem;
 }
 
 .btn-modal-submit {
   width: 100%;
-  height: 42px;
-  min-height: 42px;
-  padding: 0.7rem 1.2rem;
-  background: #FF5A1F;
+  height: 44px;
+  min-height: 44px;
+  padding: 0.75rem 1.4rem;
+  background: linear-gradient(135deg, #FF5A1F 0%, #EA4C10 100%);
   color: #FFFFFF;
   border: none;
-  border-radius: 10px;
+  border-radius: 12px;
   font-family: var(--sm-font-body);
-  font-size: 0.9rem;
+  font-size: 0.93rem;
   font-weight: 800;
   cursor: pointer;
-  box-shadow: 0 6px 18px rgba(255, 90, 31, 0.3);
+  box-shadow: 0 6px 20px rgba(255, 90, 31, 0.35);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 0.55rem;
   transition: all 0.25s ease;
   margin-top: 0.35rem;
 }
 
 .btn-modal-submit:hover {
-  background: #e04b14;
-  transform: translateY(-1px);
-  box-shadow: 0 8px 22px rgba(255, 90, 31, 0.4);
+  background: linear-gradient(135deg, #e04b14 0%, #c93e0b 100%);
+  transform: translateY(-1.5px);
+  box-shadow: 0 10px 25px rgba(255, 90, 31, 0.45);
 }
 

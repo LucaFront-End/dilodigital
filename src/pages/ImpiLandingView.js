@@ -751,7 +751,7 @@ export function renderImpiLandingView(initialQuery = '') {
           <div class="dilo-modal-header">
             <button class="dilo-modal-close" id="btn-close-coincidencias-modal" aria-label="Cerrar modal">&times;</button>
             <div class="dilo-modal-badge">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
+              <span class="dilo-modal-pulse-dot"></span>
               <span>Auditoría Fonética Oficial IMPI</span>
             </div>
             <h3 class="dilo-modal-title">Analizar Coincidencias de Marca</h3>
@@ -821,8 +821,8 @@ export function renderImpiLandingView(initialQuery = '') {
               </div>
 
               <div class="dilo-modal-security-note">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span>Registro confidencial encriptado. No genera antecedentes públicos ante el IMPI.</span>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Consulta 100% confidencial encriptada. No genera antecedentes ante el IMPI.</span>
               </div>
 
               <button type="submit" class="btn-modal-submit" id="btn-submit-coincidencias" data-cursor="hover">
@@ -844,8 +844,8 @@ export function renderImpiLandingView(initialQuery = '') {
         <div class="dilo-modal-dialog">
           <div class="dilo-modal-header">
             <button class="dilo-modal-close" id="btn-close-req-modal" aria-label="Cerrar modal">&times;</button>
-            <div class="dilo-modal-badge" style="background: rgba(245, 158, 11, 0.15); color: #D97706;">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon></svg>
+            <div class="dilo-modal-badge is-warning">
+              <span class="dilo-modal-pulse-dot is-warning"></span>
               <span>Rescate Legal y Contestación de Oficios</span>
             </div>
             <h3 class="dilo-modal-title">Defensa ante Requerimiento o Rechazo del IMPI</h3>
@@ -1209,6 +1209,7 @@ export function initImpiEvents(autoOpenModal = false) {
     const brand = prefilledBrand || searchInput?.value.trim() || '';
     if (leadBrandInput) leadBrandInput.value = brand;
     modalCoincidencias?.classList.add('is-active');
+    document.body.classList.add('dilo-modal-open');
     sounds.playClick();
     if (!brand) {
       leadBrandInput?.focus();
@@ -1219,6 +1220,7 @@ export function initImpiEvents(autoOpenModal = false) {
 
   function closeCoincidenciasModal() {
     modalCoincidencias?.classList.remove('is-active');
+    document.body.classList.remove('dilo-modal-open');
     sounds.playClick();
   }
 
@@ -1232,6 +1234,13 @@ export function initImpiEvents(autoOpenModal = false) {
   modalCoincidencias?.addEventListener('click', (e) => {
     if (e.target === modalCoincidencias) {
       closeCoincidenciasModal();
+    }
+  });
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      if (modalCoincidencias?.classList.contains('is-active')) closeCoincidenciasModal();
+      if (modalReq?.classList.contains('is-active')) closeReqModal();
     }
   });
 
@@ -1453,11 +1462,13 @@ export function initImpiEvents(autoOpenModal = false) {
 
   function openReqModal() {
     modalReq?.classList.add('is-active');
+    document.body.classList.add('dilo-modal-open');
     sounds.playClick();
   }
 
   function closeReqModal() {
     modalReq?.classList.remove('is-active');
+    document.body.classList.remove('dilo-modal-open');
     sounds.playClick();
   }
 
