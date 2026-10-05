@@ -223,36 +223,7 @@ export function renderImpiLandingView(initialQuery = '') {
         </div>
       </section>
 
-      <!-- 2.5 IMPI REJECTION & REQUIREMENT RESCUE BANNER -->
-      <section class="impi-rescue-section">
-        <div class="container">
-          <div class="impi-rescue-card">
-            <div class="impi-rescue-content">
-              <div class="impi-rescue-badge">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-                <span>Defensa Legal Especializada IMPI</span>
-              </div>
-              <h2 class="impi-rescue-title">¿Recibiste un requerimiento o rechazo del IMPI?</h2>
-              <p class="impi-rescue-desc">
-                No pierdas tu dinero ni des por perdida tu marca. Si solicitaste tu registro por tu cuenta o con otro despacho y el IMPI te notificó una <strong>cita de anterioridad, impedimento legal u oficio de forma</strong>, nuestros abogados contestan el requerimiento dentro del plazo fatal para defender tu derecho.
-              </p>
-            </div>
 
-            <div class="impi-rescue-actions">
-              <button class="btn-rescue-action" id="btn-open-req-banner" data-cursor="hover">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                </svg>
-                <span>Atender Requerimiento / Rechazo del IMPI</span>
-              </button>
-              <div class="impi-rescue-guarantee-note">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span>Diagnóstico legal inicial sin costo &middot; Contestación en &lt; 72 horas</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       <!-- 3. DIRECT PURCHASE PACKAGES & ADD-ON CUSTOMIZER -->
       <section class="impi-pricing-section" id="seccion-paquetes">
@@ -410,44 +381,7 @@ export function renderImpiLandingView(initialQuery = '') {
 
           </div>
 
-          <!-- Add-On Customizer Strip -->
-          <div class="impi-addons-box">
-            <div class="impi-addons-title">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-              </svg>
-              <span>Personaliza tu Blindaje con Servicios de Seguimiento & Protección Adicional</span>
-            </div>
 
-            <div class="impi-addons-grid">
-              <label class="impi-addon-card" id="addon-label-monitoreo">
-                <input type="checkbox" class="impi-addon-checkbox" id="addon-monitoreo" data-price="1850">
-                <div class="impi-addon-meta">
-                  <div class="impi-addon-name">Monitoreo Permanente 10 Años (Vigilancia de Marca)</div>
-                  <div class="impi-addon-desc">Alertas automáticas en la Gaceta IMPI si un tercero intenta registrar un nombre idéntico o similar.</div>
-                  <div class="impi-addon-price">+$1,850 MXN (Pago único 10 años)</div>
-                </div>
-              </label>
-
-              <label class="impi-addon-card" id="addon-label-clase">
-                <input type="checkbox" class="impi-addon-checkbox" id="addon-clase" data-price="3950">
-                <div class="impi-addon-meta">
-                  <div class="impi-addon-name">Clase NIZA Extra de Protección</div>
-                  <div class="impi-addon-desc">Protege una segunda categoría (ej. clase de producto + clase de servicios o tienda online).</div>
-                  <div class="impi-addon-price">+$3,950 MXN (Derechos + Gestión)</div>
-                </div>
-              </label>
-
-              <label class="impi-addon-card" id="addon-label-cesion">
-                <input type="checkbox" class="impi-addon-checkbox" id="addon-cesion" data-price="1200">
-                <div class="impi-addon-meta">
-                  <div class="impi-addon-name">Contrato Legal de Cesión de Logotipo</div>
-                  <div class="impi-addon-desc">Blindaje legal de autoría para asegurar que el diseñador cede 100% de los derechos de explotación.</div>
-                  <div class="impi-addon-price">+$1,200 MXN</div>
-                </div>
-              </label>
-            </div>
-          </div>
 
         </div>
       </section>
@@ -946,6 +880,22 @@ export function renderImpiLandingView(initialQuery = '') {
             </button>
           </div>
         </div>
+      </aside>
+
+      <!-- 8. RIGHT-SIDE FLOATING RESCUE WIDGET -->
+      <aside class="impi-rescue-floating" id="impi-rescue-floating" aria-label="Asistencia ante requerimiento o rechazo del IMPI">
+        <button class="impi-rescue-floating-close" id="btn-close-rescue-floating" aria-label="Cerrar aviso">&times;</button>
+        <div class="impi-rescue-floating-header">
+          <span class="impi-rescue-floating-pulse"></span>
+          <span class="impi-rescue-floating-tag">Defensa Legal IMPI</span>
+        </div>
+        <h4 class="impi-rescue-floating-title">¿Recibiste un requerimiento o rechazo del IMPI?</h4>
+        <button class="btn-rescue-action" id="btn-open-req-banner" data-cursor="hover">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+          <span>Atender Requerimiento / Rechazo</span>
+        </button>
       </aside>
 
     </main>
@@ -1471,6 +1421,13 @@ export function initImpiEvents(autoOpenModal = false) {
     document.body.classList.remove('dilo-modal-open');
     sounds.playClick();
   }
+
+  const btnCloseRescue = document.getElementById('btn-close-rescue-floating');
+  const rescueFloating = document.getElementById('impi-rescue-floating');
+  btnCloseRescue?.addEventListener('click', () => {
+    sounds.playClick();
+    rescueFloating?.classList.add('is-closed');
+  });
 
   btnOpenReqBanner?.addEventListener('click', openReqModal);
   btnCloseReq?.addEventListener('click', closeReqModal);
