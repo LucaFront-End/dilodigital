@@ -1960,3 +1960,70 @@ body:has(.dilo-modal-backdrop.is-active) .site-header {
   box-shadow: 0 10px 25px rgba(255, 90, 31, 0.45);
 }
 
+
+/* Paso 3: revisión de orden antes del checkout propio */
+.impi-review-card {
+  border: 1px solid rgba(20, 23, 24, 0.08);
+  border-radius: 16px;
+  background: #FAFAFC;
+  padding: 0.4rem 1.1rem;
+  font-family: var(--sm-font-body);
+}
+
+.impi-review-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(20, 23, 24, 0.06);
+  font-size: 0.9rem;
+}
+
+.impi-review-row:last-child {
+  border-bottom: 0;
+}
+
+.impi-review-row span {
+  color: var(--text-secondary);
+  flex-shrink: 0;
+}
+
+.impi-review-row strong {
+  text-align: right;
+  color: #141718;
+  font-weight: 700;
+  word-break: break-word;
+}
+
+.impi-review-row.is-total strong {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--color-primary);
+}
+
+.impi-pay-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.1rem;
+}
+
+.impi-pay-chip {
+  font-family: var(--sm-font-body);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #141718;
+  background: #FFFFFF;
+  border: 1px solid rgba(20, 23, 24, 0.1);
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+}
+
+.impi-pay-note {
+  margin: 0.8rem 0 0;
+  font-family: var(--sm-font-body);
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}

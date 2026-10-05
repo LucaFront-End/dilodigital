@@ -45,3 +45,6 @@ scratch/
 /logo_cropped.png
 /logo_dark.png
 /scratch_brief.txt
+
+# Checkout E2E screenshots
+tests/.screenshots/

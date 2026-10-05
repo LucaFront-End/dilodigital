@@ -7,7 +7,8 @@ import confetti from 'canvas-confetti';
 import { sounds } from '../utils/SoundEngine.js';
 import { renderFinalCta, initFinalCtaEvents } from '../components/FinalCta.js';
 import { saveLeadToCms } from '../utils/LeadCms.js';
-import { createNewTramite } from '../data/tramitesStore.js';
+import { startCheckout } from '../checkout/session.js';
+import { priceCart, formatMXN } from '../checkout/catalog.js';
 
 export function renderImpiLandingView(initialQuery = '') {
   return `
@@ -541,33 +542,31 @@ export function renderImpiLandingView(initialQuery = '') {
               <!-- STEP 3: PAGO -->
               <div id="step-3-form" style="display: none;">
                 <h3 style="font-family: var(--sm-font-body); font-size: 1.25rem; font-weight: 800; margin-bottom: 1.2rem;">
-                  Paso 3: Métodos de Pago Seguros
+                  Paso 3: Revisa tu orden y paga seguro
                 </h3>
 
-                <div class="impi-payment-methods">
-                  <div class="impi-pay-card is-selected">
-                    <input type="radio" name="pay-method" value="spei" checked style="accent-color: var(--color-primary);">
-                    <div>
-                      <div style="font-weight: 700; color: #141718; font-size: 0.95rem;">Transferencia Bancaria SPEI / CLABE Directa (Sin comisión)</div>
-                      <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.2rem;">Confirmación inmediata y emisión de factura fiscal CFDI 4.0 al instante.</div>
-                    </div>
-                  </div>
-
-                  <div class="impi-pay-card">
-                    <input type="radio" name="pay-method" value="card" style="accent-color: var(--color-primary);">
-                    <div>
-                      <div style="font-weight: 700; color: #141718; font-size: 0.95rem;">Tarjeta de Crédito o Débito (Hasta 3 MSI con Visa / Mastercard)</div>
-                      <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.2rem;">Procesamiento seguro encriptado TLS 256-bit mediante Stripe México.</div>
-                    </div>
-                  </div>
+                <div class="impi-review-card" id="impi-review-card">
+                  <div class="impi-review-row"><span>Marca</span><strong id="review-brand">—</strong></div>
+                  <div class="impi-review-row"><span>Titular</span><strong id="review-owner">—</strong></div>
+                  <div class="impi-review-row"><span>Paquete</span><strong id="review-plan">—</strong></div>
+                  <div class="impi-review-row" id="review-addons-row" style="display: none;"><span>Complementos</span><strong id="review-addons">—</strong></div>
+                  <div class="impi-review-row is-total"><span>Total (IVA incluido)</span><strong id="review-total">—</strong></div>
                 </div>
 
-                <div style="display: flex; gap: 1rem; margin-top: 1.8rem;">
+                <div class="impi-pay-chips" aria-label="Métodos de pago aceptados">
+                  <span class="impi-pay-chip">💳 Tarjeta crédito / débito</span>
+                  <span class="impi-pay-chip">📆 Meses sin intereses</span>
+                  <span class="impi-pay-chip">🏦 SPEI</span>
+                  <span class="impi-pay-chip">🏪 Efectivo OXXO</span>
+                </div>
+                <p class="impi-pay-note">Serás dirigido a nuestra pasarela de pago segura (cifrado TLS · 3D Secure). Recibes tu folio y comprobante al instante.</p>
+
+                <div style="display: flex; gap: 1rem; margin-top: 1.4rem;">
                   <button class="btn btn-secondary btn-lg" id="btn-back-to-step-2" style="flex: 1; justify-content: center;">
                     &larr; Volver
                   </button>
                   <button class="impi-buy-btn" id="btn-complete-impi-order" style="flex: 2;">
-                    <span>Confirmar y Blindar mi Marca 🔒</span>
+                    <span>Ir al pago seguro 🔒</span>
                   </button>
                 </div>
               </div>
@@ -1522,10 +1521,38 @@ export function initImpiEvents(autoOpenModal = false) {
   document.getElementById('btn-next-to-step-3')?.addEventListener('click', () => {
     const ownerName = document.getElementById('co-owner-name')?.value.trim();
     const ownerEmail = document.getElementById('co-owner-email')?.value.trim();
+    const ownerPhone = document.getElementById('co-owner-phone')?.value.trim() || '';
     if (!ownerName || !ownerEmail) {
       alert('Por favor completa el nombre del titular y correo de notificaciones.');
       return;
     }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(ownerEmail)) {
+      alert('Por favor ingresa un correo electrónico válido.');
+      return;
+    }
+    if (ownerPhone.replace(/\D/g, '').length < 10) {
+      alert('Por favor ingresa un WhatsApp de 10 dígitos para notificaciones.');
+      return;
+    }
+
+    // Resumen calculado con el mismo catálogo que usa el servidor
+    const items = [`impi-${selectedTier}`, ...Object.keys(activeAddons).filter((k) => activeAddons[k]).map((k) => `impi-addon-${k}`)];
+    const pricing = priceCart({ items, plan: 'full' });
+    const setText = (id, text) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = text;
+    };
+    setText('review-brand', document.getElementById('co-brand-name')?.value.trim() || '—');
+    setText('review-owner', ownerName);
+    if (pricing.ok) {
+      setText('review-plan', pricing.lines[0].name);
+      const addons = pricing.lines.filter((l) => l.kind === 'addon').map((l) => l.name);
+      const addonsRow = document.getElementById('review-addons-row');
+      if (addonsRow) addonsRow.style.display = addons.length ? '' : 'none';
+      setText('review-addons', addons.join(' · '));
+      setText('review-total', `${formatMXN(pricing.totalCents)} MXN`);
+    }
+
     sounds.playClick();
     step2Form.style.display = 'none';
     step3Form.style.display = 'block';
@@ -1541,71 +1568,35 @@ export function initImpiEvents(autoOpenModal = false) {
     tabStep2?.classList.add('is-active');
   });
 
-  // Complete Order & Launch Celebration
+  // Ir al checkout propio (#/checkout) con el carrito y los datos del titular
   document.getElementById('btn-complete-impi-order')?.addEventListener('click', () => {
-    sounds.playSuccess();
-    confetti({
-      particleCount: 140,
-      spread: 100,
-      origin: { y: 0.55 }
+    sounds.playClick();
+    const brandName = document.getElementById('co-brand-name')?.value.trim() || '';
+    const ownerName = document.getElementById('co-owner-name')?.value.trim() || '';
+    const ownerPhone = document.getElementById('co-owner-phone')?.value.trim() || '';
+    const ownerEmail = document.getElementById('co-owner-email')?.value.trim() || '';
+    const ownerRfc = (document.getElementById('co-owner-rfc')?.value || '').trim().toUpperCase();
+    const brandType = document.getElementById('radio-nominativa')?.classList.contains('is-selected') ? 'nominativa' : 'mixta';
+    const personType = document.querySelector('input[name="co-person-type"]:checked')?.value || 'fisica';
+    const nizaSelect = document.getElementById('impi-search-class');
+    const nizaClass = nizaSelect?.value || '';
+
+    const items = [`impi-${selectedTier}`, ...Object.keys(activeAddons).filter((k) => activeAddons[k]).map((k) => `impi-addon-${k}`)];
+
+    startCheckout({
+      items,
+      plan: 'full',
+      customer: { name: ownerName, email: ownerEmail, phone: ownerPhone },
+      billing: ownerRfc ? { rfc: ownerRfc, razonSocial: personType === 'moral' ? ownerName : '' } : null,
+      meta: {
+        brandName,
+        brandType,
+        personType,
+        brandDesc: (document.getElementById('co-brand-desc')?.value || '').trim().slice(0, 280),
+        logoName: uploadedLogoData?.name || '',
+        nizaClass
+      },
+      returnPath: '#/registro-marca'
     });
-
-    const brandName = document.getElementById('co-brand-name')?.value || 'Mi Marca';
-    const ownerName = document.getElementById('co-owner-name')?.value || 'Titular';
-    const ownerPhone = document.getElementById('co-owner-phone')?.value || 'No especificado';
-    const totalText = document.getElementById('rec-total-price')?.textContent || '$6,976.41';
-
-    let addonsList = [];
-    if (activeAddons.monitoreo) addonsList.push('Monitoreo 10 Años');
-    if (activeAddons.clase) addonsList.push('Clase NIZA Extra');
-    if (activeAddons.cesion) addonsList.push('Cesión de Derechos');
-
-    const folio = `IMPI-2026-${Math.floor(1000 + Math.random() * 9000)}-MX`;
-
-    const logoNote = uploadedLogoData ? ` | Logotipo: ${uploadedLogoData.name}` : '';
-
-    const clientEmailVal = document.getElementById('co-owner-email')?.value || '';
-
-    // Save purchase order to CMS
-    saveLeadToCms({
-      name: ownerName,
-      phone: ownerPhone,
-      email: clientEmailVal,
-      brandName: brandName,
-      notes: `Orden Pagada: ${folio} | Total: ${totalText} | Addons: ${addonsList.join(', ')}${logoNote}`,
-      type: 'checkout',
-      statusScenario: 'verde',
-      source: '#/registro-marca-compra'
-    });
-
-    // Create real trámite in Portal store
-    createNewTramite({
-      type: selectedTier === 'dictamen' ? 'viabilidad' : 'registro',
-      brandName: brandName,
-      clientName: ownerName,
-      clientEmail: clientEmailVal || 'cliente@solaria.mx',
-      clientPhone: ownerPhone,
-      nizaClass: document.getElementById('impi-search-class')?.value || 'Clase 35',
-      comments: `Orden en línea confirmada (${folio}). Plan: ${document.getElementById('rec-plan-name')?.textContent}. Expediente radicado para dictamen.`,
-      currentStage: selectedTier === 'dictamen' ? 'solicitud_recibida' : 'preparacion'
-    });
-
-    const whatsappMessage = `¡Hola Dilo Digital MX! ⚖️🛡️ Acabo de contratar el trámite de *Protección de Marca ante el IMPI* en línea:\n\n` +
-      `• *Folio de Orden:* ${folio}\n` +
-      `• *Marca a Registrar:* ${brandName}\n` +
-      (uploadedLogoData ? `• *Logotipo / Boceto:* Adjunto cargado ("${uploadedLogoData.name}")\n` : '') +
-      `• *Titular:* ${ownerName}\n` +
-      `• *Teléfono:* ${ownerPhone}\n` +
-      `• *Plan Seleccionado:* ${document.getElementById('rec-plan-name')?.textContent}\n` +
-      (addonsList.length > 0 ? `• *Servicios Extra:* ${addonsList.join(', ')}\n` : '') +
-      `• *Total Neto:* ${totalText} MXN\n\n` +
-      `Deseo coordinar el envío de comprobantes fiscales y dar inicio al dictamen legal formal. ¡Gracias!`;
-
-    const waUrl = `https://wa.me/525592441070?text=${encodeURIComponent(whatsappMessage)}`;
-
-    setTimeout(() => {
-      window.open(waUrl, '_blank');
-      alert(`¡Orden ${folio} registrada con éxito! Te hemos redirigido a WhatsApp con nuestro abogado especialista en Propiedad Intelectual para coordinar pagos y expediente.`);
-    }, 1200);
   });
 }

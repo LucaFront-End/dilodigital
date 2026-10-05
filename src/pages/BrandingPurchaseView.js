@@ -3,10 +3,10 @@
 // Live Brand Moodboard, 3-Tier Packages, Brand Guardianship Tracker, Direct Checkout
 // ================================================================
 
-import confetti from 'canvas-confetti';
 import { sounds } from '../utils/SoundEngine.js';
 import { renderFinalCta, initFinalCtaEvents } from '../components/FinalCta.js';
 import { CATEGORIES } from '../data/categories.js';
+import { startCheckout } from '../checkout/session.js';
 import { renderCategoryHeroSection, initCategoryHeroEvents, renderCategoryNavStrip } from '../components/CategoryAnimations.js';
 
 export function renderBrandingPurchaseView() {
@@ -438,6 +438,7 @@ export function initBrandingEvents() {
   let basePrice = 16500;
   let tierName = 'Ecosistema Visual 360°';
   let tierTime = '14 Días Hábiles';
+  let tierKey = 'ecosistema';
   let activeAddons = {
     guardianship: false,
     impi: false,
@@ -504,6 +505,7 @@ export function initBrandingEvents() {
       card.classList.add('is-featured');
 
       basePrice = parseFloat(card.dataset.price);
+      tierKey = card.dataset.tier || 'ecosistema';
       tierName = card.querySelector('.bp-tier-name')?.textContent || '';
       tierTime = card.querySelector('.bp-tier-delivery')?.textContent?.replace('⏱ Entrega en ', '') || '';
 
@@ -552,54 +554,32 @@ export function initBrandingEvents() {
     recalculateTotal();
   });
 
-  // Complete Order
+  // Ir al checkout propio (#/checkout) con paquete, complementos y esquema de pago
   document.getElementById('btn-complete-bp-order')?.addEventListener('click', () => {
     const projectName = document.getElementById('bp-form-name')?.value.trim();
     const contactName = document.getElementById('bp-form-contact')?.value.trim();
     const phone = document.getElementById('bp-form-phone')?.value.trim();
-    const email = document.getElementById('bp-form-email')?.value.trim();
+    const email = document.getElementById('bp-form-email')?.value.trim() || '';
 
     if (!projectName || !contactName || !phone) {
       alert('Por favor completa el nombre del proyecto, tu nombre y WhatsApp de contacto.');
       return;
     }
 
-    sounds.playSuccess();
-    confetti({
-      particleCount: 150,
-      spread: 100,
-      origin: { y: 0.55 }
+    sounds.playClick();
+    const scheme = document.getElementById('bp-payment-scheme')?.value || '50-50';
+    const items = [`branding-${tierKey}`, ...Object.keys(activeAddons).filter((k) => activeAddons[k]).map((k) => `branding-addon-${k}`)];
+
+    startCheckout({
+      items,
+      plan: scheme === '100' ? 'full-5off' : 'deposit-50',
+      customer: { name: contactName, email, phone: phone.replace(/^\+?52\s*/, '') },
+      meta: {
+        brandName: projectName,
+        industry: (document.getElementById('bp-form-industry')?.value || '').trim(),
+        notes: (document.getElementById('bp-form-notes')?.value || '').trim().slice(0, 280)
+      },
+      returnPath: '#/branding'
     });
-
-    const scheme = document.getElementById('bp-payment-scheme')?.value;
-    const schemeText = scheme === '50-50' ? '50% Anticipo + 50% Contra Entrega' : '100% de Contado (5% OFF)';
-    const totalText = document.getElementById('bp-rec-total-price')?.textContent || '$16,500.00';
-    const industry = document.getElementById('bp-form-industry')?.value || 'General';
-
-    let addonsList = [];
-    if (activeAddons.guardianship) addonsList.push('Brand Guardianship Mensual');
-    if (activeAddons.impi) addonsList.push('Registro IMPI Combo');
-    if (activeAddons.social) addonsList.push('Pack 15 Plantillas Redes');
-
-    const folio = `BRAND-2026-${Math.floor(1000 + Math.random() * 9000)}-MX`;
-
-    const whatsappMessage = `¡Hola Dilo Digital MX! 🎨✨ Acabo de comprar el servicio de *Branding & Identidad Visual* en línea:\n\n` +
-      `• *Folio de Proyecto:* ${folio}\n` +
-      `• *Marca / Proyecto:* ${projectName}\n` +
-      `• *Giro / Industria:* ${industry}\n` +
-      `• *Responsable:* ${contactName}\n` +
-      `• *WhatsApp:* ${phone}\n` +
-      `• *Paquete:* ${tierName} (${tierTime})\n` +
-      (addonsList.length > 0 ? `• *Servicios Adicionales:* ${addonsList.join(', ')}\n` : '') +
-      `• *Esquema:* ${schemeText}\n` +
-      `• *Total:* ${totalText} MXN\n\n` +
-      `Deseo agendar el kick-off formal de inmersión y la recepción de comprobantes de pago. ¡Gracias!`;
-
-    const waUrl = `https://wa.me/525592441070?text=${encodeURIComponent(whatsappMessage)}`;
-
-    setTimeout(() => {
-      window.open(waUrl, '_blank');
-      alert(`¡Proyecto ${folio} contratado con éxito! Te hemos redirigido a WhatsApp con tu Brand Director asignado para dar inicio inmediato.`);
-    }, 1200);
   });
 }

@@ -22,6 +22,7 @@ import './styles/category-animations.css';
 import './styles/user-portal.css';
 import './styles/dinametra-services.css';
 import './styles/motion-footer.css';
+import './styles/checkout.css';
 
 import { renderNavbar, initNavbarEvents } from './components/Navbar.js';
 import { renderFooter, initFooterEvents } from './components/Footer.js';
@@ -38,6 +39,9 @@ import { renderPortfolioView, initPortfolioEvents } from './pages/PortfolioView.
 import { renderAboutView, initAboutEvents } from './pages/AboutView.js';
 import { renderContactView, initContactEvents } from './pages/ContactView.js';
 import { renderUserSectionView, initUserSectionEvents } from './pages/UserSectionView.js';
+import { renderCheckoutView, initCheckoutEvents } from './pages/CheckoutView.js';
+import { renderCheckoutSuccessView, initCheckoutSuccessEvents, cleanupCheckoutSuccess } from './pages/CheckoutSuccessView.js';
+import { initPixel, trackPageView } from './checkout/pixel.js';
 
 class App {
   constructor() {
@@ -45,7 +49,9 @@ class App {
       history.scrollRestoration = 'manual';
     }
     this.appEl = document.getElementById('app');
+    this.defaultTitle = document.title;
     this.cursor = new CustomCursor();
+    initPixel();
     this.init();
   }
 
@@ -64,6 +70,22 @@ class App {
   handleRoute() {
     const { path, params } = this.parseHash();
     window.scrollTo({ top: 0, behavior: 'instant' });
+    cleanupCheckoutSuccess();
+    trackPageView();
+
+    // Checkout: shell mínimo sin navbar, footer ni widgets (máxima conversión)
+    if (path === '#/checkout/exito' || path === '#/checkout') {
+      const isSuccess = path === '#/checkout/exito';
+      document.body.classList.add('dco-mode');
+      document.body.classList.remove('dilo-modal-open');
+      document.body.style.overflow = '';
+      this.appEl.innerHTML = `<div id="router-view">${isSuccess ? renderCheckoutSuccessView(params) : renderCheckoutView(params)}</div>`;
+      if (isSuccess) initCheckoutSuccessEvents(params);
+      else initCheckoutEvents(params);
+      return;
+    }
+    document.body.classList.remove('dco-mode');
+    document.title = this.defaultTitle;
 
     let activeRoute = 'home';
     let mainContentHtml = '';
