@@ -208,7 +208,8 @@
   font-family: var(--sm-font-body);
   font-size: 1.15rem;
   font-weight: 800;
-  letter-spacing: -0.3px;
+  letter-spacing: 0.025em;
+  word-spacing: 0.08em;
   color: #141718;
   margin-bottom: 0.5rem;
 }
@@ -292,7 +293,8 @@
   font-family: var(--sm-font-body);
   font-size: 1.3rem;
   font-weight: 800;
-  letter-spacing: -0.3px;
+  letter-spacing: 0.025em;
+  word-spacing: 0.08em;
   margin-bottom: 0.35rem;
 }
 
@@ -429,7 +431,8 @@
   font-family: var(--sm-font-body);
   font-size: 1.05rem;
   font-weight: 800;
-  letter-spacing: -0.2px;
+  letter-spacing: 0.02em;
+  word-spacing: 0.06em;
   margin-bottom: 1.2rem;
   display: flex;
   align-items: center;
@@ -572,7 +575,8 @@
   font-family: var(--sm-font-body);
   font-size: 1rem;
   font-weight: 800;
-  letter-spacing: -0.2px;
+  letter-spacing: 0.025em;
+  word-spacing: 0.06em;
   color: #141718;
   margin-bottom: 0.35rem;
 }
@@ -620,7 +624,8 @@
   font-family: var(--sm-font-body);
   font-size: 1.15rem;
   font-weight: 800;
-  letter-spacing: -0.2px;
+  letter-spacing: 0.025em;
+  word-spacing: 0.08em;
   padding-bottom: 0.8rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   margin-bottom: 1.2rem;

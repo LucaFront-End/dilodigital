@@ -335,7 +335,8 @@
   font-size: 0.9rem;
   font-weight: 800;
   color: #1E293B;
-  letter-spacing: -0.2px;
+  letter-spacing: 0.02em;
+  word-spacing: 0.06em;
 }
 
 .impi-stage-meta p {
@@ -450,8 +451,8 @@
   font-weight: 800;
   line-height: 1.35;
   margin-bottom: 0.45rem;
-  letter-spacing: 0.025em;
-  word-spacing: 0.1em;
+  letter-spacing: 0.035em;
+  word-spacing: 0.14em;
 }
 
 .impi-res-desc {
@@ -586,7 +587,8 @@
   font-family: var(--sm-font-body);
   font-size: 1.15rem;
   font-weight: 800;
-  letter-spacing: -0.3px;
+  letter-spacing: 0.025em;
+  word-spacing: 0.08em;
   color: #141718;
   margin-bottom: 0.6rem;
 }
@@ -670,7 +672,8 @@
   font-family: var(--sm-font-body);
   font-size: 1.25rem;
   font-weight: 800;
-  letter-spacing: -0.3px;
+  letter-spacing: 0.025em;
+  word-spacing: 0.08em;
   margin-bottom: 0.4rem;
 }
 
@@ -942,7 +945,8 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  letter-spacing: -0.2px;
+  letter-spacing: 0.025em;
+  word-spacing: 0.06em;
 }
 
 .impi-floating-plan-detail {
@@ -1357,7 +1361,8 @@
   font-family: var(--sm-font-body);
   font-size: 1.15rem;
   font-weight: 800;
-  letter-spacing: -0.2px;
+  letter-spacing: 0.025em;
+  word-spacing: 0.08em;
   padding-bottom: 0.8rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   margin-bottom: 1.2rem;
@@ -1537,7 +1542,8 @@
   font-family: var(--sm-font-body);
   font-size: 1rem;
   font-weight: 800;
-  letter-spacing: -0.2px;
+  letter-spacing: 0.025em;
+  word-spacing: 0.06em;
   color: #141718;
   margin-bottom: 0.35rem;
 }
@@ -1829,8 +1835,9 @@ body:has(.dilo-modal-backdrop.is-active) .site-header {
   font-size: 1.35rem;
   font-weight: 800;
   color: #0F172A;
-  letter-spacing: -0.02em;
-  line-height: 1.25;
+  letter-spacing: 0.04em;
+  word-spacing: 0.14em;
+  line-height: 1.3;
   margin: 0 0 0.35rem 0;
 }
 
@@ -1863,7 +1870,7 @@ body:has(.dilo-modal-backdrop.is-active) .site-header {
   font-size: 0.79rem;
   font-weight: 700;
   color: #1E293B;
-  letter-spacing: -0.01em;
+  letter-spacing: 0.015em;
 }
 
 .dilo-modal-input,
