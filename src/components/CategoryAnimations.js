@@ -4,6 +4,9 @@
 // ================================================================
 
 import gsap from 'gsap';
+import { Application } from '@splinetool/runtime';
+
+const SPLINE_SCENE_URL = 'https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode';
 
 export function renderCategoryHeroAnimation(categoryId = 'branding') {
   const cat = (categoryId || '').toLowerCase();
@@ -304,6 +307,10 @@ export function renderCategoryHeroSection(category, options = {}) {
   const viewportId = options.viewportId || 'cat-rotator-viewport';
   const activeId = options.activeId || 'cat-rotator-active';
   const underlineId = options.underlineId || 'cat-rotator-underline';
+  const canvasId = options.canvasId || 'cat-spline-canvas';
+  const loaderId = options.loaderId || 'cat-spline-loader';
+  const heroWrapId = options.heroWrapId || 'cat-hero-spline-wrap';
+  const spotlightId = options.spotlightId || 'cat-hero-spotlight';
 
   const primaryBtn = isBrandingDirect
     ? `
@@ -327,74 +334,65 @@ export function renderCategoryHeroSection(category, options = {}) {
   const waText = encodeURIComponent(`Hola Dilo Digital, me interesa cotizar el servicio de ${category?.title || 'la categoría'}. ¿Podríamos agendar una sesión estratégica?`);
   const waUrl = `https://wa.me/525592441070?text=${waText}`;
 
-  const stats = (category?.stats && category.stats.length > 0) ? category.stats : [
-    { value: "+140", label: "Marcas Registradas" },
-    { value: "98.4%", label: "Tasa Viabilidad" },
-    { value: "15 Días", label: "Sprint de Entrega" }
-  ];
-
   return `
-    <section class="cat-hero-section">
-      <div class="cat-hero-container">
-        <!-- Background Numeral Watermark in Manuka -->
-        <div class="cat-watermark-num" aria-hidden="true">${category?.number || '01'}</div>
+    <!-- ① SPLINE 3D HERO BANNER FOR CATEGORY (EXACT HOME HERO WITH 3D ROBOT) -->
+    <section class="cat-hero-spline-section sm-hero-spline-wrap" id="${heroWrapId}">
+      <!-- Spotlight mouse-follow glow -->
+      <div class="sm-hero-spotlight" id="${spotlightId}"></div>
 
-        <div class="cat-hero-grid">
-          <!-- Left: Editorial Copy (Exact Home Hero Structure) -->
-          <div class="sm-hero-left cat-hero-left">
-            <div class="sm-hero-eyebrow">
-              <span class="sm-hero-pulse-dot"></span>
-              <span>${config.eyebrow}</span>
-            </div>
-
-            <h1 class="sm-hero-headline">
-              <span class="sm-hero-line">${config.line1}</span>
-              <span class="sm-hero-line">${config.line2}</span>
-              <span class="sm-hero-line sm-hero-headline-accent sm-rotator-line">
-                <span class="sm-rotator-viewport" id="${viewportId}" data-words='${JSON.stringify(config.words)}' title="Clic para cambiar">
-                  <span class="sm-rotator-active" id="${activeId}">${config.words[0]}</span>
-                </span>
-                <span class="sm-rotator-underline" id="${underlineId}"></span>
-              </span>
-            </h1>
-
-            <p class="sm-hero-desc">
-              ${config.description}
-            </p>
-
-            <div class="sm-hero-actions">
-              ${primaryBtn}
-              <a href="${waUrl}" target="_blank" rel="noopener" class="sm-hero-btn-secondary" data-cursor="hover">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.592 2.654-.697c.969.529 1.777.784 2.806.784 3.18 0 5.767-2.586 5.768-5.766.001-3.18-2.586-5.766-5.768-5.766zm9.969 5.766c0 5.505-4.479 9.984-9.969 9.984-1.748 0-3.385-.452-4.815-1.246l-5.216 1.369 1.393-5.086c-.885-1.488-1.393-3.228-1.393-5.021 0-5.505 4.479-9.984 9.969-9.984 5.505 0 10.026 4.479 10.026 9.984z"/>
-                </svg>
-                <span>WhatsApp Directo</span>
-              </a>
-            </div>
-
-            <!-- Micro Trust Chips -->
-            <div class="sm-hero-trust-row">
-              ${config.chips.map(chip => `<span class="sm-hero-trust-chip">${chip}</span>`).join('')}
-            </div>
-          </div>
-
-          <!-- Right Column: Lightweight Vector Animation + Compact Metrics (Replaces 3D Robot & Dark Card) -->
-          <div class="cat-hero-right">
-            ${renderCategoryHeroAnimation(catId)}
-
-            <div class="cat-stats-card-compact">
-              <div class="cat-stats-grid">
-                ${stats.map(s => `
-                  <div class="cat-stat-box">
-                    <div class="cat-stat-val">${s.value}</div>
-                    <div class="cat-stat-lbl">${s.label}</div>
-                  </div>
-                `).join('')}
-              </div>
-            </div>
-          </div>
-
+      <!-- Spline 3D Canvas (covers right portion, extends full height) -->
+      <div class="sm-hero-spline-container">
+        <canvas id="${canvasId}" class="sm-spline-canvas"></canvas>
+        <!-- Fallback loader while Spline loads -->
+        <div class="sm-spline-loader" id="${loaderId}">
+          <div class="sm-spline-spinner"></div>
         </div>
+      </div>
+
+      <!-- Bottom gradient fade to hide robot legs -->
+      <div class="sm-hero-bottom-fade"></div>
+
+      <div class="sm-hero-split">
+        <!-- Left: Editorial Copy -->
+        <div class="sm-hero-left">
+          <div class="sm-hero-eyebrow">
+            <span class="sm-hero-pulse-dot"></span>
+            <span>${config.eyebrow}</span>
+          </div>
+
+          <h1 class="sm-hero-headline">
+            <span class="sm-hero-line">${config.line1}</span>
+            <span class="sm-hero-line">${config.line2}</span>
+            <span class="sm-hero-line sm-hero-headline-accent sm-rotator-line">
+              <span class="sm-rotator-viewport" id="${viewportId}" data-words='${JSON.stringify(config.words)}' title="Clic para cambiar">
+                <span class="sm-rotator-active" id="${activeId}">${config.words[0]}</span>
+              </span>
+              <span class="sm-rotator-underline" id="${underlineId}"></span>
+            </span>
+          </h1>
+
+          <p class="sm-hero-desc">
+            ${config.description}
+          </p>
+
+          <div class="sm-hero-actions">
+            ${primaryBtn}
+            <a href="${waUrl}" target="_blank" rel="noopener" class="sm-hero-btn-secondary" data-cursor="hover">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.592 2.654-.697c.969.529 1.777.784 2.806.784 3.18 0 5.767-2.586 5.768-5.766.001-3.18-2.586-5.766-5.768-5.766zm9.969 5.766c0 5.505-4.479 9.984-9.969 9.984-1.748 0-3.385-.452-4.815-1.246l-5.216 1.369 1.393-5.086c-.885-1.488-1.393-3.228-1.393-5.021 0-5.505 4.479-9.984 9.969-9.984 5.505 0 10.026 4.479 10.026 9.984z"/>
+              </svg>
+              <span>WhatsApp Directo</span>
+            </a>
+          </div>
+
+          <!-- Micro Trust Chips -->
+          <div class="sm-hero-trust-row">
+            ${config.chips.map(chip => `<span class="sm-hero-trust-chip">${chip}</span>`).join('')}
+          </div>
+        </div>
+
+        <!-- Right: spacer (Spline 3D robot canvas is positioned behind) -->
+        <div class="sm-hero-right-spacer" aria-hidden="true"></div>
       </div>
     </section>
   `;
@@ -555,4 +553,131 @@ export function initCategoryRotator(viewportId = 'cat-rotator-viewport', activeI
     }
   };
 }
+
+let activeCategorySplineApp = null;
+
+export function initCategorySpline(canvasId = 'cat-spline-canvas', loaderId = 'cat-spline-loader', wrapId = 'cat-hero-spline-wrap') {
+  const canvas = document.getElementById(canvasId);
+  const loader = document.getElementById(loaderId);
+  const heroWrap = document.getElementById(wrapId);
+
+  if (!canvas) return;
+
+  if (activeCategorySplineApp) {
+    try {
+      if (typeof activeCategorySplineApp.dispose === 'function') {
+        activeCategorySplineApp.dispose();
+      }
+    } catch (e) {
+      // ignore
+    }
+    activeCategorySplineApp = null;
+  }
+
+  activeCategorySplineApp = new Application(canvas);
+  activeCategorySplineApp.load(SPLINE_SCENE_URL)
+    .then(() => {
+      if (loader) {
+        gsap.to(loader, {
+          autoAlpha: 0,
+          duration: 0.5,
+          ease: 'power2.out',
+          onComplete: () => loader.remove()
+        });
+      }
+      if (heroWrap && canvas) {
+        setupMouseForwarding(heroWrap, canvas);
+      }
+    })
+    .catch((err) => {
+      console.warn('Spline 3D Scene in Category Hero:', err);
+      if (loader) loader.remove();
+    });
+}
+
+function setupMouseForwarding(heroWrap, canvas) {
+  if (!heroWrap || !canvas) return;
+
+  const handlePointer = (e) => {
+    if (!e.isTrusted) return;
+
+    const syntheticEvent = new PointerEvent('pointermove', {
+      clientX: e.clientX,
+      clientY: e.clientY,
+      screenX: e.screenX,
+      screenY: e.screenY,
+      pageX: e.pageX,
+      pageY: e.pageY,
+      bubbles: false,
+      cancelable: true,
+      pointerId: 1,
+      pointerType: 'mouse',
+      isPrimary: true,
+      width: 1,
+      height: 1,
+    });
+    canvas.dispatchEvent(syntheticEvent);
+  };
+
+  heroWrap.addEventListener('pointermove', handlePointer, { passive: true });
+}
+
+export function initSpotlightFollow(wrapId = 'cat-hero-spline-wrap', spotlightId = 'cat-hero-spotlight') {
+  const heroWrap = document.getElementById(wrapId);
+  const spotlight = document.getElementById(spotlightId);
+  if (!heroWrap || !spotlight) return;
+
+  let mouse = { x: 0, y: 0 };
+  let pos = { x: 0, y: 0 };
+  let isHovering = false;
+
+  heroWrap.addEventListener('mouseenter', () => {
+    isHovering = true;
+    gsap.to(spotlight, { autoAlpha: 1, duration: 0.3 });
+  });
+
+  heroWrap.addEventListener('mouseleave', () => {
+    isHovering = false;
+    gsap.to(spotlight, { autoAlpha: 0, duration: 0.3 });
+  });
+
+  heroWrap.addEventListener('mousemove', (e) => {
+    const rect = heroWrap.getBoundingClientRect();
+    mouse.x = e.clientX - rect.left;
+    mouse.y = e.clientY - rect.top;
+  });
+
+  const loop = () => {
+    if (isHovering && spotlight.parentElement) {
+      pos.x += (mouse.x - pos.x) * 0.08;
+      pos.y += (mouse.y - pos.y) * 0.08;
+      spotlight.style.transform = `translate(${pos.x - 200}px, ${pos.y - 200}px)`;
+      requestAnimationFrame(loop);
+    }
+  };
+
+  heroWrap.addEventListener('mouseenter', () => {
+    requestAnimationFrame(loop);
+  });
+}
+
+export function initCategoryHeroEvents(options = {}) {
+  const viewportId = options.viewportId || 'cat-rotator-viewport';
+  const activeId = options.activeId || 'cat-rotator-active';
+  const underlineId = options.underlineId || 'cat-rotator-underline';
+  const canvasId = options.canvasId || 'cat-spline-canvas';
+  const loaderId = options.loaderId || 'cat-spline-loader';
+  const wrapId = options.wrapId || 'cat-hero-spline-wrap';
+  const spotlightId = options.spotlightId || 'cat-hero-spotlight';
+
+  // 1. 3D Kinetic Character Rotator
+  initCategoryRotator(viewportId, activeId, underlineId);
+
+  // 2. Spline 3D Robot
+  initCategorySpline(canvasId, loaderId, wrapId);
+
+  // 3. Spotlight Follow
+  initSpotlightFollow(wrapId, spotlightId);
+}
+
 

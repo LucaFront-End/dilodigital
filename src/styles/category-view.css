@@ -83,6 +83,24 @@
 }
 
 /* ── 2. Monumental Hero Section ── */
+.cat-hero-spline-section {
+  min-height: calc(100vh - var(--header-height, 80px) - 52px) !important;
+  min-height: calc(100dvh - var(--header-height, 80px) - 52px) !important;
+  background: var(--bg-main, #FAFAFC) !important;
+}
+
+.cat-hero-spline-section .sm-hero-split {
+  padding-top: clamp(40px, 6vh, 80px);
+  padding-bottom: clamp(40px, 6vh, 80px);
+}
+
+@media (max-width: 992px) {
+  .cat-hero-spline-section {
+    min-height: 100vh !important;
+    min-height: 100dvh !important;
+  }
+}
+
 .cat-hero-section {
   position: relative;
   padding: clamp(2.5rem, 5vh, 4.5rem) 0 clamp(3rem, 6vh, 5rem);

@@ -7,7 +7,7 @@ import confetti from 'canvas-confetti';
 import { sounds } from '../utils/SoundEngine.js';
 import { renderFinalCta, initFinalCtaEvents } from '../components/FinalCta.js';
 import { CATEGORIES } from '../data/categories.js';
-import { renderCategoryHeroSection, initCategoryRotator } from '../components/CategoryAnimations.js';
+import { renderCategoryHeroSection, initCategoryHeroEvents } from '../components/CategoryAnimations.js';
 
 export function renderBrandingPurchaseView() {
   const brandingCat = CATEGORIES.find(c => c.id === 'branding') || CATEGORIES[0];
@@ -15,12 +15,16 @@ export function renderBrandingPurchaseView() {
   return `
     <main class="bp-page">
 
-      <!-- 1. MONUMENTAL HERO (HOME-STYLE SPLIT WITH DYNAMIC ROTATOR & LIGHTWEIGHT VECTOR ANIMATION) -->
+      <!-- 1. MONUMENTAL HERO (HOME-STYLE SPLIT WITH 3D ROBOT & DYNAMIC ROTATOR) -->
       ${renderCategoryHeroSection(brandingCat, {
         isBrandingDirect: true,
         viewportId: 'bp-rotator-viewport',
         activeId: 'bp-rotator-active',
-        underlineId: 'bp-rotator-underline'
+        underlineId: 'bp-rotator-underline',
+        canvasId: 'bp-spline-canvas',
+        loaderId: 'bp-spline-loader',
+        heroWrapId: 'bp-hero-spline-wrap',
+        spotlightId: 'bp-hero-spotlight'
       })}
 
 
@@ -416,8 +420,16 @@ export function renderBrandingPurchaseView() {
 export function initBrandingEvents() {
   initFinalCtaEvents();
 
-  // 1. Kinetic Headline 3D Character Rotator
-  initCategoryRotator('bp-rotator-viewport', 'bp-rotator-active', 'bp-rotator-underline');
+  // 1. Kinetic Headline Rotator & Spline 3D Robot
+  initCategoryHeroEvents({
+    viewportId: 'bp-rotator-viewport',
+    activeId: 'bp-rotator-active',
+    underlineId: 'bp-rotator-underline',
+    canvasId: 'bp-spline-canvas',
+    loaderId: 'bp-spline-loader',
+    wrapId: 'bp-hero-spline-wrap',
+    spotlightId: 'bp-hero-spotlight'
+  });
 
   // 2. Pricing & Dynamic Calculations
   let basePrice = 16500;

@@ -6,7 +6,7 @@
 import { CATEGORIES } from '../data/categories.js';
 import { PROJECTS } from '../data/projects.js';
 import { renderFinalCta, initFinalCtaEvents } from '../components/FinalCta.js';
-import { renderCategoryHeroSection, initCategoryRotator } from '../components/CategoryAnimations.js';
+import { renderCategoryHeroSection, initCategoryHeroEvents } from '../components/CategoryAnimations.js';
 
 function getWhatsAppUrl(subTitle, categoryTitle) {
   const text = `Hola Dilo Digital, me interesa cotizar el servicio de *${subTitle}* de la categoría *${categoryTitle}*. ¿Podríamos agendar una sesión estratégica?`;
@@ -33,12 +33,16 @@ export function renderCategoryView(slug = 'branding-diseno') {
         </div>
       </nav>
 
-      <!-- 2. MONUMENTAL CATEGORY HERO STAGE (HOME-STYLE SPLIT WITH DYNAMIC ROTATOR & LIGHTWEIGHT VECTOR ANIMATION) -->
+      <!-- 2. MONUMENTAL CATEGORY HERO STAGE (HOME-STYLE SPLIT WITH 3D ROBOT & DYNAMIC ROTATOR) -->
       ${renderCategoryHeroSection(category, {
         isBrandingDirect: false,
         viewportId: 'cat-rotator-viewport',
         activeId: 'cat-rotator-active',
-        underlineId: 'cat-rotator-underline'
+        underlineId: 'cat-rotator-underline',
+        canvasId: 'cat-spline-canvas',
+        loaderId: 'cat-spline-loader',
+        heroWrapId: 'cat-hero-spline-wrap',
+        spotlightId: 'cat-hero-spotlight'
       })}
 
 
@@ -295,7 +299,15 @@ export function renderCategoryView(slug = 'branding-diseno') {
 
 export function initCategoryEvents() {
   initFinalCtaEvents();
-  initCategoryRotator('cat-rotator-viewport', 'cat-rotator-active', 'cat-rotator-underline');
+  initCategoryHeroEvents({
+    viewportId: 'cat-rotator-viewport',
+    activeId: 'cat-rotator-active',
+    underlineId: 'cat-rotator-underline',
+    canvasId: 'cat-spline-canvas',
+    loaderId: 'cat-spline-loader',
+    wrapId: 'cat-hero-spline-wrap',
+    spotlightId: 'cat-hero-spotlight'
+  });
 
   // Sticky subcategory navigation scroll spy
   const navItems = document.querySelectorAll('#cat-sub-nav .cat-specs-nav-item');
