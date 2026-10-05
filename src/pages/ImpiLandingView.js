@@ -785,7 +785,7 @@ export function renderImpiLandingView(initialQuery = '') {
                 >
               </div>
 
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div class="dilo-modal-row-2col">
                 <div class="dilo-modal-field">
                   <label class="dilo-modal-label">Teléfono / WhatsApp</label>
                   <input 
@@ -861,7 +861,7 @@ export function renderImpiLandingView(initialQuery = '') {
                 <input type="text" class="dilo-modal-input" id="req-full-name" placeholder="Ej. Mariana Soto Villalobos" required>
               </div>
 
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div class="dilo-modal-row-2col">
                 <div class="dilo-modal-field">
                   <label class="dilo-modal-label">WhatsApp de contacto</label>
                   <input type="tel" class="dilo-modal-input" id="req-phone" placeholder="Ej. 55 9876 5432" required>
@@ -872,7 +872,7 @@ export function renderImpiLandingView(initialQuery = '') {
                 </div>
               </div>
 
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div class="dilo-modal-row-2col">
                 <div class="dilo-modal-field">
                   <label class="dilo-modal-label">Número de expediente / folio IMPI</label>
                   <input type="text" class="dilo-modal-input" id="req-expediente" placeholder="Ej. 2891402 / MX">
