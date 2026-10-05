@@ -157,7 +157,7 @@ export function renderContactView() {
                 </div>
                 <h3 class="ct-direct-title">Sede Central Ciudad de México</h3>
                 <p class="ct-direct-desc">
-                  Hub Creativo y Legal en Ciudad de México. Atención con cita previa o reuniones estratégicas por Google Meet.
+                  Hub Creativo en Ciudad de México. Atención con cita previa o reuniones estratégicas por Google Meet.
                 </p>
                 <span style="font-family: var(--sm-font-body); font-size: 0.84rem; font-weight: 700; color: var(--text-tertiary);">
                   Horario: Lunes a Viernes &middot; 9:00 AM a 7:00 PM CST

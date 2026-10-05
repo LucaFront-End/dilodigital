@@ -15,8 +15,8 @@ export function renderPortfolioView(filterCategory = 'all') {
           <span class="cat-diamond-dot"></span>
           <span class="cat-tag-text">PORTAFOLIO SELECCIONADO &middot; CASOS REALES</span>
         </div>
-        <h1 style="font-family: var(--sm-font-heading); font-size: clamp(3.2rem, 6.2vw, 6rem); font-weight: 900; line-height: 0.88; letter-spacing: -2px; text-transform: uppercase; color: #141718; margin: 0 0 1rem;">
-          PROYECTOS QUE <span class="cat-hero-title-accent">DEJAN MARCA</span>
+        <h1 style="font-family: var(--sm-font-heading); font-size: clamp(3.2rem, 6.2vw, 6rem); font-weight: 900; line-height: 0.95; letter-spacing: 0.01em; word-spacing: 0.06em; text-transform: uppercase; color: #141718; margin: 0 0 1rem;">
+          PROYECTOS QUE <span class="cat-hero-title-accent" style="margin-left: 0.06em;">DEJAN MARCA</span>
         </h1>
         <p style="font-family: var(--sm-font-body); font-size: clamp(1.05rem, 1.25vw, 1.2rem); color: var(--text-secondary); max-width: 680px; line-height: 1.6; margin-bottom: 2.5rem;">
           Una muestra de marcas blindadas legalmente, desarrollos web desacoplados en Vite y campañas de performance que multiplicaron los ingresos de nuestros clientes.

@@ -231,10 +231,11 @@
 }
 
 .impi-scan-brand-title {
-  font-family: var(--sm-font-heading);
-  font-size: 1.2rem;
+  font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
+  font-size: 1.05rem;
   font-weight: 800;
   color: #141718;
+  letter-spacing: -0.01em;
 }
 
 .impi-scan-brand-tag {
@@ -331,12 +332,14 @@
 }
 
 .impi-stage-meta h5 {
-  margin: 0 0 0.2rem 0;
-  font-size: 0.9rem;
-  font-weight: 800;
+  margin: 0 0 0.25rem 0;
+  font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.92rem;
+  font-weight: 700;
   color: #1E293B;
-  letter-spacing: 0.02em;
-  word-spacing: 0.06em;
+  letter-spacing: -0.01em;
+  word-spacing: normal;
+  text-transform: none;
 }
 
 .impi-stage-meta p {
@@ -2026,4 +2029,74 @@ body:has(.dilo-modal-backdrop.is-active) .site-header {
   font-size: 0.8rem;
   line-height: 1.5;
   color: var(--text-secondary);
+}
+
+/* Choice Cards: Comprar Online vs Comprar por WhatsApp (IMG1) */
+.impi-method-choice-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.95rem;
+  padding: 1.05rem 1.15rem;
+  border-radius: 14px;
+  border: 1.5px solid rgba(20, 23, 24, 0.1);
+  background: #FFFFFF;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+
+.impi-method-choice-card:hover {
+  border-color: rgba(255, 90, 31, 0.4);
+  background: #FFFBF9;
+}
+
+.impi-method-choice-card.is-active {
+  border-color: var(--color-primary);
+  background: #FFF9F5;
+  box-shadow: 0 4px 16px rgba(255, 90, 31, 0.08);
+}
+
+.impi-method-choice-card.is-active#choice-card-whatsapp {
+  border-color: #25D366;
+  background: #F4FDF7;
+  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.12);
+}
+
+.impi-choice-radio {
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  border-radius: 50%;
+  border: 2px solid #CBD5E1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+  background: #FFFFFF;
+}
+
+.impi-method-choice-card.is-active .impi-choice-radio {
+  border-color: var(--color-primary);
+}
+
+.impi-method-choice-card.is-active#choice-card-whatsapp .impi-choice-radio {
+  border-color: #25D366;
+}
+
+.impi-radio-inner {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  transform: scale(0);
+  transition: transform 0.2s ease;
+}
+
+.impi-method-choice-card.is-active .impi-radio-inner {
+  transform: scale(1);
+}
+
+.impi-method-choice-card.is-active#choice-card-whatsapp .impi-radio-inner {
+  background: #25D366;
 }

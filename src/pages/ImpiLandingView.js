@@ -168,7 +168,7 @@ export function renderImpiLandingView(initialQuery = '') {
       <section class="impi-method-section">
         <div class="container">
           <div style="text-align: center; max-width: 720px; margin: 0 auto;">
-            <div class="cat-tag-wrap" style="display: inline-flex;">
+            <div class="cat-tag-wrap" style="display: inline-flex; margin-bottom: 1.2rem;">
               <span class="cat-diamond-dot"></span>
               <span class="cat-tag-text">METODOLOGÍA JURÍDICA OFICIAL IMPI</span>
             </div>
@@ -230,7 +230,7 @@ export function renderImpiLandingView(initialQuery = '') {
       <section class="impi-pricing-section" id="seccion-paquetes">
         <div class="container">
           <div style="text-align: center; max-width: 720px; margin: 0 auto;">
-            <div class="cat-tag-wrap" style="display: inline-flex;">
+            <div class="cat-tag-wrap" style="display: inline-flex; margin-bottom: 1.2rem;">
               <span class="cat-diamond-dot"></span>
               <span class="cat-tag-text">CONTRATACIÓN EN LÍNEA TRANSPARENTE</span>
             </div>
@@ -541,8 +541,8 @@ export function renderImpiLandingView(initialQuery = '') {
 
               <!-- STEP 3: PAGO -->
               <div id="step-3-form" style="display: none;">
-                <h3 style="font-family: var(--sm-font-body); font-size: 1.25rem; font-weight: 800; margin-bottom: 1.2rem;">
-                  Paso 3: Revisa tu orden y paga seguro
+                <h3 style="font-family: var(--sm-font-body); font-size: 1.25rem; font-weight: 800; margin-bottom: 1.1rem;">
+                  Paso 3: Elige tu forma de compra
                 </h3>
 
                 <div class="impi-review-card" id="impi-review-card">
@@ -553,20 +553,61 @@ export function renderImpiLandingView(initialQuery = '') {
                   <div class="impi-review-row is-total"><span>Total (IVA incluido)</span><strong id="review-total">—</strong></div>
                 </div>
 
-                <div class="impi-pay-chips" aria-label="Métodos de pago aceptados">
-                  <span class="impi-pay-chip">💳 Tarjeta crédito / débito</span>
-                  <span class="impi-pay-chip">📆 Meses sin intereses</span>
-                  <span class="impi-pay-chip">🏦 SPEI</span>
-                  <span class="impi-pay-chip">🏪 Efectivo OXXO</span>
-                </div>
-                <p class="impi-pay-note">Serás dirigido a nuestra pasarela de pago segura (cifrado TLS · 3D Secure). Recibes tu folio y comprobante al instante.</p>
+                <!-- Purchase method choices: Comprar Online vs Comprar por WhatsApp -->
+                <div class="impi-purchase-method-options" style="margin-top: 1.1rem; display: flex; flex-direction: column; gap: 0.75rem;">
+                  <!-- Option 1: Comprar Online -->
+                  <label class="impi-method-choice-card is-active" id="choice-card-online" style="cursor: pointer;">
+                    <input type="radio" name="impi-buy-method-radio" id="radio-mode-online" value="online" checked style="display: none;">
+                    <div class="impi-choice-radio">
+                      <span class="impi-radio-inner"></span>
+                    </div>
+                    <div style="flex: 1;">
+                      <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.25rem;">
+                        <span style="font-weight: 800; font-size: 0.95rem; color: #141718;">Comprar Online</span>
+                        <span class="badge badge-primary" style="font-size: 0.68rem; padding: 0.15rem 0.5rem;">Pago Seguro &middot; Inmediato</span>
+                      </div>
+                      <p style="margin: 0 0 0.5rem; font-size: 0.8rem; color: var(--text-secondary); line-height: 1.4;">
+                        Tarjeta de crédito/débito (hasta 3 MSI), transferencia SPEI directa o Efectivo OXXO. Factura fiscal CFDI 4.0 al instante.
+                      </p>
+                      <div class="impi-pay-chips" style="margin-top: 0;">
+                        <span class="impi-pay-chip">💳 Tarjetas</span>
+                        <span class="impi-pay-chip">📆 Hasta 3 MSI</span>
+                        <span class="impi-pay-chip">🏦 SPEI</span>
+                        <span class="impi-pay-chip">🏪 OXXO</span>
+                      </div>
+                    </div>
+                  </label>
 
-                <div style="display: flex; gap: 1rem; margin-top: 1.4rem;">
+                  <!-- Option 2: Comprar por WhatsApp -->
+                  <label class="impi-method-choice-card" id="choice-card-whatsapp" style="cursor: pointer;">
+                    <input type="radio" name="impi-buy-method-radio" id="radio-mode-whatsapp" value="whatsapp" style="display: none;">
+                    <div class="impi-choice-radio">
+                      <span class="impi-radio-inner"></span>
+                    </div>
+                    <div style="flex: 1;">
+                      <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.25rem;">
+                        <span style="font-weight: 800; font-size: 0.95rem; color: #141718; display: inline-flex; align-items: center; gap: 0.45rem;">
+                          Comprar por WhatsApp
+                          <span style="display: inline-block; width: 8px; height: 8px; background: #25D366; border-radius: 50%;"></span>
+                        </span>
+                        <span style="font-size: 0.68rem; padding: 0.15rem 0.5rem; background: rgba(37, 211, 102, 0.12); color: #0D8C47; font-weight: 800; border-radius: 999px;">Atención con Abogado</span>
+                      </div>
+                      <p style="margin: 0; font-size: 0.8rem; color: var(--text-secondary); line-height: 1.4;">
+                        Atención personalizada con un abogado de marcas. Aclara cualquier duda técnica y coordina tu pago por transferencia o link directo.
+                      </p>
+                    </div>
+                  </label>
+                </div>
+
+                <div style="display: flex; gap: 1rem; margin-top: 1.3rem;">
                   <button class="btn btn-secondary btn-lg" id="btn-back-to-step-2" style="flex: 1; justify-content: center;">
                     &larr; Volver
                   </button>
                   <button class="impi-buy-btn" id="btn-complete-impi-order" style="flex: 2;">
-                    <span>Ir al pago seguro 🔒</span>
+                    <span>Comprar Online 🔒</span>
+                  </button>
+                  <button class="impi-buy-btn is-whatsapp" id="btn-whatsapp-impi-order" style="flex: 2; display: none; background: #25D366; border-color: #25D366; color: #FFFFFF; box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);">
+                    <span>Comprar por WhatsApp 💬</span>
                   </button>
                 </div>
               </div>
@@ -1598,5 +1639,82 @@ export function initImpiEvents(autoOpenModal = false) {
       },
       returnPath: '#/registro-marca'
     });
+  });
+
+  // Selector entre Comprar Online y Comprar por WhatsApp (IMG1)
+  const choiceCardOnline = document.getElementById('choice-card-online');
+  const choiceCardWhatsapp = document.getElementById('choice-card-whatsapp');
+  const radioOnline = document.getElementById('radio-mode-online');
+  const radioWhatsapp = document.getElementById('radio-mode-whatsapp');
+  const btnCompleteOrder = document.getElementById('btn-complete-impi-order');
+  const btnWhatsappOrder = document.getElementById('btn-whatsapp-impi-order');
+
+  const setBuyMode = (mode) => {
+    sounds.playClick();
+    if (mode === 'whatsapp') {
+      choiceCardOnline?.classList.remove('is-active');
+      choiceCardWhatsapp?.classList.add('is-active');
+      if (radioWhatsapp) radioWhatsapp.checked = true;
+      if (btnCompleteOrder) btnCompleteOrder.style.display = 'none';
+      if (btnWhatsappOrder) btnWhatsappOrder.style.display = 'flex';
+    } else {
+      choiceCardWhatsapp?.classList.remove('is-active');
+      choiceCardOnline?.classList.add('is-active');
+      if (radioOnline) radioOnline.checked = true;
+      if (btnCompleteOrder) btnCompleteOrder.style.display = '';
+      if (btnWhatsappOrder) btnWhatsappOrder.style.display = 'none';
+    }
+  };
+
+  choiceCardOnline?.addEventListener('click', (e) => {
+    e.preventDefault();
+    setBuyMode('online');
+  });
+
+  choiceCardWhatsapp?.addEventListener('click', (e) => {
+    e.preventDefault();
+    setBuyMode('whatsapp');
+  });
+
+  // Comprar por WhatsApp: despacho con desglose completo del trámite
+  btnWhatsappOrder?.addEventListener('click', () => {
+    sounds.playClick();
+    const brandName = document.getElementById('co-brand-name')?.value.trim() || '';
+    const ownerName = document.getElementById('co-owner-name')?.value.trim() || '';
+    const ownerPhone = document.getElementById('co-owner-phone')?.value.trim() || '';
+    const ownerEmail = document.getElementById('co-owner-email')?.value.trim() || '';
+    const brandType = document.getElementById('radio-nominativa')?.classList.contains('is-selected') ? 'Nominativa (solo texto)' : 'Mixta (con logotipo)';
+    const personType = document.querySelector('input[name="co-person-type"]:checked')?.value === 'moral' ? 'Persona Moral' : 'Persona Física';
+
+    const items = [`impi-${selectedTier}`, ...Object.keys(activeAddons).filter((k) => activeAddons[k]).map((k) => `impi-addon-${k}`)];
+    const pricing = priceCart({ items, plan: 'full' });
+    const planName = pricing.lines?.[0]?.name || selectedTier;
+    const addons = pricing.lines?.filter((l) => l.kind === 'addon').map((l) => l.name) || [];
+    const totalStr = pricing.totalCents ? `${formatMXN(pricing.totalCents)} MXN` : '';
+
+    const lines = [
+      `¡Hola Dilo Digital! Quiero comprar el registro de mi marca por WhatsApp:`,
+      ``,
+      `📌 *Marca:* ${brandName || 'Por definir'}`,
+      `🏷️ *Tipo:* ${brandType}`,
+      `👤 *Titular:* ${ownerName || 'No indicado'} (${personType})`,
+      `📦 *Paquete:* ${planName}`
+    ];
+    if (addons.length) {
+      lines.push(`➕ *Complementos:* ${addons.join(' · ')}`);
+    }
+    if (totalStr) {
+      lines.push(`💰 *Total estimado:* ${totalStr}`);
+    }
+    if (ownerPhone) {
+      lines.push(`📞 *WhatsApp / Teléfono:* ${ownerPhone}`);
+    }
+    if (ownerEmail) {
+      lines.push(`✉️ *Correo:* ${ownerEmail}`);
+    }
+    lines.push(``, `¿Me apoyan para iniciar el trámite formal ante el IMPI y realizar el pago?`);
+
+    const waUrl = `https://wa.me/525592441070?text=${encodeURIComponent(lines.join('\n'))}`;
+    window.open(waUrl, '_blank', 'noopener,noreferrer');
   });
 }
