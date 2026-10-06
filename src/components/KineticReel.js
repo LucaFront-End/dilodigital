@@ -142,7 +142,7 @@ export function renderKineticReel() {
                     `).join('')}
                   </div>
 
-                  <a href="#/portafolio" class="kr-explore-btn" data-cursor="explore">
+                  <a href="#/proyecto/${p.slug || p.id}" class="kr-explore-btn" data-cursor="explore">
                     <span>Ver Caso Completo</span>
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                       <line x1="7" y1="17" x2="17" y2="7"></line>

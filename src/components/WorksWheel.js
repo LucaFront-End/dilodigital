@@ -45,7 +45,7 @@ export const DILO_WORKS = PROJECTS.slice(0, 8).map((p) => ({
   image: p.coverImage,
   metricVal: p.metrics?.[0]?.value || '+100%',
   metricLbl: p.metrics?.[0]?.label || 'Impacto Comprobado',
-  href: `#/portafolio?cat=${p.category}`
+  href: `#/proyecto/${p.slug || p.id}`
 }));
 
 export function renderWorksWheel(label = "Casos '26", action = "Ver Caso") {

@@ -24,6 +24,7 @@ import './styles/dinametra-services.css';
 import './styles/motion-footer.css';
 import './styles/checkout.css';
 import './styles/legal.css';
+import './styles/project-detail.css';
 
 import { renderNavbar, initNavbarEvents } from './components/Navbar.js';
 import { renderFooter, initFooterEvents } from './components/Footer.js';
@@ -37,6 +38,7 @@ import { renderBrandingPurchaseView, initBrandingEvents } from './pages/Branding
 import { renderServiceView, initServiceEvents } from './pages/ServiceView.js';
 import { renderImpiLandingView, initImpiEvents } from './pages/ImpiLandingView.js';
 import { renderPortfolioView, initPortfolioEvents } from './pages/PortfolioView.js';
+import { renderProjectDetailView, initProjectDetailEvents } from './pages/ProjectDetailView.js';
 import { renderAboutView, initAboutEvents } from './pages/AboutView.js';
 import { renderContactView, initContactEvents } from './pages/ContactView.js';
 import { renderUserSectionView, initUserSectionEvents } from './pages/UserSectionView.js';
@@ -152,6 +154,11 @@ class App {
       const cat = params.get('cat') || 'all';
       mainContentHtml = renderPortfolioView(cat);
       initCallback = initPortfolioEvents;
+    } else if (path.startsWith('#/proyecto/')) {
+      const slugOrId = path.replace('#/proyecto/', '').trim();
+      activeRoute = 'proyecto';
+      mainContentHtml = renderProjectDetailView(slugOrId);
+      initCallback = () => initProjectDetailEvents(slugOrId);
     } else if (path === '#/nosotros') {
       activeRoute = 'nosotros';
       mainContentHtml = renderAboutView();
