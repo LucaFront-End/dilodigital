@@ -64,25 +64,25 @@ export function renderCategoryHeroAnimation(categoryId = 'branding') {
     return `
       <div class="cat-anim-container" aria-label="Animación limpia de Búsqueda SEO y Posicionamiento #1">
         <div class="clean-seo-stage">
-          <!-- Minimalist Search Query Bar -->
+          <!-- Minimalist Search Query Bar with Animated Typewriter -->
           <div class="clean-seo-searchbar">
             <svg class="clean-seo-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
               <circle cx="11" cy="11" r="8"></circle>
               <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
             <div class="clean-seo-query">
-              <span>agencia marketing y branding</span>
+              <span class="clean-seo-typewriter-text" id="clean-seo-typewriter-text">agencia marketing y branding</span>
               <span class="clean-seo-cursor"></span>
             </div>
           </div>
 
           <!-- SEO Ranking Stack -->
           <div class="clean-seo-results-stack">
-            <!-- Rank #1 Winner Card -->
+            <!-- Rank #1 Winner Card: dilodigitalmx.com - Agencia de Marketing Dilo digital MX -->
             <div class="clean-seo-card-1">
-              <div>
-                <div class="clean-seo-card-title">Dilo Digital &middot; Agencia Oficial</div>
-                <div class="clean-seo-card-url">https://dilodigital.com &middot; Top Tier</div>
+              <div class="clean-seo-card-main">
+                <div class="clean-seo-card-title">Agencia de Marketing Dilo Digital MX</div>
+                <div class="clean-seo-card-url">https://dilodigitalmx.com &middot; Top Tier</div>
               </div>
               <div class="clean-seo-rank-badge">
                 <span>★ #1 Posición Orgánica</span>
@@ -131,90 +131,268 @@ export function renderCategoryHeroAnimation(categoryId = 'branding') {
     `;
   }
 
-  // 4. DESARROLLO WEB & E-COMMERCE: CLEAN BROWSER WIREFRAME & SPEED
+  // 4. DESARROLLO WEB & E-COMMERCE: REAL STORE MOCKUP WITH CART & BESTSELLER
   if (cat.includes('web') || cat.includes('desarrollo') || cat.includes('code') || cat.includes('tienda')) {
     return `
-      <div class="cat-anim-container" aria-label="Animación limpia de Desarrollo Web y Velocidad">
-        <div class="clean-web-stage">
-          <div class="clean-web-browser">
-            <div class="clean-browser-topbar">
-              <span class="clean-browser-dot" style="background: #EF4444;"></span>
-              <span class="clean-browser-dot" style="background: #F59E0B;"></span>
-              <span class="clean-browser-dot" style="background: #10B981;"></span>
-              <div class="clean-browser-url"></div>
+      <div class="cat-anim-container" aria-label="Animación de Tienda Ecommerce y Desarrollo Web de Alta Conversión">
+        <div class="clean-ecom-stage">
+          <!-- Browser Frame Window -->
+          <div class="clean-ecom-browser">
+            <!-- Mac Browser Topbar -->
+            <div class="clean-ecom-topbar">
+              <div class="clean-browser-dots">
+                <span class="clean-browser-dot" style="background: #EF4444;"></span>
+                <span class="clean-browser-dot" style="background: #F59E0B;"></span>
+                <span class="clean-browser-dot" style="background: #10B981;"></span>
+              </div>
+              <div class="clean-ecom-urlbar">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+                <span>dilodigitalmx.com/store</span>
+              </div>
             </div>
-            <div class="clean-web-blocks-grid">
-              <div class="clean-web-block is-featured"></div>
-              <div class="clean-web-block"></div>
-              <div class="clean-web-block"></div>
-              <div class="clean-web-block is-featured"></div>
+
+            <!-- Mini Store Navbar -->
+            <div class="clean-ecom-header">
+              <div class="clean-ecom-logo">
+                <span class="ecom-logo-mark">DILO</span>
+                <span class="ecom-logo-sub">STORE</span>
+              </div>
+              <div class="clean-ecom-nav">
+                <span>Colección</span>
+                <span>Novedades</span>
+              </div>
+              <div class="clean-ecom-cart-btn">
+                <span>🛒</span>
+                <span class="clean-ecom-cart-qty">1</span>
+              </div>
+            </div>
+
+            <!-- E-Commerce Showcase Product Card -->
+            <div class="clean-ecom-product-grid">
+              <div class="clean-ecom-card">
+                <div class="ecom-card-img-wrap">
+                  <!-- Product Image / Vector Graphic: Smart Chrono Edition -->
+                  <div class="ecom-product-vector">
+                    <svg width="68" height="68" viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect x="18" y="4" width="32" height="60" rx="8" fill="#1E293B"/>
+                      <circle cx="34" cy="34" r="24" fill="#0F172A" stroke="#334155" stroke-width="2"/>
+                      <circle cx="34" cy="34" r="20" fill="url(#chronoGradWeb)"/>
+                      <circle cx="34" cy="34" r="16" stroke="rgba(255, 90, 31, 0.4)" stroke-width="1.5" stroke-dasharray="3 3"/>
+                      <line x1="34" y1="34" x2="34" y2="22" stroke="#FF5A1F" stroke-width="2" stroke-linecap="round"/>
+                      <line x1="34" y1="34" x2="42" y2="34" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"/>
+                      <circle cx="34" cy="34" r="2.5" fill="#FF5A1F"/>
+                      <defs>
+                        <linearGradient id="chronoGradWeb" x1="14" y1="14" x2="54" y2="54">
+                          <stop stop-color="#1E293B"/>
+                          <stop offset="1" stop-color="#0F172A"/>
+                        </linearGradient>
+                      </defs>
+                    </svg>
+                  </div>
+                  <span class="ecom-badge-bestseller">★ BEST SELLER</span>
+                </div>
+
+                <div class="ecom-card-body">
+                  <div class="ecom-card-title-row">
+                    <span class="ecom-product-name">Aura Chrono Smart X</span>
+                    <span class="ecom-rating">★★★★★ <small>(142)</small></span>
+                  </div>
+                  <div class="ecom-card-footer">
+                    <div class="ecom-price-wrap">
+                      <span class="ecom-price-curr">$2,499</span>
+                      <span class="ecom-price-mxn">MXN</span>
+                    </div>
+                    <button class="ecom-btn-add" type="button" aria-label="Agregar al carrito">
+                      <span>+ Agregar</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
+          <!-- Floating E-Commerce Checkout / Speed Toast -->
+          <div class="clean-ecom-toast">
+            <span class="ecom-toast-icon">✓</span>
+            <div class="ecom-toast-text">
+              <strong>Envío Express en 24h</strong>
+              <small>Pasarelas 3DS &middot; Stripe &middot; OXXO</small>
+            </div>
+          </div>
+
+          <!-- Speed Badge -->
           <div class="clean-web-speed-badge">
-            <span>⚡ 0.8s Carga Ultrarrápida</span>
+            <span>⚡ 0.8s Carga Ultrarrápida &middot; Headless</span>
           </div>
         </div>
       </div>
     `;
   }
 
-  // 5. PRODUCCIÓN AUDIOVISUAL: CLEAN SOUND WAVE & PLAY
+  // 5. PRODUCCIÓN AUDIOVISUAL & UGC: 4K CINEMA CAMERA VIEW-FINDER & RECORDING HUD
   if (cat.includes('audio') || cat.includes('video') || cat.includes('produccion')) {
     return `
-      <div class="cat-anim-container" aria-label="Animación limpia Audiovisual y Sonido">
-        <div class="clean-av-stage">
-          <div class="clean-av-disc">
-            <div class="clean-av-play-btn">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-                <polygon points="5 3 19 12 5 21 5 3"></polygon>
-              </svg>
+      <div class="cat-anim-container" aria-label="Animación cinematográfica de Cámara de Video 4K y Grabación">
+        <div class="clean-camera-stage">
+          <!-- Viewfinder HUD Frame -->
+          <div class="clean-cam-viewfinder">
+            <!-- Viewfinder Corner Brackets -->
+            <span class="cam-corner tl"></span>
+            <span class="cam-corner tr"></span>
+            <span class="cam-corner bl"></span>
+            <span class="cam-corner br"></span>
+
+            <!-- Top HUD Bar -->
+            <div class="cam-hud-top">
+              <div class="cam-rec-status">
+                <span class="cam-rec-dot"></span>
+                <span class="cam-rec-txt">REC</span>
+              </div>
+              <span class="cam-hud-res">4K UHD &middot; 60FPS</span>
+              <span class="cam-timecode" id="cam-live-timecode">00:14:28:18</span>
+            </div>
+
+            <!-- Central Cinema Camera & Lens Target -->
+            <div class="cam-center-visual">
+              <div class="cam-body-graphic">
+                <svg width="130" height="96" viewBox="0 0 130 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <!-- Matte Box & Lens Hood -->
+                  <path d="M78 28L106 18V78L78 68V28Z" fill="#1E293B" stroke="#334155" stroke-width="2" stroke-linejoin="round"/>
+                  <!-- Main Camera Body -->
+                  <rect x="18" y="24" width="60" height="52" rx="10" fill="#0F172A" stroke="#334155" stroke-width="2"/>
+                  <!-- Top Handle Rig -->
+                  <path d="M26 24V14H66V24" stroke="#475569" stroke-width="3" stroke-linecap="round"/>
+                  <!-- Dual Dial knobs on top -->
+                  <rect x="34" y="9" width="10" height="5" rx="2" fill="#FF5A1F"/>
+                  <rect x="52" y="9" width="10" height="5" rx="2" fill="#94A3B8"/>
+                  <!-- Lens Barrel Rings -->
+                  <circle cx="92" cy="48" r="16" fill="#0F172A" stroke="#FF5A1F" stroke-width="2.5"/>
+                  <circle cx="92" cy="48" r="10" fill="#1E293B" stroke="#38BDF8" stroke-width="1.5" class="cam-lens-iris"/>
+                  <circle cx="90" cy="46" r="3" fill="#FFFFFF" opacity="0.8"/>
+                  <!-- Camera Screen / Tally light -->
+                  <rect x="25" y="36" width="34" height="26" rx="4" fill="#1E293B" stroke="#475569" stroke-width="1.5"/>
+                  <circle cx="28" cy="30" r="2.5" fill="#EF4444" class="cam-tally-blink"/>
+                </svg>
+              </div>
+
+              <!-- Reticle Focus Crosshair [ + ] -->
+              <div class="cam-focus-reticle">
+                <span class="cam-reticle-cross"></span>
+              </div>
+            </div>
+
+            <!-- Bottom HUD Bar -->
+            <div class="cam-hud-bottom">
+              <div class="cam-params-row">
+                <span>ISO 400</span>
+                <span>1/120s</span>
+                <span>f/1.8</span>
+                <span class="cam-log-badge">RAW LOG</span>
+              </div>
+              <div class="cam-audio-levels" title="Canales de Audio Cinemático">
+                <span class="cam-lvl-bar b1"></span>
+                <span class="cam-lvl-bar b2"></span>
+                <span class="cam-lvl-bar b3"></span>
+                <span class="cam-lvl-bar b4"></span>
+              </div>
             </div>
           </div>
 
-          <div class="clean-av-waves-flex">
-            <div class="clean-av-bar"></div>
-            <div class="clean-av-bar"></div>
-            <div class="clean-av-bar"></div>
-            <div class="clean-av-bar"></div>
-            <div class="clean-av-bar"></div>
-            <div class="clean-av-bar"></div>
-            <div class="clean-av-bar"></div>
-            <div class="clean-av-bar"></div>
-            <div class="clean-av-bar"></div>
-            <div class="clean-av-bar"></div>
+          <!-- Floating Badge -->
+          <div class="clean-cam-badge">
+            <span class="clean-cam-badge-icon">🎬</span>
+            <span>Video Comercial 4K &middot; UGC Ads</span>
           </div>
-
-          <div class="clean-av-time-tag">4K 60FPS &middot; MASTER AUDIO</div>
         </div>
       </div>
     `;
   }
 
-  // 6. TECNOLOGÍA & IA: CLEAN NEURAL CONNECTIONS & AUTOMATION
+  // 6. TECNOLOGÍA & IA: ECOSISTEMA MULTI-AGENTE CON AVATARES & CRM (ESTILO IVENTAS.COM)
   if (cat.includes('tecno') || cat.includes('ia') || cat.includes('intel')) {
     return `
-      <div class="cat-anim-container" aria-label="Animación limpia de Conexiones Neurales e IA">
-        <div class="clean-ia-stage">
-          <svg class="clean-ia-svg" viewBox="0 0 280 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Connection Lines -->
-            <line x1="50" y1="60" x2="140" y2="100" stroke="#BAE6FD" stroke-width="2" />
-            <line x1="50" y1="140" x2="140" y2="100" stroke="#BAE6FD" stroke-width="2" />
-            <line x1="140" y1="100" x2="230" y2="60" stroke="#BAE6FD" stroke-width="2" />
-            <line x1="140" y1="100" x2="230" y2="140" stroke="#BAE6FD" stroke-width="2" />
+      <div class="cat-anim-container" aria-label="Ecosistema de Agentes de IA y CRM estilo iVentas">
+        <div class="clean-ai-stage">
+          <!-- Orbital Track Lines -->
+          <div class="ai-orbit-circle ai-orbit-outer"></div>
+          <div class="ai-orbit-circle ai-orbit-inner"></div>
 
-            <!-- Moving Pulsing Packet -->
-            <circle class="clean-pulse-packet" cx="0" cy="0" r="5" fill="#0284C7" />
+          <!-- Central Core Node: IA Monogram -->
+          <div class="ai-core-hub">
+            <div class="ai-core-pulse"></div>
+            <div class="ai-core-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+                <rect x="4" y="4" width="16" height="16" rx="4"></rect>
+                <circle cx="9" cy="9" r="1.5" fill="currentColor"></circle>
+                <circle cx="15" cy="9" r="1.5" fill="currentColor"></circle>
+                <path d="M9 15h6"></path>
+                <path d="M12 2v2"></path>
+                <path d="M12 20v2"></path>
+              </svg>
+            </div>
+            <span class="ai-core-label">DILO AI</span>
+          </div>
 
-            <!-- Core Nodes -->
-            <circle cx="50" cy="60" r="10" fill="#E0F2FE" stroke="#0284C7" stroke-width="2.5" />
-            <circle cx="50" cy="140" r="10" fill="#E0F2FE" stroke="#0284C7" stroke-width="2.5" />
-            <circle cx="140" cy="100" r="14" fill="#0284C7" stroke="#38BDF8" stroke-width="3" />
-            <circle cx="230" cy="60" r="10" fill="#E0F2FE" stroke="#0284C7" stroke-width="2.5" />
-            <circle cx="230" cy="140" r="10" fill="#E0F2FE" stroke="#0284C7" stroke-width="2.5" />
-          </svg>
+          <!-- Agent Card 1: Agente de Ventas IA (Mint Circle #BFF7E0) -->
+          <div class="ai-agent-card card-sales">
+            <div class="ai-avatar-circle" style="background: #BFF7E0; color: #047857;">
+              <!-- Sales Agent Avatar SVG -->
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="7" r="4"></circle>
+                <path d="M5.5 21v-2a6.5 6.5 0 0 1 13 0v2"></path>
+              </svg>
+              <span class="ai-live-dot"></span>
+            </div>
+            <div class="ai-agent-info">
+              <div class="ai-agent-role">Agente de Ventas IA</div>
+              <div class="ai-agent-desc">Respondió en 2s &middot; 312 leads</div>
+            </div>
+          </div>
 
-          <div class="clean-ia-badge">⚡ Multi-Agentes &amp; CRM 24/7</div>
+          <!-- Agent Card 2: WhatsApp CRM Multiagente (Periwinkle Circle #CBD2FA) -->
+          <div class="ai-agent-card card-crm">
+            <div class="ai-avatar-circle" style="background: #CBD2FA; color: #3730A3;">
+              <!-- Headset / Support Avatar SVG -->
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 18v-6a9 9 0 0 1 18 0v6"></path>
+                <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path>
+              </svg>
+              <span class="ai-live-dot" style="background: #10B981;"></span>
+            </div>
+            <div class="ai-agent-info">
+              <div class="ai-agent-role">Asignación WhatsApp</div>
+              <div class="ai-agent-desc">Chat Ana &rarr; Luis (Ventas)</div>
+            </div>
+          </div>
+
+          <!-- Agent Card 3: Seguimiento & Pagos Automático (Gold Circle #FFDFA8) -->
+          <div class="ai-agent-card card-automation">
+            <div class="ai-avatar-circle" style="background: #FFDFA8; color: #B45309;">
+              <!-- Automation / Calendar Check SVG -->
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+                <polyline points="9 15 11 17 15 13"></polyline>
+              </svg>
+            </div>
+            <div class="ai-agent-info">
+              <div class="ai-agent-role">Seguimiento Automático</div>
+              <div class="ai-agent-desc">Cita agendada &middot; Confirmada</div>
+            </div>
+          </div>
+
+          <!-- Floating Channel Pill (WhatsApp API Oficial) -->
+          <div class="ai-channel-pill">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="#10B981">
+              <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.592 2.654-.697c.969.529 1.777.784 2.806.784 3.18 0 5.767-2.586 5.768-5.766.001-3.18-2.586-5.766-5.768-5.766zm9.969 5.766c0 5.505-4.479 9.984-9.969 9.984-1.748 0-3.385-.452-4.815-1.246l-5.216 1.369 1.393-5.086c-.885-1.488-1.393-3.228-1.393-5.021 0-5.505 4.479-9.984 9.969-9.984 5.505 0 10.026 4.479 10.026 9.984z"/>
+            </svg>
+            <span>WhatsApp Business API Oficial</span>
+          </div>
         </div>
       </div>
     `;
@@ -322,29 +500,21 @@ export function getCategoryHeroConfig(catIdOrSlug = 'branding') {
 
 export function renderCategoryHeroSection(category, options = {}) {
   const catId = category?.id || category?.slug || 'branding';
-  const config = getCategoryHeroConfig(catId);
   const isBrandingDirect = options.isBrandingDirect || false;
-  const viewportId = options.viewportId || 'cat-rotator-viewport';
-  const activeId = options.activeId || 'cat-rotator-active';
-  const underlineId = options.underlineId || 'cat-rotator-underline';
-  const canvasId = options.canvasId || 'cat-spline-canvas';
-  const loaderId = options.loaderId || 'cat-spline-loader';
-  const heroWrapId = options.heroWrapId || 'cat-hero-spline-wrap';
-  const spotlightId = options.spotlightId || 'cat-hero-spotlight';
 
   const primaryBtn = isBrandingDirect
     ? `
-      <a href="#seccion-paquetes-branding" class="sm-hero-btn-primary" data-cursor="hover">
+      <a href="#seccion-paquetes-branding" class="btn btn-primary btn-lg btn-glow" data-cursor="hover">
         <span>Ver Paquetes & Precios</span>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
           <polyline points="9 18 15 12 9 6"></polyline>
         </svg>
       </a>
     `
     : `
-      <button class="sm-hero-btn-primary" onclick="window.dispatchEvent(new CustomEvent('open-cotizador-modal'))" data-cursor="cotizar">
-        <span>Cotizar Proyecto</span>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <button class="btn btn-primary btn-lg btn-glow" onclick="window.dispatchEvent(new CustomEvent('open-cotizador-modal'))" data-cursor="cotizar">
+        <span>Cotizar ${category?.shortTitle || 'Proyecto'} en 60s</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
           <line x1="5" y1="12" x2="19" y2="12"></line>
           <polyline points="12 5 19 12 12 19"></polyline>
         </svg>
@@ -354,350 +524,159 @@ export function renderCategoryHeroSection(category, options = {}) {
   const waText = encodeURIComponent(`Hola Dilo Digital, me interesa cotizar el servicio de ${category?.title || 'la categoría'}. ¿Podríamos agendar una sesión estratégica?`);
   const waUrl = `https://wa.me/525592441070?text=${waText}`;
 
+  const stats = (category?.stats && category.stats.length > 0) ? category.stats : [
+    { value: "+140", label: "Marcas Registradas" },
+    { value: "98.4%", label: "Tasa Viabilidad" },
+    { value: "15 Días", label: "Sprint de Entrega" }
+  ];
+
   return `
-    <!-- ① SPLINE 3D HERO BANNER FOR CATEGORY (EXACT HOME HERO WITH 3D ROBOT) -->
-    <section class="cat-hero-spline-section sm-hero-spline-wrap" id="${heroWrapId}">
-      <!-- Spotlight mouse-follow glow -->
-      <div class="sm-hero-spotlight" id="${spotlightId}"></div>
+    <!-- MONUMENTAL CATEGORY HERO STAGE -->
+    <section class="cat-hero-section">
+      <div class="cat-hero-container">
+        
+        <!-- Background Numeral Watermark in Manuka -->
+        <div class="cat-watermark-num" aria-hidden="true">${category?.number || '01'}</div>
 
-      <!-- Spline 3D Canvas (covers right portion, extends full height) -->
-      <div class="sm-hero-spline-container">
-        <canvas id="${canvasId}" class="sm-spline-canvas"></canvas>
-        <!-- Fallback loader while Spline loads -->
-        <div class="sm-spline-loader" id="${loaderId}">
-          <div class="sm-spline-spinner"></div>
+        <div class="cat-hero-grid">
+          <div class="cat-hero-left">
+            <div class="cat-tag-wrap">
+              <span class="cat-diamond-dot"></span>
+              <span class="cat-tag-text">DISCIPLINA ESTRATÉGICA &middot; ${category?.number || '01'} DE 06</span>
+            </div>
+
+            <h1 class="cat-hero-title">
+              ${category?.title || ''}
+            </h1>
+
+            <div class="cat-hero-concept">
+              "${category?.concept || ''}"
+            </div>
+
+            <p class="cat-hero-desc">
+              ${category?.tagline || ''}
+            </p>
+
+            <div class="cat-hero-actions">
+              ${primaryBtn}
+
+              <a href="${waUrl}" target="_blank" rel="noopener" class="btn btn-outline btn-lg" data-cursor="hover" style="display: flex; align-items: center; gap: 0.6rem;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="#10B981">
+                  <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.592 2.654-.697c.969.529 1.777.784 2.806.784 3.18 0 5.767-2.586 5.768-5.766.001-3.18-2.586-5.766-5.768-5.766zm9.969 5.766c0 5.505-4.479 9.984-9.969 9.984-1.748 0-3.385-.452-4.815-1.246l-5.216 1.369 1.393-5.086c-.885-1.488-1.393-3.228-1.393-5.021 0-5.505 4.479-9.984 9.969-9.984 5.505 0 10.026 4.479 10.026 9.984z"/>
+                </svg>
+                <span>Chatear por WhatsApp</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Right Column: Lightweight Vector Animation + Compact Metrics -->
+          <div class="cat-hero-right">
+            ${renderCategoryHeroAnimation(catId)}
+
+            <div class="cat-stats-card-compact">
+              <div class="cat-stats-grid">
+                ${stats.map(s => `
+                  <div class="cat-stat-box">
+                    <div class="cat-stat-val">${s.value}</div>
+                    <div class="cat-stat-lbl">${s.label}</div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          </div>
+
         </div>
-      </div>
-
-      <!-- Bottom gradient fade to hide robot legs -->
-      <div class="sm-hero-bottom-fade"></div>
-
-      <div class="sm-hero-split">
-        <!-- Left: Editorial Copy -->
-        <div class="sm-hero-left">
-          <div class="sm-hero-eyebrow">
-            <span class="sm-hero-pulse-dot"></span>
-            <span>${config.eyebrow}</span>
-          </div>
-
-          <h1 class="sm-hero-headline">
-            <span class="sm-hero-line">${config.line1}</span>
-            <span class="sm-hero-line">${config.line2}</span>
-            <span class="sm-hero-line sm-hero-headline-accent sm-rotator-line">
-              <span class="sm-rotator-viewport" id="${viewportId}" data-words='${JSON.stringify(config.words)}' title="Clic para cambiar">
-                <span class="sm-rotator-active" id="${activeId}">${config.words[0]}</span>
-              </span>
-              <span class="sm-rotator-underline" id="${underlineId}"></span>
-            </span>
-          </h1>
-
-          <p class="sm-hero-desc">
-            ${config.description}
-          </p>
-
-          <div class="sm-hero-actions">
-            ${primaryBtn}
-            <a href="${waUrl}" target="_blank" rel="noopener" class="sm-hero-btn-secondary" data-cursor="hover">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.592 2.654-.697c.969.529 1.777.784 2.806.784 3.18 0 5.767-2.586 5.768-5.766.001-3.18-2.586-5.766-5.768-5.766zm9.969 5.766c0 5.505-4.479 9.984-9.969 9.984-1.748 0-3.385-.452-4.815-1.246l-5.216 1.369 1.393-5.086c-.885-1.488-1.393-3.228-1.393-5.021 0-5.505 4.479-9.984 9.969-9.984 5.505 0 10.026 4.479 10.026 9.984z"/>
-              </svg>
-              <span>WhatsApp Directo</span>
-            </a>
-          </div>
-
-          <!-- Micro Trust Chips -->
-          <div class="sm-hero-trust-row">
-            ${config.chips.map(chip => `<span class="sm-hero-trust-chip">${chip}</span>`).join('')}
-          </div>
-        </div>
-
-        <!-- Right: spacer (Spline 3D robot canvas is positioned behind) -->
-        <div class="sm-hero-right-spacer" aria-hidden="true"></div>
       </div>
     </section>
   `;
 }
 
-export function initCategoryRotator(viewportId = 'cat-rotator-viewport', activeId = 'cat-rotator-active', underlineId = 'cat-rotator-underline', customWords = null) {
-  if (window.__diloCategoryRotatorTimer) {
-    clearInterval(window.__diloCategoryRotatorTimer);
-    window.__diloCategoryRotatorTimer = null;
-  }
+// SEO Interactive Typewriter loop
+function initSeoTypewriter() {
+  const el = document.getElementById('clean-seo-typewriter-text');
+  if (!el) return;
 
-  const viewport = typeof viewportId === 'string' ? document.getElementById(viewportId) : viewportId;
-  const activeEl = typeof activeId === 'string' ? document.getElementById(activeId) : activeId;
-  const underline = typeof underlineId === 'string' ? document.getElementById(underlineId) : underlineId;
+  const phrases = [
+    'agencia marketing y branding',
+    'agencia marketing dilo digital mx',
+    'posicionamiento seo mexico #1',
+    'agencia seo y pauta digital'
+  ];
 
-  if (!viewport || !activeEl) return null;
+  let phraseIdx = 0;
+  let charIdx = phrases[0].length;
+  let isDeleting = false;
+  let timer = null;
 
-  let words = customWords;
-  if (!words || words.length === 0) {
-    if (viewport.dataset.words) {
-      try {
-        words = JSON.parse(viewport.dataset.words);
-      } catch (e) {
-        words = ['DOMINAN', 'CONVIERTEN', 'ESCALAN', 'FACTURAN', 'LIDERAN', 'TRASCIENDEN'];
+  function typeLoop() {
+    if (!document.body.contains(el)) {
+      if (timer) clearTimeout(timer);
+      return;
+    }
+
+    const currentPhrase = phrases[phraseIdx];
+
+    if (isDeleting) {
+      charIdx--;
+      el.textContent = currentPhrase.substring(0, charIdx);
+      if (charIdx <= 0) {
+        isDeleting = false;
+        phraseIdx = (phraseIdx + 1) % phrases.length;
+        timer = setTimeout(typeLoop, 400);
+        return;
       }
+      timer = setTimeout(typeLoop, 35);
     } else {
-      words = ['DOMINAN', 'CONVIERTEN', 'ESCALAN', 'FACTURAN', 'LIDERAN', 'TRASCIENDEN'];
-    }
-  }
-
-  let currentWordIndex = 0;
-  let isWordAnimating = false;
-
-  function createWordElement(word) {
-    const wrap = document.createElement('span');
-    wrap.className = 'sm-rot-word';
-    word.split('').forEach(char => {
-      const span = document.createElement('span');
-      span.className = 'sm-rot-char';
-      span.textContent = char;
-      wrap.appendChild(span);
-    });
-    return wrap;
-  }
-
-  // Initial word setup with char spans
-  activeEl.innerHTML = '';
-  const initialWordEl = createWordElement(words[0]);
-  activeEl.appendChild(initialWordEl);
-
-  // Measure & lock initial width
-  const initialWidth = initialWordEl.offsetWidth;
-  if (initialWidth > 0) {
-    viewport.style.width = `${initialWidth}px`;
-    if (underline) underline.style.width = `${initialWidth}px`;
-  }
-
-  function rotateToNextWord() {
-    if (isWordAnimating) return;
-    isWordAnimating = true;
-
-    const nextIndex = (currentWordIndex + 1) % words.length;
-    const nextWord = words[nextIndex];
-
-    const currentWordEl = activeEl.querySelector('.sm-rot-word');
-    const currentChars = currentWordEl ? Array.from(currentWordEl.querySelectorAll('.sm-rot-char')) : [];
-
-    // Build new word
-    const nextWordEl = createWordElement(nextWord);
-    nextWordEl.style.position = 'absolute';
-    nextWordEl.style.top = '0';
-    nextWordEl.style.left = '0';
-    nextWordEl.style.visibility = 'hidden';
-    activeEl.appendChild(nextWordEl);
-
-    const nextWidth = nextWordEl.offsetWidth;
-    nextWordEl.style.visibility = '';
-
-    const nextChars = Array.from(nextWordEl.querySelectorAll('.sm-rot-char'));
-
-    // Prep incoming characters (rotated down, shifted down, faded)
-    gsap.set(nextChars, {
-      rotateX: -90,
-      y: '100%',
-      opacity: 0,
-      transformOrigin: '50% 100%'
-    });
-
-    const tl = gsap.timeline({
-      onComplete: () => {
-        if (currentWordEl) currentWordEl.remove();
-        nextWordEl.style.position = '';
-        currentWordIndex = nextIndex;
-        isWordAnimating = false;
+      charIdx++;
+      el.textContent = currentPhrase.substring(0, charIdx);
+      if (charIdx >= currentPhrase.length) {
+        isDeleting = true;
+        timer = setTimeout(typeLoop, 2200);
+        return;
       }
-    });
-
-    // 1. Current letters roll up and out in 3D
-    if (currentChars.length > 0) {
-      tl.to(currentChars, {
-        rotateX: 90,
-        y: '-100%',
-        opacity: 0,
-        duration: 0.38,
-        ease: 'power2.in',
-        stagger: 0.016,
-        transformOrigin: '50% 0%'
-      }, 0);
+      timer = setTimeout(typeLoop, 65);
     }
-
-    // 2. Smoothly animate container and underline width
-    tl.to(viewport, {
-      width: nextWidth,
-      duration: 0.45,
-      ease: 'expo.out'
-    }, 0.12);
-
-    if (underline) {
-      tl.to(underline, {
-        width: nextWidth,
-        duration: 0.45,
-        ease: 'expo.out'
-      }, 0.12);
-
-      tl.fromTo(underline,
-        { filter: 'drop-shadow(0 0 4px #FF5A1F)' },
-        { filter: 'drop-shadow(0 0 16px #FF5A1F)', duration: 0.25, yoyo: true, repeat: 1 },
-        0.18
-      );
-    }
-
-    // 3. Next letters roll in from below with mechanical bounce snap
-    tl.to(nextChars, {
-      rotateX: 0,
-      y: '0%',
-      opacity: 1,
-      duration: 0.52,
-      ease: 'back.out(1.6)',
-      stagger: 0.02
-    }, 0.16);
   }
 
-  // Click to rotate immediately
-  viewport.addEventListener('click', () => {
-    if (!isWordAnimating) rotateToNextWord();
-  });
-
-  // Auto rotation interval
-  window.__diloCategoryRotatorTimer = setInterval(() => {
-    if (document.hidden || isWordAnimating) return;
-    rotateToNextWord();
-  }, 2800);
-
-  return () => {
-    if (window.__diloCategoryRotatorTimer) {
-      clearInterval(window.__diloCategoryRotatorTimer);
-      window.__diloCategoryRotatorTimer = null;
-    }
-  };
+  timer = setTimeout(typeLoop, 1500);
 }
 
-let activeCategorySplineApp = null;
+// Cinema Camera Live Timecode counter (60fps)
+function initCameraTimecode() {
+  const tc = document.getElementById('cam-live-timecode');
+  if (!tc) return;
 
-export function initCategorySpline(canvasId = 'cat-spline-canvas', loaderId = 'cat-spline-loader', wrapId = 'cat-hero-spline-wrap') {
-  const canvas = document.getElementById(canvasId);
-  const loader = document.getElementById(loaderId);
-  const heroWrap = document.getElementById(wrapId);
+  let frame = 18;
+  let sec = 28;
+  let min = 14;
 
-  if (!canvas) return;
-
-  if (activeCategorySplineApp) {
-    try {
-      if (typeof activeCategorySplineApp.dispose === 'function') {
-        activeCategorySplineApp.dispose();
-      }
-    } catch (e) {
-      // ignore
+  const interval = setInterval(() => {
+    if (!document.body.contains(tc)) {
+      clearInterval(interval);
+      return;
     }
-    activeCategorySplineApp = null;
-  }
-
-  activeCategorySplineApp = new Application(canvas);
-  activeCategorySplineApp.load(SPLINE_SCENE_URL)
-    .then(() => {
-      if (loader) {
-        gsap.to(loader, {
-          autoAlpha: 0,
-          duration: 0.5,
-          ease: 'power2.out',
-          onComplete: () => loader.remove()
-        });
+    frame += 2;
+    if (frame >= 60) {
+      frame = 0;
+      sec++;
+      if (sec >= 60) {
+        sec = 0;
+        min++;
       }
-      if (heroWrap && canvas) {
-        setupMouseForwarding(heroWrap, canvas);
-      }
-    })
-    .catch((err) => {
-      console.warn('Spline 3D Scene in Category Hero:', err);
-      if (loader) loader.remove();
-    });
-}
-
-function setupMouseForwarding(heroWrap, canvas) {
-  if (!heroWrap || !canvas) return;
-
-  const handlePointer = (e) => {
-    if (!e.isTrusted) return;
-
-    const syntheticEvent = new PointerEvent('pointermove', {
-      clientX: e.clientX,
-      clientY: e.clientY,
-      screenX: e.screenX,
-      screenY: e.screenY,
-      pageX: e.pageX,
-      pageY: e.pageY,
-      bubbles: false,
-      cancelable: true,
-      pointerId: 1,
-      pointerType: 'mouse',
-      isPrimary: true,
-      width: 1,
-      height: 1,
-    });
-    canvas.dispatchEvent(syntheticEvent);
-  };
-
-  heroWrap.addEventListener('pointermove', handlePointer, { passive: true });
-}
-
-export function initSpotlightFollow(wrapId = 'cat-hero-spline-wrap', spotlightId = 'cat-hero-spotlight') {
-  const heroWrap = document.getElementById(wrapId);
-  const spotlight = document.getElementById(spotlightId);
-  if (!heroWrap || !spotlight) return;
-
-  let mouse = { x: 0, y: 0 };
-  let pos = { x: 0, y: 0 };
-  let isHovering = false;
-
-  heroWrap.addEventListener('mouseenter', () => {
-    isHovering = true;
-    gsap.to(spotlight, { autoAlpha: 1, duration: 0.3 });
-  });
-
-  heroWrap.addEventListener('mouseleave', () => {
-    isHovering = false;
-    gsap.to(spotlight, { autoAlpha: 0, duration: 0.3 });
-  });
-
-  heroWrap.addEventListener('mousemove', (e) => {
-    const rect = heroWrap.getBoundingClientRect();
-    mouse.x = e.clientX - rect.left;
-    mouse.y = e.clientY - rect.top;
-  });
-
-  const loop = () => {
-    if (isHovering && spotlight.parentElement) {
-      pos.x += (mouse.x - pos.x) * 0.08;
-      pos.y += (mouse.y - pos.y) * 0.08;
-      spotlight.style.transform = `translate(${pos.x - 200}px, ${pos.y - 200}px)`;
-      requestAnimationFrame(loop);
     }
-  };
-
-  heroWrap.addEventListener('mouseenter', () => {
-    requestAnimationFrame(loop);
-  });
+    const fStr = String(frame).padStart(2, '0');
+    const sStr = String(sec).padStart(2, '0');
+    const mStr = String(min).padStart(2, '0');
+    tc.textContent = `00:${mStr}:${sStr}:${fStr}`;
+  }, 33);
 }
 
 export function initCategoryHeroEvents(options = {}) {
-  const viewportId = options.viewportId || 'cat-rotator-viewport';
-  const activeId = options.activeId || 'cat-rotator-active';
-  const underlineId = options.underlineId || 'cat-rotator-underline';
-  const canvasId = options.canvasId || 'cat-spline-canvas';
-  const loaderId = options.loaderId || 'cat-spline-loader';
-  const wrapId = options.wrapId || 'cat-hero-spline-wrap';
-  const spotlightId = options.spotlightId || 'cat-hero-spotlight';
+  // 1. Initialize SEO Typewriter if on SEO category
+  initSeoTypewriter();
 
-  // 1. 3D Kinetic Character Rotator
-  initCategoryRotator(viewportId, activeId, underlineId);
-
-  // 2. Spline 3D Robot
-  initCategorySpline(canvasId, loaderId, wrapId);
-
-  // 3. Spotlight Follow
-  initSpotlightFollow(wrapId, spotlightId);
+  // 2. Initialize Cinema Camera Timecode if on Produccion category
+  initCameraTimecode();
 }
 
 
