@@ -53,7 +53,7 @@ export function renderNavbar(activeRoute = 'home') {
                   </span>
                   <div>
                     <div class="nav-dropdown-title">${cat.title}</div>
-                    <div class="nav-dropdown-desc">${cat.concept}</div>
+                    <div class="nav-dropdown-desc">${cat.navDesc || cat.concept}</div>
                   </div>
                 </a>
               `).join('')}
