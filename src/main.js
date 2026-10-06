@@ -25,11 +25,13 @@ import './styles/motion-footer.css';
 import './styles/checkout.css';
 import './styles/legal.css';
 import './styles/project-detail.css';
+import './styles/discount-popup.css';
 
 import { renderNavbar, initNavbarEvents } from './components/Navbar.js';
 import { renderFooter, initFooterEvents } from './components/Footer.js';
 import { renderEstimatorModal, initEstimatorEvents } from './components/EstimatorModal.js';
 import { renderWixChatWidget, initWixChatEvents } from './components/WixChatWidget.js';
+import { renderDiscountPopupModal, initDiscountPopupEvents } from './components/DiscountPopupModal.js';
 import { CustomCursor } from './utils/Cursor.js';
 
 import { renderHomeView, initHomeEvents } from './pages/HomeView.js';
@@ -186,12 +188,14 @@ class App {
       </div>
       ${renderFooter()}
       ${renderEstimatorModal()}
+      ${renderDiscountPopupModal()}
       ${renderWixChatWidget()}
     `;
 
     // Initialize Global and Page Events
     initNavbarEvents();
     initEstimatorEvents();
+    initDiscountPopupEvents();
     initWixChatEvents();
     initFooterEvents();
     if (initCallback) {

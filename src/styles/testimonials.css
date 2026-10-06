@@ -28,7 +28,7 @@
   padding: 0.35rem 0.9rem;
   border-radius: 999px;
   border: 1px solid rgba(20, 23, 24, 0.08);
-  margin-bottom: 1rem;
+  margin-bottom: 1.75rem;
 }
 
 .tst-diamond-dot {
@@ -51,11 +51,11 @@
   font-family: var(--sm-font-heading);
   font-size: clamp(3.2rem, 5.8vw, 5.8rem);
   font-weight: 900;
-  line-height: 0.88;
-  letter-spacing: -2px;
+  line-height: 1.02;
+  letter-spacing: -1.5px;
   text-transform: uppercase;
   color: #141718;
-  margin-bottom: 0.85rem;
+  margin-bottom: 1.4rem;
 }
 
 .tst-title-accent {
@@ -63,6 +63,7 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   display: inline-block;
+  margin-top: 0.35rem;
 }
 
 .tst-subtitle {

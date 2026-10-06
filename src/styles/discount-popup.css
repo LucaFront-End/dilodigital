@@ -1,0 +1,305 @@
+/* ================================================================
+   DISCOUNT POPUP MODAL (10% OFF BIENVENIDA)
+   High-Conversion Lead Capture Modal · Dilo Digital MX
+   ================================================================ */
+
+.disc-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.72);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 10001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.disc-modal-overlay.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.disc-modal-card {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  background: #FFFFFF;
+  border-radius: 26px;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 90, 31, 0.15);
+  overflow: hidden;
+  transform: translateY(24px) scale(0.95);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.disc-modal-overlay.is-open .disc-modal-card {
+  transform: translateY(0) scale(1);
+}
+
+/* Close Button */
+.disc-close-btn {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.05);
+  border: none;
+  color: #64748B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 5;
+  transition: all 0.2s ease;
+}
+
+.disc-close-btn:hover {
+  background: rgba(0, 0, 0, 0.1);
+  color: #0F172A;
+  transform: rotate(90deg);
+}
+
+/* Gradient Header Strip */
+.disc-header-strip {
+  background: linear-gradient(135deg, #FF5A1F 0%, #E04B14 100%);
+  padding: 2.2rem 2.2rem 1.6rem;
+  color: #FFFFFF;
+  text-align: center;
+  position: relative;
+}
+
+.disc-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #FFFFFF;
+  font-family: var(--sm-font-body, system-ui);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  padding: 0.3rem 0.85rem;
+  border-radius: 999px;
+  margin-bottom: 0.9rem;
+}
+
+.disc-main-title {
+  font-family: var(--sm-font-heading, sans-serif);
+  font-size: clamp(2.4rem, 4vw, 3.4rem);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  margin: 0 0 0.75rem;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+}
+
+.disc-highlight-tag {
+  color: #FED7AA;
+  display: inline-block;
+}
+
+.disc-subtitle {
+  font-family: var(--sm-font-body, system-ui);
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.92);
+  margin: 0;
+  max-width: 420px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Body / Form Container */
+.disc-body {
+  padding: 1.8rem 2.2rem 2rem;
+  background: #FFFFFF;
+}
+
+.disc-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.disc-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  text-align: left;
+}
+
+.disc-label {
+  font-family: var(--sm-font-body, system-ui);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #334155;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.disc-input {
+  font-family: var(--sm-font-body, system-ui);
+  font-size: 0.95rem;
+  color: #0F172A;
+  background: #F8FAFC;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.disc-input:focus {
+  background: #FFFFFF;
+  border-color: #FF5A1F;
+  box-shadow: 0 0 0 4px rgba(255, 90, 31, 0.12);
+}
+
+.disc-submit-btn {
+  margin-top: 0.5rem;
+  width: 100%;
+  background: #FF5A1F;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 14px;
+  padding: 0.95rem 1.5rem;
+  font-family: var(--sm-font-body, system-ui);
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  box-shadow: 0 10px 25px rgba(255, 90, 31, 0.35);
+  transition: all 0.25s ease;
+}
+
+.disc-submit-btn:hover {
+  background: #E04B14;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(255, 90, 31, 0.45);
+}
+
+/* Asterisk & Legal Terms Disclaimer */
+.disc-disclaimer {
+  font-family: var(--sm-font-body, system-ui);
+  font-size: 0.76rem;
+  color: #64748B;
+  text-align: center;
+  margin-top: 0.85rem;
+  line-height: 1.45;
+}
+
+.disc-disclaimer a {
+  color: #FF5A1F;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.disc-disclaimer a:hover {
+  color: #E04B14;
+}
+
+/* Success State Screen */
+.disc-success-box {
+  text-align: center;
+  padding: 1.5rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.disc-success-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.12);
+  color: #10B981;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.2rem;
+  font-size: 1.8rem;
+  border: 1.5px solid rgba(16, 185, 129, 0.3);
+}
+
+.disc-success-title {
+  font-family: var(--sm-font-heading, sans-serif);
+  font-size: 2.2rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: #0F172A;
+  margin: 0 0 0.5rem;
+}
+
+.disc-success-desc {
+  font-family: var(--sm-font-body, system-ui);
+  font-size: 0.92rem;
+  color: #64748B;
+  margin: 0 0 1.5rem;
+  max-width: 360px;
+}
+
+.disc-coupon-wrap {
+  width: 100%;
+  background: #FFF5EE;
+  border: 2px dashed #FF5A1F;
+  border-radius: 16px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.disc-coupon-code {
+  font-family: monospace;
+  font-size: 1.6rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: #FF5A1F;
+}
+
+.disc-copy-btn {
+  background: #FF5A1F;
+  color: #FFFFFF;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-family: var(--sm-font-body, system-ui);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.2s ease;
+}
+
+.disc-copy-btn:hover {
+  background: #E04B14;
+}
+
+.disc-action-row {
+  display: flex;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.disc-action-row .btn {
+  flex: 1;
+  justify-content: center;
+}
